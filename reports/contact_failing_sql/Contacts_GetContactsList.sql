@@ -37,30 +37,30 @@ BEGIN
 	P_Eidx INT,
 	P_TS NVARCHAR(5),
 	P_TE NVARCHAR(5),
-	P_GroupNo INT'
+	P_GroupNo INT';
 
-		SET PagingQry += ' CU INNER JOIN ContactsGroupUser CG
-				ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '
+		pagingqry := COALESCE(pagingqry, '') || COALESCE((' CU INNER JOIN ContactsGroupUser CG
+ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '), '');
 
-		SET CountQry += ' CU INNER JOIN ContactsGroupUser CG
-				ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '
+		countqry := COALESCE(countqry, '') || COALESCE((' CU INNER JOIN ContactsGroupUser CG
+ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '), '');
 
 		IF TS = '' AND TE = '' THEN
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo))) PagingTable
-				WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo))) PagingTable
+WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx'), '');
 
 			ELSE
-				SET CountQry += 'WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo))';
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo))'), '');
 			END IF;
 		ELSE
 
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo)) AND
-				Name BETWEEN P_TS AND P_TE) PagingTable WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo)) AND
+Name BETWEEN P_TS AND P_TE) PagingTable WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx'), '');
 
 			ELSE
-				SET CountQry += 'WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo)) AND Name BETWEEN P_TS AND P_TE';
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE UseYn = ''Y'' AND CU.RegUserNo=P_RegUserNo AND GroupNo IN (SELECT TreeID FROM public."GetChildGroup"(P_RegUserNo,P_GroupNo)) AND Name BETWEEN P_TS AND P_TE'), '');
 			END IF;
 		END IF;
 
@@ -83,7 +83,7 @@ BEGIN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsEmail WHERE Value ILIKE ''%' || Search || '%'')';
 			ELSIF SearchMode = '6' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSEq FROM ContactsGroupUser WHERE;
-									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE ''%' || Search || '%''))'
+									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE ''%' || Search || '%''))';
 
 			ELSIF SearchMode = '7' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsGroup WHERE RegDate ILIKE ''%' || Search || '%'')';
@@ -94,8 +94,8 @@ BEGIN
 			END IF;
 		END IF;
 
-		SET PagingQry += SearchTxt
-		SET CountQry += SearchTxt
+		pagingqry := COALESCE(pagingqry, '') || COALESCE((SearchTxt), '');
+		countqry := COALESCE(countqry, '') || COALESCE((SearchTxt), '');
 
 
 	IF Mode = '0' THEN

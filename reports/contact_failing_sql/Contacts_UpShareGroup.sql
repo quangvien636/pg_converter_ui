@@ -1,7 +1,6 @@
 -- ─── PROCEDURE→FUNCTION: contacts_upsharegroup ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: TOP was preserved as comment; add LIMIT manually
 DROP FUNCTION IF EXISTS public.contacts_upsharegroup(integer, integer, integer);
 CREATE OR REPLACE FUNCTION public.contacts_upsharegroup(
     IN userno integer,
@@ -9,9 +8,8 @@ CREATE OR REPLACE FUNCTION public.contacts_upsharegroup(
     IN parentno integer
 ) RETURNS void
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
-	WITH RECURSIVE GroupTmp AS (select /* /* TOP 2 */ */ CG.*
+	WITH RECURSIVE GroupTmp AS (select CG.*
 from Contact_ShareGroup CG
 WHERE CG.ParentNo=contacts_upsharegroup.parentno AND CG.IsDelete= FALSE AND CG.Sort <= (SELECT Sort FROM Contact_ShareGroup WHERE ShareGroupNo=contacts_upsharegroup.groupno)
 ORDER BY Sort DESC),

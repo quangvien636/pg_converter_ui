@@ -111,6 +111,13 @@ public static class Converter
         string? returnTodo = hasResultSelect
             ? "-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually"
             : null;
+        // PostgreSQL cannot combine INOUT parameters with an unrelated SETOF
+        // return type. Keep the input channel and warn about OUTPUT semantics.
+        bool outputModeDemoted = hasResultSelect &&
+            pgParams.Any(p => p.TrimStart().StartsWith("INOUT ", StringComparison.OrdinalIgnoreCase));
+        if (outputModeDemoted)
+            pgParams = pgParams.Select(p => Regex.Replace(
+                p, @"^INOUT\s+", "IN ", RegexOptions.IgnoreCase)).ToList();
 
         // For void: strip RETURN <literal number>;
         if (returnType == "void")
@@ -142,6 +149,8 @@ public static class Converter
             warnings.Add("Dynamic SQL detected. Manual rewrite required for PostgreSQL.");
         if (hasResultSelect)
             warnings.Add("procedure contains result-returning SELECT; replace SETOF record with correct column types");
+        if (outputModeDemoted)
+            warnings.Add("OUTPUT parameter treated as input because PostgreSQL SETOF functions cannot also use INOUT parameters");
         warnings.AddRange(FindUnsupportedWarnings(convertedBody));
         bool hasWarning = BodyConverter.HasUnhandledPatterns(convertedBody) || returnTodo != null || warnings.Any();
 
@@ -964,6 +973,8 @@ $$;";
         def = def.Trim().TrimEnd(',', ')');
         if (def.StartsWith("N'") && def.EndsWith("'")) def = "'" + def[2..^1] + "'";
         if (def.Equals("NULL", StringComparison.OrdinalIgnoreCase)) return "NULL";
+        if (def == "''" && pgType is not "text" and not "character varying" and not "character")
+            return "NULL";
         if (def == "0") return pgType == "boolean" ? "FALSE" : "0";
         if (def == "1") return pgType == "boolean" ? "TRUE" : "1";
         if (def.StartsWith("'") && def.EndsWith("'")) return def;
@@ -1177,7 +1188,9 @@ $$;";
             @"(?:dbo\.)?fn_split_array\s*\(\s*(\w+)\s*,\s*','\s*\)",
             "string_to_array($1, ',')::integer[]", RegexOptions.IgnoreCase);
 
-        if (fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase))
+        if (fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
         {
             body = NormalizeBoardBlockTerminators(body);
             body = NormalizeBoardStatementBoundaries(body);

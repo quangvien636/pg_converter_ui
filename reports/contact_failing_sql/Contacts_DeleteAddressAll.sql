@@ -21,7 +21,7 @@ BEGIN
 		DELETE FROM ContactsAddress WHERE RegUserNo=contacts_deleteaddressall.userno AND UserSeq=contacts_deleteaddressall.seq;
 		DELETE FROM ContactsSns WHERE RegUserNo=contacts_deleteaddressall.userno AND UserSeq=contacts_deleteaddressall.seq;
 		DELETE FROM ContactsGroupUser WHERE RegUserNo=contacts_deleteaddressall.userno AND UserSeq=contacts_deleteaddressall.seq;
-		DELETE FROM ContactsUser WHERE RegUserNo=contacts_deleteaddressall.userno AND Seq=contacts_deleteaddressall.seq
+		DELETE FROM ContactsUser WHERE RegUserNo=contacts_deleteaddressall.userno AND Seq=contacts_deleteaddressall.seq;
 	ELSE
 	    -- 보기만 비활성화 처리함;
 	END IF;

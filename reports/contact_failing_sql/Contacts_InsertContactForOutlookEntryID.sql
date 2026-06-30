@@ -17,7 +17,7 @@ BEGIN
 
 
 	SELECT  INTO  FROM ContactsUserOutlook
-	WHERE OutlookEntryID = OutlookEntryID
+	WHERE OutlookEntryID = OutlookEntryID;
 
 	IF EntryCount = 0 THEN
 		INSERT INTO ContactsUserOutlook

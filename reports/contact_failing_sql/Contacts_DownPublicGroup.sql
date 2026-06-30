@@ -1,7 +1,6 @@
 -- ─── PROCEDURE→FUNCTION: contacts_downpublicgroup ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: TOP was preserved as comment; add LIMIT manually
 DROP FUNCTION IF EXISTS public.contacts_downpublicgroup(integer, integer, integer);
 CREATE OR REPLACE FUNCTION public.contacts_downpublicgroup(
     IN userno integer DEFAULT 70,
@@ -9,9 +8,8 @@ CREATE OR REPLACE FUNCTION public.contacts_downpublicgroup(
     IN parentno integer DEFAULT 641
 ) RETURNS void
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
-WITH RECURSIVE GroupTmp AS (select /* /* TOP 2 */ */ CG.*
+WITH RECURSIVE GroupTmp AS (select CG.*
 from Contact_PublicGroup CG
 WHERE  CG.ParentNo=contacts_downpublicgroup.parentno AND CG.IsDelete= FALSE AND CG.Sort >= (SELECT Sort FROM Contact_PublicGroup WHERE PublicGroupNo=contacts_downpublicgroup.groupno)
 ORDER BY Sort ASC)

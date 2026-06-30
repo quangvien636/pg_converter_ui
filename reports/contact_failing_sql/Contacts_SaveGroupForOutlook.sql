@@ -20,7 +20,7 @@ BEGIN
 
 	SELECT  INTO  FROM ContactsGroupOutlook
 	WHERE UserNo = contacts_savegroupforoutlook.userno
-	AND OutlookFolderEntryID = contacts_savegroupforoutlook.outlookentryid
+	AND OutlookFolderEntryID = contacts_savegroupforoutlook.outlookentryid;
 
 	IF GroupCount = 0 THEN
 		INSERT INTO ContactsGroup

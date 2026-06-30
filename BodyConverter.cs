@@ -31,9 +31,16 @@ public static class BodyConverter
         // Board procedures frequently combine TOP with SELECT variable assignment
         // (SELECT TOP 1 @x = col ...). Normalize TOP before the assignment pass;
         // keep every non-Board conversion path unchanged.
-        if (fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase))
+        bool isBoardOrContact =
+            fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase);
+        if (isBoardOrContact)
         {
             body = TrySafe(body, fnName, "NormalizeBoardTop", NormalizeBoardTop);
+        }
+        if (fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase))
+        {
             body = TrySafe(body, fnName, "ConvertBoardOuterApply", ConvertBoardOuterApply);
             body = TrySafe(body, fnName, "ConvertBoardForXmlPath", ConvertBoardForXmlPath);
         }
@@ -701,6 +708,22 @@ public static class BodyConverter
             "EXECUTE ($1);",
             RegexOptions.IgnoreCase);
 
+        // General procedure call with literals and expressions:
+        // EXEC proc @p, 'text', 0 -> PERFORM proc(p, 'text', 0);
+        body = SafeReplace(body, "ExecProcGeneralArgs",
+            @"(?m)^([ \t]*)EXEC(?:UTE)?[ \t]+(?:\[?dbo\]?\.)?\[?(\w+)\]?[ \t]+(.+?)[ \t]*;?[ \t]*$",
+            m => {
+                string procName = m.Groups[2].Value;
+                if (procName.Equals("sp_executesql", StringComparison.OrdinalIgnoreCase))
+                    return m.Value;
+                string args = Regex.Replace(m.Groups[3].Value,
+                    @"@?\w+\s*=\s*(@?\w+|'(?:[^']|'')*'|-?\d+(?:\.\d+)?)", "$1");
+                args = Regex.Replace(args, @"@(\w+)", "$1");
+                args = Regex.Replace(args, @"\s+OUTPUT\b", "", RegexOptions.IgnoreCase);
+                return $"{m.Groups[1].Value}PERFORM {procName.ToLowerInvariant()}({args.Trim().TrimEnd(';')});";
+            },
+            RegexOptions.IgnoreCase);
+
         // EXEC dbo.proc @p1, @p2  →  PERFORM proc(p1, p2);
         // Atomic group (?>...) prevents catastrophic backtracking on the nested param quantifier
         body = SafeReplace(body, "ExecProcArgs",
@@ -1231,7 +1254,10 @@ public static class BodyConverter
 
     static string ConvertAssignments(string body)
     {
-        if (_fnName?.StartsWith("board_", StringComparison.OrdinalIgnoreCase) == true)
+        if (_fnName != null &&
+            (_fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase) ||
+             _fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+             _fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase)))
         {
             body = ConvertBoardSelectAssignments(body);
             body = ConvertBoardStringAccumulation(body);

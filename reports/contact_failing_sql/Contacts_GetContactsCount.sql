@@ -33,33 +33,33 @@ BEGIN
 	PARAM := 'P_RegUserNo INT,;
 	P_TS NVARCHAR(5),
 	P_TE NVARCHAR(5),
-	P_GroupNo INT'
+	P_GroupNo INT';
 
 	IF GroupNo > 0 THEN
-		SET PagingQry += ' CU INNER JOIN ContactsGroupUser CG
-				ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '
+		pagingqry := COALESCE(pagingqry, '') || COALESCE((' CU INNER JOIN ContactsGroupUser CG
+ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '), '');
 
-		SET CountQry += ' CU INNER JOIN ContactsGroupUser CG
-				ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '
+		countqry := COALESCE(countqry, '') || COALESCE((' CU INNER JOIN ContactsGroupUser CG
+ON CU.RegUserNo = CG.RegUserNo AND CU.Seq=CG.UserSeq '), '');
 
 		IF TS = '' AND TE = '' THEN
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo) PagingTable';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo) PagingTable'), '');
 			ELSE
-				SET CountQry += 'WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo';
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo'), '');
 			END IF;
 		ELSE
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo AND
-				Name BETWEEN P_TS AND P_TE) PagingTable';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo AND
+Name BETWEEN P_TS AND P_TE) PagingTable'), '');
 			ELSE
-				SET CountQry += 'WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo AND Name BETWEEN P_TS AND P_TE';
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE CU.RegUserNo=P_RegUserNo AND GroupNo=P_GroupNo AND Name BETWEEN P_TS AND P_TE'), '');
 			END IF;
 		END IF;
 	ELSE
 
-		SET PagingQry += ' '
-		SET CountQry += ' '
+		pagingqry := COALESCE(pagingqry, '') || COALESCE((' '), '');
+		countqry := COALESCE(countqry, '') || COALESCE((' '), '');
 
 		IF Search = '' THEN
 			SearchTxt := '';
@@ -77,15 +77,17 @@ BEGIN
 
 		IF TS = '' AND TE = '' THEN
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE RegUserNo=P_RegUserNo' || SearchTxt || ') PagingTable';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo' || SearchTxt || ') PagingTable'), '');
 			ELSE
-				SET CountQry += 'WHERE RegUserNo=P_RegUserNo' || SearchTxt;
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo' || SearchTxt), '');
 			END IF;
 		ELSE
 			IF Mode = '0' THEN
-				SET PagingQry += 'WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE' || SearchTxt || ') PagingTable';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE'), '');
+				+ SearchTxt || ') PagingTable';
 			ELSE
-				SET CountQry += 'WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE' || SearchTxt;
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE'), '');
+				 + SearchTxt;
 			END IF;
 		END IF;
 	END IF;

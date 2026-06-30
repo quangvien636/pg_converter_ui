@@ -20,7 +20,7 @@ BEGIN
 
 
 	IF GroupNo = 0 THEN
-		SELECT GroupName = b.GroupName FROM ContactsGroupUser a LIMIT 1
+		SELECT b.GroupName INTO groupname FROM ContactsGroupUser a
 		INNER JOIN ContactsGroup b ON a.GroupNo=b.GroupNo
 		WHERE a.UserSeq=contacts_getusergroup.userno AND a.RegUserNo=contacts_getusergroup.reguserno;
 	ELSE
@@ -30,7 +30,7 @@ BEGIN
 	END IF;
 
 	SELECT COUNT(*) INTO groupcount FROM ContactsGroupUser
-	WHERE UserSeq=contacts_getusergroup.userno AND RegUserNo=contacts_getusergroup.reguserno
+	WHERE UserSeq=contacts_getusergroup.userno AND RegUserNo=contacts_getusergroup.reguserno;
 
 	IF GroupCount = 1 THEN
 		RETURN QUERY

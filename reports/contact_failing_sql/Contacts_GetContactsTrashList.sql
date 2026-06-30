@@ -44,7 +44,7 @@ BEGIN
 						FROM ContactsUser CU
 						WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'FirstName DESC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -54,7 +54,7 @@ BEGIN
 						FROM ContactsUser CU
 						WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'LastName ASC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -64,7 +64,7 @@ BEGIN
 						FROM ContactsUser CU
 						WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'LastName DESC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -113,7 +113,7 @@ BEGIN
 													)
 									)
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'FirstName DESC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -133,7 +133,7 @@ BEGIN
 													)
 									)
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'LastName ASC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -153,7 +153,7 @@ BEGIN
 													)
 									)
 					) A
-					WHERE ROWNUM BETWEEN Sidx AND Eidx
+					WHERE ROWNUM BETWEEN Sidx AND Eidx;
 				ELSIF SortColumn = 'LastName DESC' THEN
 					RETURN QUERY
 					SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -221,7 +221,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -232,7 +232,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -243,7 +243,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -294,7 +294,7 @@ BEGIN
 										)
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -315,7 +315,7 @@ BEGIN
 										)
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -336,7 +336,7 @@ BEGIN
 										)
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -402,7 +402,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -413,7 +413,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -424,7 +424,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -476,7 +476,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -497,7 +497,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -518,7 +518,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -586,7 +586,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -597,7 +597,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -608,7 +608,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -661,7 +661,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -682,7 +682,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -703,7 +703,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsNumber WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -771,7 +771,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
@@ -783,7 +783,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -794,7 +794,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
@@ -847,7 +847,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -868,7 +868,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
@@ -890,7 +890,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Company  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -957,7 +957,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
@@ -969,7 +969,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -980,7 +980,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1032,7 +1032,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1053,7 +1053,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
@@ -1075,7 +1075,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsCompany WHERE Depart  ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1143,7 +1143,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1154,7 +1154,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1165,7 +1165,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1216,7 +1216,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1237,7 +1237,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1258,7 +1258,7 @@ BEGIN
 										)
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
@@ -1327,7 +1327,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1339,7 +1339,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1351,7 +1351,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1406,7 +1406,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1428,7 +1428,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1450,7 +1450,7 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsGroupUser WHERE
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE '%' || Search || '%'))
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1519,7 +1519,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1530,7 +1530,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1541,7 +1541,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1592,7 +1592,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1613,7 +1613,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1634,7 +1634,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1700,7 +1700,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1711,7 +1711,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1722,7 +1722,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1773,7 +1773,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1794,7 +1794,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1815,7 +1815,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1881,7 +1881,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1892,7 +1892,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1903,7 +1903,7 @@ BEGIN
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1954,7 +1954,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1975,7 +1975,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo
@@ -1996,7 +1996,7 @@ BEGIN
 										)
 							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
 						) A
-						WHERE ROWNUM BETWEEN Sidx AND Eidx
+						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
 						RETURN QUERY
 						SELECT ROWNUM, Seq, FirstName, LastName, Memo

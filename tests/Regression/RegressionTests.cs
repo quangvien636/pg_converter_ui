@@ -182,5 +182,112 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("tempresult integer"));
             Assert.That(pg, Does.Contain("IN userno integer"));
         }
+
+        [Test]
+        public void TestEmptyNumericParameterDefaultBecomesNull()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Contacts_TestDefault @userNo INT = '' AS BEGIN SELECT @userNo END";
+            var obj = new DbObject("Contacts_TestDefault", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("userno integer DEFAULT NULL"));
+            Assert.That(pg, Does.Not.Contain("integer DEFAULT ''"));
+        }
+
+        [Test]
+        public void TestOutputParameterWithResultSetUsesInputMode()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Contacts_TestOutput @seq INT OUTPUT AS BEGIN SELECT @seq END";
+            var obj = new DbObject("Contacts_TestOutput", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("IN seq integer"));
+            Assert.That(pg, Does.Not.Contain("INOUT seq integer"));
+            Assert.That(pg, Does.Contain("OUTPUT parameter treated as input"));
+        }
+
+        [Test]
+        public void TestContactElseBlockGetsEndIf()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contact_TestBlock @userNo INT
+                AS
+                BEGIN
+                    IF @userNo = 0
+                    BEGIN
+                        SELECT 0
+                    END
+                    ELSE
+                    BEGIN
+                        UPDATE ContactsGroup SET GroupName = GroupName WHERE RegUserNo = @userNo
+                    END
+                END
+                """;
+            var obj = new DbObject("Contact_TestBlock", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("END IF;"));
+            Assert.That(pg, Does.Not.Match(@"(?m)^\s*END;\s*\nEND;"));
+        }
+
+        [Test]
+        public void TestContactTopAssignmentIsReordered()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contact_TestTop @parentNo INT
+                AS
+                BEGIN
+                    DECLARE @sort INT
+                    SELECT TOP 1 @sort = Sort
+                    FROM Contact_ShareGroup
+                    WHERE ParentNo = @parentNo
+                    ORDER BY Sort DESC
+                    SELECT @sort
+                END
+                """;
+            var obj = new DbObject("Contact_TestTop", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("SELECT Sort INTO sort FROM Contact_ShareGroup"));
+            Assert.That(pg, Does.Not.Contain("LIMIT 1\nWHERE"));
+            Assert.That(pg, Does.Not.Contain("TOP 1"));
+        }
+
+        [Test]
+        public void TestContactStringAccumulation()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestConcat
+                AS
+                BEGIN
+                    DECLARE @query NVARCHAR(MAX)
+                    SET @query += ' WHERE Enabled = 1'
+                    SELECT @query
+                END
+                """;
+            var obj = new DbObject("Contacts_TestConcat", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("query := COALESCE(query, '')"));
+            Assert.That(pg, Does.Not.Contain("SET query +="));
+        }
+
+        [Test]
+        public void TestExecProcedureWithLiteralArguments()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestExec @userNo INT
+                AS
+                BEGIN
+                    EXEC Contacts_InsertGroup @userNo, 'Temporary group', 0
+                    SELECT @userNo
+                END
+                """;
+            var obj = new DbObject("Contacts_TestExec", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("PERFORM contacts_insertgroup(userNo, 'Temporary group', 0);"));
+            Assert.That(pg, Does.Not.Match(@"\bEXEC\s+Contacts_InsertGroup"));
+        }
     }
 }

@@ -1,6 +1,6 @@
 # Contact_% Procedure Validation Report
 
-**Generated**: 2026-06-30 13:20:21  
+**Generated**: 2026-06-30 17:10:44  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Contact_% procedures (SQL Server) | **189** |
 | Conversion succeeded | **189** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **123** |
-| Compile FAIL | **66** |
-| Compile success rate | **65%** |
+| Compile PASS (CREATE succeeded) | **164** |
+| Compile FAIL | **25** |
+| Compile success rate | **86%** |
 | SETOF record (needs RETURNS TABLE) | **141** |
 
 ## 2. Contact_% Procedure Feature Matrix
@@ -217,10 +217,17 @@
 
 ### 3a. PASS
 
-123 procedures compiled successfully:
+164 procedures compiled successfully:
 
+- `Contact_CheckInsertGroupDefault`
 - `Contact_GetGroupDefaultByUserNo`
+- `Contact_InsertShareGroup`
+- `Contacts_ChangeGroup`
+- `Contacts_ChangePublicGroup`
+- `Contacts_ChangeShareGroup`
 - `Contacts_CheckExitGroupAndContact`
+- `Contacts_CheckGroup`
+- `Contacts_CheckNumber`
 - `contacts_countgroupcountchild`
 - `Contacts_CountGroupUser`
 - `Contacts_CountUserPublicWithoutGroup`
@@ -233,6 +240,7 @@
 - `Contacts_DeleteContact`
 - `Contacts_DeletePublicGroup`
 - `Contacts_DeleteShareGroup`
+- `Contacts_FinAll`
 - `Contacts_FindNoNameUser`
 - `Contacts_FindUser`
 - `Contacts_GetAddressInfo`
@@ -265,6 +273,7 @@
 - `Contacts_GetDepartmentBoxCount`
 - `Contacts_GetDupeList`
 - `Contacts_GetGroupBySeq`
+- `Contacts_GetGroupByUser`
 - `Contacts_GetGroupInfo`
 - `Contacts_GetGroupList`
 - `Contacts_GetHistoryList`
@@ -277,22 +286,32 @@
 - `Contacts_GetLocationOneContact`
 - `Contacts_GetLocations`
 - `Contacts_GetNameGroup`
+- `Contacts_GetOneAddress`
 - `Contacts_GetOneRowChildGroup`
+- `Contacts_GetOutFile`
+- `Contacts_GetOutFileExcel`
+- `Contacts_GetOutList`
+- `Contacts_GetOutListCount`
+- `Contacts_GetOutListExcel`
 - `Contacts_GetPrivateBoxCount`
 - `Contacts_GetPublicBoxCount`
 - `Contacts_GetPublicGroup`
+- `Contacts_GetRankList`
 - `Contacts_GetRankListCount`
 - `Contacts_GetSetup`
+- `Contacts_GetShareDepartmentDefault`
 - `Contacts_GetShareGroup`
 - `Contacts_GetShareGroupByUser`
 - `Contacts_GetShareGroupSetting`
 - `Contacts_GetSharers`
+- `Contacts_GetTopCategory`
 - `Contacts_GetTrashCount`
 - `Contacts_GetTrashUserList`
 - `Contacts_GetUser`
 - `Contacts_GetUser_Address`
 - `Contacts_GetUser_Company`
 - `Contacts_GetUser_Days`
+- `Contacts_GetUser_Department`
 - `Contacts_GetUser_Email`
 - `Contacts_GetUser_GroupInfo`
 - `Contacts_GetUser_Homepage`
@@ -301,38 +320,58 @@
 - `Contacts_GetUser_PhoneInfo`
 - `Contacts_GetUser_Share`
 - `Contacts_GetUser_SNS`
+- `Contacts_GetUser_ToGroup`
+- `Contacts_GetUser_ToGroupMobile`
 - `Contacts_GetUser_ToUserNo`
 - `Contacts_GetUser_UnGroup`
 - `Contacts_GetUserByPublicGroup`
 - `Contacts_GetUserByShareGroup`
+- `Contacts_GetUserData`
+- `Contacts_GetUserDataHistory`
 - `Contacts_GetUserGroupByLanguage`
 - `Contacts_GetUserGroupByUserNo`
 - `Contacts_GetUserGroupMobi`
 - `Contacts_GetUserNumber`
 - `Contacts_InsertBackupInfo`
+- `Contacts_InsertContactForOutlookEntryID`
+- `Contacts_InsertContactForOutlookFolderEntryID`
+- `Contacts_InsertGroup`
 - `Contacts_InsertListGroup`
 - `Contacts_InsertListGroupContact`
+- `Contacts_InsertPublicGroup`
+- `Contacts_InsertShareGroup`
+- `Contacts_InsertUser`
 - `Contacts_ListGroupContent`
 - `Contacts_MoveAllContact`
+- `Contacts_MoveContactGroup`
+- `Contacts_MoveUser`
 - `Contacts_ParentGroupNo`
 - `Contacts_RestoreContactList`
+- `Contacts_SaveContactsHistory`
+- `Contacts_SaveGroupForOutlook`
 - `Contacts_SaveLocation`
+- `Contacts_SaveSetup`
 - `Contacts_Search_NoDistance`
 - `Contacts_SearchMobi`
 - `Contacts_SeqToName`
 - `Contacts_SetAddress`
 - `Contacts_SetCallPhone`
 - `Contacts_SetCompany`
+- `Contacts_SetContactsGroup`
 - `Contacts_SetContactsRestore`
 - `Contacts_SetContactsTrash`
+- `Contacts_SetContactsUser`
 - `Contacts_SetDays`
 - `Contacts_SetEmail`
 - `Contacts_SetMoveContacts`
 - `Contacts_SetNumber`
+- `Contacts_SetShare`
 - `Contacts_SetSns`
 - `Contacts_SetUserCheckDate`
 - `Contacts_UpdateAndroidDevice_NotificationOptions`
+- `Contacts_UpdateContactGroupUser`
 - `Contacts_UpdateContactImportant`
+- `Contacts_UpDateContactsUser`
 - `Contacts_UpdateGroup`
 - `Contacts_UpdateGroupMemo`
 - `Contacts_UpdateGroupParent`
@@ -340,77 +379,38 @@
 - `Contacts_UpdateListGroup`
 - `Contacts_UpdateListGroupContact`
 - `Contacts_UpdatePublicGroup`
+- `Contacts_UpdatePublicGroupUser`
 - `Contacts_UpdateShareGroup`
+- `Contacts_UpdateShareGroupUser`
 - `Contacts_UpdateUserState`
 
 ### 3b. FAIL
 
 | Procedure | SqlState | Error |
 |-----------|----------|-------|
-| `Contact_CheckInsertGroupDefault` | `42601` | syntax error at or near "END" |
-| `Contact_InsertShareGroup` | `42601` | syntax error at or near "WHERE" |
-| `Contacts_ChangeGroup` | `42601` | syntax error at or near "END" |
-| `Contacts_ChangePublicGroup` | `42601` | syntax error at or near "END" |
-| `Contacts_ChangeShareGroup` | `42601` | syntax error at or near "END" |
-| `Contacts_CheckGroup` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_CheckNumber` | `42601` | syntax error at or near ";" |
-| `Contacts_DelContactsGroup` | `42601` | syntax error at end of input |
+| `Contacts_DelContactsGroup` | `42601` | syntax error at or near "SELECT" |
 | `Contacts_DeleteAddressAll` | `42601` | syntax error at or near "EXEC" |
 | `Contacts_DeleteDepartAllowAccess` | `42601` | syntax error at or near "CREATE" |
 | `Contacts_DeleteHistory` | `42601` | "historynolist" is not a known variable |
 | `Contacts_DownPublicGroup` | `42601` | syntax error at end of input |
 | `Contacts_DownShareGroup` | `42601` | syntax error at end of input |
-| `Contacts_FinAll` | `42601` | syntax error at or near ";" |
-| `Contacts_GetContactsCount` | `42601` | syntax error at or near "IF" |
-| `Contacts_GetContactsList` | `42601` | syntax error at or near "SET" |
-| `Contacts_GetContactsTrashList` | `42601` | syntax error at or near "ELSIF" |
+| `Contacts_GetContactsCount` | `42601` | syntax error at or near "+" |
+| `Contacts_GetContactsList` | `42601` | "p_eidx" is not a known variable |
+| `Contacts_GetContactsTrashList` | `42601` | syntax error at or near "," |
 | `Contacts_GetDefaultCategory` | `42601` | syntax error at or near "END" |
-| `Contacts_GetGroupByUser` | `22P02` | invalid input syntax for integer: "" |
-| `Contacts_GetOneAddress` | `42601` | syntax error at or near "From" |
-| `Contacts_GetOutFile` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetOutFileExcel` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetOutList` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_GetOutListCount` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetOutListExcel` | `42601` | syntax error at or near "IF" |
-| `Contacts_GetRankList` | `42601` | syntax error at or near "LIMIT" |
-| `Contacts_GetShareDepartmentDefault` | `42601` | syntax error at or near "FROM" |
-| `Contacts_GetTopCategory` | `42601` | syntax error at or near "LIMIT" |
-| `Contacts_GetUser_Department` | `22P02` | invalid input syntax for integer: "" |
-| `Contacts_GetUser_ToGroup` | `42601` | syntax error at or near "IF" |
-| `Contacts_GetUser_ToGroupMobile` | `42601` | syntax error at or near "IF" |
-| `Contacts_GetUserData` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_GetUserDataHistory` | `42601` | syntax error at or near "ELSIF" |
 | `Contacts_GetUserDetail` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetUserGroup` | `42601` | syntax error at or near "INNER" |
-| `Contacts_InsertContactForOutlookEntryID` | `42601` | syntax error at or near "FROM" |
-| `Contacts_InsertContactForOutlookFolderEntryID` | `42601` | syntax error at or near "FROM" |
-| `Contacts_InsertGroup` | `42601` | syntax error at or near "WHERE" |
-| `Contacts_InsertPublicGroup` | `42601` | syntax error at or near "WHERE" |
-| `Contacts_InsertShareGroup` | `42601` | syntax error at or near "WHERE" |
-| `Contacts_InsertUser` | `42601` | syntax error at or near "INSERT" |
+| `Contacts_GetUserGroup` | `42601` | syntax error at or near "," |
 | `Contacts_InsertUserForExcel` | `42601` | syntax error at or near "IsPhoneDef" |
-| `Contacts_MoveContactGroup` | `42601` | syntax error at or near "IF" |
-| `Contacts_MoveUser` | `42601` | syntax error at or near "IF" |
 | `Contacts_SaveAddressInfo` | `42601` | syntax error at or near "LOOP" |
-| `Contacts_SaveAddressInfo_Web` | `42P13` | function result type must be integer because of OUT parameters |
+| `Contacts_SaveAddressInfo_Web` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveArrange` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveArrangeLike` | `42601` | syntax error at or near "LOOP" |
-| `Contacts_SaveContactsForOutlook` | `42601` | syntax error at or near "FROM" |
-| `Contacts_SaveContactsHistory` | `42601` | syntax error at or near "INSERT" |
-| `Contacts_SaveGroupForOutlook` | `42601` | syntax error at or near "FROM" |
+| `Contacts_SaveContactsForOutlook` | `42601` | syntax error at or near "END" |
 | `Contacts_SaveRestore` | `42601` | "historynolist" is not a known variable |
-| `Contacts_SaveSetup` | `42601` | syntax error at or near "IF" |
-| `Contacts_SetContactsGroup` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_SetContactsUser` | `42601` | syntax error at or near "INSERT" |
-| `Contacts_SetShare` | `42601` | syntax error at or near "END" |
-| `Contacts_UpdateContactGroupUser` | `42601` | syntax error at or near "IF" |
-| `Contacts_UpDateContactsUser` | `42601` | syntax error at or near "CREATE" |
-| `Contacts_UpdateDepartAllowAccess` | `42601` | syntax error at or near "WHILE" |
-| `Contacts_UpdatePublicGroupUser` | `42601` | syntax error at or near "IF" |
-| `Contacts_UpdateShareGroupUser` | `42601` | syntax error at or near "IF" |
+| `Contacts_UpdateDepartAllowAccess` | `42601` | syntax error at or near "CREATE" |
 | `Contacts_UpdateSortDownOfGroup` | `42601` | syntax error at end of input |
 | `Contacts_UpdateSortUpOfGroup` | `42601` | syntax error at end of input |
-| `Contacts_UpdateUserInfo` | `42P13` | function result type must be integer because of OUT parameters |
+| `Contacts_UpdateUserInfo` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_UpPublicGroup` | `42601` | syntax error at end of input |
 | `Contacts_UpShareGroup` | `42601` | syntax error at end of input |
 
@@ -418,9 +418,7 @@
 
 | SqlState | Count | Category | First Failure | Message |
 |----------|------:|----------|---------------|---------|
-| `42601` | 62 | syntax_error | `Contact_CheckInsertGroupDefault` | syntax error at or near "END" |
-| `22P02` | 2 | class_22 | `Contacts_GetGroupByUser` | invalid input syntax for integer: "" |
-| `42P13` | 2 | invalid_function_def | `Contacts_SaveAddressInfo_Web` | function result type must be integer because of OUT parameters |
+| `42601` | 25 | syntax_error | `Contacts_DelContactsGroup` | syntax error at or near "SELECT" |
 
 ## 5. SETOF record â€” Needs Manual RETURNS TABLE(...)
 
@@ -584,8 +582,6 @@
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | `42601` syntax_error | 62 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
-| 2 | `22P02` class_22 | 2 procedures | Review generated SQL for this error code |
-| 3 | `42P13` invalid_function_def | 2 procedures | Duplicate parameter name or invalid RETURNS clause |
-| 4 | SETOF record â†’ needs RETURNS TABLE | 141 procedures | Infer column types from SELECT list per procedure |
+| 1 | `42601` syntax_error | 25 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
+| 2 | SETOF record â†’ needs RETURNS TABLE | 141 procedures | Infer column types from SELECT list per procedure |
 

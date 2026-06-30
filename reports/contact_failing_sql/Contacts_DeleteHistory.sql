@@ -31,7 +31,7 @@ BEGIN
 			DELETE FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
 			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(',HistoryNoList, ')+1,LEN(HistoryNoList));
-		END LOOP
+		END LOOP;
 
 		IF @ERROR <> 0 THEN
 

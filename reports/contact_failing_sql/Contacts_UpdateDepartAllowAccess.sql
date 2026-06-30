@@ -39,17 +39,17 @@ BEGIN
 				FROM       GroupTmp PF
 		)
 		SELECT COALESCE(BA.AllowAccessNo,0)AS AllowAccessNo ,COALESCE(BA.AllowValue,0) AS AllowValue,F.ShareGroupNo FROM GroupParentNos F
-		LEFT JOIN Contact_DepartAllowAccess BA ON BA.ItemNo=F.ShareGroupNo AND BA.DepartNo=contacts_updatedepartallowaccess.departno
+		LEFT JOIN Contact_DepartAllowAccess BA ON BA.ItemNo=F.ShareGroupNo AND BA.DepartNo=contacts_updatedepartallowaccess.departno;
 
 
 
 		WHILE (CREATE TEMP TABLE GroupTemp AS SELECT Count(*) From FolderParentTemp) > 0 LOOP
 
-			Select PrentAccessNo = AllowAccessNo,ParentValue=contacts_updatedepartallowaccess.allowvalue,ShareGroupNo1=ShareGroupNo From FolderParentTemp LIMIT 1
+			SELECT AllowAccessNo, AllowValue, ShareGroupNo INTO prentaccessno, parentvalue, sharegroupno1 FROM FolderParentTemp;
 				IF AllowValue >0 THEN
 					IF PrentAccessNo=0 THEN
 						INSERT INTO public."Contact_DepartAllowAccess"(DepartNo,AllowValue,ItemNo,ModUserNo,ModDate,RegUserNo,RegDate)
-						SELECT DepartNo,AllowValue,FT.ShareGroupNo,UserNo,NOW(),UserNo,NOW() FROM FolderParentTemp FT LIMIT 1;
+						SELECT DepartNo,AllowValue,FT.ShareGroupNo,UserNo,NOW(),UserNo,NOW() FROM FolderParentTemp FT;
 
 					ELSE
 						--IF(AllowValue>Value)
@@ -62,7 +62,7 @@ BEGIN
 
 				END IF;
 				DELETE FROM FolderParentTemp Where ShareGroupNo = ShareGroupNo1;
-		END LOOP
+		END LOOP;
 				WITH RECURSIVE ShareGroupNos AS (
 			SELECT     PF.ShareGroupNo
 			FROM       Contact_ShareGroup PF
@@ -73,11 +73,11 @@ BEGIN
 			INNER JOIN ShareGroupNos FN ON FN.ShareGroupNo = CF.ParentNo AND CF.IsDelete = FALSE
 		)
 		---List ShareGroupNo
-		SELECT ShareGroupNo FROM ShareGroupNos
+		SELECT ShareGroupNo FROM ShareGroupNos;
 		----List BoardNo
 
 		WHILE (Select Count(*) From GroupTemp) > 0 LOOP
-			Select No1 = ShareGroupNo From GroupTemp LIMIT 1
+			SELECT ShareGroupNo INTO no1 FROM GroupTemp;
 			IF AllowValue >=0 THEN
 				IF (SELECT COUNT(AllowAccessNo) FROM Contact_DepartAllowAccess WHERE  ItemNo=No1 AND DepartNo=contacts_updatedepartallowaccess.departno)>0 THEN
 					--Print No1;

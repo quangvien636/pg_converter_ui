@@ -17,7 +17,7 @@ BEGIN
 
 
 	SELECT  INTO  FROM ContactsGroupOutlook
-	WHERE OutlookFolderEntryID = FolderEntryID
+	WHERE OutlookFolderEntryID = FolderEntryID;
 
 	IF EntryCount = 0 THEN
 		INSERT INTO ContactsGroupOutlook

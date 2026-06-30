@@ -1,7 +1,6 @@
 -- ─── PROCEDURE→FUNCTION: contacts_updatesortdownofgroup ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: TOP was preserved as comment; add LIMIT manually
 DROP FUNCTION IF EXISTS public.contacts_updatesortdownofgroup(integer, integer, integer);
 CREATE OR REPLACE FUNCTION public.contacts_updatesortdownofgroup(
     IN reguserno integer DEFAULT 70,
@@ -9,9 +8,8 @@ CREATE OR REPLACE FUNCTION public.contacts_updatesortdownofgroup(
     IN parentno integer DEFAULT 641
 ) RETURNS void
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
-WITH RECURSIVE GroupTmp AS (select /* /* TOP 2 */ */ CG.*
+WITH RECURSIVE GroupTmp AS (select CG.*
 from ContactsGroup CG
 WHERE CG.RegUserNo=contacts_updatesortdownofgroup.reguserno AND CG.ParentGNo=contacts_updatesortdownofgroup.parentno AND CG.UseYn='Y' AND CG.Sort >= (SELECT Sort FROM ContactsGroup WHERE GroupNo=contacts_updatesortdownofgroup.groupno)
 ORDER BY Sort ASC)

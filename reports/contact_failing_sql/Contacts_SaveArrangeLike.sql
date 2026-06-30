@@ -90,7 +90,7 @@ BEGIN
 							TempNameUserSeq := TempNameOne;
 						TempNameCnt := TempNameCnt + 1;
 						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(',TempNameOneList, ')+1,LEN(TempNameOneList));
-					END LOOP
+					END LOOP;
 
 					IF TempMainSeqNo = TempNameMainSeq THEN
 
@@ -104,7 +104,7 @@ BEGIN
 					END IF;
 
 					TempNameList := SUBSTRING(TempNameList,STRPOS(TempNameList, '$')+1,LEN(TempNameList));
-				END LOOP
+				END LOOP;
 			END IF;
 			-- 이메일;
 
@@ -139,27 +139,29 @@ BEGIN
 							TempEmailYN := TempEmailOne;
 						TempEmailCnt := TempEmailCnt +1;
 						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(',TempEmailOneList, ')+1,LEN(TempEmailOneList));
-					END LOOP
+					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
 					-- ========================
 					IF TempMainSeqNo = TempEmailMainSeq THEN
 						IF TempMainSeqNo <> TempEmailUserSeq THEN
-							SET TempDelUserSeqList += CONVERT(text,TempEmailUserSeq) + ',';
+							tempdeluserseqlist := COALESCE(tempdeluserseqlist, '') || COALESCE((CONVERT(text,TempEmailUserSeq) || ','), '');
 						END IF;
 						IF TempEmailYN = 'Y' THEN
 						BEGIN -- Y인 경우 병합처리
 
 
 
-							SELECT  INTO  FROM ContactsEmail
+							SELECT Value INTO tempemailvalue FROM ContactsEmail
+
 							WHERE Seq = TempEmailSeq
 
 
 
-							SELECT  INTO  FROM ContactsEmail
+							SELECT COUNT(Value) INTO tempemailcheck FROM ContactsEmail
+
 							WHERE UserSeq = TempEmailMainSeq
-							AND Value = TempEmailValue
+							AND Value = TempEmailValue;
 							-- 메인에 존재하지 않으면 업데이트
 							IF TempEMailCheck = 0 THEN
 								UPDATE ContactsEmail
@@ -169,7 +171,7 @@ BEGIN
 									ModDate = NOW()
 								WHERE
 									Seq = TempEmailSeq
-								AND UserSeq = TempEmailUserSeq
+								AND UserSeq = TempEmailUserSeq;
 							ELSIF TempMainSeqNo <> TempEmailMainSeq AND TempEMailCheck > 0 THEN
 							BEGIN -- 메인의 데이터가 아니면서 존재하는 경우는 삭제;
 								DELETE FROM ContactsEmail
@@ -184,11 +186,11 @@ BEGIN
 							WHERE Seq = TempEmailSeq
 							AND UserSeq = TempEmailUserSeq
 						END;
-					END LOOP
+					END LOOP;
 
 					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LEN(TempEmailList));
 				END IF;
-			END LOOP
+			END LOOP;
 
 			-- 전화번호;
 
@@ -222,28 +224,30 @@ BEGIN
 							TempNumberYN := TempNumberOne;
 						TempNumberCnt := TempNumberCnt + 1;
 						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(',TempNumberOneList, ')+1,LEN(TempNumberOneList));
-					END LOOP
+					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
 					-- ========================
 					IF TempMainSeqNo = TempNumberMainSeq THEN
 						IF TempMainSeqNo <> TempNumberUserSeq THEN
-							PRINT(TempDelUserSeqList)
-							SET TempDelUserSeqList += CONVERT(text,TempNumberUserSeq) + ',';
+							PRINT(TempDelUserSeqList);
+							tempdeluserseqlist := COALESCE(tempdeluserseqlist, '') || COALESCE((CONVERT(text,TempNumberUserSeq) || ','), '');
 						END IF;
 						IF TempNumberYN = 'Y' THEN
 						BEGIN -- Y인 경우 병합처리
 
 
 
-							SELECT  INTO  FROM ContactsNumber
+							SELECT Value INTO tempnumbervalue FROM ContactsNumber
+
 							WHERE Seq = TempNumberSeq
 
 
 
-							SELECT  INTO  FROM ContactsNumber
+							SELECT COUNT(Value) INTO tempnumbercheck FROM ContactsNumber
+
 							WHERE UserSeq = TempNumberMainSeq
-							AND Value = TempNumberValue
+							AND Value = TempNumberValue;
 							-- 메인에 존재하지 않으면 업데이트
 							IF TempNumberCheck = 0 THEN
 								UPDATE ContactsNumber
@@ -253,7 +257,7 @@ BEGIN
 									ModDate = NOW()
 								WHERE
 									Seq = TempNumberSeq
-								AND UserSeq = TempNumberUserSeq
+								AND UserSeq = TempNumberUserSeq;
 							ELSIF TempMainSeqNo <> TempNumberMainSeq AND TempNumberCheck > 0 THEN
 							BEGIN -- 메인의 데이터가 아니면서 존재하는 경우는 삭제;
 								DELETE FROM ContactsNumber
@@ -268,7 +272,7 @@ BEGIN
 							WHERE Seq = TempNumberSeq
 							AND UserSeq = TempNumberUserSeq
 						END;
-					END LOOP
+					END LOOP;
 
 					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LEN(TempNumberList));
 				END IF;
@@ -289,7 +293,7 @@ BEGIN
 					DELETE FROM ContactsUser WHERE Seq = TempDelUserSeqNo;
 
 					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(',TempDelUserSeqList, ')+1,LEN(TempDelUserSeqList));
-				END LOOP
+				END LOOP;
 			END IF;
 			-- 다음 정리> 기준 주소록번호;
 			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(',TempMainSeqList, ')+1,LEN(TempMainSeqList));

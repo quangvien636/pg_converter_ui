@@ -25,11 +25,11 @@ BEGIN
 
 		WHILE STRPOS(',HistoryNoList, ') > 0 LOOP
 			TempHistoryNo := SUBSTRING(HistoryNoList,0,STRPOS(',HistoryNoList, '));
-			SELECT Seq INTO tempseq FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo
+			SELECT Seq INTO tempseq FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
 
 
-			SELECT COUNT(Seq) INTO datacount FROm ContactsUser WHERE Seq = TempSeq
+			SELECT COUNT(Seq) INTO datacount FROM ContactsUser WHERE Seq = TempSeq;
 			-- 데이터가 없으면 신규입력
 			IF DataCount = 0 THEN
 
@@ -55,7 +55,7 @@ BEGIN
 				SELECT
 					RegUserNo, newSeq, Type, TypeName, Value,
 					IsDefault, RegDate, NOW()
-				FROM ContactsNumberHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsNumberHistory WHERE HistoryNo = TempHistoryNo;
 				-- 이메일;
 				INSERT INTO ContactsEmail
 				(
@@ -63,7 +63,7 @@ BEGIN
 				)
 				SELECT
 					RegUserNo, newSeq, Value, IsDefault, RegDate, NOW()
-				FROM ContactsEmailHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsEmailHistory WHERE HistoryNo = TempHistoryNo;
 				-- 회사;
 				INSERT INTO ContactsCompany
 				(
@@ -73,7 +73,7 @@ BEGIN
 				SELECT
 					RegUserNo, newSeq, Company, Depart, Position,
 					IsDefault, RegDate, NOW()
-				FROM ContactsCompanyHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsCompanyHistory WHERE HistoryNo = TempHistoryNo;
 				-- 주소;
 				INSERT INTO ContactsAddress
 				(
@@ -83,7 +83,7 @@ BEGIN
 				SELECT
 					RegUserNo, newSeq, Type, TypeName, ZipCode1,
 					ZipCode2, Address, IsDefault, RegDate, NOW()
-				FROM ContactsAddressHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsAddressHistory WHERE HistoryNo = TempHistoryNo;
 
 				-- 홈페이지;
 				INSERT INTO ContactsHomepage
@@ -94,7 +94,7 @@ BEGIN
 				SELECT
 					RegUserNo, newSeq, Type, TypeName, Value,
 					IsDefault, RegDate, NOW()
-				FROM ContactsHomepageHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsHomepageHistory WHERE HistoryNo = TempHistoryNo;
 				-- SNS;
 				INSERT INTO ContactsSns
 				(
@@ -104,7 +104,7 @@ BEGIN
 				SELECT
 					RegUserNo, newSeq, Type, TypeName, Value,
 					IsDefault, RegDate, NOW()
-				FROM ContactsSnsHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsSnsHistory WHERE HistoryNo = TempHistoryNo;
 				-- 그룹;
 				INSERT INTO ContactsGroupUser
 				(
@@ -112,7 +112,7 @@ BEGIN
 				)
 				SELECT
 					GroupNo, newSeq, RegUserNo, RegDate, ModDate
-				FROM ContactsGroupUserHistory WHERE HistoryNo = TempHistoryNo
+				FROM ContactsGroupUserHistory WHERE HistoryNo = TempHistoryNo;
 			ELSE
 			    -- 데이터가 있으면 업데이트;
 			END IF;
@@ -134,14 +134,14 @@ BEGIN
 					ViewCount = H.ViewCount
 				FROM ContactsUser U, ContactsUserHistory H
 				WHERE U.Seq = H.Seq
-				AND H.HistoryNo = TempHistoryNo
+				AND H.HistoryNo = TempHistoryNo;
 				-- #################
 				-- 전화번호
 				-- #################
 					-- Seq랑 일치 하는 않는거 삭제;
 				DELETE FROM ContactsNumber
 				WHERE Seq NOT IN (SELECT Seq FROM ContactsNumberHistory WHERE HistoryNo = TempHistoryNo)
-				AND UserSeq = TempSeq
+				AND UserSeq = TempSeq;
 					-- Seq랑 일치 하는거 업데이트;
 				UPDATE N
 				SET RegUserNo = H.RegUserNo,
@@ -154,7 +154,7 @@ BEGIN
 					ModDate = NOW()
 				FROM ContactsNumber N, ContactsNumberHistory H
 				WHERE N.Seq = H.Seq
-				AND H.HistoryNo = TempHistoryNo
+				AND H.HistoryNo = TempHistoryNo;
 					-- 그외 히스토리에 있는거 인서트;
 				INSERT INTO ContactsNumber
 				(
@@ -166,7 +166,7 @@ BEGIN
 					IsDefault, RegDate, NOW()
 				FROM ContactsNumberHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsNumber WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsNumber WHERE UserSeq = TempSeq);
 				-- #################
 				-- 이메일
 				-- #################;
@@ -193,7 +193,7 @@ BEGIN
 					RegUserNo, UserSeq, Value, IsDefault, RegDate, NOW()
 				FROM ContactsEmailHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsEmail WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsEmail WHERE UserSeq = TempSeq);
 				-- #################
 				-- 회사
 				-- #################;
@@ -224,7 +224,7 @@ BEGIN
 					IsDefault, RegDate, ModDate
 				FROM ContactsCompanyHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsCompany WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsCompany WHERE UserSeq = TempSeq);
 				-- #################
 				-- 주소
 				-- #################;
@@ -257,7 +257,7 @@ BEGIN
 					ZipCode2, Address, IsDefault, RegDate, ModDate
 				FROM ContactsAddressHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsAddress WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsAddress WHERE UserSeq = TempSeq);
 				-- #################
 				-- 홈페이지
 				-- #################;
@@ -288,7 +288,7 @@ BEGIN
 					IsDefault, RegDate, ModDate
 				FROM ContactsHomepageHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsHomepage WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsHomepage WHERE UserSeq = TempSeq);
 				-- #################
 				-- SNS
 				-- #################;
@@ -319,7 +319,7 @@ BEGIN
 					IsDefault, RegDate, ModDate
 				FROM ContactsSnsHistory
 				WHERE HistoryNo = TempHistoryNo
-				AND Seq NOT IN (SELECT Seq FROM ContactsSns WHERE UserSeq = TempSeq)
+				AND Seq NOT IN (SELECT Seq FROM ContactsSns WHERE UserSeq = TempSeq);
 				-- #################
 				-- 그룹
 				-- #################;
@@ -359,7 +359,7 @@ BEGIN
 			DELETE FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
 			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(',HistoryNoList, ')+1,LEN(HistoryNoList));
-		END LOOP
+		END LOOP;
 		IF @ERROR <> 0 THEN
 
 		END IF;

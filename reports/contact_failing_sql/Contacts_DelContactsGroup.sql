@@ -23,12 +23,12 @@ BEGIN
 			SELECT  GC.*
 			FROM ContactsGroup GC
 			INNER JOIN GroupTmp GT ON GC.ParentGNo=GT.GroupNo
-		);
+		)
 		INSERT INTO temp
 		SELECT GroupNo FROM GroupTmp;
 		UPDATE ContactsGroup SET UseYn='' WHERE GroupNo IN (SELECT GroupNo FROM temp);
 		UPDATE ContactsUser SET UseYn='F', DelDate=NOW() WHERE Seq IN (SELECT UserSeq FROM ContactsGroupUser U INNER JOIN temp GU ON GU.GroupNo=U.GroupNo);
-		DELETE FROM ContactsGroupUser  WHERE Seq IN (SELECT GroupNo FROM  temp)
+		DELETE FROM ContactsGroupUser  WHERE Seq IN (SELECT GroupNo FROM  temp);
 		Drop Table Temp
 		--COMMIT TRAN
 	--END TRY

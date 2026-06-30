@@ -5,7 +5,7 @@
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.contacts_getgroupbyuser(integer, integer);
 CREATE OR REPLACE FUNCTION public.contacts_getgroupbyuser(
-    IN reguserno integer DEFAULT '',
+    IN reguserno integer DEFAULT NULL,
     IN userseq integer DEFAULT 0
 ) RETURNS SETOF record
 AS $function$

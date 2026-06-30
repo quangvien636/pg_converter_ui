@@ -45,8 +45,9 @@ BEGIN
 
 
 
-	SELECT  INTO  FROM ContactsUserOutlook
-	WHERE OutlookEntryID = contacts_savecontactsforoutlook.outlookentryid
+	SELECT COUNT(Seq) INTO contactscount FROM ContactsUserOutlook
+
+	WHERE OutlookEntryID = contacts_savecontactsforoutlook.outlookentryid;
 
 	IF ContactsCount = 0 THEN
 		-- 주소록 추가 작업;
@@ -99,7 +100,7 @@ BEGIN
 			NOW(),
 			ContactNo,
 			COALESCE((SELECT GroupNo FROM ContactsGroupOutlook WHERE OutlookFolderEntryID = contacts_savecontactsforoutlook.folderentryid),0)
-		)
+		);
 
 		-- 회사정보가 있는 경우만
 		IF LEN(Company) > 0 OR LEN(Depart) > 0 OR LEN(Position) > 0 THEN
@@ -502,9 +503,10 @@ BEGIN
 			);
 		END IF;
 	ELSE
-		SELECT  INTO  FROM ContactsUserOutlook
+		SELECT Seq INTO contactno FROM ContactsUserOutlook
+
 		WHERE UserNo = contacts_savecontactsforoutlook.userno
-		AND OutlookEntryID = contacts_savecontactsforoutlook.outlookentryid
+		AND OutlookEntryID = contacts_savecontactsforoutlook.outlookentryid;
 		-- 주소록 추가 작업;
 		UPDATE ContactsUser
 		SET
@@ -513,7 +515,7 @@ BEGIN
 			ModDate = NOW(),
 			Memo = contacts_savecontactsforoutlook.memo
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
-		AND Seq = ContactNo
+		AND Seq = ContactNo;
 
 		-- 그룹;
 		UPDATE ContactsGroupUser
@@ -521,14 +523,15 @@ BEGIN
 			ModDate = NOW(),
 			UserSeq = ContactNo,
 			GroupNo = COALESCE((SELECT GroupNo FROM ContactsGroupOutlook WHERE OutlookFolderEntryID = contacts_savecontactsforoutlook.folderentryid),0)
-		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
+		WHERE RegUserNo = contacts_savecontactsforoutlook.userno;
 
 		-- 회사정보가 있는 경우만
 		IF LEN(Company) > 0 OR LEN(Depart) > 0 OR LEN(Position) > 0 THEN
 
 
-			SELECT  INTO  FROM ContactsCompany
-			WHERE Company = contacts_savecontactsforoutlook.company
+			SELECT COUNT(Company) INTO companycount FROM ContactsCompany
+
+			WHERE Company = contacts_savecontactsforoutlook.company;
 
 			IF CompanyCount = 0 THEN
 				INSERT INTO ContactsCompany
@@ -569,7 +572,7 @@ BEGIN
 		-- 기존 메일 삭제후 재입력;
 		DELETE FROM ContactsEmail
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
-		AND UserSeq = ContactNo
+		AND UserSeq = ContactNo;
 		-- 이메일1
 		IF LEN(EMail1) > 0 THEN
 
@@ -639,7 +642,7 @@ BEGIN
 		DELETE FROM ContactsHomepage
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
 		AND UserSeq = ContactNo
-		AND Type = 0
+		AND Type = 0;
 		-- 홈페이지
 		IF LEN(WebPage) > 0 THEN
 			INSERT INTO ContactsHomepage
@@ -669,7 +672,7 @@ BEGIN
 		DELETE FROM ContactsSns
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
 		AND UserSeq = ContactNo
-		AND Type = 8
+		AND Type = 8;
 		-- 메신저
 		IF LEN(Massenger) > 0 THEN
 			INSERT INTO ContactsSns
@@ -698,7 +701,7 @@ BEGIN
 		-- 기존 전화번호 삭제;
 		DELETE FROM ContactsNumber
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
-		AND UserSeq = ContactNo
+		AND UserSeq = ContactNo;
 		-- 휴대폰
 		IF LEN(MobilePhone) > 0 THEN
 			INSERT INTO ContactsNumber
@@ -877,7 +880,7 @@ BEGIN
 		-- 기존주소 삭제;
 		DELETE FROM ContactsAddress
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
-		AND UserSeq = ContactNo
+		AND UserSeq = ContactNo;
 		--집주소
 		IF LEN(HomePost) > 0 OR LEN(HomeAddress) > 0 THEN
 			INSERT INTO ContactsAddress

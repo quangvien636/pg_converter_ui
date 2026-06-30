@@ -38,7 +38,7 @@ BEGIN
 
 IsPhoneDef CHAR(1)='0',
 IsAddrDef CHAR(1)='0',
-DefValue CHAR(1)='0'
+DefValue CHAR(1)='0';
 
 
 -- ??? ????.;
