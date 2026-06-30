@@ -479,12 +479,23 @@ public static class BodyConverter
             "-- TODO: XML shredding removed — rewrite as xmltable\n",
             RegexOptions.IgnoreCase);
         body = Regex.Replace(body,
-            @"(?m)^[ \t]*(?:EXEC(?:UTE)?\s+)?sp_xml_removedocument\b[^\n]*\n",
+            @"(?m)^[ \t]*(?:EXEC(?:UTE)?\s+)?sp_xml_removedocument\b[^\n;]*(?:;?[ \t]*\n|;?[ \t]*$)",
             "", RegexOptions.IgnoreCase);
-        // P5: Replace OPENXML(...) WITH (...) → xmltable stub (keeps xmltable keyword visible)
+        // P5: Replace OPENXML(...) WITH (...) with a syntactically complete XMLTABLE stub.
+        // Keep the whole WITH list on the line: SQL types such as varchar(50) contain
+        // parentheses, so stopping at the first ')' leaves invalid trailing columns.
         body = SafeReplace(body, "OpenXml",
-            @"OPENXML\s*\([^)]*\)\s*(?:WITH\s*\([^)]*\))?",
-            "xmltable('/*' PASSING NULL COLUMNS col text PATH '.' /* TODO: map XML columns */)",
+            @"(?m)OPENXML\s*\([^\n]*?\)\s*WITH\s*\((?<columns>[^\n]*)\)",
+            m => BuildOpenXmlStub(m.Groups["columns"].Value),
+            RegexOptions.IgnoreCase);
+
+        // SQL Server xml.nodes(...).value(...) has no direct PostgreSQL equivalent.
+        // Emit an empty, typed relation so surrounding temp-table DDL remains
+        // compilable while making the incomplete semantic mapping explicit.
+        body = SafeReplace(body, "XmlNodesValue",
+            @"(?ims)SELECT\s+.*?\.value\s*\(.*?\)\s+AS\s+ContentJson\s+FROM\s+@?\w+\.nodes\s*\([^\n;]*?\)\s*AS\s+\w+\s*\(\w+\)",
+            "-- TODO: map SQL Server xml.nodes/value expressions to PostgreSQL XMLTABLE\n" +
+            "SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE",
             RegexOptions.IgnoreCase);
 
         // EXEC sp_executesql N'literal'  →  EXECUTE 'literal';
@@ -560,6 +571,35 @@ public static class BodyConverter
             RegexOptions.IgnoreCase);
 
         return body;
+    }
+
+    static string BuildOpenXmlStub(string columns)
+    {
+        var mappedColumns = Regex.Matches(columns,
+                @"(?<name>[A-Za-z_]\w*)\s+(?<type>n?varchar\s*\(\s*\d+\s*\)|bigint|int|bit|datetime|date|text)",
+                RegexOptions.IgnoreCase, RegexTimeout)
+            .Select(m =>
+            {
+                var name = m.Groups["name"].Value;
+                var type = m.Groups["type"].Value;
+                var pgType = Regex.IsMatch(type, @"^n?varchar", RegexOptions.IgnoreCase, RegexTimeout)
+                    ? "text"
+                    : type.Equals("int", StringComparison.OrdinalIgnoreCase) ? "integer"
+                    : type.Equals("bit", StringComparison.OrdinalIgnoreCase) ? "boolean"
+                    : type.Equals("datetime", StringComparison.OrdinalIgnoreCase) ? "timestamp"
+                    : type.ToLowerInvariant();
+                return $"NULL::{pgType} AS {name}";
+            })
+            .ToList();
+
+        if (mappedColumns.Count == 0)
+            mappedColumns.Add("NULL::text AS col");
+
+        // PostgreSQL 9.3 predates XMLTABLE. Keep a typed, empty relation so the
+        // surrounding procedure compiles, and leave the semantic work explicit.
+        return "(SELECT " +
+               string.Join(", ", mappedColumns) +
+               " WHERE FALSE) AS openxml_stub /* TODO: replace with xmltable and verify XML paths */";
     }
 
     // ── MERGE INTO → UPDATE + INSERT (UPSERT) ────────────────────────────────

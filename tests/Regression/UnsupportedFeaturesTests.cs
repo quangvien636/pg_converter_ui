@@ -93,6 +93,40 @@ namespace RegressionTests
             Assert.That(pg, Does.Not.Contain("OPENXML"));
         }
 
+        [Test]
+        public void TestOpenXmlStubKeepsParenthesizedTypesInsideXmlTable()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestXMLColumns AS BEGIN " +
+                "EXEC sp_xml_preparedocument @doc OUTPUT, @xml\n" +
+                "SELECT * INTO #tb FROM OPENXML(@doc, '/root/items') " +
+                "WITH (Id INT, AlarmCode VARCHAR(50), Title NVARCHAR(100))\n" +
+                "EXEC sp_xml_removedocument @doc END";
+            var obj = new DbObject("testxmlcolumns", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("NULL::integer AS Id, NULL::text AS AlarmCode, NULL::text AS Title"));
+            Assert.That(pg, Does.Contain("replace with xmltable"));
+            Assert.That(pg, Does.Not.Contain("sp_xml_preparedocument"));
+            Assert.That(pg, Does.Not.Contain("sp_xml_removedocument"));
+            Assert.That(pg, Does.Not.Match(@"\)\s*,\s*AlarmCode"));
+        }
+
+        [Test]
+        public void TestXmlNodesValueBlockBecomesCompileSafeTypedStub()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestXMLNodes AS BEGIN " +
+                "SELECT X.value('Id','INT') AS Id, X.value('(Title/text())[1]','text') AS Title, " +
+                "X.value('(ContentJson/text())[1]','text') AS ContentJson " +
+                "INTO #tb2 FROM @xml.nodes('/root/item') AS T(X) END";
+            var obj = new DbObject("testxmlnodes", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("NULL::integer AS Id"));
+            Assert.That(pg, Does.Contain("NULL::text AS Title"));
+            Assert.That(pg, Does.Not.Contain(".nodes("));
+            Assert.That(pg, Does.Not.Contain(".value("));
+        }
+
         // ─── 8. IDENTITY DDL mapping ─────────────────────────────────────────
         [Test]
         public void TestIDENTITY()
