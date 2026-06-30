@@ -23,6 +23,9 @@ public static class BodyConverter
     {
         _fnName = fnName;
         var totalSw = Stopwatch.StartNew();
+        // Normalize line endings early so all phases work with \n only
+        body = body.Replace("\r\n", "\n").Replace("\r", "\n");
+        body = Regex.Replace(body, @"[ \t]+(?=\n)", "");
         Logger.Info($"[PHASE] [{fnName}] Enter Convert() inputLen={body.Length}");
 
         // Board procedures frequently combine TOP with SELECT variable assignment
@@ -34,6 +37,7 @@ public static class BodyConverter
             body = TrySafe(body, fnName, "ConvertBoardOuterApply", ConvertBoardOuterApply);
         }
 
+        body = TrySafe(body, fnName, "ConvertTryCatch",   ConvertTryCatch);
         body = TrySafe(body, fnName, "StripBoilerplate",  StripBoilerplate);
         body = TrySafe(body, fnName, "ConvertCursors",    ConvertCursors);
         body = fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase)
@@ -267,9 +271,9 @@ public static class BodyConverter
             body = Regex.Replace(body, $@"\bOPEN\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?", "", RegexOptions.IgnoreCase);
             // Remove ALL FETCH NEXT FROM cursor lines
             body = Regex.Replace(body, $@"\bFETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}\s+INTO[^\r\n]*\r?\n?", "", RegexOptions.IgnoreCase);
-            // Replace WHILE @@FETCH_STATUS = 0 with FOR loop
+            // Replace WHILE @@FETCH_STATUS = 0 / @FETCH_STATUS = 0 with FOR loop
             var loopHeader = $"FOR _rec IN {selectSql}\nLOOP\n{assigns}";
-            body = Regex.Replace(body, @"\bWHILE\s+@@FETCH_STATUS\s*=\s*0\b", loopHeader, RegexOptions.IgnoreCase);
+            body = Regex.Replace(body, @"\bWHILE\s+@{1,2}FETCH_STATUS\s*=\s*0\b", loopHeader, RegexOptions.IgnoreCase);
             // Remove CLOSE / DEALLOCATE
             body = Regex.Replace(body, $@"\bCLOSE\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?",      "", RegexOptions.IgnoreCase);
             body = Regex.Replace(body, $@"\bDEALLOCATE\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?", "", RegexOptions.IgnoreCase);
@@ -300,15 +304,33 @@ public static class BodyConverter
 
     static string ConvertTempTables(string body)
     {
-        // DECLARE @var TABLE (...) possibly spanning multiple lines → remove entire block
-        body = SafeReplace(body, "DeclTableSingleLine",
-            @"(?m)^[ \t]*DECLARE\s+@?\w+\s+TABLE\s*\([^)]*\)\s*;?[ \t]*\r?$",
-            "", RegexOptions.IgnoreCase);
-
-        // Multi-line DECLARE @var TABLE ( ... ) spanning lines — lazy match across newlines
-        body = SafeReplace(body, "DeclTableMultiLine",
-            @"DECLARE\s+@?\w+\s+TABLE\s*\([\s\S]*?\)\s*;?",
-            "", RegexOptions.IgnoreCase);
+        // DECLARE @var TABLE (...) → CREATE TEMP TABLE var (...) ON COMMIT DROP
+        // Use FindMatchingParen to handle nested parens (e.g. VARCHAR(50) inside column list)
+        int pos = 0;
+        while (pos < body.Length)
+        {
+            var m = Regex.Match(body[pos..], @"\bDECLARE\s+@(\w+)\s+TABLE\s*\(", RegexOptions.IgnoreCase, RegexTimeout);
+            if (!m.Success) break;
+            int start = pos + m.Index;
+            int openP  = start + m.Value.LastIndexOf('(');
+            int closeP = FindMatchingParen(body, openP);
+            if (closeP < 0) break;
+            string varName = m.Groups[1].Value.ToLower();
+            string colDefs = body[(openP + 1)..closeP];
+            // Map column types
+            colDefs = Regex.Replace(colDefs, @"\b(?:TINY|SMALL)?INT(?:EGER)?\b", "integer", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bBIGINT\b", "bigint", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bN?VARCHAR\s*\(\s*MAX\s*\)", "text", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bN?VARCHAR\b", "varchar", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bDATETIME\b", "timestamp", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bBIT\b", "boolean", RegexOptions.IgnoreCase);
+            colDefs = Regex.Replace(colDefs, @"\bINT\s+IDENTITY(?:\s*\(\s*\d+\s*,\s*\d+\s*\))?", "serial", RegexOptions.IgnoreCase);
+            int end = closeP + 1;
+            if (end < body.Length && body[end] == ';') end++;
+            string replacement = $"CREATE TEMP TABLE {varName} ({colDefs}) ON COMMIT DROP;";
+            body = body[..start] + replacement + body[end..];
+            pos = start + replacement.Length;
+        }
 
         // CREATE TABLE #tmp (...) → CREATE TEMP TABLE tmp (...)
         body = Regex.Replace(body, @"\bCREATE\s+TABLE\s+#(\w+)", "CREATE TEMP TABLE $1", RegexOptions.IgnoreCase);
@@ -386,7 +408,7 @@ public static class BodyConverter
             string columns = body[(openParen + 1)..closeParen];
             columns = Regex.Replace(columns,
                 @"\b(?:TINYINT|SMALLINT|INT|BIGINT)\s+IDENTITY(?:\s*\(\s*\d+\s*,\s*\d+\s*\))?",
-                "integer GENERATED BY DEFAULT AS IDENTITY", RegexOptions.IgnoreCase);
+                "serial", RegexOptions.IgnoreCase);
             columns = Regex.Replace(columns, @"\bNVARCHAR\s*\(\s*MAX\s*\)", "text",
                 RegexOptions.IgnoreCase);
             columns = Regex.Replace(columns, @"\bN?VARCHAR\b", "varchar",
@@ -451,6 +473,26 @@ public static class BodyConverter
 
     static string ConvertExec(string body)
     {
+        // P5: Remove sp_xml_preparedocument / sp_xml_removedocument (OPENXML XML shredding)
+        body = Regex.Replace(body,
+            @"(?m)^[ \t]*(?:EXEC(?:UTE)?\s+)?sp_xml_preparedocument\b[^\n]*\n",
+            "-- TODO: XML shredding removed — rewrite as xmltable\n",
+            RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"(?m)^[ \t]*(?:EXEC(?:UTE)?\s+)?sp_xml_removedocument\b[^\n]*\n",
+            "", RegexOptions.IgnoreCase);
+        // P5: Replace OPENXML(...) WITH (...) → xmltable stub (keeps xmltable keyword visible)
+        body = SafeReplace(body, "OpenXml",
+            @"OPENXML\s*\([^)]*\)\s*(?:WITH\s*\([^)]*\))?",
+            "xmltable('/*' PASSING NULL COLUMNS col text PATH '.' /* TODO: map XML columns */)",
+            RegexOptions.IgnoreCase);
+
+        // EXEC sp_executesql N'literal'  →  EXECUTE 'literal';
+        body = SafeReplace(body, "ExecSqlLiteral",
+            @"\bEXEC(?:UTE)?\s+sp_executesql\s+(N?'[^']*')\s*;?",
+            "EXECUTE $1;",
+            RegexOptions.IgnoreCase);
+
         // EXEC sp_executesql @sql  →  EXECUTE sql;
         body = SafeReplace(body, "ExecSql",
             @"(?m)^([ \t]*)EXEC(?:UTE)?\s+sp_executesql\s+@?(\w+)\s*;?\s*$",
@@ -485,10 +527,16 @@ public static class BodyConverter
             },
             RegexOptions.IgnoreCase);
 
-        // EXEC ('string' + @var)  →  EXECUTE 'string' || var;
+        // EXEC ('string' + @var)  →  EXECUTE 'string' || var;  (line-anchored)
         body = SafeReplace(body, "ExecParens",
             @"(?m)^([ \t]*)EXEC(?:UTE)?\s*\(\s*(.+?)\s*\)\s*;?\s*$",
             "$1EXECUTE ($2);",
+            RegexOptions.IgnoreCase);
+
+        // EXEC('string') inline (not at line start)  →  EXECUTE 'string';
+        body = SafeReplace(body, "ExecParensInline",
+            @"\bEXEC(?:UTE)?\s*\(\s*(.+?)\s*\)\s*;?",
+            "EXECUTE ($1);",
             RegexOptions.IgnoreCase);
 
         // EXEC dbo.proc @p1, @p2  →  PERFORM proc(p1, p2);
@@ -632,6 +680,23 @@ public static class BodyConverter
             return $"{name} text";
         }).ToList();
         return string.Join(", ", defs);
+    }
+
+    // ── BEGIN TRY / END TRY / BEGIN CATCH / END CATCH → EXCEPTION WHEN OTHERS THEN ──
+
+    static string ConvertTryCatch(string body)
+    {
+        body = SafeReplace(body, "TryCatch",
+            @"BEGIN\s+TRY\s*([\s\S]+?)\s*END\s+TRY\s+BEGIN\s+CATCH\s*([\s\S]*?)\s*END\s+CATCH\b",
+            m => {
+                var tryBody   = m.Groups[1].Value.Trim();
+                var catchBody = m.Groups[2].Value.Trim();
+                if (string.IsNullOrWhiteSpace(catchBody))
+                    return $"{tryBody}\nEXCEPTION WHEN OTHERS THEN\n    NULL;";
+                return $"{tryBody}\nEXCEPTION WHEN OTHERS THEN\n    {catchBody}";
+            },
+            RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
+        return body;
     }
 
     // ── RAISERROR → RAISE EXCEPTION ──────────────────────────────────────────

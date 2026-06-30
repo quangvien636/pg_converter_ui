@@ -17,7 +17,7 @@ public static class Converter
         "grant","group","having","in","initially","inner","intersect",
         "into","lateral","leading","left","like","limit","localtime",
         "localtimestamp","natural","not","null","offset","on","only",
-        "or","order","outer","over","overlaps","placing","primary",
+        "or","order","outer","over","overlaps","placing","position","primary",
         "references","returning","right","select","session_user","similar",
         "some","symmetric","table","then","to","trailing","true",
         "union","unique","user","using","variadic","verbose","when",
@@ -78,6 +78,9 @@ public static class Converter
                 var line = m.Groups[1].Value.TrimEnd();
                 // Leave DECLARE @var TABLE(...) for ConvertTempTables
                 if (Regex.IsMatch(line, @"^@?\w+\s+TABLE\b", RegexOptions.IgnoreCase))
+                    return m.Value;
+                // Leave DECLARE name CURSOR ... for BodyConverter.ConvertCursors
+                if (Regex.IsMatch(line, @"^@?\w+\s+CURSOR\b", RegexOptions.IgnoreCase))
                     return m.Value;
                 // Parse all variables: @name TYPE[(size)] [= default] [, ...]
                 foreach (Match vm in Regex.Matches(line,
@@ -228,6 +231,9 @@ public static class Converter
                 var line = m.Groups[1].Value.TrimEnd();
                 // Leave DECLARE @var TABLE(...) for ConvertTempTables
                 if (Regex.IsMatch(line, @"^@?\w+\s+TABLE\b", RegexOptions.IgnoreCase))
+                    return m.Value;
+                // Leave DECLARE name CURSOR ... for BodyConverter.ConvertCursors
+                if (Regex.IsMatch(line, @"^@?\w+\s+CURSOR\b", RegexOptions.IgnoreCase))
                     return m.Value;
                 // Parse all variables: @name TYPE[(size)] [= default] [, ...]
                 foreach (Match vm in Regex.Matches(line,
@@ -872,6 +878,8 @@ $$;";
         var result = new List<string>();
         if (string.IsNullOrWhiteSpace(rawParams)) return result;
         rawParams = rawParams.Trim().TrimStart('(').TrimEnd(')').Trim();
+        // P1b: remove single-line comments before parsing so they don't corrupt parameter names
+        rawParams = Regex.Replace(rawParams, @"--[^\n]*", "");
         foreach (var part in SplitParams(rawParams))
         {
             var p = part.Trim().TrimStart('﻿');
@@ -888,7 +896,7 @@ $$;";
             var pgType = MapType(msBase + msSz);
             var defStr = def != null ? $" DEFAULT {MapDefault(def, pgType)}" : "";
             var mode   = forProcedure ? (isOutput ? "INOUT " : "IN ") : "";
-            result.Add($"{mode}{name} {pgType}{defStr}");
+            result.Add($"{mode}{QuoteIfReserved(name)} {pgType}{defStr}");
         }
         return result;
     }
@@ -934,6 +942,9 @@ $$;";
         if (def == "0") return pgType == "boolean" ? "FALSE" : "0";
         if (def == "1") return pgType == "boolean" ? "TRUE" : "1";
         if (def.StartsWith("'") && def.EndsWith("'")) return def;
+        // P2: translate GETDATE()/GETUTCDATE() → PostgreSQL current_date/current_timestamp
+        if (Regex.IsMatch(def, @"^GETDATE\s*(?:\(\s*\))?$", RegexOptions.IgnoreCase)) return "CURRENT_DATE";
+        if (Regex.IsMatch(def, @"^GETUTCDATE\s*(?:\(\s*\))?$", RegexOptions.IgnoreCase)) return "CURRENT_TIMESTAMP";
         if (Regex.IsMatch(def, @"^[A-Za-z_]\w*$")) return $"'{def}'";
         return def;
     }
@@ -963,8 +974,27 @@ $$;";
 
     static string ConvertBody(string body, string fnName)
     {
+        // P1a: normalize Windows line endings so all regex patterns see only \n
+        body = body.Replace("\r\n", "\n").Replace("\r", "\n");
+        // Trim trailing whitespaces at the end of lines to prevent shielding semicolon lookbehinds
+        body = Regex.Replace(body, @"[ \t]+(?=\n)", "");
+        // P3: remove ORDER BY that appears before UNION (ORDER BY inside a UNION sub-select is
+        //     invalid in PostgreSQL; the ORDER BY must come after the last UNION member)
+        // Multi-line case: ORDER BY on its own line(s) before UNION
+        body = Regex.Replace(body,
+            @"(?im)^[ \t]*ORDER\s+BY\s+[^\n]+(\n[ \t]*)*(?=[ \t]*UNION\b)",
+            "");
+        // Single-line case: ORDER BY embedded inline before UNION on the same line
+        body = Regex.Replace(body,
+            @"\bORDER\s+BY\s+(?:[^;()\n])+?(?=\s+UNION\b)",
+            "", RegexOptions.IgnoreCase);
+        // Strip SQL Server transaction control — PostgreSQL wraps the whole function in an implicit transaction
+        body = Regex.Replace(body, @"(?m)^[ \t]*BEGIN\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*COMMIT\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*ROLLBACK\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*SAVE\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
         // Remove MSSQL session settings
-        body = Regex.Replace(body, @"(?m)^[ \t]*SET\s+NOCOUNT\s+ON\s*;?[ \t\r]*$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*SET\s+NOCOUNT\s+ON\s*;?[ \t]*$", "", RegexOptions.IgnoreCase);
         // Fix ;WITH CTE
         body = Regex.Replace(body, @"(?m)^(\s*);(WITH\b)", "$1$2", RegexOptions.IgnoreCase);
         // Remove remaining DECLARE lines
@@ -992,8 +1022,23 @@ $$;";
         body = Regex.Replace(body, @"@@ERROR\b",    "0", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"@@IDENTITY\b", "lastval()", RegexOptions.IgnoreCase);
 
-        // TOP → comment
-        body = Regex.Replace(body, @"\bTOP\s*\(\s*(\d+)\s*\)", "/* TOP $1 */", RegexOptions.IgnoreCase);
+        // TOP N → LIMIT N: single-line SELECT TOP → move TOP value to LIMIT at end
+        body = Regex.Replace(body,
+            @"(?im)^([ \t]*(?:RETURN\s+QUERY\s+)?SELECT\s+)TOP\s*\(?\s*(\d+)\s*\)?\s+([^\n]+?)(\s*;?)[ \t]*$",
+            "$1$3 LIMIT $2$4");
+        // Any remaining TOP (multi-line context) → comment placeholder
+        body = Regex.Replace(body, @"\bTOP\s*\(?\s*(\d+)\s*\)?\s+", "/* TOP $1 */ ", RegexOptions.IgnoreCase);
+
+        // Quote reserved word identifiers when used as table names in DML
+        body = Regex.Replace(body,
+            @"\b(UPDATE|DELETE\s+FROM|INSERT\s+INTO)\s+(\w+)(?=\s)",
+            m => {
+                var kw  = m.Groups[1].Value;
+                var tbl = m.Groups[2].Value;
+                return PgReservedWords.Contains(tbl)
+                    ? $"{kw} public.\"{tbl}\""
+                    : $"{kw} {tbl}";
+            }, RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bTOP\s+(\d+)\b", "/* TOP $1 */", RegexOptions.IgnoreCase);
 
         // String literals
@@ -1024,6 +1069,30 @@ $$;";
         body = Regex.Replace(body, @"CAST\s*\(\s*'([^']+)'\s+AS\s+DATETIME\s*\)", "'$1'::timestamp", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CONVERT\s*\(\s*[N]?VARCHAR\s*,\s*([^,]+),\s*120\s*\)",
             "TO_CHAR($1, 'YYYY-MM-DD HH24:MI:SS')", RegexOptions.IgnoreCase);
+
+        // INSERT ... OUTPUT inserted.col VALUES ... → INSERT ... VALUES ... RETURNING col
+        body = Regex.Replace(body,
+            @"\bINSERT\s+INTO\s+(\w+)\s*(\([^)]+\))\s+OUTPUT\s+inserted\.(\w+)\s+(VALUES\s*\([^)]+\))",
+            "INSERT INTO $1 $2 $4 RETURNING $3",
+            RegexOptions.IgnoreCase);
+        // Generic OUTPUT inserted.* → RETURNING (catches other forms)
+        body = Regex.Replace(body,
+            @"\bOUTPUT\s+inserted\.(\w+)\b",
+            "RETURNING $1",
+            RegexOptions.IgnoreCase);
+
+        // WITH cte AS (... UNION ALL ... FROM cte ...) → WITH RECURSIVE
+        body = Regex.Replace(body,
+            @"\bWITH\s+(\w+)\s+AS\s*\(",
+            m => {
+                var cteName = m.Groups[1].Value;
+                // Find the CTE body to check for self-reference (scan ahead in body)
+                var afterParen = body.Substring(body.IndexOf(m.Value, StringComparison.OrdinalIgnoreCase)
+                    + m.Value.Length);
+                if (Regex.IsMatch(afterParen, $@"\bFROM\s+{Regex.Escape(cteName)}\b", RegexOptions.IgnoreCase))
+                    return $"WITH RECURSIVE {cteName} AS (";
+                return m.Value;
+            }, RegexOptions.IgnoreCase);
 
         // DML fixes
         body = Regex.Replace(body, @"\bDELETE\s+(?!FROM\b)(\w)", "DELETE FROM $1", RegexOptions.IgnoreCase);
