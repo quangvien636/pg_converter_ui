@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION public.board_updatenoticepermission(
     IN userno integer DEFAULT 6656,
     IN allowvalue integer DEFAULT 2,
     IN itemno integer DEFAULT 137
-) RETURNS SETOF record
+) RETURNS SETOF integer
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN

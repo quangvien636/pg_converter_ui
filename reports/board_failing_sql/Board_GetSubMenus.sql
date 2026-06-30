@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.board_getsubmenus(
     IN userno integer DEFAULT 222,
     IN isadmin boolean DEFAULT FALSE,
     IN langcode character varying DEFAULT 'EN'
-) RETURNS SETOF record
+) RETURNS TABLE(id varchar, parent varchar, text varchar, icon varchar, li_attr varchar, data varchar, state varchar)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
@@ -71,13 +71,13 @@ TREESUB AS
 		B.SortNo,FALSE AS IsFolder ,FALSE AS IsOpen,B.CountContent,B.ViewMode, 'fa fa-file-o' AS icon
 	 FROM      BOARD B
 )
-SELECT F.id,F.ParentNo AS parent, F.Name+ CASE 
-    WHEN ViewMode > 0 THEN ' <span class="submenu_board_content_count">' || CAST(ViewMode AS VARCHAR) + '</span>';
-    ELSE '' 
+SELECT F.id,F.ParentNo AS parent, F.Name || CASE
+    WHEN ViewMode > 0 THEN ' <span class="submenu_board_content_count">' || CAST(ViewMode AS VARCHAR) || '</span>'
+    ELSE ''
   END AS text,f.icon,
-  '{ "type": "' || CAST(F.ViewMode AS varchar) + '", "RegUserNo": "' || CAST( F.ModUserNo AS varchar) + '" }' AS li_attr,
+  '{ "type": "' || CAST(F.ViewMode AS varchar) || '", "RegUserNo": "' || CAST( F.ModUserNo AS varchar) || '" }' AS li_attr,
     '{ "title": "' || F.Name || '", "jsonName": "' || F.JsonName || '" }' AS data,
-	 '{ "opened": "' || CASE  WHEN F.IsOpen = TRUE THEN 'true'  ELSE 'false' END || '", "selected": "'+ 'false'  + '" }' AS state
+	 '{ "opened": "' || CASE  WHEN F.IsOpen = TRUE THEN 'true'  ELSE 'false' END || '", "selected": "' || 'false' || '" }' AS state
 FROM TREESUB F
 ORDER BY ParentNo ASC, SortNo DESC;
 END;

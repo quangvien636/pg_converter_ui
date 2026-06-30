@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistuserpermission(
     IN pagenumber integer DEFAULT 1,
     IN pagesize integer DEFAULT 10,
     IN ispermission boolean DEFAULT TRUE
-) RETURNS SETOF record
+) RETURNS TABLE(total bigint, name varchar, userid varchar, userno integer, departno integer, positionno integer, departname varchar, positionname varchar, isadmin boolean, isread boolean, iswrite boolean, disableadmin boolean, disableread boolean, disablewrite boolean)
 AS $function$
 DECLARE
     total bigint;

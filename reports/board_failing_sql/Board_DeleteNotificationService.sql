@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.board_deletenotificationservice(
     IN companyno integer,
     IN projectcode character varying,
     IN connectionkey integer
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 DECLARE
     notificationno integer;

@@ -7,7 +7,7 @@ DROP FUNCTION IF EXISTS public.board_updaterecommendpublic(bigint, boolean);
 CREATE OR REPLACE FUNCTION public.board_updaterecommendpublic(
     IN contentno bigint,
     IN isrecommendpublic boolean
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN

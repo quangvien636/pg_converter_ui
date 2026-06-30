@@ -5,7 +5,7 @@
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_getcurrentmanagerlist();
 CREATE OR REPLACE FUNCTION public.board_getcurrentmanagerlist(
-) RETURNS SETOF record
+) RETURNS TABLE("Id" integer, "UserNo" integer, "UserName" varchar, "GroupName" varchar, "Department" varchar, "DepartmentId" integer, "Date" varchar)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
@@ -15,16 +15,16 @@ BEGIN
 		bg.USERGROUP_ID AS "Id", 
 		bg.USER_NO AS "UserNo",
 		CASE 
-		  WHEN bg.USER_NO >0  THEN us.Name;
+		  WHEN bg.USER_NO >0  THEN us.Name
 		  ELSE od.Name || ' (' || od.Name_EN || ')'
 		END AS "UserName" ,
 		ag.AUTH_GRP_NM AS "GroupName",
-		CASE 
-		  WHEN bg.USER_NO >0  THEN public."UF_DepartmentName" (bg.USER_NO);
+		CASE
+		  WHEN bg.USER_NO >0  THEN public."UF_DepartmentName" (bg.USER_NO)
 		  ELSE od.Name || ' (' || od.Name_EN || ')'
 		END AS "Department" ,
 		bg.DEPARTMENT_ID AS "DepartmentId",
-		convert(datetime, bg.DTS_INSERT, 111) AS "Date"
+		TO_CHAR(bg.DTS_INSERT, 'YYYY/MM/DD') AS "Date"
 	from 
 	Board_UserByGroup bg LEFT JOIN
 	  Organization_Users us  

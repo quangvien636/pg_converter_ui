@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION public.board_setfolders(
     IN parentno integer,
     IN sortno integer,
     IN enabled boolean
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 DECLARE
     levelrand character varying;
@@ -20,10 +20,10 @@ BEGIN
 
 
  IF PARENTNO >0 THEN
-  SELECT LevelRand + CONVERT(nvarchar(20), FolderNo) + ',' INTO levelrand FROM Board_Folders WHERE FolderNo=board_setfolders.parentno;
+  SELECT LevelRand || FolderNo::text || ',' INTO levelrand FROM Board_Folders WHERE FolderNo=board_setfolders.parentno;
  ELSE
   LevelRand := ',';
- END;
+ END IF;
  INSERT INTO Board_Folders(ModUserNo, ModDate, Name, ParentNo, SortNo,Enabled,LevelRand) VALUES (MOD_USER_ID, DATE, NAME, PARENTNO, SORTNO, ENABLED,LevelRand);
 END;
 $function$

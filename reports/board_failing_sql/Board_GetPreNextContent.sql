@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION public.board_getprenextcontent(
     IN languagesign character varying DEFAULT 'EN',
     IN userno integer DEFAULT 70,
     IN isadmin boolean DEFAULT TRUE
-) RETURNS SETOF record
+) RETURNS TABLE(contentno bigint, title varchar, modusername varchar, boardname varchar, regdatetostring varchar, "type" boolean, private boolean, viewmode integer)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
@@ -50,7 +50,7 @@ REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
-	CONVERT(text, BC.RegDate, 120) as RegDateToString,
+	TO_CHAR(BC.RegDate, 'YYYY-MM-DD HH24:MI:SS') as RegDateToString,
 	B.ViewMode,
 	ROW_NUMBER() OVER(PARTITION BY BC.Enabled  ORDER BY BC.RootId DESC ,BC.ContentNo ASC) AS RowNumber
 	FROM BOARD_CONTENTS BC
@@ -76,7 +76,6 @@ LEFT JOIN SHARE S ON S.ContentNo=T.ContentNo
 WHERE (T.IsShareAll = TRUE OR IsAdmin = TRUE OR P.AllowAccessNo IS NOT NULL OR S.ContentNo IS NOT NULL ) AND
 T.RowNumber=(SELECT RowNumber-1 FROM TMP WHERE ContentNo=board_getprenextcontent.contentno)
 UNION
-RETURN QUERY
 SELECT T.ContentNo,T.Title,T.ModUserName,T.BoardName,T.RegDateToString,TRUE AS Type,T.Private,T.ViewMode
 FROM TMP T 
 LEFT JOIN PERMISSION P ON P.ItemNo=T.ContentNo
@@ -88,16 +87,16 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--,
 	--ContentNo bigint,
 	--BoardNo int,
-	--BoardName nvarchar(200),
+	--BoardName varchar(200),
 	--ModUserNo int,
-	--ModUserName nvarchar(200),
+	--ModUserName varchar(200),
 	--ModPositionNo int,
-	--ModPositionName nvarchar(200),
+	--ModPositionName varchar(200),
 	--ModDepartNo int,
-	--ModDepartName nvarchar(200),
+	--ModDepartName varchar(200),
 	--RegDate datetime,
 	--RegUserNo int,
-	--Title nvarchar(500),
+	--Title varchar(500),
 	--TitleEffect int,
 	--GroupNo bigint,
 	--Depth int,
@@ -109,7 +108,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--ReplyCount int,
 	--RecommendedCount int,
 	--ViewedCount int,
-	--HeadName nvarchar(200),
+	--HeadName varchar(200),
 	--IsRecommended bit,
 	--IsAlarm bit,
 	--ReadCount int

@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.board_getreplybycontent(
     IN contentno bigint DEFAULT 5721,
     IN langcode character varying DEFAULT 'EN',
     IN userno integer DEFAULT 70
-) RETURNS SETOF record
+) RETURNS TABLE(replyno bigint, moduserno integer, modusername varchar, modpositionno integer, modpositionname varchar, moddepartno integer, moddepartname varchar, regdate timestamp without time zone, moddate timestamp without time zone, groupno integer, depth integer, orderno integer, content text, userphoto varchar, photo varchar, isdelete boolean)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
@@ -49,16 +49,12 @@ WITH TMP AS
 		BR.Content,
 		OU.UserPhoto, 
 		OU.Photo,--BR.Level  ,BR.Root,
-		 CAST(
-            CASE 
-                WHEN BR.ModUserNo = board_getreplybycontent.userno
-                  AND NOT EXISTS (
-                        SELECT 1 
-                        FROM Board_Replies C 
-                        WHERE C.ParentNo = BR.ReplyNo AND C.ContentNo = board_getreplybycontent.contentno
-                  )
-                THEN 1 ELSE 0 END
-        AS BIT) AS IsDelete
+		(BR.ModUserNo = board_getreplybycontent.userno
+            AND NOT EXISTS (
+                    SELECT 1
+                    FROM Board_Replies C
+                    WHERE C.ParentNo = BR.ReplyNo AND C.ContentNo = board_getreplybycontent.contentno
+            )) AS IsDelete
 		--CAST((CASE WHEN ER.ReplyNo IS NOT NULL AND BR.ModUserNo=UserNo THEN 1 ELSE 0 END) AS BIT) AS IsDelete 
 	FROM TMP BR 
 	LEFT OUTER JOIN Organization_Users OU ON OU.UserNo = BR.ModUserNo

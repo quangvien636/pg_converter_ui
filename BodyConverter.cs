@@ -506,6 +506,39 @@ public static class BodyConverter
             "SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE",
             RegexOptions.IgnoreCase);
 
+        // INSERT @tbl \n EXEC sp_executesql @sql, N'@p type', @p=@val
+        // → EXECUTE format('INSERT INTO tbl ' || sql, val);
+        // Must run before ExecSql/ExecSqlParams so the INSERT line is not left orphaned.
+        body = SafeReplace(body, "InsertExecSqlWithParams",
+            @"(?m)^([ \t]*)INSERT\s+@?(\w+)[ \t]*\n[ \t]*EXEC(?:UTE)?\s+sp_executesql\s+@?(\w+)\s*,\s*N?'[^']*'\s*,\s*(.+?)\s*;?[ \t]*$",
+            m => {
+                var indent = m.Groups[1].Value;
+                var tbl    = m.Groups[2].Value;
+                var sqlVar = m.Groups[3].Value;
+                var argStr = m.Groups[4].Value;
+                var namedM = Regex.Matches(argStr,
+                    @"@\w+\s*=\s*(@?\w+(?:\.\w+)?|'(?:[^']|'')*'|-?\d+(?:\.\d+)?)");
+                if (namedM.Count > 0)
+                {
+                    var vals = namedM.Select(x => x.Groups[1].Value.TrimStart('@')).ToList();
+                    return $"{indent}EXECUTE format('INSERT INTO {tbl} ' || {sqlVar}, {string.Join(", ", vals)});";
+                }
+                var posVals = SplitComma(argStr)
+                    .Select(v => v.Trim().TrimStart('@'))
+                    .Where(v => v.Length > 0).ToList();
+                if (posVals.Count > 0)
+                    return $"{indent}EXECUTE format('INSERT INTO {tbl} ' || {sqlVar}, {string.Join(", ", posVals)});";
+                return $"{indent}EXECUTE 'INSERT INTO {tbl} ' || {sqlVar.ToLower()};";
+            },
+            RegexOptions.IgnoreCase);
+
+        // INSERT @tbl \n EXEC sp_executesql @sql  (no params)
+        // → EXECUTE 'INSERT INTO tbl ' || sql;
+        body = SafeReplace(body, "InsertExecSqlNoParams",
+            @"(?m)^([ \t]*)INSERT\s+@?(\w+)[ \t]*\n[ \t]*EXEC(?:UTE)?\s+sp_executesql\s+@?(\w+)\s*;?[ \t]*$",
+            m => $"{m.Groups[1].Value}EXECUTE 'INSERT INTO {m.Groups[2].Value} ' || {m.Groups[3].Value.ToLower()};",
+            RegexOptions.IgnoreCase);
+
         // EXEC sp_executesql N'literal'  →  EXECUTE 'literal';
         body = SafeReplace(body, "ExecSqlLiteral",
             @"\bEXEC(?:UTE)?\s+sp_executesql\s+(N?'[^']*')\s*;?",

@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistnoticepermission(
     IN pagesize integer DEFAULT 10,
     IN searchvalue character varying DEFAULT '',
     IN sortcolumn character varying DEFAULT ''
-) RETURNS SETOF record
+) RETURNS TABLE(total bigint, name varchar, userid varchar, userno integer, departno integer, positionno integer, departname varchar, positionname varchar, isadmin boolean)
 AS $function$
 DECLARE
     total bigint;
@@ -48,7 +48,7 @@ BEGIN
 			OB.PositionNo,
 			CASE WHEN LanguageCode='EN' THEN OD.Name_EN WHEN LanguageCode='VN' THEN OD.Name_VN WHEN LanguageCode='CH' THEN OD.Name_CH WHEN LanguageCode='JP' THEN OD.Name_JP ELSE OD.Name  END AS DepartName,
 			CASE WHEN LanguageCode='EN' THEN OP.NAME_EN WHEN LanguageCode='VN' THEN OP.Name_VN WHEN LanguageCode='CH' THEN OP.Name_CH WHEN LanguageCode='JP' THEN OP.Name_JP ELSE OP.Name END  AS PositionName,
-			CAST( CASE WHEN UP.AllowValue>0 THEN 1  ELSE 0 END AS BIT) AS IsAdmin 
+			(UP.AllowValue > 0) AS IsAdmin 
 		FROM ORGANIZATION_USERS U
 		LEFT JOIN Board_NoticePermission UP ON UP.UserNo=U.UserNo
 		INNER JOIN BelongToDepartment OB ON OB.UserNo=U.UserNo AND OB.Nm=1

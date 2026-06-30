@@ -9,7 +9,6 @@ AS $function$
 DECLARE
     folderno integer;
     levelrand character varying;
-    board_cursor cursor;
 BEGIN
 
 
@@ -23,25 +22,17 @@ BEGIN
 
 
 
-	Board_Cursor := CURSOR FAST_FORWARD;
-	FOR
-		SELECT FolderNo,LevelRand FROM Board_Folders WHERE ParentNo= board_updatelevelrand.parentid
-	OPEN Board_Cursor
 
 	FETCH NEXT FROM Board_Cursor
 
-	INTO FolderNo, LevelRand;
-	WHILE @FETCH_STATUS = 0
-	BEGIN
-		
+	INTO FolderNo, LevelRand
+	FOR folderno, levelrand IN SELECT FolderNo,LevelRand FROM Board_Folders WHERE ParentNo= board_updatelevelrand.parentid LOOP
+
 
 		PERFORM board_updatelevelrand(FolderNo, LevelRand
 
-		FETCH NEXT FROM Board_Cursor
-		INTO FolderNo, LevelRand
-	END;
-	CLOSE Board_Cursor
-	DEALLOCATE Board_Cursor);
+			END);
+END LOOP;
 END;
 $function$
 LANGUAGE plpgsql;

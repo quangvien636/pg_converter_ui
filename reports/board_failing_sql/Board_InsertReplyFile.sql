@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.board_insertreplyfile(
     IN replyno bigint,
     IN name character varying,
     IN size integer
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 DECLARE
     replyfileno bigint;

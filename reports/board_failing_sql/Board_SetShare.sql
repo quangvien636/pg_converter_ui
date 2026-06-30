@@ -1,7 +1,7 @@
--- ─── PROCEDURE→FUNCTION: board_setshare ───────────────────────────────
+-- â”€â”€â”€ PROCEDUREâ†’FUNCTION: board_setshare â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
--- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: Review converted output â€” stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record â€” procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_setshare(integer, integer, integer, character varying);
 CREATE OR REPLACE FUNCTION public.board_setshare(
@@ -9,11 +9,11 @@ CREATE OR REPLACE FUNCTION public.board_setshare(
     IN departno integer,
     IN userno integer,
     IN ischild character varying
-) RETURNS SETOF record
+) RETURNS SETOF integer
 AS $function$
 DECLARE
     departname character varying;
--- !! WARNING: output needs manual review — see TODO comments
+-- !! WARNING: output needs manual review â€” see TODO comments
 BEGIN
 
 	IF Mode = 0 THEN
@@ -26,8 +26,7 @@ BEGIN
 		END IF;
 	ELSE
 		DELETE FROM Board_Sharers WHERE ContentNo = board_setshare.contentno
-	END;
-	
+	END IF;
 	RETURN QUERY
 	SELECT @ERROR;
 END;

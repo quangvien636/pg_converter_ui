@@ -1,0 +1,897 @@
+﻿{
+    "failures":  [
+                     {
+                         "procedure":  "Contacts_ChangePublicGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_ChangePublicGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  32,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_ChangeShareGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_ChangeShareGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  27,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_DelContactsGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_DelContactsGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  39,
+                                            "snippet":  "SELECT @ERROR;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_DeleteHistory",
+                         "source_file":  "reports/contact_failing_sql/Contacts_DeleteHistory.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  37,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_FinAll",
+                         "source_file":  "reports/contact_failing_sql/Contacts_FinAll.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  23,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  24,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  101,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  102,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  163,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  164,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  241,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  242,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_FindNoNameUser",
+                         "source_file":  "reports/contact_failing_sql/Contacts_FindNoNameUser.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  22,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  23,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  88,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  89,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  142,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  143,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  208,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  209,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  262,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  263,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  328,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  329,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  382,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  383,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  448,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  449,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  502,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  503,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  568,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  569,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  622,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  623,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  688,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  689,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  742,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  743,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  808,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  809,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER (ORDER BY U.LastName ASC)) AS RowNum"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_FindUser",
+                         "source_file":  "reports/contact_failing_sql/Contacts_FindUser.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  23,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  24,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  102,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  103,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  166,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  167,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  242,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  243,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  306,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  307,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  382,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  383,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  446,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  447,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  522,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  523,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  586,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  587,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  662,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  663,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  726,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  727,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  802,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  803,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  866,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  867,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  942,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  943,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1006,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1007,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1082,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1083,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetContactsTrashList",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetContactsTrashList.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1546,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1557,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1568,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1579,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1591,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1621,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1642,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1663,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1684,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1706,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1730,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1741,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1752,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1763,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1775,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1805,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1826,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1847,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1868,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1890,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1914,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1925,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1936,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1947,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1959,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  1989,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2010,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2031,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2052,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2074,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2375,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2395,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2409,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) = \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2429,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2443,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) = \u0027%\u0027 || Search || \u0027%\u0027"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  2463,
+                                            "snippet":  "AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE \u0027%\u0027 || Search || \u0027%\u0027"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetHistoryList",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetHistoryList.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_getdate",
+                                            "line":  13,
+                                            "snippet":  "IN searchdate1 date DEFAULT \u0027GETDATE\u0027,"
+                                        },
+                                        {
+                                            "category":  "unconverted_getdate",
+                                            "line":  14,
+                                            "snippet":  "IN searchdate2 date DEFAULT \u0027GETDATE\u0027"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetHistoryListCount",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetHistoryListCount.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_getdate",
+                                            "line":  11,
+                                            "snippet":  "IN searchdate1 date DEFAULT \u0027GETDATE\u0027,"
+                                        },
+                                        {
+                                            "category":  "unconverted_getdate",
+                                            "line":  12,
+                                            "snippet":  "IN searchdate2 date DEFAULT \u0027GETDATE\u0027"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetUserGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetUserGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  44,
+                                            "snippet":  "SELECT COALESCE(GroupName,\u0027\u0027) + \u0027;\u0027 || CONVERT(VARCHAR(10),GroupCount - 1)"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetUser_ToGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetUser_ToGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  33,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  34,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  96,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  97,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  149,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  150,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  207,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  208,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  259,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  260,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  315,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  316,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  375,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt,"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  376,
+                                            "snippet":  "CONVERT(INT, ROW_NUMBER() OVER ("
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetUser_ToGroupMobile",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetUser_ToGroupMobile.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  31,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  32,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  87,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  88,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_GetUser_UnGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_GetUser_UnGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  21,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  22,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  80,
+                                            "snippet":  "CONVERT(INT,COUNT(*) OVER()) AS TotalCnt"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  81,
+                                            "snippet":  ",CONVERT(INT, ROW_NUMBER() OVER ("
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_MoveContactGroup",
+                         "source_file":  "reports/contact_failing_sql/Contacts_MoveContactGroup.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  23,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_MoveUser",
+                         "source_file":  "reports/contact_failing_sql/Contacts_MoveUser.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  17,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SaveAddressInfo",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SaveAddressInfo.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  560,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        },
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  988,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SaveAddressInfo_Web",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SaveAddressInfo_Web.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  582,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        },
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  1028,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SaveArrange",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SaveArrange.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  145,
+                                            "snippet":  "SET TempDelUserSeqList += CONVERT(text,TempEmailUserSeq) + \u0027,\u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  229,
+                                            "snippet":  "SET TempDelUserSeqList += CONVERT(text,TempNumberUserSeq) + \u0027,\u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  298,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SaveArrangeLike",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SaveArrangeLike.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  145,
+                                            "snippet":  "SET TempDelUserSeqList += CONVERT(text,TempEmailUserSeq) + \u0027,\u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  229,
+                                            "snippet":  "SET TempDelUserSeqList += CONVERT(text,TempNumberUserSeq) + \u0027,\u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  298,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SaveRestore",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SaveRestore.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  372,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_SetShare",
+                         "source_file":  "reports/contact_failing_sql/Contacts_SetShare.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  33,
+                                            "snippet":  "SELECT @ERROR;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Contacts_UpdateUserInfo",
+                         "source_file":  "reports/contact_failing_sql/Contacts_UpdateUserInfo.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  585,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        },
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  1041,
+                                            "snippet":  "IF @ERROR \u003c\u003e 0 THEN"
+                                        }
+                                    ]
+                     }
+                 ]
+}

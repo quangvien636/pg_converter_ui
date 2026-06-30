@@ -21,6 +21,7 @@ AS $function$
 DECLARE
     notificationno integer;
     dochandle integer;
+-- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 
@@ -57,9 +58,9 @@ BEGIN
 
 	-- INSERT INTO detail
 
-	---- Create an internal representation of the XML document.  
-	EXEC sp_xml_preparedocument docHandle OUTPUT, XmlDetail;
-	CREATE TEMP TABLE tb ON COMMIT DROP AS SELECT * FROM OPENXML (docHandle, '/root/NotificationServiceDetails')  WITH (NotificationNo  int, AlarmCode varchar(50), AlarmStartTime varchar(500), AlarmTime int, Id int);
+	---- Create an internal representation of the XML document.
+-- TODO: XML shredding removed — rewrite as xmltable
+	CREATE TEMP TABLE tb ON COMMIT DROP AS SELECT * FROM xmltable('/*' PASSING NULL::xml COLUMNS NotificationNo integer PATH 'NotificationNo', AlarmCode text PATH 'AlarmCode', AlarmStartTime text PATH 'AlarmStartTime', AlarmTime integer PATH 'AlarmTime', Id integer PATH 'Id') /* TODO: verify XML path and column mappings */;
 
 	CREATE TEMP TABLE tb2 ON COMMIT DROP AS SELECT otificationServiceDetail.value('Id','INT') AS Id, --ATTRIBUTE
 	otificationServiceDetail.value('(Title/text())1','text') AS Title,

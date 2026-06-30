@@ -1,7 +1,7 @@
--- ─── PROCEDURE→FUNCTION: board_updatefolder ───────────────────────────────
+-- â”€â”€â”€ PROCEDUREâ†’FUNCTION: board_updatefolder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
--- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: Review converted output â€” stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record â€” procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_updatefolder(integer, integer, timestamp without time zone, character varying, integer, integer, boolean);
 CREATE OR REPLACE FUNCTION public.board_updatefolder(
@@ -12,19 +12,18 @@ CREATE OR REPLACE FUNCTION public.board_updatefolder(
     IN parentno integer,
     IN sortno integer,
     IN enabled boolean
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 DECLARE
     levelrand character varying;
--- !! WARNING: output needs manual review — see TODO comments
+-- !! WARNING: output needs manual review â€” see TODO comments
 BEGIN
 
 	IF PARENTNO >0 THEN
-		SELECT LevelRand + CONVERT(nvarchar(20), FolderNo) + ',' INTO levelrand FROM Board_Folders WHERE FolderNo=board_updatefolder.parentno;
+		SELECT LevelRand || FolderNo::text || ',' INTO levelrand FROM Board_Folders WHERE FolderNo=board_updatefolder.parentno;
 	ELSE
 		LevelRand := ',';
-	END;
-
+	END IF;
 UPDATE public."Board_Folders"
    SET ModUserNo = board_updatefolder.moduserno
       ,ModDate = board_updatefolder.moddate

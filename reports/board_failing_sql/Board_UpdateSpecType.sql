@@ -15,8 +15,7 @@ BEGIN
 		SET SpecType = board_updatespectype.specvalue
 		WHERE  ItemNo=BoardNo;
 		IF SpecValue=1 THEN
-			CREATE TEMP TABLE FolderTemp1 ON COMMIT DROP AS WITH FolderNos AS
-			(
+			CREATE TEMP TABLE FolderTemp1 ON COMMIT DROP AS WITH RECURSIVE FolderNos AS (
 				SELECT     PF.FolderNo , PF.ParentNo
 				FROM       Board_Folders PF
 
@@ -37,9 +36,8 @@ BEGIN
 		WHERE FolderNo=board_updatespectype.itemno;
 		---List FolderNo
 		IF SpecValue=0 THEN
-			CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH FolderNos AS
-			(
-				SELECT     PF.FolderNo 
+			CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH RECURSIVE FolderNos AS (
+				SELECT     PF.FolderNo
 				FROM       Board_Folders PF
 				WHERE PF.FolderNo=board_updatespectype.itemno AND PF.Enabled = TRUE
 				UNION ALL
@@ -54,14 +52,13 @@ BEGIN
 			UPDATE Board_Folders
 			SET SpecType = board_updatespectype.specvalue
 			WHERE FolderNo<>board_updatespectype.itemno AND  FolderNo IN (SELECT FolderNo FROM FolderTemp);
-			DELETE FROM FolderTemp ;
+			DELETE FROM FolderTemp;
 			UPDATE Board_Boards
 			SET SpecType = board_updatespectype.specvalue
 			WHERE  BoardNo IN (SELECT BoardNo FROM BoardTemp);
 			DELETE FROM BoardTemp;
 		ELSE
-			WITH FolderParentNos AS
-			(
+			WITH RECURSIVE FolderParentNos AS (
 				SELECT     PF.FolderNo , PF.ParentNo
 				FROM       Board_Folders PF
 

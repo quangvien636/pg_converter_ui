@@ -1,0 +1,130 @@
+-- ─── PROCEDURE→FUNCTION: contacts_savecontactshistory ───────────────────────────────
+-- NOTE: SQL Server stored procedure converted to PostgreSQL function.
+-- TODO: Review converted output — stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
+DROP FUNCTION IF EXISTS public.contacts_savecontactshistory(integer, integer, character varying);
+CREATE OR REPLACE FUNCTION public.contacts_savecontactshistory(
+    IN userno integer,
+    IN seq integer,
+    IN status character varying DEFAULT 'DEL'
+) RETURNS SETOF record
+AS $function$
+DECLARE
+    historyno integer;
+-- !! WARNING: output needs manual review — see TODO comments
+BEGIN
+
+
+	-- 주소록 메인;
+	INSERT INTO ContactsUserHistory
+	(
+		Seq, FirstName, LastName, RegUserNo, Memo,
+		RegDate, Photo, ModDate, CheckDate, Share,
+		UseYn, DelDate, Important, CallName, ViewCount,
+		Status
+	)
+	SELECT
+		Seq, FirstName,LastName,RegUserNo, Memo,
+		RegDate, Photo, NOW(), CheckDate, Share,
+		UseYn, DelDate, Important, CallName, ViewCount,
+		Status
+	FROM ContactsUser
+	WHERE RegUserNo=contacts_savecontactshistory.userno AND Seq=contacts_savecontactshistory.seq;
+
+	HistoryNo := lastval();
+	-- 전화번호 기록;
+	INSERT INTO ContactsNumberHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, NOW()
+	FROM ContactsNumber
+	WHERE RegUserNo=contacts_savecontactshistory.userno AND UserSeq = contacts_savecontactshistory.seq
+	-- 이메일 이력;
+	INSERT INTO ContactsEmailHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Value,
+		IsDefault, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Value,
+		IsDefault, RegDate, NOW()
+	FROM ContactsEmail
+	WHERE RegUserNo = contacts_savecontactshistory.userno AND UserSeq = contacts_savecontactshistory.seq
+	-- 기념일 이력;
+	INSERT INTO ContactsDaysHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, SolarLunar, RegDate,
+		ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, SolarLunar, RegDate,
+		NOW()
+	FROM ContactsDays
+	WHERE RegUserNo = contacts_savecontactshistory.userno AND UserSeq = contacts_savecontactshistory.seq
+	-- 회사;
+	INSERT INTO ContactsCompanyHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Company,
+		Depart, Position, IsDefault, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Company,
+		Depart, Position, IsDefault, RegDate, NOW()
+	FROM ContactsCompany
+	WHERE RegUserNo = contacts_savecontactshistory.userno AND UserSeq = contacts_savecontactshistory.seq
+	-- 주소;
+	INSERT INTO ContactsAddressHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, ZipCode1, ZipCode2, Address, IsDefault,
+		RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, ZipCode1, ZipCode2, Address, IsDefault,
+		RegDate, NOW()
+	FROM ContactsAddress
+	WHERE RegUserNo = contacts_savecontactshistory.userno ANd UserSeq = contacts_savecontactshistory.seq
+	-- 홈페이지;
+	INSERT INTO ContactsHomepageHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, ModDate
+	FROM ContactsHomepage
+	WHERE RegUserNo = contacts_savecontactshistory.userno AND UserSeq = contacts_savecontactshistory.seq
+	-- SNS;
+	INSERT INTO ContactsSnsHistory
+	(
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, RegUserNo, UserSeq, Type,
+		TypeName, Value, IsDefault, RegDate, NOW()
+	FROM ContactsSns
+	WHERE RegUserNo = contacts_savecontactshistory.userno ANd UserSeq = contacts_savecontactshistory.seq
+
+	-- 그룹;
+	INSERT INTO ContactsGroupUserHistory
+	(
+		HistoryNo, Seq, GroupNo, UserSeq, RegUserNo, RegDate, ModDate
+	)
+	SELECT
+		HistoryNo, Seq, GroupNo, UserSeq, RegUserNo, RegDate, NOW()
+	FROM ContactsGroupUser
+	WHERE RegUserNo = contacts_savecontactshistory.userno ANd UserSeq = contacts_savecontactshistory.seq;
+END;
+$function$
+LANGUAGE plpgsql;
+-- TODO: Owner mapping skipped. Target role postgres not verified.

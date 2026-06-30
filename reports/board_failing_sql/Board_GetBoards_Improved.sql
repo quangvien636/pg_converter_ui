@@ -166,7 +166,7 @@ BEGIN
         B.ViewMode,
         B.SpecType,
         COALESCE(
-            CASE WHEN IsAdmin = TRUE THEN CA.UnreadCount;
+            CASE WHEN IsAdmin = TRUE THEN CA.UnreadCount
                                    ELSE CU.UnreadCount
             END,
             0

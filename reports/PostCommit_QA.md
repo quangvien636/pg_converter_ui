@@ -1,15 +1,15 @@
 ﻿# Post-Commit QA Automation Report
 
-**Date:** 2026-06-30 08:53:47  
-**Target Commit:** 8fc82d842ce2d71b6d456c99e0a86f36f22b593c (Implement Rank 1: Normalize carriage returns and trim trailing whitespaces in body converters)
+**Date:** 2026-06-30 09:51:46  
+**Target Commit:** 46e4b93dfa8157f5e982905f99592929c6d42ce9 (Fix CTE termination before RETURN QUERY and DML)
 
 ---
 
 ## 1. Validation Checklist Status
 - [x] Build Release: **PASS**
-- [x] NUnit Tests: **24 PASS / 0 FAIL**
-- [x] Board% Procedures: **146 PASS / 16 FAIL**
-- [x] Contact% Procedures: **107 PASS / 82 FAIL**
+- [x] NUnit Tests: **31 PASS / 0 FAIL**
+- [x] Board% Procedures: **150 PASS / 12 FAIL**
+- [x] Contact% Procedures: **118 PASS / 71 FAIL**
 
 ---
 
@@ -17,9 +17,9 @@
 
 | Metric Suite | Baseline PASS | Post-Commit PASS | Delta | Regressions | Status |
 |--------------|---------------|------------------|-------|-------------|--------|
-| **NUnit Tests** | 20 | 24 | 4 | 0 | PASS |
-| **Board% Procs** | 140 | 146 | 6 | 0 | PASS |
-| **Contact% Procs** | 107 | 107 | 0 | 0 | PASS |
+| **NUnit Tests** | 20 | 31 | 11 | 0 | PASS |
+| **Board% Procs** | 140 | 150 | 10 | 0 | PASS |
+| **Contact% Procs** | 107 | 118 | 11 | 0 | PASS |
 
 ---
 

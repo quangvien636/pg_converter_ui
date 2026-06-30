@@ -1,6 +1,6 @@
 # Board_% Procedure Validation Report
 
-**Generated**: 2026-06-30 09:00:27  
+**Generated**: 2026-06-30 16:45:39  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Board_% procedures (SQL Server) | **162** |
 | Conversion succeeded | **162** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **146** |
-| Compile FAIL | **16** |
-| Compile success rate | **90%** |
+| Compile PASS (CREATE succeeded) | **161** |
+| Compile FAIL | **1** |
+| Compile success rate | **99%** |
 | SETOF record (needs RETURNS TABLE) | **116** |
 
 ## 2. Board_% Procedure Feature Matrix
@@ -190,7 +190,7 @@
 
 ### 3a. PASS
 
-146 procedures compiled successfully:
+161 procedures compiled successfully:
 
 - `Board_Authority_Select`
 - `Board_Board_MaxSortNo_Select`
@@ -212,12 +212,16 @@
 - `Board_DeleteNotificationService`
 - `Board_DeleteReply`
 - `Board_DeleteShare`
+- `Board_DownBoard`
 - `Board_DownBoardByUser`
+- `Board_DownFolder`
 - `Board_DownFolderByUser`
 - `Board_DownMultilWidget`
 - `Board_DownMultiWidget`
 - `Board_DownWidget`
 - `Board_Folder_MaxSortNo_Select`
+- `Board_GetAllBoardContents`
+- `Board_GetAllBoardContentsByBoardList`
 - `Board_GetAllBoardWidget`
 - `Board_GetAllowByItem`
 - `Board_GetAllowByItemType`
@@ -231,6 +235,8 @@
 - `Board_GetBoardCommunityWidget`
 - `Board_GetBoardContent`
 - `Board_GetBoardContentInfo`
+- `Board_GetBoardContents`
+- `Board_GetBoardContents_BK20181227`
 - `Board_GetBoards`
 - `Board_GetBoards_BK`
 - `Board_GetBoards_Improved`
@@ -300,17 +306,20 @@
 - `Board_InsertIOSDevice`
 - `Board_InsertMultiBoardWidget`
 - `Board_InsertNewBoardWidget`
+- `Board_InsertNotificationService`
 - `Board_InsertRecommendedLog`
 - `Board_InsertReply`
 - `Board_InsertReplyFile`
 - `Board_InsertUserSetting`
 - `Board_InsertViewedLog`
+- `Board_Mobile_Search`
 - `Board_SetAllHistoryFolder`
 - `Board_SetContentSetting`
 - `Board_SetFolders`
 - `Board_SetHistoryFolder`
 - `Board_SetShare`
 - `Board_TreeBoard`
+- `Board_UpBoard`
 - `Board_UpBoardByUser`
 - `Board_UpdateAllowAccess`
 - `Board_UpdateAndroidDevice_NotificationOptions`
@@ -326,45 +335,36 @@
 - `Board_UpdateBoardContent_Viewed`
 - `Board_UpdateBoardCustorm`
 - `Board_UpdateConfig`
+- `Board_UpdateDepartAllowAccess`
 - `Board_UpdateFile`
 - `Board_UpdateFolder`
 - `Board_UpdateIOSDevice_NotificationOptions`
+- `Board_UpdateLevelRand`
 - `Board_UpdateNoticePermission`
+- `Board_UpdateNotificationService`
 - `Board_UpdatePermissionsByParent`
 - `Board_UpdateRecommendPublic`
 - `Board_UpdateReply`
+- `Board_UpdateSpecType`
 - `Board_UpdateStatusApproval`
+- `Board_UpFolder`
 - `Board_UpFolderByUser`
 - `Board_UpMultiWidget`
 - `Board_UpWidget`
 - `Board_UserCollection_Select`
+- `Board_Web_Search`
 
 ### 3b. FAIL
 
 | Procedure | SqlState | Error |
 |-----------|----------|-------|
-| `Board_DownBoard` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
-| `Board_DownFolder` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
-| `Board_GetAllBoardContents` | `42601` | syntax error at or near "," |
-| `Board_GetAllBoardContentsByBoardList` | `42601` | syntax error at or near ";" |
-| `Board_GetBoardContents` | `42601` | syntax error at or near ";" |
-| `Board_GetBoardContents_BK20181227` | `42601` | syntax error at or near ";" |
-| `Board_GetTreeSubMenu_V2_Json` | `42601` | syntax error at end of input |
-| `Board_InsertNotificationService` | `42601` | syntax error at or near "PASSING" |
-| `Board_Mobile_Search` | `42601` | syntax error at or near ";" |
-| `Board_UpBoard` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
-| `Board_UpdateDepartAllowAccess` | `42601` | syntax error at end of input |
-| `Board_UpdateLevelRand` | `42601` | "board_cursor" is not a known variable |
-| `Board_UpdateNotificationService` | `42601` | syntax error at or near "PASSING" |
-| `Board_UpdateSpecType` | `42601` | syntax error at end of input |
-| `Board_UpFolder` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
-| `Board_Web_Search` | `42601` | syntax error at or near ";" |
+| `Board_GetTreeSubMenu_V2_Json` | `42601` | syntax error at or near "XML" |
 
 ## 4. Error Breakdown by PostgreSQL Code
 
 | SqlState | Count | Category | First Failure | Message |
 |----------|------:|----------|---------------|---------|
-| `42601` | 16 | syntax_error | `Board_DownBoard` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
+| `42601` | 1 | syntax_error | `Board_GetTreeSubMenu_V2_Json` | syntax error at or near "XML" |
 
 ## 5. SETOF record — Needs Manual RETURNS TABLE(...)
 
@@ -503,6 +503,6 @@
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | `42601` syntax_error | 16 procedures | Syntax error in generated plpgsql — likely malformed control flow or unparsed MSSQL syntax |
+| 1 | `42601` syntax_error | 1 procedures | Syntax error in generated plpgsql — likely malformed control flow or unparsed MSSQL syntax |
 | 2 | SETOF record → needs RETURNS TABLE | 116 procedures | Infer column types from SELECT list per procedure |
 

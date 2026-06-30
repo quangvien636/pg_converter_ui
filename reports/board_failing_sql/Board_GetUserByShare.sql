@@ -1,14 +1,14 @@
--- ─── PROCEDURE→FUNCTION: board_getuserbyshare ───────────────────────────────
+-- â”€â”€â”€ PROCEDUREâ†’FUNCTION: board_getuserbyshare â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
--- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: Review converted output â€” stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record â€” procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_getuserbyshare(integer);
 CREATE OR REPLACE FUNCTION public.board_getuserbyshare(
     IN contentno integer DEFAULT 5347
-) RETURNS SETOF record
+) RETURNS SETOF integer
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
+-- !! WARNING: output needs manual review â€” see TODO comments
 BEGIN
 
 IF (SELECT COUNT(B.BoardNo) FROM Board_Contents C INNER JOIN Board_Boards B ON B.BoardNo=C.BoardNo AND B.SpecType=0 WHERE ContentNo=board_getuserbyshare.contentno AND B.SpecType=1)>0 THEN
@@ -34,12 +34,11 @@ IF (SELECT COUNT(B.BoardNo) FROM Board_Contents C INNER JOIN Board_Boards B ON B
 			WHERE U.Enabled = TRUE AND (SELECT COUNT(*) FROM Board_Contents WHERE ContentNo=board_getuserbyshare.contentno AND IsShareAll = TRUE)>0
 	)
 	SELECT DISTINCT  S.UserNo
-	FROM SHARE S 
+	FROM SHARE S
 	INNER JOIN Board_Contents BC ON S.ContentNo=BC.ContentNo
-	INNER JOIN PERMISSION P ON P.ItemNo=BC.BoardNo
+	INNER JOIN PERMISSION P ON P.ItemNo=BC.BoardNo;
 
 ELSE
-	BEGIN
 	RETURN QUERY
 	WITH 
 	SHARE AS(
@@ -58,8 +57,8 @@ ELSE
 			WHERE U.Enabled = TRUE AND (SELECT COUNT(*) FROM Board_Contents WHERE ContentNo=board_getuserbyshare.contentno AND IsShareAll = TRUE)>0
 	)
 	SELECT DISTINCT  S.UserNo
-	FROM SHARE S 
-	END;
+	FROM SHARE S;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

@@ -1,7 +1,7 @@
--- ─── PROCEDURE→FUNCTION: board_insertviewedlog ───────────────────────────────
+-- â”€â”€â”€ PROCEDUREâ†’FUNCTION: board_insertviewedlog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
--- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: Review converted output â€” stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record â€” procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_insertviewedlog(integer, bigint, integer, character varying, integer, character varying, integer, character varying, timestamp without time zone, character varying);
 CREATE OR REPLACE FUNCTION public.board_insertviewedlog(
@@ -12,14 +12,14 @@ CREATE OR REPLACE FUNCTION public.board_insertviewedlog(
     IN positionno integer DEFAULT 0,
     IN positionname character varying DEFAULT '',
     IN departno integer DEFAULT 0,
-    IN departname character varying DEFAULT '관리부',
+    IN departname character varying DEFAULT 'ê´€ë¦¬ë¶€',
     IN vieweddate timestamp without time zone DEFAULT '2022-02-01 03:52:51.050',
     IN clientip character varying DEFAULT ':'
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 DECLARE
     logno bigint;
--- !! WARNING: output needs manual review — see TODO comments
+-- !! WARNING: output needs manual review â€” see TODO comments
 BEGIN
 
 
@@ -33,7 +33,7 @@ BEGIN
 		VALUES (BoardNo, ContentNo, UserNo, UserName, PositionNo, PositionName,
 			DepartNo, DepartName, ViewedDate, ClientIP);
 		LogNo := (lastval());
-	END;
+	END IF;
 	RETURN QUERY
 	SELECT LogNo;
 END;

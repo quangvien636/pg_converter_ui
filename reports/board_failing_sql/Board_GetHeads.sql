@@ -13,23 +13,23 @@ AS $function$
 BEGIN
 
 
-	IF IsDisabled = TRUE THEN
-	
+	IF IsDisabled = TRUE THEN;
+
 		RETURN QUERY
 		SELECT HeadNo, BoardNo, ModUserNo, ModDate, Name, SortNo, Enabled
 		FROM Board_Heads
 		ORDER BY SortNO ASC;
-	
-	
-	ELSE
-	
+
+
+	ELSE;
+
 		RETURN QUERY
 		SELECT HeadNo, BoardNo, ModUserNo, ModDate, Name, SortNo, Enabled
 		FROM Board_Heads
 		WHERE Enabled = TRUE
-		ORDER BY SortNO ASC
-	
-	END;
+		ORDER BY SortNO ASC;
+
+	END IF;
 END;
 $function$
 LANGUAGE plpgsql;

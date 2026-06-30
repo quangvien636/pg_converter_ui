@@ -21,29 +21,28 @@ BEGIN
 
 	IF (SELECT COUNT(*) FROM Board_UserByGroup WHERE USER_NO=board_insertcurrentmanager.user_no AND DEPARTMENT_ID=board_insertcurrentmanager.department_id) <=0 THEN
 	INSERT INTO Board_UserByGroup (
-		USER_NO, 
-		MENU_ID, 	
-		AUTH_GRP_ID, 	
-		ID_INSERT, 	
-		DTS_INSERT, 	
-		ID_UPDATE, 	
+		USER_NO,
+		MENU_ID,
+		AUTH_GRP_ID,
+		ID_INSERT,
+		DTS_INSERT,
+		ID_UPDATE,
 		DTS_UPDATE,
 		DEPARTMENT_ID
 	)
 	VALUES (
 		USER_NO, MENU_ID, 	AUTH_GRP_ID, 	ID_INSERT, 	DTS_INSERT, 	ID_UPDATE, 	NOW(),DEPARTMENT_ID
 	);
-		
+
 
 	USERGROUP_ID := lastval();
 	RETURN QUERY
-	SELECT USERGROUP_ID
+	SELECT USERGROUP_ID;
 
-	ELSE
-	BEGIN
+	ELSE;
 	 RETURN QUERY
-	 SELECT 0
-	END;
+	 SELECT 0;
+	END IF;
 END;
 $function$
 LANGUAGE plpgsql;

@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION public.board_getboards(
     IN viewmode integer DEFAULT -1,
     IN displaytypeno integer DEFAULT -1,
     IN isadmin boolean DEFAULT FALSE
-) RETURNS SETOF record
+) RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name varchar, description varchar, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent bigint)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
@@ -166,7 +166,7 @@ BEGIN
         B.ViewMode,
         B.SpecType,
         COALESCE(
-            CASE WHEN IsAdmin = TRUE THEN CA.UnreadCount;
+            CASE WHEN IsAdmin = TRUE THEN CA.UnreadCount
                                    ELSE CU.UnreadCount
             END,
             0

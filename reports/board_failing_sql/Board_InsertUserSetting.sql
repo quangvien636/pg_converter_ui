@@ -1,16 +1,16 @@
--- ─── PROCEDURE→FUNCTION: board_insertusersetting ───────────────────────────────
+-- â”€â”€â”€ PROCEDUREâ†’FUNCTION: board_insertusersetting â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
--- TODO: Review converted output — stored procedure semantics differ; test before use in production.
--- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: Review converted output â€” stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record â€” procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 DROP FUNCTION IF EXISTS public.board_insertusersetting(integer, integer, integer);
 CREATE OR REPLACE FUNCTION public.board_insertusersetting(
     IN userno integer,
     IN modeview integer,
     IN pagesize integer
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
+-- !! WARNING: output needs manual review â€” see TODO comments
 BEGIN
 
 		
@@ -26,7 +26,7 @@ BEGIN
 		VALUES (UserNo, ModeView, PageSize);
 		RETURN QUERY
 		SELECT 0
-	END;
+	END IF;
 END;
 $function$
 LANGUAGE plpgsql;

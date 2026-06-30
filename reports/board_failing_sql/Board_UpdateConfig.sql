@@ -7,7 +7,7 @@ DROP FUNCTION IF EXISTS public.board_updateconfig(integer, character varying);
 CREATE OR REPLACE FUNCTION public.board_updateconfig(
     IN userno integer,
     IN configkey character varying
-) RETURNS SETOF record
+) RETURNS SETOF integer
 AS $function$
 DECLARE
     temp integer;

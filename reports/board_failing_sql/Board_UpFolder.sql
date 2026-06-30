@@ -18,27 +18,23 @@ BEGIN
 
 SELECT ParentNo, SortNo INTO parentno, sortno FROM Board_Folders where FolderNo= board_upfolder.folderno;
 RANKTEMPNO := 1;
-SELECT FolderNo from Board_Folders WHERE PARENTNO=ParentNo AND Enabled = TRUE ORDER BY SortNo ASC, FolderNo ASC
-OPEN Board_Cursor;
-FETCH NEXT FROM Board_Cursor 
-INTO FOLDERTEMPNO;
-WHILE @FETCH_STATUS = 0
-   BEGIN	
+FOR _rec IN SELECT FolderNo from Board_Folders WHERE PARENTNO=ParentNo AND Enabled = TRUE ORDER BY SortNo ASC, FolderNo ASC
+LOOP
+    foldertempno;
+WHILE := _rec.folderno LOOP
+
 		UPDATE Board_Folders SET SortNo = RANKTEMPNO WHERE FOLDERTEMPNO=board_upfolder.folderno;
-		
+
 		IF FOLDERTEMPNO=board_upfolder.folderno THEN
 			SORTNO := RANKTEMPNO;
 		END IF;
 
 		RANKTEMPNO := RANKTEMPNO + 1;
-		FETCH NEXT FROM Board_Cursor
-		INTO FOLDERTEMPNO
-   END;
-CLOSE Board_Cursor;
-DEALLOCATE Board_Cursor;
-
+		   END LOOP;
 UPDATE Board_Folders SET SortNo = SORTNO WHERE SORTNO = SortNo + 1 AND ParentNo=PARENTNO AND Enabled = TRUE;
 UPDATE Board_Folders SET SortNo = SORTNO-1 WHERE FolderNo = board_upfolder.folderno;
+
+END LOOP;
 END;
 $function$
 LANGUAGE plpgsql;

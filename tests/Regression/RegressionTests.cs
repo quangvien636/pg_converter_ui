@@ -155,5 +155,32 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("Sort = BW.Sort + 1").Or.Contain("Sort = Sort + 1"));
             Assert.That(pg, Does.Not.Match(@"SET\s+\w+\.\w+\s*="));
         }
+
+        // ─── 13. Duplicate param/var declaration filtered ─────────────────────
+        [Test]
+        public void TestDuplicateParamVarDeclarationFiltered()
+        {
+            // MSSQL body re-declares @userNo which is already a parameter — PG must not see a duplicate DECLARE
+            string mssql = "CREATE PROCEDURE dbo.TestDupe\r\n    @userNo INT\r\nAS\r\nBEGIN\r\n    DECLARE @userNo INT\r\n    SELECT * FROM Users WHERE UserNo = @userNo\r\nEND";
+            var obj = new DbObject("testdupe", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            // There must be no DECLARE section that declares userno again (parameter already covers it)
+            Assert.That(pg, Does.Not.Match(@"(?m)^DECLARE\s*\n.*\buserno\s+integer"));
+            Assert.That(pg, Does.Contain("IN userno integer"));
+        }
+
+        // ─── 14. Non-duplicate DECLARE var is kept ───────────────────────────
+        [Test]
+        public void TestNonDuplicateDeclareKept()
+        {
+            // @tempResult is NOT a parameter — it must remain in DECLARE
+            string mssql = "CREATE PROCEDURE dbo.TestNoDupe\r\n    @userNo INT\r\nAS\r\nBEGIN\r\n    DECLARE @tempResult INT\r\n    SELECT @tempResult = COUNT(*) FROM Users WHERE UserNo = @userNo\r\nEND";
+            var obj = new DbObject("testnodupe", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("tempresult integer"));
+            Assert.That(pg, Does.Contain("IN userno integer"));
+        }
     }
 }

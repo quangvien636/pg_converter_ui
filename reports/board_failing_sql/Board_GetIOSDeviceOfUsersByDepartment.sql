@@ -7,29 +7,26 @@ DROP FUNCTION IF EXISTS public.board_getiosdeviceofusersbydepartment(character v
 CREATE OR REPLACE FUNCTION public.board_getiosdeviceofusersbydepartment(
     IN listdepartno character varying,
     IN delimiter character varying
-) RETURNS SETOF record
+) RETURNS TABLE(deviceid varchar, osversion varchar, notificationoptions integer, timezoneoffset integer)
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 RETURN QUERY
-SELECT DeviceID, OSVersion, NotificationOptions, TimezoneOffset
+SELECT A.DeviceID, A.OSVersion, A.NotificationOptions, A.TimezoneOffset
 	FROM Organization_Users U
 	INNER JOIN Board_IOSDevices A ON A.UserNO = U.UserNo
 	WHERE U.Enabled = TRUE
-	and U.UserNo in (select * from public."fn_split_array"(ListUserNo,Delimiter))
+	AND U.UserNo IN (SELECT * FROM public."fn_split_array"(board_getiosdeviceofusersbydepartment.listdepartno, board_getiosdeviceofusersbydepartment.delimiter))
 	UNION
-RETURN QUERY
-SELECT DeviceID, OSVersion, NotificationOptions, TimezoneOffset
+SELECT A.DeviceID, A.OSVersion, A.NotificationOptions, A.TimezoneOffset
 	FROM Organization_Users U
 	INNER JOIN Board_IOSDevices A ON A.UserNO = U.UserNo
 	WHERE U.Enabled = TRUE
-	and U.UserNo in (select o.UserNo
-from Organization_BelongToDepartment o
-inner join Organization_Departments d on o.departno=d.departno
---inner join Organization_Users u on u.userno=o.userno
-where  o.departno in (select * from FN_GetChildDepartNoByDepartNo(ListDepartNo,Delimiter))
---and u.Enabled = TRUE
+	AND U.UserNo IN (SELECT o.UserNo
+FROM Organization_BelongToDepartment o
+INNER JOIN Organization_Departments d ON o.departno = d.departno
+WHERE o.departno IN (SELECT * FROM FN_GetChildDepartNoByDepartNo(board_getiosdeviceofusersbydepartment.listdepartno, board_getiosdeviceofusersbydepartment.delimiter))
 );
 END;
 $function$

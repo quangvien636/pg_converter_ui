@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION public.board_insertfile(
     IN size integer DEFAULT 107432,
     IN filepath character varying DEFAULT '/_Repository/_Board/Attach/5785/2023-T5-2X(VN-SB)(9).pdf',
     IN sort integer DEFAULT 0
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 DECLARE
     fileno bigint;

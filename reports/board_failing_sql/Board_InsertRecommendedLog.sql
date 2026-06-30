@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION public.board_insertrecommendedlog(
     IN departno integer,
     IN departname character varying,
     IN recommendeddate timestamp without time zone
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 DECLARE
     logno bigint;
@@ -26,7 +26,7 @@ BEGIN
 		DELETE FROM public."Board_RecommendedLogs" WHERE ContentNo = board_insertrecommendedlog.contentno AND UserNo = board_insertrecommendedlog.userno;
 		UPDATE Board_Contents SET RecommendedCount = RecommendedCount -1 WHERE ContentNo = board_insertrecommendedlog.contentno;
 		RETURN QUERY
-		SELECT CONVERT(BIGINT, 0);
+		SELECT 0::bigint;
 	ELSE
 	
 	UPDATE Board_Contents SET RecommendedCount = RecommendedCount + 1 WHERE ContentNo = board_insertrecommendedlog.contentno;
@@ -40,7 +40,7 @@ BEGIN
 	LogNo := lastval();
 	RETURN QUERY
 	SELECT LogNo;
-	 END;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

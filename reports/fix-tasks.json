@@ -1,0 +1,341 @@
+﻿{
+    "failures":  [
+                     {
+                         "procedure":  "Board_DownBoard",
+                         "source_file":  "reports/board_failing_sql/Board_DownBoard.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  25,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_DownFolder",
+                         "source_file":  "reports/board_failing_sql/Board_DownFolder.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  25,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetAllBoardContents",
+                         "source_file":  "reports/board_failing_sql/Board_GetAllBoardContents.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  67,
+                                            "snippet":  "CONVERT(CHAR(16), BC.RegDate, 120) as RegDateToString,"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetAllBoardContentsByBoardList",
+                         "source_file":  "reports/board_failing_sql/Board_GetAllBoardContentsByBoardList.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  50,
+                                            "snippet":  "strAlow := \u0027 LEFT JOIN (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,2)) AC ON BC.BoardNo=AC.BoardNo LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,4)) AD ON BC.BoardNo=AD.BoardNo \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  51,
+                                            "snippet":  "strWriteAlow := \u0027(AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) + \u0027 )) AND \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  97,
+                                            "snippet":  "AND  \u0027\u0027\u0027 || BoardList || \u0027\u0027\u0027 ILIKE ( \u0027\u0027%,\u0027\u0027 || CONVERT(nvarchar(200), BB.BoardNo) || \u0027\u0027,%\u0027\u0027) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  98,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 AND ( BC.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BC.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  100,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BR.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027 ) \u003e 0 ) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  109,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027AND BC.RegUserNo \u003c\u003e \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND BC.ContentNo=Board_ViewedLogs.ContentNo) \u003c= 0  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  114,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027\t\tAND (RegDepartNo = \u0027 || CONVERT(nvarchar(20), DepartNo) +\u0027 Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo \u003c\u003e \u0027 || CONVERT(nvarchar(20), DepartNo) +\u0027))\u0027), \u0027\u0027);"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetBoardContents",
+                         "source_file":  "reports/board_failing_sql/Board_GetBoardContents.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  50,
+                                            "snippet":  "strAlow := \u0027 LEFT JOIN (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,2)) AC ON BC.BoardNo=AC.BoardNo;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  51,
+                                            "snippet":  "LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,4)) AD ON BC.BoardNo=AD.BoardNo"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  52,
+                                            "snippet":  "LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,1)) AE ON BC.BoardNo=AE.BoardNo \u0027\t;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  53,
+                                            "snippet":  "strWriteAlow := \u0027(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) + \u0027 )) AND \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  102,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 AND ( BC.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BC.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  104,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BR.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027 ) \u003e 0 ) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  113,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027AND BC.RegUserNo \u003c\u003e \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND BC.ContentNo=Board_ViewedLogs.ContentNo) \u003c= 0  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  123,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType \u003e 1) OR ( BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027) OR (BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public.\"Organization_GetDepartmentsByUser\" (\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027) DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  124,
+                                            "snippet":  "where BSS1.contentno=BC.ContentNo and BSS1.userno=\u0027 || CONVERT(nvarchar(10),UserNo ) || \u0027)) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) \u003c=0 ) )\u0027), \u0027\u0027);"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetBoardContents_BK20181227",
+                         "source_file":  "reports/board_failing_sql/Board_GetBoardContents_BK20181227.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  50,
+                                            "snippet":  "strAlow := \u0027 LEFT JOIN (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,2)) AC ON BC.BoardNo=AC.BoardNo;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  51,
+                                            "snippet":  "LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,4)) AD ON BC.BoardNo=AD.BoardNo"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  52,
+                                            "snippet":  "LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,1)) AE ON BC.BoardNo=AE.BoardNo \u0027\t;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  53,
+                                            "snippet":  "strWriteAlow := \u0027(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) + \u0027 )) AND \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  102,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 AND ( BC.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BC.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  104,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BR.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027 ) \u003e 0 ) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  113,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027AND BC.RegUserNo \u003c\u003e \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND BC.ContentNo=Board_ViewedLogs.ContentNo) \u003c= 0  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  123,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType \u003e 1) OR ( BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027) OR (BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public.\"Organization_GetDepartmentsByUser\" (\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027) DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  124,
+                                            "snippet":  "where BSS1.contentno=BC.ContentNo and BSS1.userno=\u0027 || CONVERT(nvarchar(10),UserNo ) || \u0027)) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) \u003c=0 ) )\u0027), \u0027\u0027);"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetCurrentManagerList",
+                         "source_file":  "reports/board_failing_sql/Board_GetCurrentManagerList.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  27,
+                                            "snippet":  "convert(datetime, bg.DTS_INSERT, 111) AS \"Date\""
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetPreNextContent",
+                         "source_file":  "reports/board_failing_sql/Board_GetPreNextContent.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  53,
+                                            "snippet":  "CONVERT(text, BC.RegDate, 120) as RegDateToString,"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_GetTreeSubMenu_V2_Json",
+                         "source_file":  "reports/board_failing_sql/Board_GetTreeSubMenu_V2_Json.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_stuff",
+                                            "line":  105,
+                                            "snippet":  "STUFF(("
+                                        },
+                                        {
+                                            "category":  "unconverted_for_xml",
+                                            "line":  110,
+                                            "snippet":  "FOR XML PATH(\u0027\u0027), TYPE"
+                                        },
+                                        {
+                                            "category":  "unconverted_for_xml",
+                                            "line":  161,
+                                            "snippet":  "FOR XML PATH(\u0027\u0027), TYPE"
+                                        },
+                                        {
+                                            "category":  "unconverted_stuff",
+                                            "line":  204,
+                                            "snippet":  "SELECT \u0027[\u0027 || STUFF(COALESCE(Json, \u0027\u0027), 1, 1, \u0027\u0027) + \u0027]\u0027 AS JsonData;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_InsertRecommendedLog",
+                         "source_file":  "reports/board_failing_sql/Board_InsertRecommendedLog.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  29,
+                                            "snippet":  "SELECT CONVERT(BIGINT, 0);"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_SetFolders",
+                         "source_file":  "reports/board_failing_sql/Board_SetFolders.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  23,
+                                            "snippet":  "SELECT LevelRand + CONVERT(nvarchar(20), FolderNo) + \u0027,\u0027 INTO levelrand FROM Board_Folders WHERE FolderNo=board_setfolders.parentno;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_SetShare",
+                         "source_file":  "reports/board_failing_sql/Board_SetShare.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  32,
+                                            "snippet":  "SELECT @ERROR;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_UpBoard",
+                         "source_file":  "reports/board_failing_sql/Board_UpBoard.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  25,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_UpdateFolder",
+                         "source_file":  "reports/board_failing_sql/Board_UpdateFolder.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  23,
+                                            "snippet":  "SELECT LevelRand + CONVERT(nvarchar(20), FolderNo) + \u0027,\u0027 INTO levelrand FROM Board_Folders WHERE FolderNo=board_updatefolder.parentno;"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_UpdateLevelRand",
+                         "source_file":  "reports/board_failing_sql/Board_UpdateLevelRand.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  34,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_UpFolder",
+                         "source_file":  "reports/board_failing_sql/Board_UpFolder.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_variable",
+                                            "line":  25,
+                                            "snippet":  "WHILE @FETCH_STATUS = 0"
+                                        }
+                                    ]
+                     },
+                     {
+                         "procedure":  "Board_Web_Search",
+                         "source_file":  "reports/board_failing_sql/Board_Web_Search.sql",
+                         "errors":  [
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  51,
+                                            "snippet":  "strAlow := \u0027 LEFT JOIN (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,2)) AC ON BC.BoardNo=AC.BoardNo LEFT JOIN  (SELECT * FROM public.\"Board_GetBoardAllow\"(\u0027 || CONVERT(nvarchar(20), UserNo) + \u0027,4)) AD ON BC.BoardNo=AD.BoardNo \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  52,
+                                            "snippet":  "strWriteAlow := \u0027(AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = \u0027 || CONVERT(nvarchar(10), UserNo) + \u0027 )) AND \u0027;"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  128,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 AND ( BC.ViewMode=\u0027 || CONVERT(nvarchar(10), ViewMode) || \u0027 OR \u0027 || CONVERT(nvarchar(10), ViewMode) || \u0027\u003c 0) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  130,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 AND ( BC.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BC.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027  \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  132,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027 OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate \u003e= \u0027\u0027\u0027 || CONVERT(nvarchar(20), FromDate) || \u0027\u0027\u0027 AND BR.RegDate \u003c= \u0027\u0027\u0027 || CONVERT(nvarchar(20), ToDate) || \u0027\u0027\u0027 ) \u003e 0 ) \u0027), \u0027\u0027);"
+                                        },
+                                        {
+                                            "category":  "unconverted_convert",
+                                            "line":  141,
+                                            "snippet":  "query := COALESCE(query, \u0027\u0027) || COALESCE((\u0027AND BC.RegUserNo \u003c\u003e \u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=\u0027 || CONVERT(nvarchar(10), UserNo) || \u0027 AND BC.ContentNo=Board_ViewedLogs.ContentNo) \u003c= 0  \u0027), \u0027\u0027);"
+                                        }
+                                    ]
+                     }
+                 ]
+}

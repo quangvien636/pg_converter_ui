@@ -61,7 +61,7 @@ DECLARE
 BEGIN
 
 
-    sql := 'SELECT /* TOP 1 */ * FROM ' || TableName;
+    sql := 'SELECT /* /* TOP 1 */ */ * FROM ' || TableName;
     PERFORM sql();
 END;
 $function$

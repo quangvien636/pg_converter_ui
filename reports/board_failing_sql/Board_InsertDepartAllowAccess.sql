@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION public.board_insertdepartallowaccess(
     IN itemno integer DEFAULT 1160,
     IN itemtype integer DEFAULT 2,
     IN userno integer DEFAULT 70
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN

@@ -12,17 +12,17 @@ AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
-	IF ItemType=2 THEN
+	IF ItemType=2 THEN;
 		RETURN QUERY
 		SELECT CASE WHEN BB.SpecType=1  THEN FALSE ELSE  TRUE END  AS IsPermission,FALSE  AS IsDisablePermission
-		FROM Board_Boards BB 
-		WHERE  ItemNo=BB.BoardNo
-	ELSE
+		FROM Board_Boards BB
+		WHERE  ItemNo=BB.BoardNo;
+	ELSE;
 	RETURN QUERY
 	SELECT CASE WHEN FC.SpecType=1  THEN FALSE ELSE  TRUE END  AS IsPermission ,
-			  FALSE  AS IsDisablePermission 
+			  FALSE  AS IsDisablePermission
 	FROM Board_Folders FC
-	WHERE  ItemNo=FC.FolderNo;;
+	WHERE  ItemNo=FC.FolderNo;
 	END IF;
 END;
 $function$

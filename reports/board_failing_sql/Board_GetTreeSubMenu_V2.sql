@@ -71,7 +71,7 @@ TREESUB AS (
 SELECT F.*,
 	CASE
 		WHEN F.IsFolder = TRUE AND F.No = board_gettreesubmenu_v2.selectedfolderno THEN TRUE
-		WHEN F.IsFolder = FALSE AND F.No = board_gettreesubmenu_v2.selectedboardno  THEN TRUE;
+		WHEN F.IsFolder = FALSE AND F.No = board_gettreesubmenu_v2.selectedboardno  THEN TRUE
 		ELSE FALSE
 	END AS IsSelected
 FROM TREESUB F

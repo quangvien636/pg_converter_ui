@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.board_upboardbyuser(
     IN boardno integer,
     IN userno integer DEFAULT 70,
     IN isadmin boolean DEFAULT TRUE
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 DECLARE
     curentno integer;

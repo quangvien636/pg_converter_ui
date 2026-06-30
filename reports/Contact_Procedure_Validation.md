@@ -1,6 +1,6 @@
 # Contact_% Procedure Validation Report
 
-**Generated**: 2026-06-30 09:01:25  
+**Generated**: 2026-06-30 13:20:21  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Contact_% procedures (SQL Server) | **189** |
 | Conversion succeeded | **189** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **118** |
-| Compile FAIL | **71** |
-| Compile success rate | **62%** |
+| Compile PASS (CREATE succeeded) | **123** |
+| Compile FAIL | **66** |
+| Compile success rate | **65%** |
 | SETOF record (needs RETURNS TABLE) | **141** |
 
 ## 2. Contact_% Procedure Feature Matrix
@@ -217,8 +217,9 @@
 
 ### 3a. PASS
 
-118 procedures compiled successfully:
+123 procedures compiled successfully:
 
+- `Contact_GetGroupDefaultByUserNo`
 - `Contacts_CheckExitGroupAndContact`
 - `contacts_countgroupcountchild`
 - `Contacts_CountGroupUser`
@@ -232,6 +233,10 @@
 - `Contacts_DeleteContact`
 - `Contacts_DeletePublicGroup`
 - `Contacts_DeleteShareGroup`
+- `Contacts_FindNoNameUser`
+- `Contacts_FindUser`
+- `Contacts_GetAddressInfo`
+- `Contacts_GetAddressNotUpdateCount`
 - `Contacts_GetAllAddress`
 - `Contacts_GetAllCompany`
 - `Contacts_GetAllContactsList`
@@ -343,11 +348,10 @@
 | Procedure | SqlState | Error |
 |-----------|----------|-------|
 | `Contact_CheckInsertGroupDefault` | `42601` | syntax error at or near "END" |
-| `Contact_GetGroupDefaultByUserNo` | `42601` | syntax error at or near "RETURN" |
 | `Contact_InsertShareGroup` | `42601` | syntax error at or near "WHERE" |
 | `Contacts_ChangeGroup` | `42601` | syntax error at or near "END" |
-| `Contacts_ChangePublicGroup` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
-| `Contacts_ChangeShareGroup` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
+| `Contacts_ChangePublicGroup` | `42601` | syntax error at or near "END" |
+| `Contacts_ChangeShareGroup` | `42601` | syntax error at or near "END" |
 | `Contacts_CheckGroup` | `42601` | syntax error at or near "ELSIF" |
 | `Contacts_CheckNumber` | `42601` | syntax error at or near ";" |
 | `Contacts_DelContactsGroup` | `42601` | syntax error at end of input |
@@ -357,10 +361,6 @@
 | `Contacts_DownPublicGroup` | `42601` | syntax error at end of input |
 | `Contacts_DownShareGroup` | `42601` | syntax error at end of input |
 | `Contacts_FinAll` | `42601` | syntax error at or near ";" |
-| `Contacts_FindNoNameUser` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_FindUser` | `42601` | syntax error at or near "ELSIF" |
-| `Contacts_GetAddressInfo` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetAddressNotUpdateCount` | `42601` | syntax error at or near "RETURN" |
 | `Contacts_GetContactsCount` | `42601` | syntax error at or near "IF" |
 | `Contacts_GetContactsList` | `42601` | syntax error at or near "SET" |
 | `Contacts_GetContactsTrashList` | `42601` | syntax error at or near "ELSIF" |
@@ -389,9 +389,9 @@
 | `Contacts_InsertShareGroup` | `42601` | syntax error at or near "WHERE" |
 | `Contacts_InsertUser` | `42601` | syntax error at or near "INSERT" |
 | `Contacts_InsertUserForExcel` | `42601` | syntax error at or near "IsPhoneDef" |
-| `Contacts_MoveContactGroup` | `42601` | loop variable of loop over rows must be a record or row variable or list of scalar variables |
+| `Contacts_MoveContactGroup` | `42601` | syntax error at or near "IF" |
 | `Contacts_MoveUser` | `42601` | syntax error at or near "IF" |
-| `Contacts_SaveAddressInfo` | `42601` | syntax error at or near "EXEC" |
+| `Contacts_SaveAddressInfo` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveAddressInfo_Web` | `42P13` | function result type must be integer because of OUT parameters |
 | `Contacts_SaveArrange` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveArrangeLike` | `42601` | syntax error at or near "LOOP" |
@@ -418,7 +418,7 @@
 
 | SqlState | Count | Category | First Failure | Message |
 |----------|------:|----------|---------------|---------|
-| `42601` | 67 | syntax_error | `Contact_CheckInsertGroupDefault` | syntax error at or near "END" |
+| `42601` | 62 | syntax_error | `Contact_CheckInsertGroupDefault` | syntax error at or near "END" |
 | `22P02` | 2 | class_22 | `Contacts_GetGroupByUser` | invalid input syntax for integer: "" |
 | `42P13` | 2 | invalid_function_def | `Contacts_SaveAddressInfo_Web` | function result type must be integer because of OUT parameters |
 
@@ -584,7 +584,7 @@
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | `42601` syntax_error | 67 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
+| 1 | `42601` syntax_error | 62 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
 | 2 | `22P02` class_22 | 2 procedures | Review generated SQL for this error code |
 | 3 | `42P13` invalid_function_def | 2 procedures | Duplicate parameter name or invalid RETURNS clause |
 | 4 | SETOF record â†’ needs RETURNS TABLE | 141 procedures | Infer column types from SELECT list per procedure |

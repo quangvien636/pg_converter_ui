@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistuserpermissiontoexcel(
     IN pagenumber integer DEFAULT 1,
     IN pagesize integer DEFAULT 10,
     IN ispermission boolean DEFAULT TRUE
-) RETURNS SETOF record
+) RETURNS TABLE(userid varchar, username varchar, "Admin" boolean, write boolean, "Read" boolean)
 AS $function$
 DECLARE
     total bigint;

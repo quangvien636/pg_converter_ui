@@ -36,7 +36,7 @@ BEGIN
 	/*
 	 * 정렬 컬럼
 	 */
-	 
+
 	IF SortColumn = 1 THEN
 	    query := COALESCE(query, '') || COALESCE(('GroupNo '), '');
 	END IF;
@@ -46,14 +46,14 @@ BEGIN
 	/*
 	 * 정렬 내림차순 여부
 	 */
-	 
+
 	IF IsAscending = TRUE THEN
 	    query := COALESCE(query, '') || COALESCE(('ASC '), '');
 	ELSE
 	    query := COALESCE(query, '') || COALESCE(('DESC '), '');
 	END IF;
-	
-	
+
+
 	query := COALESCE(query, '') || COALESCE((', OrderNo ASC'), '');
 
 
@@ -61,22 +61,21 @@ BEGIN
 	/*
 	 * WHERE 조합 시작
 	 */;
-		 
+
 	query := COALESCE(query, '') || COALESCE((') RowNum, ContentNo, Content ' || 'FROM Board_Contents WHERE (Title ILIKE ''%' || SearchText || '%'' OR ModUserName ILIKE ''%' || SearchText || '%'') AND  Enabled = TRUE '), '');
 		RAISE NOTICE '%', Query;
-		
+
 	/*
 	 * 게시글 검색 시작
 	 */
-	 
+
 	CREATE TEMP TABLE SearchResult (
 		RowNum		BIGINT,
-		
+
 		ContentNo	BIGINT,
 		Content		text
 	) ON COMMIT DROP;
-	INSERT INTO SearchResult;
-	PERFORM query();
+	EXECUTE 'INSERT INTO SearchResult ' || query;
 	/*
 	 * 페이징 계산
 	 */;
@@ -103,7 +102,7 @@ BEGIN
 	/*
 	 *
 	 */
-	 
+
 	CREATE TEMP TABLE TempTable (
 		ContentNo			BIGINT,
 		Content				text,
@@ -123,53 +122,53 @@ BEGIN
 		ReplyCount			INT,
 		RecommendedCount	INT,
 		ViewedCount			INT,
-		
+
 		HeadName			varchar(100),
 		IsRecommended		boolean,
 		ModPositionNo		INT,
 		ModPositionName		varchar(100),
 		FileCount			INT
 	) ON COMMIT DROP;
-	
 
 
-	
+
+
 	SELECT IsHead, IsNotice, IsRecommend, RecommendedDisplayCount INTO ishead, isnotice, isrecommend, recommendeddisplaycount FROM Board_Boards;
 
-	
+
 	IF IsHead = TRUE THEN
-	
+
 		IF IsNotice = TRUE THEN
-		
+
 			INSERT INTO TempTable
 			SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, BC.ModPositionName,BC.FileCount
 			FROM Board_Contents BC
 			LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads) BH ON BH.HeadNo = BC.HeadNo
 			WHERE BC.Enabled = TRUE AND BC.IsNotice = TRUE;
-		
+
 		END IF;
-		
+
 		IF IsRecommend = TRUE AND RecommendedDisplayCount > 0 THEN
 
 			INSERT INTO TempTable
 			SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				COALESCE(BH.Name, '') AS HeadName, 1 AS IsRecommended , BC.ModPositionNo, BC.ModPositionName,BC.FileCount
-			FROM Board_Contents BC 
+			FROM Board_Contents BC
 			LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads) BH ON BH.HeadNo = BC.HeadNo
 			WHERE BC.Enabled = TRUE AND BC.RecommendedCount > 0 and BC.IsNotice = FALSE
 			ORDER BY RecommendedCount DESC;
-		
+
 		END IF;
-	
+
 		INSERT INTO TempTable
 		SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 			BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 			COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, BC.ModPositionName,BC.FileCount
 		FROM SearchResult T
 		INNER JOIN Board_Contents BC ON BC.ContentNo = T.ContentNo
@@ -177,38 +176,38 @@ BEGIN
 		WHERE T.RowNum BETWEEN StartRowNum AND EndRowNum and BC.IsNotice = FALSE
 		ORDER BY T.RowNum ASC;
 
-	
+
 	ELSE
-	
+
 		IF IsNotice = TRUE THEN
-		
+
 			INSERT INTO TempTable
 			SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, BC.ModPositionName,BC.FileCount
 			FROM Board_Contents BC
 			WHERE BC.IsNotice = TRUE AND BC.Enabled = TRUE;
-		
+
 		END IF;
-		
+
 		IF IsRecommend = TRUE AND RecommendedDisplayCount > 0 THEN
 
 			INSERT INTO TempTable
 			SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				'' AS HeadName, 1 AS IsRecommended, BC.ModPositionNo, BC.ModPositionName,BC.FileCount
 			FROM Board_Contents BC
 			WHERE BC.RecommendedCount > 0 AND BC.Enabled = TRUE and BC.IsNotice = FALSE
 			ORDER BY RecommendedCount DESC;
-		
+
 		END IF;
-		
+
 		INSERT INTO TempTable
 		SELECT BC.ContentNo, BC.Content, BC.ModUserNo, BC.ModUserName, BC.ModDepartNo, BC.ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 			BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 			'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, BC.ModPositionName,BC.FileCount
 		FROM SearchResult T
 		INNER JOIN Board_Contents BC ON BC.ContentNo = T.ContentNo
@@ -218,7 +217,7 @@ BEGIN
 	END IF;
 
 	RETURN QUERY
-	SELECT * FROM TempTable
+	SELECT * FROM TempTable;
 	RETURN QUERY
 	SELECT TotalItemCount AS TotalContentCount, TotalPageCount AS TotalPageCount, CurrentPageIndex AS CurrentPageIndex;
 END;

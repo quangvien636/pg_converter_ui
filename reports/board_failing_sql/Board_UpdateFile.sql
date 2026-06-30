@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION public.board_updatefile(
     IN contentno bigint,
     IN name character varying,
     IN size bigint
-) RETURNS SETOF record
+) RETURNS void
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN

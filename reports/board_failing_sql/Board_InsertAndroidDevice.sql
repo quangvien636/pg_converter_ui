@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION public.board_insertandroiddevice(
     IN osversion character varying,
     IN notificationoptions character varying,
     IN timezoneoffset integer
-) RETURNS SETOF record
+) RETURNS SETOF bigint
 AS $function$
 DECLARE
     deviceno bigint;

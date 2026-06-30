@@ -91,15 +91,14 @@ DROP TABLE IF EXISTS BL;
                FALSE AS IsFolder, FALSE AS IsOpen,
                CAST(B.CountContent AS BIGINT) AS CountContent, B.ViewMode
         FROM BOARD B
-    );
-    RETURN QUERY
+    )
     SELECT Name, No, ModUserNo, JsonName, ParentNo, SortNo,
         IsFolder, IsOpen, CountContent, ViewMode,
         CAST(CASE WHEN IsFolder = TRUE AND No = board_gettreesubmenu_v2_json.selectedfolderno THEN 1
                   WHEN IsFolder = FALSE AND No = board_gettreesubmenu_v2_json.selectedboardno  THEN 1
                   ELSE 0 END AS BIT) AS IsSelected FROM TREESUB;
 
-    -- Step 2: Pre-compute boardlist per folder (separate step â€” SQL 2008 R2 no nested FOR XML)
+    -- Step 2: Pre-compute boardlist per folder (separate step â€” SQL 2008 R2 no nested FOR XML);
     RETURN QUERY
     SELECT f.No AS FolderNo,
            STUFF((
@@ -114,7 +113,7 @@ DROP TABLE IF EXISTS BL;
 
     -- Step 3: Depth-first ordering
     --         Path component = (10000000 - SortNo) so higher SortNo â†’ smaller value â†’ sorts first
-    CREATE TEMP TABLE O ON COMMIT DROP AS WITH DFS AS (
+    CREATE TEMP TABLE O ON COMMIT DROP AS WITH RECURSIVE DFS AS (
         SELECT No, IsFolder,
                CAST(RIGHT('0000000' || CAST(10000000 - SortNo AS NVARCHAR(7)), 7) AS text) AS SortPath
         FROM T WHERE ParentNo = 0
@@ -122,8 +121,7 @@ DROP TABLE IF EXISTS BL;
         SELECT t.No, t.IsFolder,
                d.SortPath || '|' || RIGHT('0000000' || CAST(10000000 - t.SortNo AS NVARCHAR(7)), 7)
         FROM T t INNER JOIN DFS d ON t.ParentNo = d.No AND d.IsFolder = TRUE
-    );
-    RETURN QUERY
+    )
     SELECT No, IsFolder, SortPath FROM DFS;
 
     -- Step 4: Build JSON array using FOR XML PATH (SQL 2008 R2 compatible);

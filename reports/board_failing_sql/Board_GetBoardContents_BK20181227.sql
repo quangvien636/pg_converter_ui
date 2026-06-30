@@ -48,15 +48,15 @@ BEGIN
 	strWriteAlow := '';
 	IF IsAdmin = FALSE THEN
 		strAlow := ' LEFT JOIN (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',2)) AC ON BC.BoardNo=AC.BoardNo;
-			LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',4)) AD ON BC.BoardNo=AD.BoardNo 
-			LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',1)) AE ON BC.BoardNo=AE.BoardNo '	;
+			LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',4)) AD ON BC.BoardNo=AD.BoardNo
+			LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',1)) AE ON BC.BoardNo=AE.BoardNo ';
 		strWriteAlow := '(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CONVERT(nvarchar(10), UserNo) + ' )) AND ';
 	END IF;
 
 	/*
 	 * 정렬 컬럼
 	 */
-	 
+
 	IF SortColumn <= 1 THEN
 	    query := COALESCE(query, '') || COALESCE(('(CASE WHEN BC.Depth > 0 THEN BC.RootId ELSE BC.ContentNo END) '), '');
 	ELSIF SortColumn = 2 THEN
@@ -77,16 +77,15 @@ BEGIN
 	/*
 	 * 정렬 내림차순 여부
 	 */
-	 
+
 	IF IsAscending = TRUE THEN
 	    query := COALESCE(query, '') || COALESCE(('ASC '), '');
-	END IF;
 	-- Nghiem edit 2018-09-20 change DESC -> ASC
 	ELSE
 	    query := COALESCE(query, '') || COALESCE(('DESC '), '');
 	END IF;
-	
-	
+
+
 	query := COALESCE(query, '') || COALESCE((', BC.LevelRand || CAST(BC.ContentNo As Nvarchar(20)) ASC, OrderNo ASC'), '');
 
 
@@ -94,11 +93,11 @@ BEGIN
 	/*
 	 * WHERE 조합 시작
 	 */;
-		 
+
 	query := COALESCE(query, '') || COALESCE((') RowNum, ContentNo, Content ' || 'FROM Board_Contents BC   INNER JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 ' || strAlow || '
 WHERE  ' || strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '');
-	
+
 	query := COALESCE(query, '') || COALESCE((' AND ( BC.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) || ''' AND BC.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) || '''  '), '');
 
 	query := COALESCE(query, '') || COALESCE((' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) || ''' AND BR.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) || ''' ) > 0 ) '), '');
@@ -123,17 +122,17 @@ WHERE  ' || strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), ''
 		query := COALESCE(query, '') || COALESCE(('  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType > 1) OR ( BC.RegUserNo = ' || CONVERT(nvarchar(10), UserNo) || ') OR (BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."Organization_GetDepartmentsByUser" (' || CONVERT(nvarchar(10), UserNo) || ') DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
 where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),UserNo ) || ')) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'), '');
 		--DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
-		--SET Query +=  ' AND ( BC.RegUserNo <> ' || CONVERT(nvarchar(10), UserNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'		
-	--END	
+		--SET Query +=  ' AND ( BC.RegUserNo <> ' || CONVERT(nvarchar(10), UserNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'
+	--END
 	--IF COALESCE((select PermissionType from Authority_SitePermissions where UserNo = UserNo), 0) <> 1 BEGIN
 	--	DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
-	--	SET Query +=  '		AND (RegDepartNo = ' || CONVERT(nvarchar(20), DepartNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'		
+	--	SET Query +=  '		AND (RegDepartNo = ' || CONVERT(nvarchar(20), DepartNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'
 	END IF;
 
 	/*
 	 * 게시글 검색 시작
 	 */
-	 
+
 	 RAISE NOTICE '%', Query;
 	CREATE TEMP TABLE SearchResult (
 		RowNum		BIGINT,
@@ -141,8 +140,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 		Content text
 	) ON COMMIT DROP;
 
-	INSERT INTO SearchResult;
-	EXECUTE format(Query, BoardNo);
+	EXECUTE format('INSERT INTO SearchResult ' || Query, BoardNo);
 	/*
 	 * 페이징 계산
 	 */;
@@ -167,7 +165,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	/*
 	 *
 	 */
-	 
+
 	CREATE TEMP TABLE TempTable (
 		RN INT,
 		ContentNo			BIGINT,
@@ -188,7 +186,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 		ReplyCount			INT,
 		RecommendedCount	INT,
 		ViewedCount			INT,
-		
+
 		HeadName			varchar(100),
 		IsRecommended		boolean,
 		ModPositionNo		INT,
@@ -204,25 +202,25 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 		RegDepartName		varchar(100),
 		IsAlarm				boolean
 	) ON COMMIT DROP;
-	
 
 
-	
+
+
 	SELECT IsHead, IsNotice, IsRecommend, RecommendedDisplayCount INTO ishead, isnotice, isrecommend, recommendeddisplaycount FROM Board_Boards WHERE BoardNo = board_getboardcontents_bk20181227.boardno;
 
-	
+
 	IF IsHead = TRUE THEN
-	
+
 		IF IsNotice = TRUE THEN
-		
+
 			INSERT INTO TempTable
-			SELECT 0, BC.ContentNo, BC.Content, BC.ModUserNo,COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, 
+			SELECT 0, BC.ContentNo, BC.Content, BC.ModUserNo,COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName,
 			 BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-				BC.RegUserNo, 
+				BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -234,39 +232,39 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 			LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads WHERE BoardNo = board_getboardcontents_bk20181227.boardno) BH ON BH.HeadNo = BC.HeadNo
 			LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE BC.BoardNo = board_getboardcontents_bk20181227.boardno AND BC.Enabled = TRUE AND BC.IsNotice = TRUE;
-		
+
 		END IF;
-		
+
 		IF IsRecommend = TRUE AND RecommendedDisplayCount > 0 THEN
 
 			INSERT INTO TempTable
 			SELECT 0, BC.ContentNo, BC.Content, BC.ModUserNo, COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				COALESCE(BH.Name, '') AS HeadName, 1 AS IsRecommended , BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-				BC.RegUserNo, 
+				BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
 		 BC.RegDepartNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.RegDepartNo) end) as RegDepartName
 		,BC.IsAlarm
-			FROM Board_Contents BC 
+			FROM Board_Contents BC
 			LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads WHERE BoardNo = board_getboardcontents_bk20181227.boardno) BH ON BH.HeadNo = BC.HeadNo
 			LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE BC.BoardNo = board_getboardcontents_bk20181227.boardno AND BC.Enabled = TRUE AND BC.RecommendedCount > 0 and BC.IsNotice = FALSE
 			ORDER BY RecommendedCount DESC;
-		
+
 		END IF;
-	
+
 		INSERT INTO TempTable
 		SELECT T.RowNum ,BC.ContentNo, BC.Content, BC.ModUserNo, COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 			BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 			COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-			BC.RegUserNo, 
+			BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -279,18 +277,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE T.RowNum BETWEEN StartRowNum AND EndRowNum and BC.IsNotice = FALSE;
 
-	
+
 	ELSE
-	
+
 		IF IsNotice = TRUE THEN
-		
+
 			INSERT INTO TempTable
 			SELECT 0,BC.ContentNo, BC.Content, BC.ModUserNo, COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-				BC.RegUserNo, 
+				BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -300,18 +298,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 			FROM Board_Contents BC
 			LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE BC.BoardNo = board_getboardcontents_bk20181227.boardno AND BC.IsNotice = TRUE AND BC.Enabled = TRUE;
-		
+
 		END IF;
-		
+
 		IF IsRecommend = TRUE AND RecommendedDisplayCount > 0 THEN
 
 			INSERT INTO TempTable
 			SELECT 0,BC.ContentNo, BC.Content, BC.ModUserNo, COALESCE(( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end),'') as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 				BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 				'' AS HeadName, 1 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-				BC.RegUserNo, 
+				BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -322,16 +320,16 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 			LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE BC.BoardNo = board_getboardcontents_bk20181227.boardno AND BC.RecommendedCount > 0 AND BC.Enabled = TRUE and BC.IsNotice = FALSE
 			ORDER BY RecommendedCount DESC;
-		
+
 		END IF;
-		
+
 		INSERT INTO TempTable
 		SELECT T.RowNum ,BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 			BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 			'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-			BC.RegUserNo, 
+			BC.RegUserNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 		BC.RegPositionNo,
 		( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -342,12 +340,12 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 		INNER JOIN Board_Contents BC ON BC.ContentNo = T.ContentNo
 		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 			WHERE T.RowNum BETWEEN StartRowNum AND EndRowNum and BC.IsNotice = FALSE;
-		
+
 
 	END IF;
 
 	RETURN QUERY
-	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents_bk20181227.userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC ORDER BY RN ASC
+	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents_bk20181227.userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC ORDER BY RN ASC;
 	RETURN QUERY
 	SELECT TotalItemCount AS TotalContentCount, TotalPageCount AS TotalPageCount, CurrentPageIndex AS CurrentPageIndex;
 
@@ -362,17 +360,17 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--DECLARE strAlow NVARCHAR(2000)
 	--DECLARE strWriteAlow NVARCHAR(2000)
 	--SET strAlow = ''
-	--SET strWriteAlow = ''	
+	--SET strWriteAlow = ''
 	--if (IsAdmin = FALSE)
 	--BEGIN
-	--	SET strAlow = ' LEFT JOIN (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',2)) AC ON BC.BoardNo=AC.BoardNo LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',4)) AD ON BC.BoardNo=AD.BoardNo '	
+	--	SET strAlow = ' LEFT JOIN (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',2)) AC ON BC.BoardNo=AC.BoardNo LEFT JOIN  (SELECT * FROM public."Board_GetBoardAllow"(' || CONVERT(nvarchar(20), UserNo) + ',4)) AD ON BC.BoardNo=AD.BoardNo '
 	--	SET strWriteAlow = '(AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CONVERT(nvarchar(10), UserNo) + ' )) AND '
 	--END
 
 	--/*
 	-- * 정렬 컬럼
 	-- */
-	 
+
 	--IF (SortColumn <= 1) SET Query += 'RegDate '
 	--ELSE IF (SortColumn = 2) SET Query += 'LTRIM(Title) '
 	--ELSE IF (SortColumn = 3) SET Query += 'RegDate '
@@ -385,11 +383,11 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--/*
 	-- * 정렬 내림차순 여부
 	-- */
-	 
+
 	--IF (IsAscending = TRUE) SET Query += 'ASC '
 	--ELSE SET Query += 'DESC '
-	
-	
+
+
 	--SET Query += ', OrderNo ASC'
 
 
@@ -397,16 +395,16 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--/*
 	-- * WHERE 조합 시작
 	-- */
-		 
+
 	--SET Query +=
 	--	') RowNum, ContentNo, Content ' +
-	--	'FROM Board_Contents BC 
+	--	'FROM Board_Contents BC
 	--		' || strAlow || '
 	--		WHERE  ' || strWriteAlow || '  BC.BoardNo = BoardNo AND Enabled = TRUE '
-	
-	--SET Query +=  ' AND ( BC.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) + ''' AND BC.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) + '''  ' 
 
-	--SET Query +=  ' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) + ''' AND BR.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) + ''' ) > 0 ) ' 
+	--SET Query +=  ' AND ( BC.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) + ''' AND BC.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) + '''  '
+
+	--SET Query +=  ' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CONVERT(nvarchar(20), FromDate) + ''' AND BR.RegDate <= ''' || CONVERT(nvarchar(20), ToDate) + ''' ) > 0 ) '
 
 	--IF (TypeEff > 0)
 	--BEGIN
@@ -423,13 +421,13 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 
 	--IF COALESCE((select PermissionType from Authority_SitePermissions where UserNo = UserNo), 0) <> 1 BEGIN
 	--	DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
-	--	SET Query +=  '		AND (RegDepartNo = ' || CONVERT(nvarchar(20), DepartNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'		
-	--END	
+	--	SET Query +=  '		AND (RegDepartNo = ' || CONVERT(nvarchar(20), DepartNo) +' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CONVERT(nvarchar(20), DepartNo) +'))'
+	--END
 
 	--/*
 	-- * 게시글 검색 시작
 	-- */
-	 
+
 	--DECLARE SearchResult TABLE (
 	--	RowNum		BIGINT,
 	--	ContentNo	BIGINT,
@@ -440,9 +438,9 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--EXEC SP_EXECUTESQL Query,
 	--	'BoardNo AS INT',
 	--	BoardNo
-		
-		
-		
+
+
+
 	--/*
 	-- * 페이징 계산
 	-- */
@@ -467,7 +465,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--/*
 	-- *
 	-- */
-	 
+
 	--DECLARE TempTable TABLE (
 	--	ContentNo			BIGINT,
 	--	Content				text,
@@ -487,7 +485,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--	ReplyCount			INT,
 	--	RecommendedCount	INT,
 	--	ViewedCount			INT,
-		
+
 	--	HeadName			NVARCHAR(100),
 	--	IsRecommended		BIT,
 	--	ModPositionNo		INT,
@@ -503,25 +501,25 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--	RegDepartName		NVARCHAR(100),
 	--	IsAlarm				BIT
 	--)
-	
+
 	--DECLARE IsHead BIT, IsNotice BIT, IsRecommend BIT
 	--DECLARE RecommendedDisplayCount INT
-	
+
 	--SELECT IsHead = IsHead, IsNotice = IsNotice, IsRecommend = IsRecommend, RecommendedDisplayCount = RecommendedDisplayCount
 	--FROM Board_Boards WHERE BoardNo = BoardNo
-	
+
 	--IF (IsHead = TRUE) BEGIN
-	
+
 	--	IF (IsNotice = TRUE) BEGIN
-		
+
 	--		INSERT INTO TempTable
-	--		SELECT BC.ContentNo, BC.Content, BC.ModUserNo,( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, 
+	--		SELECT BC.ContentNo, BC.Content, BC.ModUserNo,( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName,
 	--		 BC.RegDate, BC.Title, 0 AS TitleEffect,
 	--			BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 	--			COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--			BC.RegUserNo, 
+	--			BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -533,39 +531,39 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--		LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads WHERE BoardNo = BoardNo) BH ON BH.HeadNo = BC.HeadNo
 	--		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 	--		WHERE BC.BoardNo = BoardNo AND BC.Enabled = TRUE AND BC.IsNotice = TRUE
-		
+
 	--	END
-		
+
 	--	IF (IsRecommend = TRUE AND RecommendedDisplayCount > 0) BEGIN
 
 	--		INSERT INTO TempTable
 	--		SELECT BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 	--			BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 	--			COALESCE(BH.Name, '') AS HeadName, 1 AS IsRecommended , BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--			BC.RegUserNo, 
+	--			BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
 	--	 BC.RegDepartNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.RegDepartNo) end) as RegDepartName
 	--	,BC.IsAlarm
-	--		FROM Board_Contents BC 
+	--		FROM Board_Contents BC
 	--		LEFT JOIN (SELECT HeadNo, Name FROM Board_Heads WHERE BoardNo = BoardNo) BH ON BH.HeadNo = BC.HeadNo
 	--		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 	--		WHERE BC.BoardNo = BoardNo AND BC.Enabled = TRUE AND BC.RecommendedCount > 0 and BC.IsNotice = FALSE
 	--		ORDER BY RecommendedCount DESC
-		
+
 	--	END
-	
+
 	--	INSERT INTO TempTable
 	--	SELECT BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 	--		BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 	--		COALESCE(BH.Name, '') AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--		BC.RegUserNo, 
+	--		BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -580,18 +578,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--	ORDER BY T.RowNum ASC
 
 	--END
-	
+
 	--ELSE BEGIN
-	
+
 	--	IF (IsNotice = TRUE) BEGIN
-		
+
 	--		INSERT INTO TempTable
 	--		SELECT BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 	--			BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 1 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 	--			'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--			BC.RegUserNo, 
+	--			BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -601,18 +599,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--		FROM Board_Contents BC
 	--		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 	--		WHERE BC.BoardNo = BoardNo AND BC.IsNotice = TRUE AND BC.Enabled = TRUE
-		
+
 	--	END
-		
+
 	--	IF (IsRecommend = TRUE AND RecommendedDisplayCount > 0) BEGIN
 
 	--		INSERT INTO TempTable
 	--		SELECT BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, 0 AS TitleEffect,
 	--			BC.GroupNo, 0 AS Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-				
+
 	--			'' AS HeadName, 1 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--			BC.RegUserNo, 
+	--			BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,
@@ -623,16 +621,16 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CONVERT(nvarchar(10),User
 	--		LEFT JOIN Board_Boards BB ON BC.BoardNo = BB.BoardNo
 	--		WHERE BC.BoardNo = BoardNo AND BC.RecommendedCount > 0 AND BC.Enabled = TRUE and BC.IsNotice = FALSE
 	--		ORDER BY RecommendedCount DESC
-		
+
 	--	END
-		
+
 	--	INSERT INTO TempTable
 	--	SELECT BC.ContentNo, BC.Content, BC.ModUserNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.ModUserNo ),(Select Name from Organization_Users where UserNo = BC.ModUserNo )) else (Select Name from Organization_Users  where UserNo = BC.ModUserNo ) end) as ModUserName, BC.ModDepartNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.ModDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.ModDepartNo) end) as ModDepartName, BC.RegDate, BC.Title, BC.TitleEffect,
 	--		BC.GroupNo, BC.Depth, BC.OrderNo, BC.HeadNo, 0 AS IsNotice, BC.IsFile, BC.ReplyCount, BC.RecommendedCount, BC.ViewedCount,
-			
+
 	--		'' AS HeadName, 0 AS IsRecommended, BC.ModPositionNo, ( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.ModPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.ModPositionNo) end) as ModPositionName,BC.FileCount,BC.BoardNo,BB.Name,
 
-	--		BC.RegUserNo, 
+	--		BC.RegUserNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Users where UserNo = BC.RegUserNo ),(Select Name from Organization_Users where UserNo = BC.RegUserNo )) else (Select Name from Organization_Users  where UserNo = BC.RegUserNo ) end) as RegUserName,
 	--	BC.RegPositionNo,
 	--	( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo ),(Select Name_EN from Organization_Positions where PositionNo = BC.RegPositionNo )) else (Select Name from Organization_Positions where PositionNo = BC.RegPositionNo) end) as RegPositionName,

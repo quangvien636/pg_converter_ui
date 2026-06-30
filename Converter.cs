@@ -130,6 +130,13 @@ public static class Converter
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
 
+        // Rank 3: Drop DECLARE vars whose names duplicate procedure parameter names.
+        // PL/pgSQL raises "duplicate variable declaration" when a DECLARE entry matches a param.
+        var paramNameSet = new HashSet<string>(paramNames, StringComparer.OrdinalIgnoreCase);
+        declares = declares
+            .Where(d => { var m = Regex.Match(d.TrimStart(), @"^(\w+)\s"); return !m.Success || !paramNameSet.Contains(m.Groups[1].Value); })
+            .ToList();
+
         var warnings = new List<string>();
         if (Regex.IsMatch(rawBody, @"\bEXEC(?:UTE)?\s+sp_executesql\b|\bEXEC(?:UTE)?\s*\(", RegexOptions.IgnoreCase))
             warnings.Add("Dynamic SQL detected. Manual rewrite required for PostgreSQL.");
@@ -312,6 +319,12 @@ public static class Converter
             .Where(n => n.Length >= 2)
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
+
+        // Rank 3: Drop DECLARE vars whose names duplicate function parameter names.
+        var paramNameSetF = new HashSet<string>(paramNames, StringComparer.OrdinalIgnoreCase);
+        declares = declares
+            .Where(d => { var m = Regex.Match(d.TrimStart(), @"^(\w+)\s"); return !m.Success || !paramNameSetF.Contains(m.Groups[1].Value); })
+            .ToList();
 
         var warnings = FindUnsupportedWarnings(convertedBody).ToList();
         bool hasWarning = BodyConverter.HasUnhandledPatterns(convertedBody) || returnTodo != null || warnings.Any();
@@ -575,7 +588,19 @@ public static class Converter
                 if (skipNextTopSelect)
                     skipNextTopSelect = false;  // CTE main SELECT or UNION member — already covered
                 else
+                {
+                    // Terminate any preceding RETURN QUERY SELECT before injecting another.
+                    // Guard with BoardLineNeedsTerminator to avoid adding ; to THEN/ELSE/BEGIN/etc.
+                    for (int i = result.Count - 1; i >= 0; i--)
+                    {
+                        if (string.IsNullOrWhiteSpace(result[i])) continue;
+                        string prevCode = StripLineComment(result[i]).TrimEnd();
+                        if (BoardLineNeedsTerminator(prevCode))
+                            result[i] = result[i].TrimEnd() + ";";
+                        break;
+                    }
                     result.Add(indent + "RETURN QUERY");
+                }
             }
 
             result.Add(rawLine);
@@ -1108,8 +1133,9 @@ $$;";
         // Add ; at statement boundaries when the preceding SQL line has none.
         // Spans blank lines so VALUES (...)\n\n\nvar := ... gets semicolon added.
         // Negative lookbehind (?<!;) prevents double semicolons.
+        // Negative lookbehind (?<!\*/) prevents adding ; after block-comment closing */ lines.
         body = Regex.Replace(body,
-            @"([^\s;,\(\r\n][^\r\n]*?)(?<!;)((?:\r?\n[ \t]*)+)([ \t]*(?:INSERT\s+INTO|DELETE\s+FROM|UPDATE\s+\w|\w+\s*:=\s|RETURN\s+QUERY\b|END\s+IF\b|END\s+LOOP\b|RAISE\b))",
+            @"([^\s;,\(\r\n][^\r\n]*?)(?<!\*/)(?<!;)((?:\r?\n[ \t]*)+)([ \t]*(?:INSERT\s+INTO|DELETE\s+FROM|UPDATE\s+\w|\w+\s*:=\s|RETURN\s+QUERY\b|END\s+IF\b|END\s+LOOP\b|RAISE\b))",
             m => m.Groups[1].Value + ";" + m.Groups[2].Value + m.Groups[3].Value,
             RegexOptions.IgnoreCase);
         // Close common multi-line DML tails before a PL/pgSQL/result boundary.
@@ -1401,7 +1427,7 @@ $$;";
     static bool BoardLineNeedsTerminator(string code)
     {
         if (code.EndsWith(";") || code.EndsWith(",") || code.EndsWith("(") ||
-            code.EndsWith("+") || code.EndsWith("||"))
+            code.EndsWith("+") || code.EndsWith("||") || code.EndsWith("*/"))
             return false;
         if (Regex.IsMatch(code,
             @"(?:\bTHEN|\bELSE|\bBEGIN|\bLOOP|\bRETURN\s+QUERY)$",
