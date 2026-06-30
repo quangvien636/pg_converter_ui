@@ -611,7 +611,7 @@ public static class Converter
             }
         }
 
-        return string.Join('\n', result);
+        return RepairBoardCteBoundaries(string.Join('\n', result));
     }
 
     static string BuildColDefs(string colPart)
@@ -1152,6 +1152,7 @@ $$;";
         {
             body = NormalizeBoardBlockTerminators(body);
             body = NormalizeBoardStatementBoundaries(body);
+            body = RepairBoardCteBoundaries(body);
         }
 
         return body;
@@ -1309,6 +1310,76 @@ $$;";
         }
 
         return string.Join('\n', result);
+    }
+
+    static string RepairBoardCteBoundaries(string body)
+    {
+        var lines = body.Split('\n').ToList();
+        for (int boundary = 0; boundary < lines.Count; boundary++)
+        {
+            string boundaryCode = StripLineComment(lines[boundary]).Trim();
+            bool isReturnQuery = Regex.IsMatch(boundaryCode, @"^RETURN\s+QUERY\s*;?$",
+                RegexOptions.IgnoreCase);
+            bool isDml = Regex.IsMatch(boundaryCode,
+                @"^(?:INSERT\s+INTO|UPDATE\b|DELETE\s+FROM\b)", RegexOptions.IgnoreCase);
+            if (!isReturnQuery && !isDml) continue;
+
+            int close = boundary - 1;
+            while (close >= 0)
+            {
+                string candidate = lines[close].TrimStart();
+                if (!string.IsNullOrWhiteSpace(lines[close]) &&
+                    !candidate.StartsWith("--", StringComparison.Ordinal))
+                    break;
+                close--;
+            }
+            if (close < 0 ||
+                !Regex.IsMatch(StripLineComment(lines[close]).Trim(), @"\)\s*;?$"))
+                continue;
+
+            int cteStart = FindBoardCteStart(lines, close);
+            if (cteStart < 0) continue;
+
+            lines[close] = Regex.Replace(lines[close], @";[ \t]*$", "");
+            if (!isReturnQuery) continue;
+
+            bool materializesTempTable = Regex.IsMatch(
+                StripLineComment(lines[cteStart]).Trim(),
+                @"^CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\s+WITH(?:\s+RECURSIVE)?\b",
+                RegexOptions.IgnoreCase);
+            if (materializesTempTable)
+            {
+                // The SELECT after the CTE belongs to CREATE TEMP TABLE ... AS,
+                // not to the function result stream.
+                lines.RemoveAt(boundary);
+                boundary--;
+            }
+            else
+            {
+                // PL/pgSQL requires RETURN QUERY before the complete WITH query.
+                string returnLine = lines[boundary];
+                lines.RemoveAt(boundary);
+                lines.Insert(cteStart, returnLine);
+            }
+        }
+        return string.Join('\n', lines);
+    }
+
+    static int FindBoardCteStart(List<string> lines, int closeLine)
+    {
+        for (int i = closeLine; i >= 0; i--)
+        {
+            string code = StripLineComment(lines[i]).Trim();
+            if (code.Length == 0) continue;
+            if (Regex.IsMatch(code,
+                @"^(?:CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\s+)?WITH(?:\s+RECURSIVE)?\b",
+                RegexOptions.IgnoreCase))
+                return i;
+            if (code.EndsWith(";") &&
+                !Regex.IsMatch(code, @"^\)\s*;$"))
+                return -1;
+        }
+        return -1;
     }
 
     static bool TryFindPreviousCodeLine(List<string> lines, out int index, out string code)

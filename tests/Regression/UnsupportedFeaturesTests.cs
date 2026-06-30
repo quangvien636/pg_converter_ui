@@ -127,6 +127,46 @@ namespace RegressionTests
             Assert.That(pg, Does.Not.Contain(".value("));
         }
 
+        [Test]
+        public void TestCteTempMaterializationStaysAttachedBeforeReturnQuery()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Board_TestCteReturn AS BEGIN\n" +
+                "CREATE TEMP TABLE items ON COMMIT DROP AS WITH cte AS (\n" +
+                "SELECT 1 AS Id\n)\n" +
+                "-- materialize the CTE result\n" +
+                "SELECT * FROM cte\nEND";
+            var obj = new DbObject("Board_TestCteReturn", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Match(@"\)\s*;\s*RETURN\s+QUERY"));
+            Assert.That(pg, Does.Match(@"CREATE\s+TEMP\s+TABLE\s+items[\s\S]*?WITH(?:\s+RECURSIVE)?\s+cte[\s\S]*?\)[\s\S]*?\bSELECT\s+\*\s+FROM\s+cte"));
+        }
+
+        [Test]
+        public void TestCteClosingParenthesisStaysAttachedToDml()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Board_TestCteUpdate AS BEGIN\n" +
+                "WITH cte AS (SELECT 1 AS Id)\n" +
+                "UPDATE Target SET Value = 1 WHERE Id IN (SELECT Id FROM cte)\nEND";
+            var obj = new DbObject("Board_TestCteUpdate", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Match(@"\)\s*;\s*UPDATE\b"));
+            Assert.That(pg, Does.Match(@"\)\s*\n\s*UPDATE\b"));
+        }
+
+        [Test]
+        public void TestNormalParenthesizedExpressionStillTerminatesBeforeDml()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Board_TestParenBoundary AS BEGIN\n" +
+                "SELECT (1 + 2)\n" +
+                "UPDATE Target SET Value = 3\nEND";
+            var obj = new DbObject("Board_TestParenBoundary", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Match(@"SELECT\s+\(1\s*\+\s*2\)\s*;\s*UPDATE\b"));
+        }
+
         // ─── 8. IDENTITY DDL mapping ─────────────────────────────────────────
         [Test]
         public void TestIDENTITY()
