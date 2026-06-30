@@ -243,7 +243,13 @@ public static class BodyConverter
         // Collect cursor declarations
         var cursors = new List<(string name, string sql)>();
         body = SafeReplace(body, "CursorDecl",
-            @"DECLARE\s+@?(\w+)\s+CURSOR\s+(?:(?:LOCAL|GLOBAL|FORWARD_ONLY|SCROLL|STATIC|KEYSET|DYNAMIC|FAST_FORWARD|READ_ONLY|SCROLL_LOCKS|OPTIMISTIC|TYPE_WARNING)\s+)*FOR\s+([\s\S]+?)(?=\n[ \t]*(?:OPEN|DECLARE\s+@|GO\b|--|\z))",
+            @"DECLARE\s+@?(\w+)\s+CURSOR\s+(?:(?:LOCAL|GLOBAL|FORWARD_ONLY|SCROLL|STATIC|KEYSET|DYNAMIC|FAST_FORWARD|READ_ONLY|SCROLL_LOCKS|OPTIMISTIC|TYPE_WARNING)\s+)*FOR\s+([\s\S]+?)(?=\s+OPEN\s+@?\1\b)",
+            m => {
+                cursors.Add((m.Groups[1].Value.ToLower(), m.Groups[2].Value.Trim().TrimEnd(';')));
+                return "";
+            }, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
+        body = SafeReplace(body, "CursorVariableAssignment",
+            @"SET\s+@?(\w+)\s*=\s*CURSOR\s+(?:(?:LOCAL|GLOBAL|FORWARD_ONLY|SCROLL|STATIC|KEYSET|DYNAMIC|FAST_FORWARD|READ_ONLY|SCROLL_LOCKS|OPTIMISTIC|TYPE_WARNING)\s+)*FOR\s+([\s\S]+?)(?=\s+OPEN\s+@?\1\b)",
             m => {
                 cursors.Add((m.Groups[1].Value.ToLower(), m.Groups[2].Value.Trim().TrimEnd(';')));
                 return "";
@@ -253,26 +259,21 @@ public static class BodyConverter
         {
             // Collect FETCH INTO variable names (first occurrence)
             var fetchM = Regex.Match(body,
-                $@"FETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}\s+INTO\s+((?:@?\w+\s*,?\s*)+)",
-                RegexOptions.IgnoreCase);
+                $@"FETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:\r?\n[ \t]*)?INTO[ \t]+([^\r\n;]+)",
+                RegexOptions.IgnoreCase, RegexTimeout);
             var intoVars = fetchM.Success
                 ? fetchM.Groups[1].Value.Split(',').Select(v => v.Trim().TrimStart('@').ToLower()).ToList()
                 : new List<string>();
 
-            // Derive column names from SELECT list
-            var selCols = ParseSelectCols(selectSql);
-
-            // Build variable assignments to inject at loop start
-            var assigns = new StringBuilder();
-            for (int j = 0; j < Math.Min(intoVars.Count, selCols.Count); j++)
-                assigns.AppendLine($"    {intoVars[j]} := _rec.{selCols[j]};");
-
             // Remove OPEN
             body = Regex.Replace(body, $@"\bOPEN\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?", "", RegexOptions.IgnoreCase);
             // Remove ALL FETCH NEXT FROM cursor lines
-            body = Regex.Replace(body, $@"\bFETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}\s+INTO[^\r\n]*\r?\n?", "", RegexOptions.IgnoreCase);
+            body = Regex.Replace(body,
+                $@"\bFETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:\r?\n[ \t]*)?INTO[^\r\n;]*(?:;?[ \t]*\r?\n)?",
+                "", RegexOptions.IgnoreCase, RegexTimeout);
             // Replace WHILE @@FETCH_STATUS = 0 / @FETCH_STATUS = 0 with FOR loop
-            var loopHeader = $"FOR _rec IN {selectSql}\nLOOP\n{assigns}";
+            var loopTarget = intoVars.Count > 0 ? string.Join(", ", intoVars) : "_rec";
+            var loopHeader = $"FOR {loopTarget} IN {selectSql} LOOP";
             body = Regex.Replace(body, @"\bWHILE\s+@{1,2}FETCH_STATUS\s*=\s*0\b", loopHeader, RegexOptions.IgnoreCase);
             // Remove CLOSE / DEALLOCATE
             body = Regex.Replace(body, $@"\bCLOSE\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?",      "", RegexOptions.IgnoreCase);
@@ -881,6 +882,15 @@ public static class BodyConverter
             }
 
             // ── WHILE (not @@FETCH_STATUS — already handled) ─────────────────
+            // Cursor conversion emits a complete PL/pgSQL FOR query header.
+            if (Regex.IsMatch(trimmed, @"^FOR\s+.+\s+IN\s+.+\s+LOOP\s*$",
+                RegexOptions.IgnoreCase))
+            {
+                result.Add(rawLine);
+                pending = BlockKind.While;
+                continue;
+            }
+
             var whileM = Regex.Match(trimmed,
                 @"^WHILE\s+(?!@@FETCH_STATUS\b)(.+?)(?:\s+BEGIN\s*)?$",
                 RegexOptions.IgnoreCase);
