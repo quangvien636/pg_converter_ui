@@ -474,6 +474,13 @@ public static class BodyConverter
 
     static string ConvertExec(string body)
     {
+        // SQL Server style 120 is the sortable date/time representation.
+        // Accept sized CHAR/VARCHAR targets as well as their Unicode variants.
+        body = SafeReplace(body, "ConvertDateStyle120",
+            @"\bCONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*\d+\s*\))?\s*,\s*([^,\r\n]+?)\s*,\s*120\s*\)",
+            "TO_CHAR($1, 'YYYY-MM-DD HH24:MI:SS')",
+            RegexOptions.IgnoreCase);
+
         // P5: Remove sp_xml_preparedocument / sp_xml_removedocument (OPENXML XML shredding)
         body = Regex.Replace(body,
             @"(?m)^[ \t]*(?:EXEC(?:UTE)?\s+)?sp_xml_preparedocument\b[^\n]*\n",
