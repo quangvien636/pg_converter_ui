@@ -259,7 +259,7 @@ public static class BodyConverter
         {
             // Collect FETCH INTO variable names (first occurrence)
             var fetchM = Regex.Match(body,
-                $@"FETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:\r?\n[ \t]*)?INTO[ \t]+([^\r\n;]+)",
+                $@"FETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:(?:\r?\n[ \t]*)+)?INTO[ \t]+([^\r\n;]+)",
                 RegexOptions.IgnoreCase, RegexTimeout);
             var intoVars = fetchM.Success
                 ? fetchM.Groups[1].Value.Split(',').Select(v => v.Trim().TrimStart('@').ToLower()).ToList()
@@ -269,7 +269,7 @@ public static class BodyConverter
             body = Regex.Replace(body, $@"\bOPEN\s+@?{Regex.Escape(cur)}\s*;?\s*\r?\n?", "", RegexOptions.IgnoreCase);
             // Remove ALL FETCH NEXT FROM cursor lines
             body = Regex.Replace(body,
-                $@"\bFETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:\r?\n[ \t]*)?INTO[^\r\n;]*(?:;?[ \t]*\r?\n)?",
+                $@"\bFETCH\s+NEXT\s+FROM\s+@?{Regex.Escape(cur)}[ \t]*(?:(?:\r?\n[ \t]*)+)?INTO[^\r\n;]*(?:;?[ \t]*\r?\n)?",
                 "", RegexOptions.IgnoreCase, RegexTimeout);
             // Replace WHILE @@FETCH_STATUS = 0 / @FETCH_STATUS = 0 with FOR loop
             var loopTarget = intoVars.Count > 0 ? string.Join(", ", intoVars) : "_rec";
@@ -561,7 +561,7 @@ public static class BodyConverter
         // EXEC dbo.proc @p1, @p2  →  PERFORM proc(p1, p2);
         // Atomic group (?>...) prevents catastrophic backtracking on the nested param quantifier
         body = SafeReplace(body, "ExecProcArgs",
-            @"(?m)^([ \t]*)EXEC(?:UTE)?\s+(?:\[?dbo\]?\.)?\[?(\w+)\]?\s+((?>(?:@?\w+\s*(?:=\s*@?\w+\s*)?,?\s*)+))\s*;?\s*$",
+            @"(?m)^([ \t]*)EXEC(?:UTE)?[ \t]+(?:\[?dbo\]?\.)?\[?(\w+)\]?[ \t]+((?>(?:@?\w+[ \t]*(?:=[ \t]*@?\w+[ \t]*)?,?[ \t]*)+))[ \t]*;?[ \t]*$",
             m => {
                 var indent   = m.Groups[1].Value;
                 var procName = m.Groups[2].Value.ToLower();
@@ -941,7 +941,9 @@ public static class BodyConverter
                 // In T-SQL, END closes the THEN's BEGIN block before ELSE. In
                 // PL/pgSQL the IF itself must stay open until the final END IF.
                 int next = li + 1;
-                while (next < lines.Length && string.IsNullOrWhiteSpace(lines[next])) next++;
+                while (next < lines.Length &&
+                    (string.IsNullOrWhiteSpace(lines[next]) || IsCommentOnlyLine(lines[next])))
+                    next++;
                 if (next < lines.Length &&
                     Regex.IsMatch(lines[next].Trim(), @"^ELSE\b", RegexOptions.IgnoreCase))
                     continue;
@@ -996,10 +998,19 @@ public static class BodyConverter
     {
         for (int i = li + 1; i < lines.Length; i++)
         {
-            if (string.IsNullOrWhiteSpace(lines[i])) continue;
+            if (string.IsNullOrWhiteSpace(lines[i]) || IsCommentOnlyLine(lines[i])) continue;
             return Regex.IsMatch(lines[i].TrimStart(), @"^ELSE\b", RegexOptions.IgnoreCase);
         }
         return false;
+    }
+
+    static bool IsCommentOnlyLine(string line)
+    {
+        string trimmed = line.TrimStart();
+        return trimmed.StartsWith("--", StringComparison.Ordinal) ||
+               trimmed.StartsWith("/*", StringComparison.Ordinal) ||
+               trimmed.StartsWith("*", StringComparison.Ordinal) ||
+               trimmed.StartsWith("*/", StringComparison.Ordinal);
     }
 
     static bool TrySplitInlineCondition(string text, out string condition, out string statement)
