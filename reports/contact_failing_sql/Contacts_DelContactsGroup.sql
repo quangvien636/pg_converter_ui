@@ -36,7 +36,7 @@ BEGIN
 		--ROLLBACK TRAN
 	--END CATCH
 
-	SELECT @ERROR;
+	SELECT 0;
 END;
 $function$
 LANGUAGE plpgsql;

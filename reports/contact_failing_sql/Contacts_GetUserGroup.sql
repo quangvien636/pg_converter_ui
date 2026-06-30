@@ -37,7 +37,7 @@ BEGIN
 		SELECT COALESCE(GroupName,'');
 	ELSE
 		RETURN QUERY
-		SELECT COALESCE(GroupName,'') + ';' || CONVERT(VARCHAR(10),GroupCount - 1);
+		SELECT COALESCE(GroupName,'') || ';' || CONVERT(VARCHAR(10),GroupCount - 1);
 	END IF;
 END;
 $function$

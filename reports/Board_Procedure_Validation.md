@@ -1,6 +1,6 @@
 # Board_% Procedure Validation Report
 
-**Generated**: 2026-06-30 17:08:13  
+**Generated**: 2026-06-30 17:26:51  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  

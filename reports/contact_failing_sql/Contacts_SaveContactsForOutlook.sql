@@ -4,7 +4,7 @@
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 -- TODO: LEN was not fully converted; use length()
-DROP FUNCTION IF EXISTS public.contacts_savecontactsforoutlook(integer, character varying, character varying, character varying, character varying, character varying, character varying, character varying, "position" character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying);
+DROP FUNCTION IF EXISTS public.contacts_savecontactsforoutlook(integer, character varying, character varying, character varying, character varying, character varying, character varying, character varying, "position" character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_savecontactsforoutlook(
     IN userno integer,
     IN outlookentryid character varying,
@@ -31,7 +31,8 @@ CREATE OR REPLACE FUNCTION public.contacts_savecontactsforoutlook(
     IN otherfax character varying,
     IN otherpost character varying,
     IN otheraddress character varying,
-    IN webpage character varying
+    IN webpage character varying,
+    IN massenger character varying
 ) RETURNS SETOF record
 AS $function$
 DECLARE

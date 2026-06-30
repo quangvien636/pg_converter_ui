@@ -63,9 +63,9 @@ BEGIN
 	IF LEN(CheckMainSeqList) > 0 THEN
 
 		-- 정리할 주소록 분할 처리
-		WHILE STRPOS(',TempMainSeqList, ') > 0 LOOP
+		WHILE STRPOS(TempMainSeqList, ',') > 0 LOOP
 			-- 정리 기준 주소록 번호;
-			TempMainSeqNo := SUBSTRING(TempMainSeqList,0,STRPOS(',TempMainSeqList, '));
+			TempMainSeqNo := SUBSTRING(TempMainSeqList,0,STRPOS(TempMainSeqList, ','));
 			-- 성명;
 
 
@@ -82,14 +82,14 @@ BEGIN
 					TempNameOneList := SUBSTRING(TempNameList,0,STRPOS(TempNameList, '$'));
 					TempNameOneList := TempNameOneList || ',';
 					TempNameCnt := 0;
-					WHILE STRPOS(',TempNameOneList, ') > 0 LOOP
-						TempNameOne := SUBSTRING(TempNameOneList,0,STRPOS(',TempNameOneList, '));
+					WHILE STRPOS(TempNameOneList, ',') > 0 LOOP
+						TempNameOne := SUBSTRING(TempNameOneList,0,STRPOS(TempNameOneList, ','));
 						IF TempNameCnt = 0 THEN
 							TempNameMainSeq := TempNameOne;
 						ELSIF TempNameCnt = 1 THEN
 							TempNameUserSeq := TempNameOne;
 						TempNameCnt := TempNameCnt + 1;
-						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(',TempNameOneList, ')+1,LEN(TempNameOneList));
+						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(TempNameOneList, ',')+1,LEN(TempNameOneList));
 					END LOOP;
 
 					IF TempMainSeqNo = TempNameMainSeq THEN
@@ -127,8 +127,8 @@ BEGIN
 					TempEmailOneList := SUBSTRING(TempEmailList,0,STRPOS(TempEmailList, '$'));
 					TempEmailOneList := TempEmailOneList || ',';
 					TempEmailCnt := 0;
-					WHILE STRPOS(', TempEmailOneList, ') > 0 LOOP
-						TempEmailOne := SUBSTRING(TempEmailOneList,0,STRPOS(',TempEmailOneList, '));
+					WHILE STRPOS(TempEmailOneList, ',') > 0 LOOP
+						TempEmailOne := SUBSTRING(TempEmailOneList,0,STRPOS(TempEmailOneList, ','));
 						IF TempEmailCnt = 0 THEN
 							TempEmailMainSeq := TempEmailOne;
 						ELSIF TempEmailCnt = 1 THEN
@@ -138,7 +138,7 @@ BEGIN
 						ELSIF TempEmailCnt = 3 THEN
 							TempEmailYN := TempEmailOne;
 						TempEmailCnt := TempEmailCnt +1;
-						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(',TempEmailOneList, ')+1,LEN(TempEmailOneList));
+						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(TempEmailOneList, ',')+1,LEN(TempEmailOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -148,7 +148,6 @@ BEGIN
 							tempdeluserseqlist := COALESCE(tempdeluserseqlist, '') || COALESCE((CONVERT(text,TempEmailUserSeq) || ','), '');
 						END IF;
 						IF TempEmailYN = 'Y' THEN
-						BEGIN -- Y인 경우 병합처리
 
 
 
@@ -173,7 +172,6 @@ BEGIN
 									Seq = TempEmailSeq
 								AND UserSeq = TempEmailUserSeq;
 							ELSIF TempMainSeqNo <> TempEmailMainSeq AND TempEMailCheck > 0 THEN
-							BEGIN -- 메인의 데이터가 아니면서 존재하는 경우는 삭제;
 								DELETE FROM ContactsEmail
 								WHERE Seq = TempEmailSeq
 								AND UserSeq = TempEmailUserSeq;
@@ -186,7 +184,7 @@ BEGIN
 							WHERE Seq = TempEmailSeq
 							AND UserSeq = TempEmailUserSeq
 						END;
-					END LOOP;
+					END IF;
 
 					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LEN(TempEmailList));
 				END IF;
@@ -212,8 +210,8 @@ BEGIN
 					TempNumberOneList := SUBSTRING(TempNumberList,0,STRPOS(TempNumberList, '$'));
 					TempNumberOneList := TempNumberOneList || ',';
 					TempNumberCnt := 0;
-					WHILE STRPOS(', TempNumberOneList, ') > 0 LOOP
-						TempNumberOne := SUBSTRING(TempNumberOneList,0,STRPOS(',TempNumberOneList, '));
+					WHILE STRPOS(TempNumberOneList, ',') > 0 LOOP
+						TempNumberOne := SUBSTRING(TempNumberOneList,0,STRPOS(TempNumberOneList, ','));
 						IF TempNumberCnt = 0 THEN
 							TempNumberMainSeq := TempNumberOne;
 						ELSIF TempNumberCnt = 1 THEN
@@ -223,7 +221,7 @@ BEGIN
 						ELSIF TempNumberCnt = 3 THEN
 							TempNumberYN := TempNumberOne;
 						TempNumberCnt := TempNumberCnt + 1;
-						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(',TempNumberOneList, ')+1,LEN(TempNumberOneList));
+						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(TempNumberOneList, ',')+1,LEN(TempNumberOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -234,7 +232,6 @@ BEGIN
 							tempdeluserseqlist := COALESCE(tempdeluserseqlist, '') || COALESCE((CONVERT(text,TempNumberUserSeq) || ','), '');
 						END IF;
 						IF TempNumberYN = 'Y' THEN
-						BEGIN -- Y인 경우 병합처리
 
 
 
@@ -259,7 +256,6 @@ BEGIN
 									Seq = TempNumberSeq
 								AND UserSeq = TempNumberUserSeq;
 							ELSIF TempMainSeqNo <> TempNumberMainSeq AND TempNumberCheck > 0 THEN
-							BEGIN -- 메인의 데이터가 아니면서 존재하는 경우는 삭제;
 								DELETE FROM ContactsNumber
 								WHERE Seq = TempNumberSeq
 								AND UserSeq = TempNumberUserSeq;
@@ -272,16 +268,16 @@ BEGIN
 							WHERE Seq = TempNumberSeq
 							AND UserSeq = TempNumberUserSeq
 						END;
-					END LOOP;
+					END IF;
 
 					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LEN(TempNumberList));
 				END IF;
-			END IF;
+			END LOOP;
 			-- 처리되면 전부 삭제
 			IF LEN(TempDelUserSeqList) > 0 THEN
 
-				WHILE STRPOS(',TempDelUserSeqList, ') > 0 LOOP
-					TempDelUserSeqNo := SUBSTRING(TempDelUserSeqList,0,STRPOS(',TempDelUserSeqList, '));
+				WHILE STRPOS(TempDelUserSeqList, ',') > 0 LOOP
+					TempDelUserSeqNo := SUBSTRING(TempDelUserSeqList,0,STRPOS(TempDelUserSeqList, ','));
 					DELETE FROM ContactsAddress WHERE UserSeq = TempDelUserSeqNo;
 					DELETE FROM ContactsCompany WHERE UserSeq = TempDelUserSeqNo;
 					DELETE FROM ContactsDays WHERE UserSeq = TempDelUserSeqNo;
@@ -292,18 +288,21 @@ BEGIN
 					DELETE FROM ContactsSns WHERE UserSeq = TempDelUserSeqNo;
 					DELETE FROM ContactsUser WHERE Seq = TempDelUserSeqNo;
 
-					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(',TempDelUserSeqList, ')+1,LEN(TempDelUserSeqList));
+					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(TempDelUserSeqList, ',')+1,LEN(TempDelUserSeqList));
 				END LOOP;
 			END IF;
 			-- 다음 정리> 기준 주소록번호;
-			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(',TempMainSeqList, ')+1,LEN(TempMainSeqList));
-		END;
+			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(TempMainSeqList, ',')+1,LEN(TempMainSeqList));
+		END IF;
 
 
 
-		IF @ERROR <> 0 THEN
+		IF 0 <> 0 THEN
 
 		END IF;
+
+
+	END IF;
 END;
 $function$
 LANGUAGE plpgsql;

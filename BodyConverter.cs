@@ -711,7 +711,7 @@ public static class BodyConverter
         // General procedure call with literals and expressions:
         // EXEC proc @p, 'text', 0 -> PERFORM proc(p, 'text', 0);
         body = SafeReplace(body, "ExecProcGeneralArgs",
-            @"(?m)^([ \t]*)EXEC(?:UTE)?[ \t]+(?:\[?dbo\]?\.)?\[?(\w+)\]?[ \t]+(.+?)[ \t]*;?[ \t]*$",
+            @"(?m)^([ \t]*)EXEC(?:UTE)?[ \t]+(?:(?:\[?dbo\]?|public)\.)?""?\[?(\w+)\]?""?[ \t]+(.+?)[ \t]*;?[ \t]*$",
             m => {
                 string procName = m.Groups[2].Value;
                 if (procName.Equals("sp_executesql", StringComparison.OrdinalIgnoreCase))
@@ -1080,7 +1080,7 @@ public static class BodyConverter
             }
 
             // ── BEGIN ────────────────────────────────────────────────────────
-            if (Regex.IsMatch(trimmed, @"^BEGIN\s*$", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(trimmed, @"^BEGIN\b", RegexOptions.IgnoreCase))
             {
                 if (suppressNextElseBegin)
                 {

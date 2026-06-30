@@ -4,8 +4,9 @@
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
 -- TODO: LEN was not fully converted; use length()
-DROP FUNCTION IF EXISTS public.contacts_saverestore();
+DROP FUNCTION IF EXISTS public.contacts_saverestore(character varying);
 CREATE OR REPLACE FUNCTION public.contacts_saverestore(
+    IN historynolist character varying
 ) RETURNS SETOF record
 AS $function$
 DECLARE
@@ -19,12 +20,12 @@ BEGIN
 
 
 
-	HistoryNoList := HistoryNoList || ',';
+	HistoryNoList := contacts_saverestore.historynolist || ',';
 	ChkHistoryNo := REPLACE(HistoryNoList,',','');
 	IF LEN(ChkHistoryNo) > 0 THEN
 
-		WHILE STRPOS(',HistoryNoList, ') > 0 LOOP
-			TempHistoryNo := SUBSTRING(HistoryNoList,0,STRPOS(',HistoryNoList, '));
+		WHILE STRPOS(HistoryNoList, ',') > 0 LOOP
+			TempHistoryNo := SUBSTRING(HistoryNoList,0,STRPOS(HistoryNoList, ','));
 			SELECT Seq INTO tempseq FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
 
@@ -358,13 +359,13 @@ BEGIN
 			DELETE FROM ContactsGroupUserHistory WHERE HistoryNo = TempHistoryNo;
 			DELETE FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
-			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(',HistoryNoList, ')+1,LEN(HistoryNoList));
+			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(HistoryNoList, ',')+1,LEN(HistoryNoList));
 		END LOOP;
-		IF @ERROR <> 0 THEN
+		IF 0 <> 0 THEN
 
 		END IF;
 
-	END IF;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

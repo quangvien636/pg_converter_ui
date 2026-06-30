@@ -59,9 +59,19 @@ public static class Converter
         var pgName = obj.Name.ToLower();
 
         var hdr = Regex.Match(block,
-            @"(?:CREATE\s+OR\s+ALTER|ALTER|CREATE)\s+(?:PROCEDURE|PROC)\s+(?:\[?dbo\]?\.)?\[?(\w+)\]?\s*([\s\S]*?)(?:AS\s*$|AS\s*BEGIN)",
-            RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        var rawParams = hdr.Success ? hdr.Groups[2].Value.Trim() : "";
+            @"(?:CREATE\s+OR\s+ALTER|ALTER|CREATE)\s+(?:PROCEDURE|PROC)\s+(?:\[?dbo\]?\.)?\[?(\w+)\]?",
+            RegexOptions.IgnoreCase);
+        string rawParams = "";
+        if (hdr.Success)
+        {
+            string afterName = block[(hdr.Index + hdr.Length)..];
+            var asMarker = Regex.Match(afterName,
+                @"(?im)^[ \t]*AS(?:[ \t]+BEGIN)?[ \t]*\r?$");
+            if (!asMarker.Success)
+                asMarker = Regex.Match(afterName, @"(?i)\s+AS(?:\s+BEGIN)?\b");
+            if (asMarker.Success)
+                rawParams = afterName[..asMarker.Index].Trim();
+        }
         var pgParams = ConvertParams(rawParams, forProcedure: true);
         // Non-default params first
         pgParams = pgParams.Where(p => !p.Contains(" DEFAULT ")).ToList()
@@ -71,6 +81,16 @@ public static class Converter
 
         // Extract DECLARE vars — handles multi-var lines, skips TABLE vars, handles \r\n endings
         var declares = new List<string>();
+        rawBody = Regex.Replace(rawBody,
+            @"(?m)^[ \t]*DECLARE[ \t]*\r?\n(?<vars>(?:[ \t]*@\w+[^\r\n]*(?:\r?\n|$))+)",
+            m =>
+            {
+                foreach (Match vm in Regex.Matches(m.Groups["vars"].Value,
+                    @"@(\w+)\s+(?!TABLE\b)([A-Za-z_][A-Za-z0-9_]*)(\s*\(\s*[^)]+\))?(?:\s*=\s*[^,\r\n]+)?",
+                    RegexOptions.IgnoreCase))
+                    declares.Add($"    {vm.Groups[1].Value.ToLower()} {MapType(vm.Groups[2].Value + vm.Groups[3].Value)};");
+                return "";
+            }, RegexOptions.IgnoreCase);
         var bodyNoDecl = Regex.Replace(rawBody,
             @"(?m)^[ \t]*DECLARE\s+([^\r\n]+)\r?$",
             m =>
@@ -118,6 +138,15 @@ public static class Converter
         if (outputModeDemoted)
             pgParams = pgParams.Select(p => Regex.Replace(
                 p, @"^INOUT\s+", "IN ", RegexOptions.IgnoreCase)).ToList();
+        bool contactReturnQueryPreInjected = hasResultSelect &&
+            (pgName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+             pgName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase));
+        if (contactReturnQueryPreInjected)
+        {
+            convertedBody = InjectReturnQuery(convertedBody);
+            convertedBody = NormalizeBoardStatementBoundaries(convertedBody);
+            convertedBody = RepairBoardCteBoundaries(convertedBody);
+        }
 
         // For void: strip RETURN <literal number>;
         if (returnType == "void")
@@ -177,7 +206,7 @@ public static class Converter
         if (hasWarning)
             sb.AppendLine("-- !! WARNING: output needs manual review — see TODO comments");
         sb.AppendLine("BEGIN");
-        if (hasResultSelect)
+        if (hasResultSelect && !contactReturnQueryPreInjected)
             sb.AppendLine(InjectReturnQuery(convertedBody).TrimEnd());
         else
             sb.AppendLine(convertedBody.TrimEnd());
@@ -911,7 +940,9 @@ $$;";
     {
         var result = new List<string>();
         if (string.IsNullOrWhiteSpace(rawParams)) return result;
-        rawParams = rawParams.Trim().TrimStart('(').TrimEnd(')').Trim();
+        rawParams = rawParams.Trim();
+        if (rawParams.StartsWith('(') && rawParams.EndsWith(')'))
+            rawParams = rawParams[1..^1].Trim();
         // P1b: remove single-line comments before parsing so they don't corrupt parameter names
         rawParams = Regex.Replace(rawParams, @"--[^\n]*", "");
         foreach (var part in SplitParams(rawParams))
@@ -1056,6 +1087,7 @@ $$;";
             @"(?m)^[ \t]*IF\s+@@ERROR\s*(?:<>|!=)\s*0\b[^\r\n]*\r?\n?",
             "", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"@@ERROR\b",    "0", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"@ERROR\b",     "0", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"@@IDENTITY\b", "lastval()", RegexOptions.IgnoreCase);
 
         // TOP N → LIMIT N: single-line SELECT TOP → move TOP value to LIMIT at end
@@ -1111,6 +1143,11 @@ $$;";
 
         // CAST/CONVERT
         body = Regex.Replace(body, @"CAST\s*\(\s*'([^']+)'\s+AS\s+DATETIME\s*\)", "'$1'::timestamp", RegexOptions.IgnoreCase);
+        if (fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
+            body = Regex.Replace(body,
+                @"CONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*\d+\s*\))?\s*,\s*([^)]+)\)",
+                "CAST($1 AS text)", RegexOptions.IgnoreCase);
         body = Regex.Replace(body,
             @"(\bCAST\s*\([^)]*?\s+AS\s+)N?(?:VAR)?CHAR\s*\(\s*(?:MAX|\d+)\s*\)(\s*\))",
             "$1text$2", RegexOptions.IgnoreCase);
@@ -1165,6 +1202,9 @@ $$;";
 
         // Misc
         body = Regex.Replace(body, @"(?m)^([ \t]*)PRINT\s+", "$1RAISE NOTICE '%', ", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"\bCHARINDEX\s*\(\s*','\s*,\s*([^)]+)\)",
+            "STRPOS($1, ',')", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bCHARINDEX\s*\(\s*([^,]+),\s*([^)]+)\)", "STRPOS($2, $1)", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bAS\s+'([^']+)'", @"AS ""$1""", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\s*OPTION\s*\([^)]+\)\s*;?", ";", RegexOptions.IgnoreCase);
@@ -1174,6 +1214,12 @@ $$;";
         // String concat
         body = Regex.Replace(body, @"'([^']*)'\s*\+\s*(\w+)", "'$1' || $2");
         body = Regex.Replace(body, @"(\w+)\s*\+\s*'([^']*)'", "$1 || '$2'");
+        if (fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
+        {
+            body = Regex.Replace(body, @"\+\s*(?='(?:[^']|'')*')", "|| ");
+            body = Regex.Replace(body, @"('(?:[^']|'')*')\s*\+", "$1 ||");
+        }
 
         // ParseJson
         body = Regex.Replace(body,
@@ -1344,6 +1390,14 @@ $$;";
                     result[previousIndex] = AddTerminatorBeforeComment(result[previousIndex]);
             }
 
+            // A standalone SELECT may end with an inline comment. Put the
+            // terminator before -- so END/RETURN QUERY is not swallowed.
+            if (Regex.IsMatch(trimmed, @"^(?:END\b|RETURN\s+QUERY\b)", RegexOptions.IgnoreCase) &&
+                TryFindPreviousCodeLine(result, out int commentIndex, out string commentCode) &&
+                result[commentIndex].Contains("--", StringComparison.Ordinal) &&
+                BoardLineNeedsTerminator(commentCode))
+                result[commentIndex] = AddTerminatorBeforeComment(result[commentIndex]);
+
             // Split boundary tokens that were merged after a valid terminator.
             line = Regex.Replace(line,
                 @";[ \t]*(?=(?:END\s+IF|END\s+LOOP|IF|WHILE|RETURN\s+QUERY|EXECUTE|PERFORM)\b)",
@@ -1417,7 +1471,7 @@ $$;";
                 @"^(?:CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\s+)?WITH(?:\s+RECURSIVE)?\b",
                 RegexOptions.IgnoreCase))
                 return i;
-            if (code.EndsWith(";") &&
+            if (i != closeLine && code.EndsWith(";") &&
                 !Regex.IsMatch(code, @"^\)\s*;$"))
                 return -1;
         }
@@ -1494,9 +1548,12 @@ $$;";
         {
             var t = lines[i].TrimEnd();
             if (t.Length == 0 || t.TrimStart().StartsWith("--")) continue;
-            var sqlPart = Regex.Replace(t, @"\s*--[^']*$", "").TrimEnd();
+            int comment = FindLineCommentStart(t);
+            var sqlPart = (comment < 0 ? t : t[..comment]).TrimEnd();
             if (sqlPart.Length > 0 && !sqlPart.EndsWith(";") && !sqlPart.EndsWith("*/"))
-                lines[i] = sqlPart + ";";
+                lines[i] = comment < 0
+                    ? sqlPart + ";"
+                    : sqlPart + "; " + t[comment..];
             break;
         }
         return string.Join('\n', lines);

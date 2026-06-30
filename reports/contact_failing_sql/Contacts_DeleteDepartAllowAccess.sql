@@ -1,8 +1,9 @@
 -- ─── PROCEDURE→FUNCTION: contacts_deletedepartallowaccess ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
-DROP FUNCTION IF EXISTS public.contacts_deletedepartallowaccess();
+DROP FUNCTION IF EXISTS public.contacts_deletedepartallowaccess(character varying);
 CREATE OR REPLACE FUNCTION public.contacts_deletedepartallowaccess(
+    IN listallowaccessno character varying
 ) RETURNS void
 AS $function$
 DECLARE

@@ -1517,7 +1517,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1528,7 +1528,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1539,7 +1539,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1550,7 +1550,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1561,7 +1561,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -1590,7 +1590,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1611,7 +1611,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1632,7 +1632,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1653,7 +1653,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1674,7 +1674,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -1698,7 +1698,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1709,7 +1709,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1720,7 +1720,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1731,7 +1731,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1742,7 +1742,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -1771,7 +1771,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1792,7 +1792,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1813,7 +1813,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1834,7 +1834,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1855,7 +1855,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -1879,7 +1879,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1890,7 +1890,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1901,7 +1901,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1912,7 +1912,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1923,7 +1923,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -1952,7 +1952,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1973,7 +1973,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1994,7 +1994,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -2015,7 +2015,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -2036,7 +2036,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%'
+							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					END IF;
@@ -2327,7 +2327,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%';
+					AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2346,7 +2346,7 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CONVERT(VARCHAR(8),RegDate, 112) ILIKE '%' || Search || '%';
+					AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%';
 				END IF;
 			ELSIF SearchMode = '8' THEN
 			-- ===========================
@@ -2360,7 +2360,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CONVERT(VARCHAR(8),ModDate, 112) = '%' || Search || '%';
+					AND CAST(ModDate, 112 AS text) = '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2379,7 +2379,7 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CONVERT(VARCHAR(8),ModDate, 112) ILIKE '%' || Search || '%';
+					AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%';
 				END IF;
 			ELSIF SearchMode = '9' THEN
 			-- ===========================
@@ -2393,7 +2393,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CONVERT(VARCHAR(8),CheckDate, 112) = '%' || Search || '%';
+					AND CAST(CheckDate, 112 AS text) = '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2412,7 +2412,7 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CONVERT(VARCHAR(8),CheckDate, 112) ILIKE '%' || Search || '%';
+					AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%';
 				END IF;
 			END IF;
 		END IF;

@@ -4,14 +4,15 @@
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: Dynamic SQL detected. Manual rewrite required for PostgreSQL.
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
-DROP FUNCTION IF EXISTS public.contacts_getcontactscount(integer, character varying, character varying, character varying, character varying, integer);
+DROP FUNCTION IF EXISTS public.contacts_getcontactscount(integer, character varying, character varying, character varying, character varying, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_getcontactscount(
     IN reguserno integer,
     IN ts character varying,
     IN te character varying,
     IN search character varying,
     IN searchmode character varying,
-    IN groupno integer
+    IN groupno integer,
+    IN mode character varying
 ) RETURNS SETOF record
 AS $function$
 DECLARE

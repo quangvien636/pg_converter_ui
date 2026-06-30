@@ -1,6 +1,6 @@
 # Contact_% Procedure Validation Report
 
-**Generated**: 2026-06-30 17:10:44  
+**Generated**: 2026-06-30 17:25:10  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Contact_% procedures (SQL Server) | **189** |
 | Conversion succeeded | **189** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **164** |
-| Compile FAIL | **25** |
-| Compile success rate | **86%** |
+| Compile PASS (CREATE succeeded) | **175** |
+| Compile FAIL | **14** |
+| Compile success rate | **92%** |
 | SETOF record (needs RETURNS TABLE) | **141** |
 
 ## 2. Contact_% Procedure Feature Matrix
@@ -217,7 +217,7 @@
 
 ### 3a. PASS
 
-164 procedures compiled successfully:
+175 procedures compiled successfully:
 
 - `Contact_CheckInsertGroupDefault`
 - `Contact_GetGroupDefaultByUserNo`
@@ -238,8 +238,11 @@
 - `Contacts_DeleteAllGroupByUserSeq`
 - `Contacts_DeleteBackupInfo`
 - `Contacts_DeleteContact`
+- `Contacts_DeleteHistory`
 - `Contacts_DeletePublicGroup`
 - `Contacts_DeleteShareGroup`
+- `Contacts_DownPublicGroup`
+- `Contacts_DownShareGroup`
 - `Contacts_FinAll`
 - `Contacts_FindNoNameUser`
 - `Contacts_FindUser`
@@ -269,6 +272,7 @@
 - `Contacts_GetContactsGroup`
 - `Contacts_GetCountChildUser`
 - `Contacts_GetDefaultBoxCount`
+- `Contacts_GetDefaultCategory`
 - `Contacts_GetDepartAllowAccess`
 - `Contacts_GetDepartmentBoxCount`
 - `Contacts_GetDupeList`
@@ -328,6 +332,8 @@
 - `Contacts_GetUserByShareGroup`
 - `Contacts_GetUserData`
 - `Contacts_GetUserDataHistory`
+- `Contacts_GetUserDetail`
+- `Contacts_GetUserGroup`
 - `Contacts_GetUserGroupByLanguage`
 - `Contacts_GetUserGroupByUserNo`
 - `Contacts_GetUserGroupMobi`
@@ -341,6 +347,7 @@
 - `Contacts_InsertPublicGroup`
 - `Contacts_InsertShareGroup`
 - `Contacts_InsertUser`
+- `Contacts_InsertUserForExcel`
 - `Contacts_ListGroupContent`
 - `Contacts_MoveAllContact`
 - `Contacts_MoveContactGroup`
@@ -382,43 +389,36 @@
 - `Contacts_UpdatePublicGroupUser`
 - `Contacts_UpdateShareGroup`
 - `Contacts_UpdateShareGroupUser`
+- `Contacts_UpdateSortDownOfGroup`
+- `Contacts_UpdateSortUpOfGroup`
 - `Contacts_UpdateUserState`
+- `Contacts_UpPublicGroup`
+- `Contacts_UpShareGroup`
 
 ### 3b. FAIL
 
 | Procedure | SqlState | Error |
 |-----------|----------|-------|
 | `Contacts_DelContactsGroup` | `42601` | syntax error at or near "SELECT" |
-| `Contacts_DeleteAddressAll` | `42601` | syntax error at or near "EXEC" |
+| `Contacts_DeleteAddressAll` | `42601` | syntax error at or near "END" |
 | `Contacts_DeleteDepartAllowAccess` | `42601` | syntax error at or near "CREATE" |
-| `Contacts_DeleteHistory` | `42601` | "historynolist" is not a known variable |
-| `Contacts_DownPublicGroup` | `42601` | syntax error at end of input |
-| `Contacts_DownShareGroup` | `42601` | syntax error at end of input |
 | `Contacts_GetContactsCount` | `42601` | syntax error at or near "+" |
 | `Contacts_GetContactsList` | `42601` | "p_eidx" is not a known variable |
 | `Contacts_GetContactsTrashList` | `42601` | syntax error at or near "," |
-| `Contacts_GetDefaultCategory` | `42601` | syntax error at or near "END" |
-| `Contacts_GetUserDetail` | `42601` | syntax error at or near "RETURN" |
-| `Contacts_GetUserGroup` | `42601` | syntax error at or near "," |
-| `Contacts_InsertUserForExcel` | `42601` | syntax error at or near "IsPhoneDef" |
 | `Contacts_SaveAddressInfo` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveAddressInfo_Web` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveArrange` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveArrangeLike` | `42601` | syntax error at or near "LOOP" |
 | `Contacts_SaveContactsForOutlook` | `42601` | syntax error at or near "END" |
-| `Contacts_SaveRestore` | `42601` | "historynolist" is not a known variable |
+| `Contacts_SaveRestore` | `42601` | syntax error at or near "END" |
 | `Contacts_UpdateDepartAllowAccess` | `42601` | syntax error at or near "CREATE" |
-| `Contacts_UpdateSortDownOfGroup` | `42601` | syntax error at end of input |
-| `Contacts_UpdateSortUpOfGroup` | `42601` | syntax error at end of input |
 | `Contacts_UpdateUserInfo` | `42601` | syntax error at or near "LOOP" |
-| `Contacts_UpPublicGroup` | `42601` | syntax error at end of input |
-| `Contacts_UpShareGroup` | `42601` | syntax error at end of input |
 
 ## 4. Error Breakdown by PostgreSQL Code
 
 | SqlState | Count | Category | First Failure | Message |
 |----------|------:|----------|---------------|---------|
-| `42601` | 25 | syntax_error | `Contacts_DelContactsGroup` | syntax error at or near "SELECT" |
+| `42601` | 14 | syntax_error | `Contacts_DelContactsGroup` | syntax error at or near "SELECT" |
 
 ## 5. SETOF record â€” Needs Manual RETURNS TABLE(...)
 
@@ -582,6 +582,6 @@
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | `42601` syntax_error | 25 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
+| 1 | `42601` syntax_error | 14 procedures | Syntax error in generated plpgsql â€” likely malformed control flow or unparsed MSSQL syntax |
 | 2 | SETOF record â†’ needs RETURNS TABLE | 141 procedures | Infer column types from SELECT list per procedure |
 

@@ -12,7 +12,7 @@ BEGIN
 
 	IF Mode = 0 THEN -- 완전삭제
 
-		EXEC public."Contacts_SaveContactsHistory" UserNo, Seq, 'DEL';
+		PERFORM contacts_savecontactshistory(UserNo, Seq, 'DEL');
 
 		DELETE FROM ContactsNumber WHERE RegUserNo=contacts_deleteaddressall.userno AND UserSeq=contacts_deleteaddressall.seq;
 		DELETE FROM ContactsEmail WHERE RegUserNo=contacts_deleteaddressall.userno AND UserSeq=contacts_deleteaddressall.seq;

@@ -289,5 +289,172 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("PERFORM contacts_insertgroup(userNo, 'Temporary group', 0);"));
             Assert.That(pg, Does.Not.Match(@"\bEXEC\s+Contacts_InsertGroup"));
         }
+
+        [Test]
+        public void TestContactHeaderCommentKeepsParameter()
+        {
+            string mssql = """
+                -- metadata
+                CREATE PROCEDURE [dbo].[Contacts_DeleteHistory]
+                    -- Add the parameters for the stored procedure here
+                    @HistoryNoList NVARCHAR(MAX)
+                AS
+                BEGIN
+                    DELETE FROM ContactsHistory WHERE HistoryNo = @HistoryNoList
+                END
+                """;
+            var obj = new DbObject("Contacts_DeleteHistory", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("IN historynolist character varying"));
+        }
+
+        [Test]
+        public void TestContactCteFlowsIntoUpdate()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestCte
+                AS
+                BEGIN
+                    ;WITH A AS (SELECT Id FROM SourceTable),
+                    B AS (SELECT Id FROM A)
+                    UPDATE TargetTable SET Value = 1 FROM B WHERE TargetTable.Id = B.Id
+                END
+                """;
+            var obj = new DbObject("Contacts_TestCte", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Match(@"\)\s*;\s*\n\s*UPDATE"));
+            Assert.That(pg, Does.Match(@"(?s)WITH(?:\s+RECURSIVE)?\s+A.+UPDATE\s+TargetTable"));
+        }
+
+        [Test]
+        public void TestInlineCommentDoesNotSwallowSelectTerminator()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestComment
+                AS
+                BEGIN
+                    SELECT GroupNo FROM ContactsGroup WHERE GroupNo = 1 -- old condition
+                END
+                """;
+            var obj = new DbObject("Contacts_TestComment", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Match(@"GroupNo\s*=\s*1;"));
+        }
+
+        [Test]
+        public void TestContactMultipleResultSetsAreTerminated()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestResults @userNo INT
+                AS
+                BEGIN
+                    SELECT Id FROM ContactsAddress WHERE UserNo = @userNo
+                    SELECT Id FROM ContactsEmail WHERE UserNo = @userNo
+                END
+                """;
+            var obj = new DbObject("Contacts_TestResults", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Match(@"UserNo\s*=\s*contacts_testresults\.userno;\s*\n\s*RETURN QUERY"));
+        }
+
+        [Test]
+        public void TestSchemaQualifiedExecProcedure()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestSchemaExec @userNo INT
+                AS
+                BEGIN
+                    EXEC dbo.Contacts_SaveHistory @userNo, 'DEL'
+                END
+                """;
+            var obj = new DbObject("Contacts_TestSchemaExec", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("PERFORM contacts_savehistory(userNo, 'DEL');"));
+            Assert.That(pg, Does.Not.Contain("EXEC public."));
+        }
+
+        [Test]
+        public void TestMultilineDeclareVariablesAreCollected()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestDeclare
+                AS
+                BEGIN
+                    DECLARE
+                    @UserNo INT,
+                    @IsPhoneDef CHAR(1) = '0',
+                    @DefValue CHAR(1) = '0'
+                    SELECT @UserNo
+                END
+                """;
+            var obj = new DbObject("Contacts_TestDeclare", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("userno integer;"));
+            Assert.That(pg, Does.Contain("isphonedef character varying;"));
+            Assert.That(pg, Does.Contain("defvalue character varying;"));
+            Assert.That(pg, Does.Not.Match(@"(?m)^\s*@?IsPhoneDef\s+CHAR"));
+        }
+
+        [Test]
+        public void TestCharIndexCommaLiteral()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestCharIndex
+                AS
+                BEGIN
+                    DECLARE @Items NVARCHAR(MAX)
+                    WHILE CHARINDEX(',', @Items) > 0
+                    BEGIN
+                        SET @Items = SUBSTRING(@Items, CHARINDEX(',', @Items) + 1, LEN(@Items))
+                    END
+                END
+                """;
+            var obj = new DbObject("Contacts_TestCharIndex", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("STRPOS(Items, ',')"));
+            Assert.That(pg, Does.Not.Contain("STRPOS(',Items, ')"));
+        }
+
+        [Test]
+        public void TestTwoArgumentConvertVarchar()
+        {
+            string mssql = "CREATE PROCEDURE dbo.Contacts_TestConvert AS BEGIN SELECT CONVERT(VARCHAR(10), 42) END";
+            var obj = new DbObject("Contacts_TestConvert", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("CAST(42 AS text)"));
+            Assert.That(pg, Does.Not.Contain("CONVERT(VARCHAR"));
+        }
+
+        [Test]
+        public void TestBeginWithCommentIsSuppressedAfterElse()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestElseComment @enabled BIT
+                AS
+                BEGIN
+                    IF @enabled = 1
+                    BEGIN -- enabled branch
+                        SELECT 1
+                    END
+                    ELSE
+                    BEGIN -- disabled branch
+                        SELECT 0
+                    END
+                END
+                """;
+            var obj = new DbObject("Contacts_TestElseComment", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Match(@"(?m)^\s*BEGIN\s+--"));
+            Assert.That(pg, Does.Contain("END IF;"));
+        }
     }
 }
