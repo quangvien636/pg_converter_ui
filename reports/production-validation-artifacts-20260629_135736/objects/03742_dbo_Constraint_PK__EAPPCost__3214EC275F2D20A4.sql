@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPCostCheck.PK__EAPPCost__3214EC275F2D20A4
+-- -- Source table: [dbo].[EAPPCostCheck]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

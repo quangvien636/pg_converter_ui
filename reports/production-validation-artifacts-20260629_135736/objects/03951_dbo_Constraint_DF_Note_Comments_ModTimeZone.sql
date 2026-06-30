@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Note_Comments.DF_Note_Comments_ModTimeZone
+-- -- Source table: [dbo].[Note_Comments]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

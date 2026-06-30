@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPP_IOSDevices.PK_EAPP_IOSDevices
+-- RAW:
+-- Source table: [dbo].[EAPP_IOSDevices]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

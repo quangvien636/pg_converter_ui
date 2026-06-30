@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleResourceAlarmSetting.PK_ScheduleResourceAlarmSetting
+-- -- Source table: [dbo].[ScheduleResourceAlarmSetting]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

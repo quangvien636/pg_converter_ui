@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPDocumentSubData.FK__EAPPDocum__docid__146002F2
+-- RAW:
+-- Source table: [dbo].[EAPPDocumentSubData]
+-- Constraint type: FOREIGN_KEY_CONSTRAINT

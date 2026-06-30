@@ -1,0 +1,3 @@
+psql:E:/pg_converter_ui/reports/runtime-sql/05_FUNCTION_fn_userlabel.sql:2: NOTICE:  function public.fn_userlabel(pg_catalog.varchar,pg_catalog.bool) does not exist, skipping
+DROP FUNCTION
+CREATE FUNCTION

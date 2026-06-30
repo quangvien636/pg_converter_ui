@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Leave_UserBaseYear.PK_Leave_UserBaseYear
+-- RAW:
+-- Source table: [dbo].[Leave_UserBaseYear]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

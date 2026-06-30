@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.PersonalGroup.PK_PersonalGroup
+-- -- Source table: [dbo].[PersonalGroup]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

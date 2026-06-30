@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Main_Widgets.PK_Main_Widgets
+-- -- Source table: [dbo].[Main_Widgets]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.eapptempapprovalreadydoc.PK__eapptemp__3213E83F5467DB73
+-- RAW:
+-- Source table: [dbo].[eapptempapprovalreadydoc]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

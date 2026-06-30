@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_PhoneTokens.DF_Center_PhoneTokens_ModDate
+-- -- Source table: [dbo].[Center_PhoneTokens]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

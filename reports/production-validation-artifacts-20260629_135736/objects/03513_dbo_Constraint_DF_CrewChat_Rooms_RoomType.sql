@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_Rooms.DF_CrewChat_Rooms_RoomType
+-- -- Source table: [dbo].[CrewChat_Rooms]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

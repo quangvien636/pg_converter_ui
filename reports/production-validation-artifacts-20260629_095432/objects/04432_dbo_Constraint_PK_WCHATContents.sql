@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WCHATContents.PK_WCHATContents
+-- RAW:
+-- Source table: [dbo].[WCHATContents]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

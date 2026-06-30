@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleToDos.DF_ScheduleToDos_ProgressRate
+-- -- Source table: [dbo].[ScheduleToDos]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((-1))

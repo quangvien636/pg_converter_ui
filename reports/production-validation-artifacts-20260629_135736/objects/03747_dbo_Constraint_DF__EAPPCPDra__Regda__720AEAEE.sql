@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPCPDraftLink.DF__EAPPCPDra__Regda__720AEAEE
+-- -- Source table: [dbo].[EAPPCPDraftLink]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

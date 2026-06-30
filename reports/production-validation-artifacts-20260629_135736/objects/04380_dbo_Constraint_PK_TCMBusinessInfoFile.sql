@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMBusinessInfoFile.PK_TCMBusinessInfoFile
+-- -- Source table: [dbo].[TCMBusinessInfoFile]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

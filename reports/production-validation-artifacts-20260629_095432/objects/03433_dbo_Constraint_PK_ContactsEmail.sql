@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ContactsEmail.PK_ContactsEmail
+-- RAW:
+-- Source table: [dbo].[ContactsEmail]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

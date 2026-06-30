@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleDdays.DF_ScheduleDdays_CompleteDate
+-- -- Source table: [dbo].[ScheduleDdays]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

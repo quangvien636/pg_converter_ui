@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.NoticePermissions.PK__NoticePe__3214EC071463304E
+-- RAW:
+-- Source table: [dbo].[NoticePermissions]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

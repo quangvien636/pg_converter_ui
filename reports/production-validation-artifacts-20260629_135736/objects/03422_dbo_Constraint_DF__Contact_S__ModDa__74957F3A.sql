@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Contact_ShareGroupUser.DF__Contact_S__ModDa__74957F3A
+-- -- Source table: [dbo].[Contact_ShareGroupUser]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

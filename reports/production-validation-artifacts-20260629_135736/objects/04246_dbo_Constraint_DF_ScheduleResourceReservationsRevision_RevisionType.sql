@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleResourceReservationsRevision.DF_ScheduleResourceReservationsRevision_RevisionType
+-- -- Source table: [dbo].[ScheduleResourceReservationsRevision]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('I')

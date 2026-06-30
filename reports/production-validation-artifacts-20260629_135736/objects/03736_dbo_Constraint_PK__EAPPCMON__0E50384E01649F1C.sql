@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPCMONOrgan.PK__EAPPCMON__0E50384E01649F1C
+-- -- Source table: [dbo].[EAPPCMONOrgan]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

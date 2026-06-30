@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Organization_Departments.PK_Departments_DepartNo
+-- RAW:
+-- Source table: [dbo].[Organization_Departments]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

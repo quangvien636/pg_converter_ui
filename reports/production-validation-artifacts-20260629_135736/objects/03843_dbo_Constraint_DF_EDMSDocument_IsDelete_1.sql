@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EDMSDocument.DF_EDMSDocument_IsDelete_1
+-- -- Source table: [dbo].[EDMSDocument]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

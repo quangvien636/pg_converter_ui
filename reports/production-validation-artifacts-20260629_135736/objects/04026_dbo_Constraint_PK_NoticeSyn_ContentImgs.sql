@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticeSyn_ContentImgs.PK_NoticeSyn_ContentImgs
+-- -- Source table: [dbo].[NoticeSyn_ContentImgs]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

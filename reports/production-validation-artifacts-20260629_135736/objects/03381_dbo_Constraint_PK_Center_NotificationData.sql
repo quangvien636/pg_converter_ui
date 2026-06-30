@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_NotificationData.PK_Center_NotificationData
+-- -- Source table: [dbo].[Center_NotificationData]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

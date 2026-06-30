@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPErpSubData.PK__EAPPErpS__3213E83F0FD057FF
+-- RAW:
+-- Source table: [dbo].[EAPPErpSubData]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

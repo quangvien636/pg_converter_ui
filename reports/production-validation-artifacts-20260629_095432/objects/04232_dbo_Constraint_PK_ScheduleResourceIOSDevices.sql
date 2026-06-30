@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ScheduleResourceIOSDevices.PK_ScheduleResourceIOSDevices
+-- RAW:
+-- Source table: [dbo].[ScheduleResourceIOSDevices]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

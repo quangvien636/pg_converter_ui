@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsSetup.DF_ContactsSetup_RegUserNo
+-- -- Source table: [dbo].[ContactsSetup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

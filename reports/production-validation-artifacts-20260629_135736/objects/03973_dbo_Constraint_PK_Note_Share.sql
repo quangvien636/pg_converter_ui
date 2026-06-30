@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Note_Share.PK_Note_Share
+-- -- Source table: [dbo].[Note_Share]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

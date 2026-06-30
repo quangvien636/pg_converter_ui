@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.RegularWorkJournalDivisions.PK_RegularWorkJournalDivisions
+-- RAW:
+-- Source table: [dbo].[RegularWorkJournalDivisions]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

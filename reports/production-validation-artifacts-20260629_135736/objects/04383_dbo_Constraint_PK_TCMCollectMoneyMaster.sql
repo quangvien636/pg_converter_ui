@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMCollectMoneyMaster.PK_TCMCollectMoneyMaster
+-- -- Source table: [dbo].[TCMCollectMoneyMaster]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

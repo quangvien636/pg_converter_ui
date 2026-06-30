@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Integrated_Reference.PK_Integrated_Reference
+-- RAW:
+-- Source table: [dbo].[Integrated_Reference]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

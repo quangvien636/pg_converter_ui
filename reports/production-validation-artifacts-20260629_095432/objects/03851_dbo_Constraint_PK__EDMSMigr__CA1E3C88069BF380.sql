@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EDMSMigration.PK__EDMSMigr__CA1E3C88069BF380
+-- RAW:
+-- Source table: [dbo].[EDMSMigration]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

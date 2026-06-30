@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.VOTEAuthority.DF__VOTEAutho__RegDa__1729C309
+-- -- Source table: [dbo].[VOTEAuthority]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Commute_TimeShift.DF_Commute_TimeShift_BackColor
+-- -- Source table: [dbo].[Commute_TimeShift]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

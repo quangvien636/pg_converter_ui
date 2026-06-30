@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NSFADeliverInfo.PK_NSFADeliverInfo
+-- -- Source table: [dbo].[NSFADeliverInfo]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

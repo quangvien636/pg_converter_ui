@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPSearchPeriod.PK__EAPPSear__CBA1B2575662D079
+-- RAW:
+-- Source table: [dbo].[EAPPSearchPeriod]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

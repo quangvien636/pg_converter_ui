@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.DDay_Sharers.PK_DDay_Sharers
+-- RAW:
+-- Source table: [dbo].[DDay_Sharers]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

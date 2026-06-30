@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EDMSDocWriterInfo.PK_EDMSDocWriterInfo
+-- RAW:
+-- Source table: [dbo].[EDMSDocWriterInfo]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Leave_Types.PK_Leave_Types
+-- -- Source table: [dbo].[Leave_Types]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

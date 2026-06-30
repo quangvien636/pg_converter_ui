@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_SetupOther.PK_WorkingTime_SetupOther_No
+-- RAW:
+-- Source table: [dbo].[WorkingTime_SetupOther]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

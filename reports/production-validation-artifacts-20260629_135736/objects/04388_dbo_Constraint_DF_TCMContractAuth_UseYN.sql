@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMContractAuth.DF_TCMContractAuth_UseYN
+-- -- Source table: [dbo].[TCMContractAuth]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (N'N')

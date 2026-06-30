@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.hfreceivedata.pk_hfreceivedata
+-- RAW:
+-- Source table: [dbo].[hfreceivedata]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

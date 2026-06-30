@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Leave_Types.DF_Leave_Types_UseYN
+-- -- Source table: [dbo].[Leave_Types]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (N'Y')

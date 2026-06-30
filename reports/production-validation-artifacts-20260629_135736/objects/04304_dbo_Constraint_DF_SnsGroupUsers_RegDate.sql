@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SnsGroupUsers.DF_SnsGroupUsers_RegDate
+-- -- Source table: [dbo].[SnsGroupUsers]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

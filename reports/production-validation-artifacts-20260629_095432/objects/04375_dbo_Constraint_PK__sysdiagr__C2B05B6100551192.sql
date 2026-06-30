@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.sysdiagrams.PK__sysdiagr__C2B05B6100551192
+-- RAW:
+-- Source table: [dbo].[sysdiagrams]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

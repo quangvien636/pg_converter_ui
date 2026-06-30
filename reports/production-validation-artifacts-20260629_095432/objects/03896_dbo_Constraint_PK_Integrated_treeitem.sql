@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Integrated_TreeItem.PK_Integrated_treeitem
+-- RAW:
+-- Source table: [dbo].[Integrated_TreeItem]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

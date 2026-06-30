@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Note_AndroidDevices.PK_Note_AndroidDevices
+-- RAW:
+-- Source table: [dbo].[Note_AndroidDevices]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

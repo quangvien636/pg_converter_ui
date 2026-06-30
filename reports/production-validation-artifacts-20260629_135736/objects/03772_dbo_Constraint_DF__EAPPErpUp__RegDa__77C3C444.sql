@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPErpUpdate.DF__EAPPErpUp__RegDa__77C3C444
+-- -- Source table: [dbo].[EAPPErpUpdate]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

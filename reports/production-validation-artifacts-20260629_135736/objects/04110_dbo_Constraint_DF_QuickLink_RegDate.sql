@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.QuickLink.DF_QuickLink_RegDate
+-- -- Source table: [dbo].[QuickLink]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

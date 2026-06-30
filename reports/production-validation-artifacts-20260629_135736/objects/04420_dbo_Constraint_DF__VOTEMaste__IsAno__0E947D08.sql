@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.VOTEMaster.DF__VOTEMaste__IsAno__0E947D08
+-- -- Source table: [dbo].[VOTEMaster]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

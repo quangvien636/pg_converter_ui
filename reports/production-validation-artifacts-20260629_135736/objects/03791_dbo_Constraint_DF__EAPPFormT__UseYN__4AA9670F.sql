@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPFormTemplate.DF__EAPPFormT__UseYN__4AA9670F
+-- -- Source table: [dbo].[EAPPFormTemplate]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

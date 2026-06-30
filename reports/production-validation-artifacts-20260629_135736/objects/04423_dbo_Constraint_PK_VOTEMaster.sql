@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.VOTEMaster.PK_VOTEMaster
+-- -- Source table: [dbo].[VOTEMaster]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

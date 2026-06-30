@@ -1,0 +1,2 @@
+psql:E:/pg_converter_ui/reports/generated/converted-output.sql:40: NOTICE:  function public.fn_userlabel(pg_catalog.varchar,pg_catalog.bool) does not exist, skipping
+psql:E:/pg_converter_ui/reports/generated/converted-output.sql:55: NOTICE:  function public.fn_userorders(pg_catalog.int4) does not exist, skipping

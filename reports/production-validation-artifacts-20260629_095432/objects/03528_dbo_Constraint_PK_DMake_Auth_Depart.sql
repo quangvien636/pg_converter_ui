@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.DMake_Auth_Depart.PK_DMake_Auth_Depart
+-- RAW:
+-- Source table: [dbo].[DMake_Auth_Depart]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

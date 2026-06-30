@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_AndroidDevices.PK_CrewChat_AndroidDevices
+-- -- Source table: [dbo].[CrewChat_AndroidDevices]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

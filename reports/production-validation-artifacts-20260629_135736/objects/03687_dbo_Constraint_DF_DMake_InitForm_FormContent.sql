@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_InitForm.DF_DMake_InitForm_FormContent
+-- -- Source table: [dbo].[DMake_InitForm]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

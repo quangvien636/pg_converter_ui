@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.SnsReplyChk.PK_SnsReplyChk
+-- RAW:
+-- Source table: [dbo].[SnsReplyChk]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

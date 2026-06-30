@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_Config.DF_Board_Config_LastestDate
+-- -- Source table: [dbo].[Board_Config]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

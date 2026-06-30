@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticesSyn.DF_NoticesSyn_TotalViews
+-- -- Source table: [dbo].[NoticesSyn]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

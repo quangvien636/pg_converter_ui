@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WCHATContents.DF_WCHATContents_AttachNo
+-- -- Source table: [dbo].[WCHATContents]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleContentsAttachments.DF_ScheduleAttacthments_ScheduleNo
+-- -- Source table: [dbo].[ScheduleContentsAttachments]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPUserEnv.DF__EAPPUserE__Summa__0BCABCF1
+-- -- Source table: [dbo].[EAPPUserEnv]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('B')

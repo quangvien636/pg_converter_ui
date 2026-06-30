@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.SnsIssues.PK_SnsIssues
+-- RAW:
+-- Source table: [dbo].[SnsIssues]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

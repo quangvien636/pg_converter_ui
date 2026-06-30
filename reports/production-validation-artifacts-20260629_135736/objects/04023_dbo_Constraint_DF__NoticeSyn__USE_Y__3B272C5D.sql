@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticeSyn_AuthoGroup.DF__NoticeSyn__USE_Y__3B272C5D
+-- -- Source table: [dbo].[NoticeSyn_AuthoGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

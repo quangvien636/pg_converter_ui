@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SurveyComments.PK_SurveyComments
+-- -- Source table: [dbo].[SurveyComments]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

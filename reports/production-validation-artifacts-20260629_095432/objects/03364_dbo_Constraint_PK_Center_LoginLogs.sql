@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Center_LoginLogs.PK_Center_LoginLogs
+-- RAW:
+-- Source table: [dbo].[Center_LoginLogs]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

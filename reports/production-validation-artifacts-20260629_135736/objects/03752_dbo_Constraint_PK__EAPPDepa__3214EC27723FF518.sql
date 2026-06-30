@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPDepartDoc.PK__EAPPDepa__3214EC27723FF518
+-- -- Source table: [dbo].[EAPPDepartDoc]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

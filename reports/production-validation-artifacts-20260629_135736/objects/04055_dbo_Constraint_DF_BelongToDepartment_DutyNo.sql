@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Organization_BelongToDepartment.DF_BelongToDepartment_DutyNo
+-- -- Source table: [dbo].[Organization_BelongToDepartment]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((-1))

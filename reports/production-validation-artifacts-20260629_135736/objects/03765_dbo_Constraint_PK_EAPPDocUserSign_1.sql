@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPDocUserSign.PK_EAPPDocUserSign_1
+-- -- Source table: [dbo].[EAPPDocUserSign]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

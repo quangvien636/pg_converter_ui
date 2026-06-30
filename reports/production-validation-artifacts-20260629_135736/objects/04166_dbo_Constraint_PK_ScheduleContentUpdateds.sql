@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleContentUds.PK_ScheduleContentUpdateds
+-- -- Source table: [dbo].[ScheduleContentUds]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAFSM.PK_EAFSM
+-- -- Source table: [dbo].[EAFSM]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

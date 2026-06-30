@@ -1,0 +1,21 @@
+-- ─── PROCEDURE→FUNCTION: note_getsingleattachment ───────────────────────────────
+-- NOTE: SQL Server stored procedure converted to PostgreSQL function.
+-- TODO: Review converted output — stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
+DROP FUNCTION IF EXISTS public.note_getsingleattachment(uuid, integer);
+CREATE OR REPLACE FUNCTION public.note_getsingleattachment(
+    IN attachmentno uuid,
+    IN userno integer
+) RETURNS SETOF record
+AS $function$
+-- !! WARNING: output needs manual review — see TODO comments
+BEGIN
+
+	RETURN QUERY
+	SELECT * FROM Note_Attachment
+	WHERE AttachmentNo=note_getsingleattachment.attachmentno;
+END;
+$function$
+LANGUAGE plpgsql;
+-- TODO: Owner mapping skipped. Target role postgres not verified.

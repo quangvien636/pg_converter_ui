@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_AllowDevices.PK_WorkingTime_AllowDevice
+-- RAW:
+-- Source table: [dbo].[WorkingTime_AllowDevices]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

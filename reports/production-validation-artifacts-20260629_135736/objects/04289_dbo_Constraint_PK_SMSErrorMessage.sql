@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SMSErrorMessage.PK_SMSErrorMessage
+-- -- Source table: [dbo].[SMSErrorMessage]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

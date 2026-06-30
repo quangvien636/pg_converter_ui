@@ -1,0 +1,84 @@
+-- ─── FUNCTION: workingtime_calculatortimework ───────────────────────────────
+DROP FUNCTION IF EXISTS public.workingtime_calculatortimework(timestamp with time zone);
+CREATE OR REPLACE FUNCTION public.workingtime_calculatortimework(
+    dateimeoffset_checkin timestamp with time zone
+) RETURNS double precision
+-- TODO: DATEADD was not fully converted; use interval arithmetic
+AS $function$
+-- !! WARNING: output needs manual review — see TODO comments
+BEGIN
+
+	IF datepart(TZOFFSET,DATEIMEOFFSET_CHECKIN) <> datepart(TZOFFSET,DATEIMEOFFSET_CHECKOUT) BEGIN -- CHECK TIME ZONE CHECK OUT AND SET SAME TIME ZONE CHECK IN
+		SET DATEIMEOFFSET_CHECKOUT = switchoffset(CONVERT(datetimeoffset, DATEIMEOFFSET_CHECKOUT), datepart(TZOFFSET,DATEIMEOFFSET_CHECKIN))
+	END
+
+
+
+
+
+
+
+
+	
+
+
+
+	BEGIN -- GET TIME LUNCH
+
+
+	
+
+
+
+
+
+
+	END
+
+	BEGIN -- SET DATETIMEOFFSET FOR TIME LUNCH
+
+
+	END
+
+	BEGIN -- CONVERT TIME TO FLOAT
+
+
+
+
+
+	END
+
+	IF CheckLunch = FALSE BEGIN -- START CHECK LUNCH
+		IF fCheckINTime >= fStartLunch AND  fCheckINTime <= fEndLunch BEGIN
+			SET NEWDATEIMEOFFSETIN = TODATETIMEOFFSET(DATEADD(HOUR,0, CONVERT(VARCHAR(10),DATEIMEOFFSET_CHECKIN) +' ' || CONVERT(VARCHAR(8),DATEADD(SECOND,1, sEndLunch))), datepart(TZOFFSET,DATEIMEOFFSET_CHECKIN))
+			SET DATEIMEOFFSET_CHECKIN = NEWDATEIMEOFFSETIN
+		END
+
+		IF fCheckOUTTime >= fStartLunch AND  fCheckOUTTime <= fEndLunch BEGIN
+			SET NEWDATEIMEOFFSETOUT = TODATETIMEOFFSET(DATEADD(HOUR,0, CONVERT(VARCHAR(10),DATEIMEOFFSET_CHECKOUT) +' ' || CONVERT(VARCHAR(8),DATEADD(SECOND,-1, sStartLunch))), datepart(TZOFFSET,DATEIMEOFFSET_CHECKOUT))
+			SET DATEIMEOFFSET_CHECKOUT = NEWDATEIMEOFFSETOUT
+		END
+	END
+
+	BEGIN -- Calculater TIME WORK
+		IF DATEIMEOFFSET_CHECKIN < DATEIMEOFFSET_CHECKOUT BEGIN
+			IF CheckLunch = FALSE BEGIN
+				IF fCheckINTime < fStartLunch AND fCheckOUTTime > fEndLunch BEGIN
+					SET MILITIMEWORK = DATEDIFF(millisecond, DATEIMEOFFSET_CHECKIN, DATEIMEOFFSETStartLunch ) + DATEDIFF(millisecond, DATEIMEOFFSETEndLunch, DATEIMEOFFSET_CHECKOUT )
+				END
+				ELSE IF (fCheckINTime < fStartLunch AND fCheckOUTTime < fEndLunch) OR (fCheckINTime > fStartLunch AND fCheckOUTTime > fEndLunch) BEGIN
+					SET MILITIMEWORK = DATEDIFF(millisecond, DATEIMEOFFSET_CHECKIN, DATEIMEOFFSET_CHECKOUT )	
+				END
+			END
+			ELSE BEGIN
+				SET MILITIMEWORK = DATEDIFF(millisecond, DATEIMEOFFSET_CHECKIN, DATEIMEOFFSET_CHECKOUT )	
+			END
+		END
+	END
+
+	--select MILITIMEWORK, CONVERT(VARCHAR(8),DATEADD(ms,MILITIMEWORK,0),114)
+	RETURN MILITIMEWORK;
+END;
+$function$
+LANGUAGE plpgsql;
+-- TODO: Owner mapping skipped. Target role postgres not verified.

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.RegularWorkGroupHistorys.PK_RegularWorkGroupHistorys
+-- RAW:
+-- Source table: [dbo].[RegularWorkGroupHistorys]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

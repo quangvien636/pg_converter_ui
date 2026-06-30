@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPTempHotNews.PK__EAPPTemp__3214EC2760E05EEC
+-- RAW:
+-- Source table: [dbo].[EAPPTempHotNews]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

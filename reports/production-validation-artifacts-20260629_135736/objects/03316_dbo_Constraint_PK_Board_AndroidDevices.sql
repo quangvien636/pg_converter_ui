@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_AndroidDevices.PK_Board_AndroidDevices
+-- -- Source table: [dbo].[Board_AndroidDevices]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

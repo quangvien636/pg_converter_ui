@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Organization_Positions.DF_Organization_Positions_Name_JP
+-- -- Source table: [dbo].[Organization_Positions]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

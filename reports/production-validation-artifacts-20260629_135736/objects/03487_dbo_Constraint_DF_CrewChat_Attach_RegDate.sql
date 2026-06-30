@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_Attach.DF_CrewChat_Attach_RegDate
+-- -- Source table: [dbo].[CrewChat_Attach]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

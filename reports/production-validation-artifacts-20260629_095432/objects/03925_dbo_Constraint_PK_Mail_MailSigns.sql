@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Mail_MailSigns.PK_Mail_MailSigns
+-- RAW:
+-- Source table: [dbo].[Mail_MailSigns]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

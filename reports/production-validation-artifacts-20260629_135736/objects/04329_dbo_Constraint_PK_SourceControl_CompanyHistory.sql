@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SourceControl_CompanyHistory.PK_SourceControl_CompanyHistory
+-- -- Source table: [dbo].[SourceControl_CompanyHistory]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

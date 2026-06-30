@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleDdaySharers.DF_ScheduleDdaySharers_DdayNo
+-- -- Source table: [dbo].[ScheduleDdaySharers]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

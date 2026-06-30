@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_RoomUsers.DF_Messenger_RoomUsers_ModDate
+-- -- Source table: [dbo].[CrewChat_RoomUsers]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

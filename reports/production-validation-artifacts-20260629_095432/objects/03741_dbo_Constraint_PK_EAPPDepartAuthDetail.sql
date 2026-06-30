@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPDepartAuthDetail.PK_EAPPDepartAuthDetail
+-- RAW:
+-- Source table: [dbo].[EAPPDepartAuthDetail]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

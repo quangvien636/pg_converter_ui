@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticeSetup.DF_NoticeSetup_EndNoticeView
+-- -- Source table: [dbo].[NoticeSetup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

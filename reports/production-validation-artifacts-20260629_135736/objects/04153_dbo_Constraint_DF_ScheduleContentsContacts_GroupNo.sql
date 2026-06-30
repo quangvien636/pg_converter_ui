@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleContentsContacts.DF_ScheduleContentsContacts_GroupNo
+-- -- Source table: [dbo].[ScheduleContentsContacts]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

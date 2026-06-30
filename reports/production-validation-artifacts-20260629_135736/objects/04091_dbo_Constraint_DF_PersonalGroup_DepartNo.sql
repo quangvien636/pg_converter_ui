@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.PersonalGroup.DF_PersonalGroup_DepartNo
+-- -- Source table: [dbo].[PersonalGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

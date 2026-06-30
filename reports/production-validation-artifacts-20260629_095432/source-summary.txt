@@ -1,0 +1,16 @@
+SourceServer=221.148.141.4,14233
+SourceDatabase=CrewCloud_Company_Bootstrap
+SourceVersion=10.50.2550.0
+CONSTRAINT=1240
+FUNCTION=120
+INDEX=618
+PROCEDURE=2396
+TABLE=670
+VIEW=8
+LoaderObjects=3273
+LoaderFunction=2516
+LoaderIndex=87
+LoaderTable=670
+ManifestGENERATED=87
+ManifestGENERATED_WITH_WARNING=3186
+ManifestSTUB=1248

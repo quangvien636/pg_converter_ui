@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_CommentSetting.DF__Board_Com__ModDa__6D695EBE
+-- -- Source table: [dbo].[Board_CommentSetting]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

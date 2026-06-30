@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPConfiguration.PK_EAPPSetting_1
+-- -- Source table: [dbo].[EAPPConfiguration]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SMSErrorMessage.DF_SMSErrorMessage_RegDate
+-- -- Source table: [dbo].[SMSErrorMessage]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

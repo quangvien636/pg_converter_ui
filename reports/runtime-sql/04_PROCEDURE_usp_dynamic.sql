@@ -1,0 +1,6 @@
+-- PROCEDURE: usp_dynamic
+-- TODO: SQL Server stored procedure requires manual rewrite as PostgreSQL 9.3 function. CREATE PROCEDURE is not supported.
+-- TODO: Dynamic SQL detected. Manual rewrite required for PostgreSQL.
+-- TODO: procedure contains result-returning SELECT; review manually
+-- TODO: TOP was preserved as comment; add LIMIT manually
+-- TODO: Owner mapping skipped. Target role qa_owner not verified.

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_UserProfiles.DF_CrewChat_UserProfiles_NickName
+-- -- Source table: [dbo].[CrewChat_UserProfiles]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

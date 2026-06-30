@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPPathDetail.FK_EAPPPathDetail_EAPPPath
+-- RAW:
+-- Source table: [dbo].[EAPPPathDetail]
+-- Constraint type: FOREIGN_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Mail_MailCalendars.PK_Mail_MailCalendars
+-- RAW:
+-- Source table: [dbo].[Mail_MailCalendars]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

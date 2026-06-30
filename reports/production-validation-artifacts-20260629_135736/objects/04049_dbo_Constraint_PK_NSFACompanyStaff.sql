@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NSFACompanyStaff.PK_NSFACompanyStaff
+-- -- Source table: [dbo].[NSFACompanyStaff]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

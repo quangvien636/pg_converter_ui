@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SnsGroups.DF_SnsGroups_Enabled
+-- -- Source table: [dbo].[SnsGroups]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((1))

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPCostMaster.DF__EAPPCostM__Regda__7116C6B5
+-- -- Source table: [dbo].[EAPPCostMaster]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

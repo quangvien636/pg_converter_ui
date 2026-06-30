@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EDMSUserAuthorityLevel.PK_EDMSUserAuthorityLevel
+-- -- Source table: [dbo].[EDMSUserAuthorityLevel]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

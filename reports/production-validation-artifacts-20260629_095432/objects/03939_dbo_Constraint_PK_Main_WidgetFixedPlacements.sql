@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Main_InitialWidgetPlacements.PK_Main_WidgetFixedPlacements
+-- RAW:
+-- Source table: [dbo].[Main_InitialWidgetPlacements]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

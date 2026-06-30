@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EASetPopUp.PK_EASetPopUp
+-- -- Source table: [dbo].[EASetPopUp]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

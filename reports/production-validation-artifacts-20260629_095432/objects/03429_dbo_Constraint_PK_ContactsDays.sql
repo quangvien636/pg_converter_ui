@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ContactsDays.PK_ContactsDays
+-- RAW:
+-- Source table: [dbo].[ContactsDays]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

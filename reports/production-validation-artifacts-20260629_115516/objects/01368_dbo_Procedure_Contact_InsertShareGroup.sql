@@ -1,0 +1,32 @@
+-- ─── PROCEDURE→FUNCTION: contact_insertsharegroup ───────────────────────────────
+-- NOTE: SQL Server stored procedure converted to PostgreSQL function.
+-- TODO: Review converted output — stored procedure semantics differ; test before use in production.
+-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
+-- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
+-- TODO: TOP was preserved as comment; add LIMIT manually
+DROP FUNCTION IF EXISTS public.contact_insertsharegroup(integer, character varying, integer);
+CREATE OR REPLACE FUNCTION public.contact_insertsharegroup(
+    IN userno integer,
+    IN sharename character varying,
+    IN parentno integer
+) RETURNS SETOF record
+AS $function$
+-- !! WARNING: output needs manual review — see TODO comments
+BEGIN
+
+
+	RETURN QUERY
+	SELECT /* TOP 1 */ Sort = Sort FROM Contact_ShareGroup 
+	WHERE  ParentNo = contact_insertsharegroup.parentno
+	ORDER BY Sort DESC
+		
+	INSERT INTO Contact_ShareGroup (ShareGroupName, ParentNo, RegUserNo, Sort,RegDate,IsDelete)
+	VALUES (ShareName, ParentNo, UserNo, Sort+1,NOW(),'FALSE')
+	
+	GroupNo := lastval();
+	RETURN QUERY
+	SELECT GroupNo AS GroupNo;
+END;
+$function$
+LANGUAGE plpgsql;
+-- TODO: Owner mapping skipped. Target role postgres not verified.

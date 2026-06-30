@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Leave_UserApplies.PK_Leave_UserApplies
+-- -- Source table: [dbo].[Leave_UserApplies]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

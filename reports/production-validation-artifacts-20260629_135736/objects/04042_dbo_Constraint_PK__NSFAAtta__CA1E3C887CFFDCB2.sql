@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NSFAAttached.PK__NSFAAtta__CA1E3C887CFFDCB2
+-- -- Source table: [dbo].[NSFAAttached]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

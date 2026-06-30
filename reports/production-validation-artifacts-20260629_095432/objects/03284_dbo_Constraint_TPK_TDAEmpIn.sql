@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo._TDAEmpIn.TPK_TDAEmpIn
+-- RAW:
+-- Source table: [dbo].[_TDAEmpIn]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

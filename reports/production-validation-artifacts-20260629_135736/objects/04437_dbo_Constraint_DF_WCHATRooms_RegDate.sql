@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WCHATRooms.DF_WCHATRooms_RegDate
+-- -- Source table: [dbo].[WCHATRooms]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

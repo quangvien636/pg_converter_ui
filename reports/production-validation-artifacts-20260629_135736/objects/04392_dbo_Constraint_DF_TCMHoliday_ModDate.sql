@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMHoliday.DF_TCMHoliday_ModDate
+-- -- Source table: [dbo].[TCMHoliday]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

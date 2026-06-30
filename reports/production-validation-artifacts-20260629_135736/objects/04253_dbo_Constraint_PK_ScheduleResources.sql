@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleResources.PK_ScheduleResources
+-- -- Source table: [dbo].[ScheduleResources]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

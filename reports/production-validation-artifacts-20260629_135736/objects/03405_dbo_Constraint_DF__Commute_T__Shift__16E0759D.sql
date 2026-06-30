@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Commute_TimeShift.DF__Commute_T__Shift__16E0759D
+-- -- Source table: [dbo].[Commute_TimeShift]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (N'')

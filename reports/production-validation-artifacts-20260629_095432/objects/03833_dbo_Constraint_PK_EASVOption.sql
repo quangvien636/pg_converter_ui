@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EASVOption.PK_EASVOption
+-- RAW:
+-- Source table: [dbo].[EASVOption]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

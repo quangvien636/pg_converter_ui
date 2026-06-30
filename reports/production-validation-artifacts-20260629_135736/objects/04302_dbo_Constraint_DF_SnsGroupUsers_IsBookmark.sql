@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SnsGroupUsers.DF_SnsGroupUsers_IsBookmark
+-- -- Source table: [dbo].[SnsGroupUsers]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

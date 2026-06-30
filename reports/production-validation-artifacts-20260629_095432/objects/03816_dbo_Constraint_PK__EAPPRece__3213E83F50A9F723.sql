@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPReceiveSendMail.PK__EAPPRece__3213E83F50A9F723
+-- RAW:
+-- Source table: [dbo].[EAPPReceiveSendMail]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

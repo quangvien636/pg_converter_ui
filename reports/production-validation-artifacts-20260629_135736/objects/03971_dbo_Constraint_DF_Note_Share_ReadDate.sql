@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Note_Share.DF_Note_Share_ReadDate
+-- -- Source table: [dbo].[Note_Share]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getutcdate())

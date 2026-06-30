@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.HNEWAttached.FK__HNEWAttac__DocID__614DA09C
+-- RAW:
+-- Source table: [dbo].[HNEWAttached]
+-- Constraint type: FOREIGN_KEY_CONSTRAINT

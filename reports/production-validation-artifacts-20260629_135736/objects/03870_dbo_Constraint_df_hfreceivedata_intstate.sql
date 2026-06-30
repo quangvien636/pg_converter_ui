@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.hfreceivedata.df_hfreceivedata_intstate
+-- -- Source table: [dbo].[hfreceivedata]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

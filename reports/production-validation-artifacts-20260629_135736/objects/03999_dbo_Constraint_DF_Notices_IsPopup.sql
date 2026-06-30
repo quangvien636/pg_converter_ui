@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Notices.DF_Notices_IsPopup
+-- -- Source table: [dbo].[Notices]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

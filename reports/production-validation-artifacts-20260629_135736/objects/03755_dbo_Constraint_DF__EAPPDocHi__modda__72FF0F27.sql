@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPDocHistory.DF__EAPPDocHi__modda__72FF0F27
+-- -- Source table: [dbo].[EAPPDocHistory]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

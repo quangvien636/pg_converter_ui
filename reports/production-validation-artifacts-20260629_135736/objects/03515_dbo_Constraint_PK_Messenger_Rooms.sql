@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.CrewChat_Rooms.PK_Messenger_Rooms
+-- -- Source table: [dbo].[CrewChat_Rooms]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

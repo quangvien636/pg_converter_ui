@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.NoticeCols.PK__NoticeCo__3214EC077FDD14B4
+-- RAW:
+-- Source table: [dbo].[NoticeCols]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

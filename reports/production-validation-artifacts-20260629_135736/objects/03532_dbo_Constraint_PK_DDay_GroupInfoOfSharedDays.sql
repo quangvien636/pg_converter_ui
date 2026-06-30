@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DDay_GroupInfoOfSharedDays.PK_DDay_GroupInfoOfSharedDays
+-- -- Source table: [dbo].[DDay_GroupInfoOfSharedDays]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

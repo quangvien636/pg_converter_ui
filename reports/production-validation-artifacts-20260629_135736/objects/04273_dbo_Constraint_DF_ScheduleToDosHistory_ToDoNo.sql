@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleToDosHistory.DF_ScheduleToDosHistory_ToDoNo
+-- -- Source table: [dbo].[ScheduleToDosHistory]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

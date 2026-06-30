@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticesDelete.DF_NoticesDelete_DeleteDate
+-- -- Source table: [dbo].[NoticesDelete]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

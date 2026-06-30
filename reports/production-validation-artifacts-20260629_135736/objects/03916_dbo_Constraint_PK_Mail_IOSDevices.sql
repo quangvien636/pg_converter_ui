@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Mail_IOSDevices.PK_Mail_IOSDevices
+-- -- Source table: [dbo].[Mail_IOSDevices]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

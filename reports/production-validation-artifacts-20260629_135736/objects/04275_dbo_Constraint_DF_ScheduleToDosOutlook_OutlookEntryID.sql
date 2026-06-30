@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleToDosOutlook.DF_ScheduleToDosOutlook_OutlookEntryID
+-- -- Source table: [dbo].[ScheduleToDosOutlook]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

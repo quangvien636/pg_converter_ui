@@ -1,0 +1,31 @@
+-- ─── TABLE: SurveyDetail ───────────────────────────────────
+CREATE TABLE IF NOT EXISTS public."SurveyDetail" (
+    SurveyNo integer NOT NULL,
+    DetailNo integer NOT NULL,
+    ExampleText character varying(300) NOT NULL DEFAULT '',
+    ExampleNo integer NOT NULL,
+    OverlapCheck character(1) NOT NULL,
+    EtcCheck character(1) NOT NULL DEFAULT 'N',
+    DetailContent_01 text NOT NULL DEFAULT '',
+    DetailContent_02 text NOT NULL DEFAULT '',
+    DetailContent_03 text NOT NULL DEFAULT '',
+    DetailContent_04 text NOT NULL DEFAULT '',
+    DetailContent_05 text NOT NULL DEFAULT '',
+    DetailContent_06 text NOT NULL DEFAULT '',
+    DetailContent_07 text NOT NULL DEFAULT '',
+    DetailContent_08 text NOT NULL DEFAULT '',
+    DetailContent_09 text NOT NULL DEFAULT '',
+    DetailContent_10 text NOT NULL DEFAULT '',
+    DetailContent_11 text NOT NULL DEFAULT '',
+    DetailContent_12 text NOT NULL DEFAULT '',
+    DetailContent_13 text NOT NULL DEFAULT '',
+    DetailContent_14 text NOT NULL DEFAULT '',
+    DetailContent_15 text NOT NULL DEFAULT '',
+    DetailContent_16 text NOT NULL DEFAULT '',
+    DetailContent_17 text NOT NULL DEFAULT '',
+    DetailContent_18 text NOT NULL DEFAULT '',
+    DetailContent_19 text NOT NULL DEFAULT '',
+    DetailContent_20 text NOT NULL DEFAULT '',
+    PRIMARY KEY (SurveyNo, DetailNo)
+);
+-- TODO: Owner mapping skipped. Target role postgres not verified.

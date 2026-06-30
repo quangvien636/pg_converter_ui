@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMContractInfo.PK_TCMContractInfo
+-- -- Source table: [dbo].[TCMContractInfo]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

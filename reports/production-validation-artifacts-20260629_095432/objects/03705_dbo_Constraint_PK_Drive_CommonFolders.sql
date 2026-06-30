@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Drive_CommonFolders.PK_Drive_CommonFolders
+-- RAW:
+-- Source table: [dbo].[Drive_CommonFolders]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

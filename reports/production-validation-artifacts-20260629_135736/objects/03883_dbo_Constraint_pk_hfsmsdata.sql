@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.hfsmsdata.pk_hfsmsdata
+-- -- Source table: [dbo].[hfsmsdata]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

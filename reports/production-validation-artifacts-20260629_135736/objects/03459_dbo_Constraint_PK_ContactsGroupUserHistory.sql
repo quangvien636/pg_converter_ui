@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsGroupUserHistory.PK_ContactsGroupUserHistory
+-- -- Source table: [dbo].[ContactsGroupUserHistory]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

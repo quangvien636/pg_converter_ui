@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Note_Group.DF_Note_Group_Show
+-- -- Source table: [dbo].[Note_Group]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((1))

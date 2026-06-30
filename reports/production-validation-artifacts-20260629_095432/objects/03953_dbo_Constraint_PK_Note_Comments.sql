@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Note_Comments.PK_Note_Comments
+-- RAW:
+-- Source table: [dbo].[Note_Comments]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

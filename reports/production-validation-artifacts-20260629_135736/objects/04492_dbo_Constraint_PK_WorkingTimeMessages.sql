@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_Messages.PK_WorkingTimeMessages
+-- -- Source table: [dbo].[WorkingTime_Messages]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

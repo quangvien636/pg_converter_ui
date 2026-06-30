@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SnsMessages.DF_SnsMessages_IsAttach
+-- -- Source table: [dbo].[SnsMessages]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

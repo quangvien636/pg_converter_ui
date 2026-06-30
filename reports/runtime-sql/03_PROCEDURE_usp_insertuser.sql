@@ -1,0 +1,4 @@
+-- PROCEDURE: usp_insertuser
+-- TODO: SQL Server stored procedure requires manual rewrite as PostgreSQL 9.3 function. CREATE PROCEDURE is not supported.
+-- TODO: SQL Server procedure return code requires manual rewrite
+-- TODO: Owner mapping skipped. Target role qa_owner not verified.

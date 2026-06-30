@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_AllowDevices.DF__WorkingTi__Devic__0AD8FABD
+-- -- Source table: [dbo].[WorkingTime_AllowDevices]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

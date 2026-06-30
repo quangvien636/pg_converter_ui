@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WebService_GCMRegistration.PK_WebService_GCMRegistration
+-- -- Source table: [dbo].[WebService_GCMRegistration]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

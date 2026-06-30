@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo._TPRWkAbsEmp.TPK_TPRWkAbsEmp
+-- RAW:
+-- Source table: [dbo].[_TPRWkAbsEmp]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

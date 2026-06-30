@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsGroupUser.DF_ContactsGroupUser_ModDate
+-- -- Source table: [dbo].[ContactsGroupUser]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

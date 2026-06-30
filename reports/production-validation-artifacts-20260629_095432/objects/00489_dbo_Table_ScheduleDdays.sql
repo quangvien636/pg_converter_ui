@@ -1,0 +1,33 @@
+-- ─── TABLE: ScheduleDdays ───────────────────────────────────
+CREATE TABLE IF NOT EXISTS public."ScheduleDdays" (
+    DdayNo serial NOT NULL,
+    RegUserNo integer NOT NULL,
+    RegDate timestamp without time zone NOT NULL,
+    ModUserNo integer NOT NULL,
+    ModDate timestamp without time zone NOT NULL,
+    Title character varying(100) NOT NULL,
+    Contents text NOT NULL,
+    GroupNo integer NOT NULL,
+    DoomDate date NOT NULL,
+    IsLunar character(1) NOT NULL,
+    IsHoliday integer NOT NULL,
+    IsFiveWeek character(1) NOT NULL,
+    IsLastDay character(1) NOT NULL,
+    PeriodYear integer NOT NULL,
+    RepeatEndDate date NOT NULL,
+    RepeatType integer NOT NULL,
+    RepeatCount integer NOT NULL,
+    RepeatMonth integer NOT NULL,
+    RepeatWeek integer NOT NULL,
+    RepeatDay integer NOT NULL,
+    RepeatDOWs integer NOT NULL,
+    IsNotiNote boolean NOT NULL,
+    IsNotiMail boolean NOT NULL,
+    IsNotiSMS boolean NOT NULL,
+    IsNotiPopup boolean NOT NULL,
+    NotiTimeType integer NOT NULL,
+    DisplayType character(1) NOT NULL,
+    IsComplete character(1) NOT NULL,
+    CompleteDate date NOT NULL
+);
+-- TODO: Owner mapping skipped. Target role postgres not verified.

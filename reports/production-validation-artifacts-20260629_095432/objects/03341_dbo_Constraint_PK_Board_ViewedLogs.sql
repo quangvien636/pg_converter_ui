@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Board_ViewedLogs.PK_Board_ViewedLogs
+-- RAW:
+-- Source table: [dbo].[Board_ViewedLogs]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

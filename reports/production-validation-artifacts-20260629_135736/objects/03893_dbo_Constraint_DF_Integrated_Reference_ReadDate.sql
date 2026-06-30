@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Integrated_Reference.DF_Integrated_Reference_ReadDate
+-- -- Source table: [dbo].[Integrated_Reference]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

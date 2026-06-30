@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SurveyList.DF_SurveyList_ModifyDate
+-- -- Source table: [dbo].[SurveyList]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

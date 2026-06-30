@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Note_List.PK_Note_List
+-- RAW:
+-- Source table: [dbo].[Note_List]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

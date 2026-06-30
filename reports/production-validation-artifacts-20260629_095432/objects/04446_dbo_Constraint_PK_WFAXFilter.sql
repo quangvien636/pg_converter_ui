@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WFAXFilter.PK_WFAXFilter
+-- RAW:
+-- Source table: [dbo].[WFAXFilter]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

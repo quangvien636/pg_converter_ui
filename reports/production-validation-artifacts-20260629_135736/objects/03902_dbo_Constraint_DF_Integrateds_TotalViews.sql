@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Integrateds.DF_Integrateds_TotalViews
+-- -- Source table: [dbo].[Integrateds]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

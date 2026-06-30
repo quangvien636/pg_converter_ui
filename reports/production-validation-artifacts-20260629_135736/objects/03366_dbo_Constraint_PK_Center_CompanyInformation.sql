@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_CompanyInformation.PK_Center_CompanyInformation
+-- -- Source table: [dbo].[Center_CompanyInformation]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

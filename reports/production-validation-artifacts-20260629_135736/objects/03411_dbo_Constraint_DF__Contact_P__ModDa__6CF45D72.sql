@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Contact_PublicGroup.DF__Contact_P__ModDa__6CF45D72
+-- -- Source table: [dbo].[Contact_PublicGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Mail_SharedAccounts.PK_Mail_SharedAccounts
+-- -- Source table: [dbo].[Mail_SharedAccounts]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WFAXAttached.PK__WFAXAttached
+-- -- Source table: [dbo].[WFAXAttached]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

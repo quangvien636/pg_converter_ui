@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Contact_PublicGroup.PK_Contact_PublicGroup
+-- -- Source table: [dbo].[Contact_PublicGroup]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

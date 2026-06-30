@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPPrivateForm.PK_EAPPPrivateForm
+-- -- Source table: [dbo].[EAPPPrivateForm]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

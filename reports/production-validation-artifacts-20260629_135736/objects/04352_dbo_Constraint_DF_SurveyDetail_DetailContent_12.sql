@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SurveyDetail.DF_SurveyDetail_DetailContent_12
+-- -- Source table: [dbo].[SurveyDetail]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

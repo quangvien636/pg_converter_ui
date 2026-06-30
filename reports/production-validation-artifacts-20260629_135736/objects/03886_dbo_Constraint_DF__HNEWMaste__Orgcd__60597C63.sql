@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.HNEWMaster.DF__HNEWMaste__Orgcd__60597C63
+-- -- Source table: [dbo].[HNEWMaster]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.NoticeSyn_Attachments.PK_NoticeSyn_Attachments
+-- RAW:
+-- Source table: [dbo].[NoticeSyn_Attachments]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

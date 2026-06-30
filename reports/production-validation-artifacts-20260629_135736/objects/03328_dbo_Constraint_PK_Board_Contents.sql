@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_Contents.PK_Board_Contents
+-- -- Source table: [dbo].[Board_Contents]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

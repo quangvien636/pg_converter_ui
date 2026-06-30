@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPOpinionFile.PK__EAPPOpin__3214EC2737DE4959
+-- -- Source table: [dbo].[EAPPOpinionFile]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

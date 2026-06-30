@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SourceControl_Company.DF_SourceControl_Company_DatabaseType
+-- -- Source table: [dbo].[SourceControl_Company]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((1))

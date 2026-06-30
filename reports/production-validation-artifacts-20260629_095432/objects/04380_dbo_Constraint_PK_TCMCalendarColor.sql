@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.TCMCalendarColor.PK_TCMCalendarColor
+-- RAW:
+-- Source table: [dbo].[TCMCalendarColor]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

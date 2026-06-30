@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_IPFiltersForApplication.PK_Center_IPFiltersForApplication
+-- -- Source table: [dbo].[Center_IPFiltersForApplication]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

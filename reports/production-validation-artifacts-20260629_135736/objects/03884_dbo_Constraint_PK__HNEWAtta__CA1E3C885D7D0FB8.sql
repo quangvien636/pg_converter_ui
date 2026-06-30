@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.HNEWAttached.PK__HNEWAtta__CA1E3C885D7D0FB8
+-- -- Source table: [dbo].[HNEWAttached]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

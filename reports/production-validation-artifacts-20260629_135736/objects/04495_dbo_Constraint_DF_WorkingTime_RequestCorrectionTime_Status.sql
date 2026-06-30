@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_RequestCorrectionTime.DF_WorkingTime_RequestCorrectionTime_Status
+-- -- Source table: [dbo].[WorkingTime_RequestCorrectionTime]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

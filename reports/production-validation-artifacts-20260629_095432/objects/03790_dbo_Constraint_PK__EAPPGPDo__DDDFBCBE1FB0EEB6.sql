@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPGPDocPack.PK__EAPPGPDo__DDDFBCBE1FB0EEB6
+-- RAW:
+-- Source table: [dbo].[EAPPGPDocPack]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

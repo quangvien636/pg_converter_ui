@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPErpState.PK__EAPPErpS__A296F5430BFFC71B
+-- -- Source table: [dbo].[EAPPErpState]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

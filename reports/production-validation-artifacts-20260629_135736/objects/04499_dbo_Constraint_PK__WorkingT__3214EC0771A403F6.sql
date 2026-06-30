@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_setupitems.PK__WorkingT__3214EC0771A403F6
+-- -- Source table: [dbo].[WorkingTime_setupitems]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

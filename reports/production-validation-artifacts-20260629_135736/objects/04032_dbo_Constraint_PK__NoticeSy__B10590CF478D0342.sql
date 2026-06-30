@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticeSyn_Menu.PK__NoticeSy__B10590CF478D0342
+-- -- Source table: [dbo].[NoticeSyn_Menu]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsEmail.DF_ContactsEmail_RegDate
+-- -- Source table: [dbo].[ContactsEmail]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

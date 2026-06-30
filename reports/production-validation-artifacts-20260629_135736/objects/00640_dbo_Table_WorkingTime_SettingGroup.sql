@@ -1,0 +1,30 @@
+-- ─── TABLE: WorkingTime_SettingGroup ───────────────────────────────────
+CREATE TABLE IF NOT EXISTS public."WorkingTime_SettingGroup" (
+    Id serial NOT NULL,
+    Name character varying(50) NOT NULL,
+    NameEn character varying(50),
+    TimeIn character(4) NOT NULL,
+    TimeOut character(4) NOT NULL,
+    LunchStart character(4) NOT NULL,
+    LunchEnd character(4) NOT NULL,
+    IsAddLunch boolean NOT NULL,
+    BIn1 character(4) NOT NULL,
+    BOut1 character(4) NOT NULL,
+    BIn2 character(4) NOT NULL,
+    BOut2 character(4) NOT NULL,
+    IsB1 boolean NOT NULL,
+    IsB2 boolean NOT NULL,
+    RegisteredId integer NOT NULL,
+    RegisteredDate date NOT NULL,
+    UpdateId integer,
+    UpdatedDate date,
+    Statust integer NOT NULL,
+    Sun integer,
+    Mon integer,
+    Tue integer,
+    Wen integer,
+    Thur integer,
+    Fri integer,
+    Sat integer
+);
+-- TODO: Owner mapping skipped. Target role postgres not verified.

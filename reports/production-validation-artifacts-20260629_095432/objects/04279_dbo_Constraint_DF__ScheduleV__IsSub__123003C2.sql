@@ -1,0 +1,5 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ScheduleViewCalendars.DF__ScheduleV__IsSub__123003C2
+-- RAW:
+-- Source table: [dbo].[ScheduleViewCalendars]
+-- Constraint type: DEFAULT_CONSTRAINT
+((0))

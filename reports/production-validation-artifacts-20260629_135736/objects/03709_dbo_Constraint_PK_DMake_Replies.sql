@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_Replies.PK_DMake_Replies
+-- -- Source table: [dbo].[DMake_Replies]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

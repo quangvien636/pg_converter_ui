@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NSFAClaimInfo.PK_NSFAClaimInfo
+-- -- Source table: [dbo].[NSFAClaimInfo]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

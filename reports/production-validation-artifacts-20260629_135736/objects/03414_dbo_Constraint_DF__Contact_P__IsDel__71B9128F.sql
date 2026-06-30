@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Contact_PublicGroupUser.DF__Contact_P__IsDel__71B9128F
+-- -- Source table: [dbo].[Contact_PublicGroupUser]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('FALSE')

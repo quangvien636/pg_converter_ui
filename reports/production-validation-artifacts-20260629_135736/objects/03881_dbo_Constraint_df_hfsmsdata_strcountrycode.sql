@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.hfsmsdata.df_hfsmsdata_strcountrycode
+-- -- Source table: [dbo].[hfsmsdata]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('82')

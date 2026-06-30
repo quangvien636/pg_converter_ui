@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.SMSAuth.PK_SMSAuth
+-- RAW:
+-- Source table: [dbo].[SMSAuth]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

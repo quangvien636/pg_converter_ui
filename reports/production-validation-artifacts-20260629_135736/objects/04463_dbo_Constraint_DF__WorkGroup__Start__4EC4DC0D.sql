@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkGroupHistorys.DF__WorkGroup__Start__4EC4DC0D
+-- -- Source table: [dbo].[WorkGroupHistorys]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

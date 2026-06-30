@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.VOTEItem.DF__VOTEItem__Select__12650DEC
+-- -- Source table: [dbo].[VOTEItem]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

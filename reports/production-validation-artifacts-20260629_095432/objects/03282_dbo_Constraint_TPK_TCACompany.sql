@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo._TCACompany.TPK_TCACompany
+-- RAW:
+-- Source table: [dbo].[_TCACompany]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

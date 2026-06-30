@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_GoogleOTPInfo.DF_Center_GoogleOTPInfo_REGDATE
+-- -- Source table: [dbo].[Center_GoogleOTPInfo]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_Replies.DF_DMake_Replies_RegUserNo
+-- -- Source table: [dbo].[DMake_Replies]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

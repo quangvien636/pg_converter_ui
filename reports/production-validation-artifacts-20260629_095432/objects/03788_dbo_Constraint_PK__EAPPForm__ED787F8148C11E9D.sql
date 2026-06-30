@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPFormTemplate.PK__EAPPForm__ED787F8148C11E9D
+-- RAW:
+-- Source table: [dbo].[EAPPFormTemplate]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

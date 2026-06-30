@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPProgress.PK_EAProcess
+-- -- Source table: [dbo].[EAPPProgress]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

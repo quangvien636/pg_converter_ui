@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EDMSPrivateDoc.PK_EDMSPrivateDoc
+-- RAW:
+-- Source table: [dbo].[EDMSPrivateDoc]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

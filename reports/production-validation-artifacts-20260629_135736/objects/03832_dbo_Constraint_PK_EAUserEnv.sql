@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPUserEnv.PK_EAUserEnv
+-- -- Source table: [dbo].[EAPPUserEnv]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

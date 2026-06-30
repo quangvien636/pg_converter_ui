@@ -1,0 +1,30 @@
+-- ─── TABLE: DMake_Boards ───────────────────────────────────
+CREATE TABLE IF NOT EXISTS public."DMake_Boards" (
+    BoardNo serial NOT NULL,
+    Name character varying(100),
+    Name_EN character varying(100),
+    Name_JP character varying(100),
+    Name_CH character varying(100),
+    Name_VN character varying(100),
+    Description character varying(1000),
+    BoardType character varying(1),
+    Enabled boolean,
+    FolderNo integer,
+    SortNo integer,
+    IsReply boolean,
+    IsHead boolean,
+    IsRecommend boolean,
+    RecommendedDisplayCount integer,
+    IsApproval boolean,
+    IsAnomymous boolean,
+    IsNotRightClick boolean,
+    IsAttachFile boolean,
+    IsLog boolean,
+    ChartType character varying(10),
+    ChartColors character varying(200),
+    RegUserNo integer,
+    RegDate timestamp without time zone,
+    ModUserNo integer,
+    ModDate timestamp without time zone
+);
+-- TODO: Owner mapping skipped. Target role postgres not verified.

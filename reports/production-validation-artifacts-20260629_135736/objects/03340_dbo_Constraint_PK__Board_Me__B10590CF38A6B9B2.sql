@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_Menu.PK__Board_Me__B10590CF38A6B9B2
+-- -- Source table: [dbo].[Board_Menu]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

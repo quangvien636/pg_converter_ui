@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SMSFavoritesText.DF_SMSFavoritesText_ModDate
+-- -- Source table: [dbo].[SMSFavoritesText]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

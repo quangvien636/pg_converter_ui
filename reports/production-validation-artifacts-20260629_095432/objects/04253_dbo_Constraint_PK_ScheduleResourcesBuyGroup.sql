@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ScheduleResourcesBuyGroup.PK_ScheduleResourcesBuyGroup
+-- RAW:
+-- Source table: [dbo].[ScheduleResourcesBuyGroup]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

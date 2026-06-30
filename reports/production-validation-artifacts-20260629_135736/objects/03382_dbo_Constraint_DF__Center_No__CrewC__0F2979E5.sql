@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_NotificationService.DF__Center_No__CrewC__0F2979E5
+-- -- Source table: [dbo].[Center_NotificationService]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

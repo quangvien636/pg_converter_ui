@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPMarkSymbol.PK_EAPPMarkSymbol
+-- RAW:
+-- Source table: [dbo].[EAPPMarkSymbol]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

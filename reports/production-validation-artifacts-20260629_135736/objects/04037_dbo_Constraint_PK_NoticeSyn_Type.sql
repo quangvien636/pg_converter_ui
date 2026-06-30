@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NoticeSyn_Type.PK_NoticeSyn_Type
+-- -- Source table: [dbo].[NoticeSyn_Type]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

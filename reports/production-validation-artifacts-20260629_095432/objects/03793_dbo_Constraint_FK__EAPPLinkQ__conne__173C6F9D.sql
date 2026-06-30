@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPLinkQuery.FK__EAPPLinkQ__conne__173C6F9D
+-- RAW:
+-- Source table: [dbo].[EAPPLinkQuery]
+-- Constraint type: FOREIGN_KEY_CONSTRAINT

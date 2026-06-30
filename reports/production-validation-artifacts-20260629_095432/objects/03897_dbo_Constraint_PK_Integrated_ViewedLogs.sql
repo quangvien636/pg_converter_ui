@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Integrated_ViewedLogs.PK_Integrated_ViewedLogs
+-- RAW:
+-- Source table: [dbo].[Integrated_ViewedLogs]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

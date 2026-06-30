@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_Auth_User.PK_DMake_Auth_User
+-- -- Source table: [dbo].[DMake_Auth_User]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

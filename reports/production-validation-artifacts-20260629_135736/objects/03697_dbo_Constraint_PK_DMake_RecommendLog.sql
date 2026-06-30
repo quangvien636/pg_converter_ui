@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_RecommendLog.PK_DMake_RecommendLog
+-- -- Source table: [dbo].[DMake_RecommendLog]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

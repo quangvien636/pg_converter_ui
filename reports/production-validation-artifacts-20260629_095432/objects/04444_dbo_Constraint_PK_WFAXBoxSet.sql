@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WFAXBoxSet.PK_WFAXBoxSet
+-- RAW:
+-- Source table: [dbo].[WFAXBoxSet]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

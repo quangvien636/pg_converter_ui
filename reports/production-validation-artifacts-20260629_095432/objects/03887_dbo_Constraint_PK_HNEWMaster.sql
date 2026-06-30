@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.HNEWMaster.PK_HNEWMaster
+-- RAW:
+-- Source table: [dbo].[HNEWMaster]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.SurveyReferences.PK_SurveyReferences
+-- RAW:
+-- Source table: [dbo].[SurveyReferences]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

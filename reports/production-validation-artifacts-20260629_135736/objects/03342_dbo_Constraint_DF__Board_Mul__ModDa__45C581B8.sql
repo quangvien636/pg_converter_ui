@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_MultiBoardWidget.DF__Board_Mul__ModDa__45C581B8
+-- -- Source table: [dbo].[Board_MultiBoardWidget]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

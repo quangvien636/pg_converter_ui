@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Organization_SortingEachDepartment.PK_Organization_SortingEachDepartment
+-- -- Source table: [dbo].[Organization_SortingEachDepartment]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

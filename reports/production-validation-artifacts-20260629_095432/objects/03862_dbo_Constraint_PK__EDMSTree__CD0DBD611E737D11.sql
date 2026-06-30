@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EDMSTreeItemDesc.PK__EDMSTree__CD0DBD611E737D11
+-- RAW:
+-- Source table: [dbo].[EDMSTreeItemDesc]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

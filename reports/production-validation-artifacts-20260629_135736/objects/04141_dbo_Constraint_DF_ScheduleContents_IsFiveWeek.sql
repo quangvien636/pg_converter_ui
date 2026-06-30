@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleContents.DF_ScheduleContents_IsFiveWeek
+-- -- Source table: [dbo].[ScheduleContents]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('0')

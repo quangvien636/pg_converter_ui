@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.CrewChat_Rooms.PK_Messenger_Rooms
+-- RAW:
+-- Source table: [dbo].[CrewChat_Rooms]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

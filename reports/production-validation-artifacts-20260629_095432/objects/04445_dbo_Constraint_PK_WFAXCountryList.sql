@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WFAXCountryList.PK_WFAXCountryList
+-- RAW:
+-- Source table: [dbo].[WFAXCountryList]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

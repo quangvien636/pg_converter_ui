@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Board_UserSetting.PK_Board_UserSetting
+-- RAW:
+-- Source table: [dbo].[Board_UserSetting]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

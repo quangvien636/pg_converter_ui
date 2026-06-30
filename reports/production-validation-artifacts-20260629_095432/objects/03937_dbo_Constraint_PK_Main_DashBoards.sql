@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Main_DashBoards.PK_Main_DashBoards
+-- RAW:
+-- Source table: [dbo].[Main_DashBoards]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

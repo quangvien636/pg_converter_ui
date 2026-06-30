@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.TCMHoliday.PK_TCMHoliday
+-- RAW:
+-- Source table: [dbo].[TCMHoliday]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

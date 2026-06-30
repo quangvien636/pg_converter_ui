@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMCommonClass.PK_TCMCommonClass
+-- -- Source table: [dbo].[TCMCommonClass]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

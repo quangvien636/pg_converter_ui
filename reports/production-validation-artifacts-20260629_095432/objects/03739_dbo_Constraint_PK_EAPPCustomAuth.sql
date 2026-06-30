@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPCustomAuth.PK_EAPPCustomAuth
+-- RAW:
+-- Source table: [dbo].[EAPPCustomAuth]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

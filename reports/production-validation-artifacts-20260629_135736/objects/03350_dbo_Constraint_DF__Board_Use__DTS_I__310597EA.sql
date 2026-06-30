@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_UserByGroup.DF__Board_Use__DTS_I__310597EA
+-- -- Source table: [dbo].[Board_UserByGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

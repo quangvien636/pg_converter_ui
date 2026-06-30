@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_AuthoGroup.DF__Board_Aut__USE_Y__3A8F0224
+-- -- Source table: [dbo].[Board_AuthoGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

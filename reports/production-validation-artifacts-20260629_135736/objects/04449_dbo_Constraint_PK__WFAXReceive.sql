@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WFAXReceive.PK__WFAXReceive
+-- -- Source table: [dbo].[WFAXReceive]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

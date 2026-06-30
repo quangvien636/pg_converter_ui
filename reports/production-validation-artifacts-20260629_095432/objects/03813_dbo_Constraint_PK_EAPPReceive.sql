@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPReceive.PK_EAPPReceive
+-- RAW:
+-- Source table: [dbo].[EAPPReceive]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

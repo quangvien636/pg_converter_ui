@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_Notices.PK_WorkingTimeNotices
+-- RAW:
+-- Source table: [dbo].[WorkingTime_Notices]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

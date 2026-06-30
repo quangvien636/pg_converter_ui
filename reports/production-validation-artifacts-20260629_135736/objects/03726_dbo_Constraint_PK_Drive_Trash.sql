@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Drive_Trash.PK_Drive_Trash
+-- -- Source table: [dbo].[Drive_Trash]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

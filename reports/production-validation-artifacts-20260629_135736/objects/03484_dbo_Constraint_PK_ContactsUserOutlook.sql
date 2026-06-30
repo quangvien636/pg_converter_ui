@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsUserOutlook.PK_ContactsUserOutlook
+-- -- Source table: [dbo].[ContactsUserOutlook]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

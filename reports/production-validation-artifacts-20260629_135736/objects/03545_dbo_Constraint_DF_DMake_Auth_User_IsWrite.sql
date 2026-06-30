@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_Auth_User.DF_DMake_Auth_User_IsWrite
+-- -- Source table: [dbo].[DMake_Auth_User]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

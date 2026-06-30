@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsGroupOutlook.DF_ContactsGroupOutlook_OutlookFolderEntryID
+-- -- Source table: [dbo].[ContactsGroupOutlook]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

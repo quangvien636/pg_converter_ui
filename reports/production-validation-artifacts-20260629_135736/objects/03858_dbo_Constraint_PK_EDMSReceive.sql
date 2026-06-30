@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EDMSReceive.PK_EDMSReceive
+-- -- Source table: [dbo].[EDMSReceive]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

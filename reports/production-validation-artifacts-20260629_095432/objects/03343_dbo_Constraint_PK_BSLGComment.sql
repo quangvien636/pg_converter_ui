@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.BSLG_Comment.PK_BSLGComment
+-- RAW:
+-- Source table: [dbo].[BSLG_Comment]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_Times.PK_WorkingTime_Times
+-- -- Source table: [dbo].[WorkingTime_Times]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

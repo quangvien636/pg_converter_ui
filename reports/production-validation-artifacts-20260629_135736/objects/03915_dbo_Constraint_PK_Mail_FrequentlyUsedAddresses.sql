@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Mail_FrequentlyUsedAddresses.PK_Mail_FrequentlyUsedAddresses
+-- -- Source table: [dbo].[Mail_FrequentlyUsedAddresses]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.HNEWComment.PK_HNEWComment
+-- -- Source table: [dbo].[HNEWComment]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

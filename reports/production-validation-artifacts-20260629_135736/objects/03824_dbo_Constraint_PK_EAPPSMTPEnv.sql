@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPSMTPEnv.PK_EAPPSMTPEnv
+-- -- Source table: [dbo].[EAPPSMTPEnv]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

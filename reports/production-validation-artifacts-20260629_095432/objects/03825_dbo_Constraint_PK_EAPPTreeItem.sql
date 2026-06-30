@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPTreeItem.PK_EAPPTreeItem
+-- RAW:
+-- Source table: [dbo].[EAPPTreeItem]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

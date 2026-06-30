@@ -1,0 +1,3 @@
+psql:E:/pg_converter_ui/reports/runtime-sql/06_FUNCTION_fn_userorders.sql:2: NOTICE:  function public.fn_userorders(pg_catalog.int4) does not exist, skipping
+DROP FUNCTION
+CREATE FUNCTION

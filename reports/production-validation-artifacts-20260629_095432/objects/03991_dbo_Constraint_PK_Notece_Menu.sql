@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.NoticeDivisions.PK_Notece_Menu
+-- RAW:
+-- Source table: [dbo].[NoticeDivisions]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

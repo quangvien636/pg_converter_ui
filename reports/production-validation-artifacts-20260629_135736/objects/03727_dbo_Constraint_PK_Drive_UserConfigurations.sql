@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Drive_UserConfigurations.PK_Drive_UserConfigurations
+-- -- Source table: [dbo].[Drive_UserConfigurations]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

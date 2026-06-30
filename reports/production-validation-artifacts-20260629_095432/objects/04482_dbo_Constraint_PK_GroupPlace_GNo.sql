@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_GroupPlace.PK_GroupPlace_GNo
+-- RAW:
+-- Source table: [dbo].[WorkingTime_GroupPlace]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

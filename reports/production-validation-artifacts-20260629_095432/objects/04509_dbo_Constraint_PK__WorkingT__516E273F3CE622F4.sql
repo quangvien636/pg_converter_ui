@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.WorkingTimeV2_Types.PK__WorkingT__516E273F3CE622F4
+-- RAW:
+-- Source table: [dbo].[WorkingTimeV2_Types]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

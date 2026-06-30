@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTime_DisplayPaths.PK_WorkingTime_DisplayPaths
+-- -- Source table: [dbo].[WorkingTime_DisplayPaths]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

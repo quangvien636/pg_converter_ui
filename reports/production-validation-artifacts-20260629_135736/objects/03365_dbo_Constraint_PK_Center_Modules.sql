@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Center_Applications.PK_Center_Modules
+-- -- Source table: [dbo].[Center_Applications]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

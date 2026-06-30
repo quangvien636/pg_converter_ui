@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.VOTEAuthority.PK__VOTEAuth__3214EC2715417A97
+-- -- Source table: [dbo].[VOTEAuthority]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DDay_CompletedRecords.PK_DDay_CompletedRecords
+-- -- Source table: [dbo].[DDay_CompletedRecords]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.DMake_Folders.PK_DMake_Folders
+-- RAW:
+-- Source table: [dbo].[DMake_Folders]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

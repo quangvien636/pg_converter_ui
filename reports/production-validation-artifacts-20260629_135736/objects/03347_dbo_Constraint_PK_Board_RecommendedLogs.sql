@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_RecommendedLogs.PK_Board_RecommendedLogs
+-- -- Source table: [dbo].[Board_RecommendedLogs]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

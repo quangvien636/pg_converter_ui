@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPEditorForm.PK__EAPPEdit__DDDFBCBE39A8F83F
+-- RAW:
+-- Source table: [dbo].[EAPPEditorForm]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

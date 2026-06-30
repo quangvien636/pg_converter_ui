@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.NSFAAuthUsers.PK_NSFAAuthUsers
+-- -- Source table: [dbo].[NSFAAuthUsers]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleContentsGoogle.PK_ScheduleContentsGoogle
+-- -- Source table: [dbo].[ScheduleContentsGoogle]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

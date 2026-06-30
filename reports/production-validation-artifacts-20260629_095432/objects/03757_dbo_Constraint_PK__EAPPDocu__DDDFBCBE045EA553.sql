@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPDocumentWBLD.PK__EAPPDocu__DDDFBCBE045EA553
+-- RAW:
+-- Source table: [dbo].[EAPPDocumentWBLD]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

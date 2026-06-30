@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPDocRotation.PK_EAPPDocRotation
+-- -- Source table: [dbo].[EAPPDocRotation]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

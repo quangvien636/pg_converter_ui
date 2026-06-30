@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TCMBusinessInfoFile.DF_TCMBusinessInfoFile_RegDate
+-- -- Source table: [dbo].[TCMBusinessInfoFile]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

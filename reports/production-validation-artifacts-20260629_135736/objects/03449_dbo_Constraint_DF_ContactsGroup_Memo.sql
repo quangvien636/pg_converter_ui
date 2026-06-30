@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsGroup.DF_ContactsGroup_Memo
+-- -- Source table: [dbo].[ContactsGroup]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

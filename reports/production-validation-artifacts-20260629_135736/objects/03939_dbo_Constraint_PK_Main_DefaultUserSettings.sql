@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Main_DefaultUserSettings.PK_Main_DefaultUserSettings
+-- -- Source table: [dbo].[Main_DefaultUserSettings]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

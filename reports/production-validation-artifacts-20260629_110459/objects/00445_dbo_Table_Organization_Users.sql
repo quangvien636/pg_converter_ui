@@ -1,0 +1,33 @@
+-- ─── TABLE: Organization_Users ───────────────────────────────────
+CREATE TABLE IF NOT EXISTS public."Organization_Users" (
+    UserNo serial NOT NULL,
+    ModUserNo integer NOT NULL,
+    ModDate timestamp without time zone NOT NULL,
+    UserID character varying(100) NOT NULL,
+    Password character varying(200),
+    PasswordChangeDate timestamp without time zone NOT NULL,
+    Name character varying(100) NOT NULL,
+    Name_EN character varying(100) NOT NULL DEFAULT '',
+    MailAddress character varying(200) NOT NULL,
+    Sex integer NOT NULL DEFAULT '1',
+    CellPhone character varying(100) NOT NULL,
+    CompanyPhone character varying(100) NOT NULL DEFAULT '',
+    ExtensionNumber character varying(20) NOT NULL DEFAULT '',
+    EntranceDate timestamp without time zone NOT NULL,
+    BirthDate timestamp without time zone NOT NULL,
+    UserPhoto boolean NOT NULL,
+    Photo character varying(500) NOT NULL DEFAULT '',
+    TimeZone character varying(200) NOT NULL,
+    Enabled boolean NOT NULL,
+    IsVirtual boolean NOT NULL,
+    Name_CH character varying(200) NOT NULL DEFAULT '',
+    Name_JP character varying(200) NOT NULL DEFAULT '',
+    Name_VN character varying(200) NOT NULL DEFAULT '',
+    WorkPlaceType character varying(20),
+    GroupId integer,
+    SkinName character varying(50),
+    FaxNumber character varying(100) DEFAULT '',
+    FailedLoginCount integer NOT NULL DEFAULT 0,
+    BirthDateType integer NOT NULL DEFAULT 0
+);
+-- TODO: Owner mapping skipped. Target role postgres not verified.

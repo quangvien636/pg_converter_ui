@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ContactsUser.DF_ContactsUser_ViewCount
+-- -- Source table: [dbo].[ContactsUser]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

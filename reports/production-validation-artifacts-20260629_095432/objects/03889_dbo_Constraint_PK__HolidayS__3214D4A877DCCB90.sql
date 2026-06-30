@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.HolidaySetup.PK__HolidayS__3214D4A877DCCB90
+-- RAW:
+-- Source table: [dbo].[HolidaySetup]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.DMake_Controls.DF_DMake_Controls_FieldType
+-- -- Source table: [dbo].[DMake_Controls]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

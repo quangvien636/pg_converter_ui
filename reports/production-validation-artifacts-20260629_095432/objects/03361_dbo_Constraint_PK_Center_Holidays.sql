@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.Center_Holidays.PK_Center_Holidays
+-- RAW:
+-- Source table: [dbo].[Center_Holidays]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

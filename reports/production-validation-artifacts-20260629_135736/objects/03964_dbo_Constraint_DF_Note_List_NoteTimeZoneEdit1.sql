@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Note_List.DF_Note_List_NoteTimeZoneEdit1
+-- -- Source table: [dbo].[Note_List]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

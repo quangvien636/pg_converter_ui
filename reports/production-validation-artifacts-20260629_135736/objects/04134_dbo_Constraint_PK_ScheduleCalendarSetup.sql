@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleCalendarSetup.PK_ScheduleCalendarSetup
+-- -- Source table: [dbo].[ScheduleCalendarSetup]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

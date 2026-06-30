@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Drive_SharingForFolders.PK_Drive_SharingForFolders
+-- -- Source table: [dbo].[Drive_SharingForFolders]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

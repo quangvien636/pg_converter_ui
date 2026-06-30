@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.ScheduleToDos.PK_ScheduleToDos
+-- RAW:
+-- Source table: [dbo].[ScheduleToDos]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Board_HistoryFolder.PK_Board_HistoryFolder
+-- -- Source table: [dbo].[Board_HistoryFolder]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

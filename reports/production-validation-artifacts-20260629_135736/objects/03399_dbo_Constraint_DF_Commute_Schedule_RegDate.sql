@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Commute_Schedule.DF_Commute_Schedule_RegDate
+-- -- Source table: [dbo].[Commute_Schedule]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())

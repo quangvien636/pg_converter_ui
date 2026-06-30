@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.WorkingTimeV2_HOLIDAYS.PK__WorkingT__DF11FDDE65E83887
+-- -- Source table: [dbo].[WorkingTimeV2_HOLIDAYS]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

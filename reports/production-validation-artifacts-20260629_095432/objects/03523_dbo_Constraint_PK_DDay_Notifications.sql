@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.DDay_Notifications.PK_DDay_Notifications
+-- RAW:
+-- Source table: [dbo].[DDay_Notifications]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

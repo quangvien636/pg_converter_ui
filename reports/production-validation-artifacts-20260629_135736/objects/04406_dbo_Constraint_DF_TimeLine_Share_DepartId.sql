@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.TimeLine_Share.DF_TimeLine_Share_DepartId
+-- -- Source table: [dbo].[TimeLine_Share]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

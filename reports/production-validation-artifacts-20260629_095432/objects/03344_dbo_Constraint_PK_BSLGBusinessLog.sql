@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.BSLG_Master.PK_BSLGBusinessLog
+-- RAW:
+-- Source table: [dbo].[BSLG_Master]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

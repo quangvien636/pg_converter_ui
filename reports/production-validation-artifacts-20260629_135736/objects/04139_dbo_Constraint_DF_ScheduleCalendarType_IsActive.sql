@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleCalendarType.DF_ScheduleCalendarType_IsActive
+-- -- Source table: [dbo].[ScheduleCalendarType]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((1))

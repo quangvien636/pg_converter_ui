@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPForm.DF__EAPPForm__ERPFix__7B945528
+-- -- Source table: [dbo].[EAPPForm]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ((0))

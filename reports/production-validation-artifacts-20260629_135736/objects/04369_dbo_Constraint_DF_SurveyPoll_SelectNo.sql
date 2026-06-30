@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SurveyPoll.DF_SurveyPoll_SelectNo
+-- -- Source table: [dbo].[SurveyPoll]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('')

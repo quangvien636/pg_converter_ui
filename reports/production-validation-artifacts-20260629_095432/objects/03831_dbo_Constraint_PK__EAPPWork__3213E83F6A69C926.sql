@@ -1,0 +1,4 @@
+-- TODO: constraint conversion is not implemented yet: dbo.EAPPWorkTransfer.PK__EAPPWork__3213E83F6A69C926
+-- RAW:
+-- Source table: [dbo].[EAPPWorkTransfer]
+-- Constraint type: PRIMARY_KEY_CONSTRAINT

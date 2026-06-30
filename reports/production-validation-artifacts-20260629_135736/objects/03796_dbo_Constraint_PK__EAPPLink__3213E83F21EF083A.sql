@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.EAPPLinkConnection.PK__EAPPLink__3213E83F21EF083A
+-- -- Source table: [dbo].[EAPPLinkConnection]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

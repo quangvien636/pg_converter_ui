@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Drive_DownloadingLogsForFile.PK_Drive_DownloadingLogsForFile
+-- -- Source table: [dbo].[Drive_DownloadingLogsForFile]
+-- -- Constraint type: PRIMARY_KEY_CONSTRAINT
+--

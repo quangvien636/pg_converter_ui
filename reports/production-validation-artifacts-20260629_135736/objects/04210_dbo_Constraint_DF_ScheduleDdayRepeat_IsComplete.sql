@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.ScheduleDdaysRepeat.DF_ScheduleDdayRepeat_IsComplete
+-- -- Source table: [dbo].[ScheduleDdaysRepeat]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('N')

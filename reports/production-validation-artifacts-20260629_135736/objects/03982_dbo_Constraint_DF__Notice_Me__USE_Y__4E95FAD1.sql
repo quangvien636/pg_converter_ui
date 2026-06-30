@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.Notice_Menu.DF__Notice_Me__USE_Y__4E95FAD1
+-- -- Source table: [dbo].[Notice_Menu]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- ('Y')

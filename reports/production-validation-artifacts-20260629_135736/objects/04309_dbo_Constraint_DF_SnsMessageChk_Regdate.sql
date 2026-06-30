@@ -1,0 +1,4 @@
+-- TODO: constraint conversion not implemented for: dbo.SnsMessageChk.DF_SnsMessageChk_Regdate
+-- -- Source table: [dbo].[SnsMessageChk]
+-- -- Constraint type: DEFAULT_CONSTRAINT
+-- (getdate())
