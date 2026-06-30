@@ -35,6 +35,7 @@ public static class BodyConverter
         {
             body = TrySafe(body, fnName, "NormalizeBoardTop", NormalizeBoardTop);
             body = TrySafe(body, fnName, "ConvertBoardOuterApply", ConvertBoardOuterApply);
+            body = TrySafe(body, fnName, "ConvertBoardForXmlPath", ConvertBoardForXmlPath);
         }
 
         body = TrySafe(body, fnName, "ConvertTryCatch",   ConvertTryCatch);
@@ -138,6 +139,115 @@ public static class BodyConverter
             else if (c == ')' && --depth == 0) return i;
         }
         return -1;
+    }
+
+    static int FindOpeningParen(string text, int closeParen)
+    {
+        var opens = new Stack<int>();
+        bool inString = false;
+        for (int i = 0; i <= closeParen; i++)
+        {
+            char c = text[i];
+            if (inString)
+            {
+                if (c == '\'' && i + 1 <= closeParen && text[i + 1] == '\'')
+                {
+                    i++;
+                    continue;
+                }
+                if (c == '\'') inString = false;
+                continue;
+            }
+            if (c == '\'') { inString = true; continue; }
+            if (c == '-' && i + 1 <= closeParen && text[i + 1] == '-')
+            {
+                int newline = text.IndexOf('\n', i + 2);
+                if (newline < 0 || newline > closeParen) return -1;
+                i = newline;
+                continue;
+            }
+            if (c == '/' && i + 1 <= closeParen && text[i + 1] == '*')
+            {
+                int endComment = text.IndexOf("*/", i + 2, StringComparison.Ordinal);
+                if (endComment < 0 || endComment > closeParen) return -1;
+                i = endComment + 1;
+                continue;
+            }
+            if (c == '(') opens.Push(i);
+            else if (c == ')')
+            {
+                if (opens.Count == 0) return -1;
+                int open = opens.Pop();
+                if (i == closeParen) return open;
+            }
+        }
+        return -1;
+    }
+
+    static string ConvertBoardForXmlPath(string body)
+    {
+        const string marker = "FOR XML PATH";
+        int searchFrom = 0;
+
+        while (true)
+        {
+            int markerStart = body.IndexOf(marker, searchFrom,
+                StringComparison.OrdinalIgnoreCase);
+            if (markerStart < 0) break;
+
+            var clause = Regex.Match(body[markerStart..],
+                @"^FOR\s+XML\s+PATH\s*\(\s*N?''\s*\)\s*,?\s*TYPE\s*",
+                RegexOptions.IgnoreCase, RegexTimeout);
+            if (!clause.Success)
+            {
+                searchFrom = markerStart + marker.Length;
+                continue;
+            }
+
+            int closeParen = markerStart + clause.Length;
+            while (closeParen < body.Length && char.IsWhiteSpace(body[closeParen]))
+                closeParen++;
+            if (closeParen >= body.Length || body[closeParen] != ')')
+            {
+                searchFrom = markerStart + marker.Length;
+                continue;
+            }
+
+            var valueCall = Regex.Match(body[(closeParen + 1)..],
+                @"^\s*\.value\s*\(\s*N?'\.'\s*,\s*N?'(?:text|nvarchar\(max\)|varchar\(max\))'\s*\)",
+                RegexOptions.IgnoreCase, RegexTimeout);
+            if (!valueCall.Success)
+            {
+                searchFrom = markerStart + marker.Length;
+                continue;
+            }
+
+            int openParen = FindOpeningParen(body, closeParen);
+            if (openParen < 0)
+            {
+                searchFrom = markerStart + marker.Length;
+                continue;
+            }
+
+            string query = body[(openParen + 1)..markerStart].TrimEnd();
+            if (!Regex.IsMatch(query, @"^\s*SELECT\b",
+                    RegexOptions.IgnoreCase, RegexTimeout))
+            {
+                searchFrom = markerStart + marker.Length;
+                continue;
+            }
+
+            // FOR XML PATH('') concatenates each selected scalar in query order.
+            // ARRAY(subquery) plus array_to_string preserves that behavior without XML.
+            query = Regex.Replace(query, @"\s+\+\s+", " || ",
+                RegexOptions.None, RegexTimeout);
+            string replacement = $"array_to_string(ARRAY({query}), '')";
+            int valueEnd = closeParen + 1 + valueCall.Length;
+            body = body[..openParen] + replacement + body[valueEnd..];
+            searchFrom = openParen + replacement.Length;
+        }
+
+        return body;
     }
 
     static string NormalizeBoardTop(string body)

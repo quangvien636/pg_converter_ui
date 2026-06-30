@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS BL;
     RETURN QUERY
     SELECT f.No AS FolderNo,
            STUFF((
-               SELECT ',' || CAST(b.No AS NVARCHAR(20))
+               SELECT ',' || CAST(b.No AS text)
                FROM T b
                WHERE b.ParentNo = f.No AND b.IsFolder = FALSE
                ORDER BY b.SortNo DESC
@@ -115,11 +115,11 @@ DROP TABLE IF EXISTS BL;
     --         Path component = (10000000 - SortNo) so higher SortNo â†’ smaller value â†’ sorts first
     CREATE TEMP TABLE O ON COMMIT DROP AS WITH RECURSIVE DFS AS (
         SELECT No, IsFolder,
-               CAST(RIGHT('0000000' || CAST(10000000 - SortNo AS NVARCHAR(7)), 7) AS text) AS SortPath
+               CAST(RIGHT('0000000' || CAST(10000000 - SortNo AS text), 7) AS text) AS SortPath
         FROM T WHERE ParentNo = 0
         UNION ALL
         SELECT t.No, t.IsFolder,
-               d.SortPath || '|' || RIGHT('0000000' || CAST(10000000 - t.SortNo AS NVARCHAR(7)), 7)
+               d.SortPath || '|' || RIGHT('0000000' || CAST(10000000 - t.SortNo AS text), 7)
         FROM T t INNER JOIN DFS d ON t.ParentNo = d.No AND d.IsFolder = TRUE
     )
     SELECT No, IsFolder, SortPath FROM DFS;
@@ -130,15 +130,15 @@ DROP TABLE IF EXISTS BL;
     json := (COALESCE((
 SELECT
 ',' +
-'{"id":"' || CASE WHEN t.IsFolder = TRUE THEN 'f' ELSE 'b' END + CAST(t.No AS NVARCHAR(20)) + '",' +
-'"parent":"' || CASE WHEN t.ParentNo=0 THEN '#' ELSE 'f' || CAST(t.ParentNo AS NVARCHAR(20)) END || '",' +
+'{"id":"' || CASE WHEN t.IsFolder = TRUE THEN 'f' ELSE 'b' END + CAST(t.No AS text) + '",' +
+'"parent":"' || CASE WHEN t.ParentNo=0 THEN '#' ELSE 'f' || CAST(t.ParentNo AS text) END || '",' +
 '"text":"' || REPLACE(REPLACE(
 CASE WHEN t.IsFolder = FALSE AND t.CountContent>0
-THEN t.Name || ' <span class=''submenu_board_content_count''>' || CAST(t.CountContent AS NVARCHAR(20)) + '</span>'
+THEN t.Name || ' <span class=''submenu_board_content_count''>' || CAST(t.CountContent AS text) + '</span>'
 ELSE t.Name END,
 '\', '\\'), '"', '\"') + '",' +
 '"icon":"' || CASE WHEN t.IsFolder = TRUE THEN 'fa fa-folder' ELSE 'fa fa-file-o' END || '",' +
-'"li_attr":{"type":"' || CASE WHEN t.IsFolder = TRUE THEN '0' ELSE CAST(t.ViewMode AS NVARCHAR(10)) END || '","RegUserNo":' || CAST(t.ModUserNo AS NVARCHAR(20)) + '},' +
+'"li_attr":{"type":"' || CASE WHEN t.IsFolder = TRUE THEN '0' ELSE CAST(t.ViewMode AS text) END || '","RegUserNo":' || CAST(t.ModUserNo AS text) + '},' +
 '"data":{'   +
 '"title":"' || REPLACE(REPLACE(COALESCE(t.Name,''), '\','\\'), '"','\"') + '",' +
 '"boardlist":' || CASE WHEN t.IsFolder = TRUE

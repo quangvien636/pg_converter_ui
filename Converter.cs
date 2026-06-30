@@ -1100,6 +1100,9 @@ $$;";
 
         // CAST/CONVERT
         body = Regex.Replace(body, @"CAST\s*\(\s*'([^']+)'\s+AS\s+DATETIME\s*\)", "'$1'::timestamp", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"(\bCAST\s*\([^)]*?\s+AS\s+)N?(?:VAR)?CHAR\s*\(\s*(?:MAX|\d+)\s*\)(\s*\))",
+            "$1text$2", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CONVERT\s*\(\s*[N]?VARCHAR\s*,\s*([^,]+),\s*120\s*\)",
             "TO_CHAR($1, 'YYYY-MM-DD HH24:MI:SS')", RegexOptions.IgnoreCase);
 

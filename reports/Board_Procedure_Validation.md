@@ -1,6 +1,6 @@
 # Board_% Procedure Validation Report
 
-**Generated**: 2026-06-30 16:45:39  
+**Generated**: 2026-06-30 16:54:15  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Board_% procedures (SQL Server) | **162** |
 | Conversion succeeded | **162** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **161** |
-| Compile FAIL | **1** |
-| Compile success rate | **99%** |
+| Compile PASS (CREATE succeeded) | **162** |
+| Compile FAIL | **0** |
+| Compile success rate | **100%** |
 | SETOF record (needs RETURNS TABLE) | **116** |
 
 ## 2. Board_% Procedure Feature Matrix
@@ -190,7 +190,7 @@
 
 ### 3a. PASS
 
-161 procedures compiled successfully:
+162 procedures compiled successfully:
 
 - `Board_Authority_Select`
 - `Board_Board_MaxSortNo_Select`
@@ -291,6 +291,7 @@
 - `Board_GetTreeBoard`
 - `Board_GetTreeSubMenu`
 - `Board_GetTreeSubMenu_V2`
+- `Board_GetTreeSubMenu_V2_Json`
 - `Board_GetTreeSubMenuTest`
 - `Board_GetUserByShare`
 - `Board_GetUserSetting`
@@ -356,15 +357,7 @@
 
 ### 3b. FAIL
 
-| Procedure | SqlState | Error |
-|-----------|----------|-------|
-| `Board_GetTreeSubMenu_V2_Json` | `42601` | syntax error at or near "XML" |
-
-## 4. Error Breakdown by PostgreSQL Code
-
-| SqlState | Count | Category | First Failure | Message |
-|----------|------:|----------|---------------|---------|
-| `42601` | 1 | syntax_error | `Board_GetTreeSubMenu_V2_Json` | syntax error at or near "XML" |
+All procedures compiled successfully.
 
 ## 5. SETOF record — Needs Manual RETURNS TABLE(...)
 
@@ -503,6 +496,5 @@
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | `42601` syntax_error | 1 procedures | Syntax error in generated plpgsql — likely malformed control flow or unparsed MSSQL syntax |
-| 2 | SETOF record → needs RETURNS TABLE | 116 procedures | Infer column types from SELECT list per procedure |
+| 1 | SETOF record → needs RETURNS TABLE | 116 procedures | Infer column types from SELECT list per procedure |
 

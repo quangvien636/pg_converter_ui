@@ -323,4 +323,21 @@ var tempDropGuard = ConvertBoard("Board_Tree_Temp_Drop_Regression", """
 MustContain(tempDropGuard, "DROP TABLE IF EXISTS T;", "OBJECT_ID temp drop");
 MustNotContain(tempDropGuard, "DROP TABLE IF EXISTS IF", "double temp drop rewrite");
 
+var forXmlPath = ConvertBoard("Board_GetTreeSubMenu_V2_Json_Regression", """
+    DECLARE @Json NVARCHAR(MAX)
+    SELECT @Json = (
+        SELECT ',' + CAST(B.BoardNo AS NVARCHAR(20))
+        FROM Board_Boards B
+        ORDER BY B.SortNo
+        FOR XML PATH(''), TYPE
+    ).value('.', 'text')
+    SELECT @Json
+    """);
+MustContain(forXmlPath, "array_to_string(ARRAY(", "FOR XML PATH aggregation");
+MustContain(forXmlPath, "SELECT ',' || CAST(B.BoardNo AS text)", "FOR XML PATH scalar query");
+MustContain(forXmlPath, "ORDER BY B.SortNo", "FOR XML PATH ordering");
+MustNotContain(forXmlPath, "FOR XML", "FOR XML PATH removal");
+MustNotContain(forXmlPath, ".value(", "XML value removal");
+MustNotContain(forXmlPath, "NVARCHAR", "NVARCHAR cast mapping");
+
 Console.WriteLine("Board regression QA: PASS (24 representative procedures)");
