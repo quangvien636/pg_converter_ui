@@ -1023,11 +1023,12 @@ $$;";
         body = Regex.Replace(body, @"@@IDENTITY\b", "lastval()", RegexOptions.IgnoreCase);
 
         // TOP N → LIMIT N: single-line SELECT TOP → move TOP value to LIMIT at end
+        // \s* (not \s+) so TOP(1)* (no space before *) also matches
         body = Regex.Replace(body,
-            @"(?im)^([ \t]*(?:RETURN\s+QUERY\s+)?SELECT\s+)TOP\s*\(?\s*(\d+)\s*\)?\s+([^\n]+?)(\s*;?)[ \t]*$",
+            @"(?im)^([ \t]*(?:RETURN\s+QUERY\s+)?SELECT\s+)TOP\s*\(?\s*(\d+)\s*\)?\s*([^\n]+?)(\s*;?)[ \t]*$",
             "$1$3 LIMIT $2$4");
         // Any remaining TOP (multi-line context) → comment placeholder
-        body = Regex.Replace(body, @"\bTOP\s*\(?\s*(\d+)\s*\)?\s+", "/* TOP $1 */ ", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"\bTOP\s*\(?\s*(\d+)\s*\)?\s*", "/* TOP $1 */ ", RegexOptions.IgnoreCase);
 
         // Quote reserved word identifiers when used as table names in DML
         body = Regex.Replace(body,
@@ -1039,6 +1040,13 @@ $$;";
                     ? $"{kw} public.\"{tbl}\""
                     : $"{kw} {tbl}";
             }, RegexOptions.IgnoreCase);
+
+        // Strip table alias prefix from UPDATE SET left-hand sides.
+        // T-SQL allows UPDATE t SET t.col = val; PostgreSQL only accepts SET col = val.
+        // First assignment (after SET keyword):
+        body = Regex.Replace(body, @"\bSET\s+(\w+)\.(\w+)(\s*=)(?![=>])", "SET $2$3", RegexOptions.IgnoreCase);
+        // Subsequent assignments (after top-level commas — right-side subqueries use parens so are depth>0):
+        body = Regex.Replace(body, @"(,\s*)(\w+)\.(\w+)(\s*=)(?![=>])", "$1$3$4", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bTOP\s+(\d+)\b", "/* TOP $1 */", RegexOptions.IgnoreCase);
 
         // String literals

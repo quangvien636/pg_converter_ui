@@ -48,3 +48,42 @@ body = Regex.Replace(body, @"[ \t]+(?=\n)", "");
 ### Regressions
 * **No regressions detected.**
 * The standalone Board regression tests and NUnit unit tests all compile and execute successfully.
+
+---
+
+# Iteration Log — Rank 2/3 Fixes (ROI_Backlog)
+
+**Date:** 2026-06-30  
+**Fix Targets:**
+- ROI Rank 1: Comment Shielding (trailing `--` in IF/WHILE conditions + ELSE BEGIN suppression)
+- ROI Rank 2: Strip Table Alias Prefixes from UPDATE SET Clauses
+- Bonus: Fix `SELECT TOP(N)*` (no space) conversion
+
+**Status:** ✅ SUCCESS
+
+## Summary of Changes
+
+### 1. Comment Shielding — IF/WHILE trailing comments (`BodyConverter.cs`)
+Added `ExtractTrailingLineComment()` helper. Updated IF, ELSIF, WHILE handlers to move `THEN`/`LOOP` keyword BEFORE any trailing `-- comment`. Before this fix, `IF x = 1 -- check` became `IF x = 1 -- check THEN` (THEN inside comment). Now: `IF x = 1 THEN -- check`.
+
+### 2. ELSE BEGIN Suppression for all procedures (`BodyConverter.cs`)
+Changed `suppressNextElseBegin` from Board-only to universal. Before, Contact procedures with `IF...BEGIN...END ELSE BEGIN...END` patterns generated `BEGIN` literal + unclosed IF block. Now the ELSE body's BEGIN is suppressed for all procedures, producing correct `ELSE ... END IF;`.
+
+Also extended `EnsurePreviousBranchTerminator` call to all procedures (not Board-only), so the last statement before ELSE/END IF gets a semicolon.
+
+### 3. UPDATE SET Alias Stripping (`Converter.cs`)
+T-SQL: `UPDATE t SET t.col = val` → PostgreSQL: `UPDATE t SET col = val`. Applied two regex passes (first assignment after SET, then subsequent comma-separated assignments) with `=(?![=>])` guard to avoid false positives.
+
+### 4. TOP(N)* no-space fix (`Converter.cs`)
+Changed `\s+` to `\s*` in the `SELECT TOP N → LIMIT N` regex so `SELECT TOP(1)*` converts correctly to `SELECT * LIMIT 1`.
+
+## PASS / FAIL Before and After
+
+| Metric | Before | After | Δ |
+|--------|--------|-------|---|
+| NUnit Tests | 20 PASS / 0 FAIL | **24 PASS / 0 FAIL** | +4 |
+| Board% | 140 PASS / 22 FAIL | **146 PASS / 16 FAIL** | **+6** |
+| Contact% | 107 PASS / 82 FAIL | **118 PASS / 71 FAIL** | **+11** |
+
+## Regressions
+* **No regressions detected.**

@@ -776,9 +776,10 @@ public static class BodyConverter
                     }
                     continue;
                 }
-                bool inline  = Regex.IsMatch(condPart, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
-                if (inline) condPart = Regex.Replace(condPart, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
-                result.Add(indent + $"ELSIF {StripOuterParens(condPart)} THEN");
+                var (condBody, trailingComment) = ExtractTrailingLineComment(condPart);
+                bool inline  = Regex.IsMatch(condBody, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
+                if (inline) condBody = Regex.Replace(condBody, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
+                result.Add(indent + $"ELSIF {StripOuterParens(condBody)} THEN{trailingComment}");
                 if (inline) stack.Push(BlockKind.ElseIf);
                 else        pending = BlockKind.ElseIf;
                 continue;
@@ -803,9 +804,10 @@ public static class BodyConverter
                         result.Add(indent + "END IF;");
                     continue;
                 }
-                bool inline  = Regex.IsMatch(condPart, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
-                if (inline) condPart = Regex.Replace(condPart, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
-                result.Add(indent + $"IF {StripOuterParens(condPart)} THEN");
+                var (condBody, trailingComment) = ExtractTrailingLineComment(condPart);
+                bool inline  = Regex.IsMatch(condBody, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
+                if (inline) condBody = Regex.Replace(condBody, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
+                result.Add(indent + $"IF {StripOuterParens(condBody)} THEN{trailingComment}");
                 if (inline) stack.Push(BlockKind.If);
                 else        pending = BlockKind.If;
                 continue;
@@ -815,14 +817,14 @@ public static class BodyConverter
             var elseM = Regex.Match(trimmed, @"^ELSE(?:\s+BEGIN)?\s*$", RegexOptions.IgnoreCase);
             if (elseM.Success)
             {
-                if (isBoardProcedure) EnsurePreviousBranchTerminator(result);
+                EnsurePreviousBranchTerminator(result);
                 result.Add(indent + "ELSE");
                 // ELSE continues the current IF block. SQL Server commonly writes
                 // "END / ELSE / BEGIN"; the END immediately before ELSE is suppressed
                 // below, so no second stack entry is needed here.
                 pending = null;
-                suppressNextElseBegin = isBoardProcedure &&
-                    !Regex.IsMatch(trimmed, @"\bBEGIN\b", RegexOptions.IgnoreCase);
+                // Suppress the standalone BEGIN that follows ELSE (applies to all procedures)
+                suppressNextElseBegin = !Regex.IsMatch(trimmed, @"\bBEGIN\b", RegexOptions.IgnoreCase);
                 continue;
             }
 
@@ -845,9 +847,10 @@ public static class BodyConverter
             if (whileM.Success)
             {
                 var condPart = CollectMultiLineCond(lines, ref li, whileM.Groups[1].Value.Trim());
-                bool inline  = Regex.IsMatch(condPart, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
-                if (inline) condPart = Regex.Replace(condPart, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
-                result.Add(indent + $"WHILE {StripOuterParens(condPart)} LOOP");
+                var (condBody, trailingComment) = ExtractTrailingLineComment(condPart);
+                bool inline  = Regex.IsMatch(condBody, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
+                if (inline) condBody = Regex.Replace(condBody, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
+                result.Add(indent + $"WHILE {StripOuterParens(condBody)} LOOP{trailingComment}");
                 if (inline) stack.Push(BlockKind.While);
                 else        pending = BlockKind.While;
                 continue;
@@ -887,8 +890,7 @@ public static class BodyConverter
                     continue;
 
                 var top = stack.Count > 0 ? stack.Pop() : BlockKind.Plain;
-                if (isBoardProcedure &&
-                    top is BlockKind.If or BlockKind.ElseIf or BlockKind.Else)
+                if (top is BlockKind.If or BlockKind.ElseIf or BlockKind.Else)
                     EnsurePreviousBranchTerminator(result);
                 result.Add(indent + top switch {
                     BlockKind.If or BlockKind.ElseIf or BlockKind.Else => "END IF;",
@@ -998,6 +1000,20 @@ public static class BodyConverter
             if (!inStr) { if (c == '(') depth++; else if (c == ')') depth--; }
         }
         return depth;
+    }
+
+    // Extract trailing -- comment from a condition string so THEN/LOOP can be placed before it.
+    // Returns (cleanedCondition, " -- comment") or (original, "").
+    static (string clean, string comment) ExtractTrailingLineComment(string s)
+    {
+        bool inStr = false;
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s[i] == '\'') { inStr = !inStr; continue; }
+            if (!inStr && i + 1 < s.Length && s[i] == '-' && s[i + 1] == '-')
+                return (s[..i].TrimEnd(), " " + s[i..].TrimEnd());
+        }
+        return (s, "");
     }
 
     // ── Variable assignments ─────────────────────────────────────────────────
