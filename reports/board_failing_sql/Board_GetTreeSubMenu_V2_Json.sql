@@ -18,9 +18,9 @@ DECLARE
 BEGIN
 
 
-DROP TABLE IF EXISTS T;
-DROP TABLE IF EXISTS O;
-DROP TABLE IF EXISTS BL;
+DROP TABLE IF; EXISTS T;
+DROP TABLE IF; EXISTS O;
+DROP TABLE IF; EXISTS BL;
 
     -- Step 1: Build flat tree data
     CREATE TEMP TABLE T ON COMMIT DROP AS WITH
@@ -98,16 +98,14 @@ DROP TABLE IF EXISTS BL;
                   WHEN IsFolder = FALSE AND No = board_gettreesubmenu_v2_json.selectedboardno  THEN 1
                   ELSE 0 END AS BIT) AS IsSelected FROM TREESUB;
 
-    -- Step 2: Pre-compute boardlist per folder (separate step â€” SQL 2008 R2 no nested FOR XML);
+    -- Step 2: Pre-compute boardlist per folder (separate step â€” SQL 2008 R2 no nested FOR XML);;
     RETURN QUERY
     SELECT f.No AS FolderNo,
-           STUFF((
+           STUFF(array_to_string(ARRAY(
                SELECT ',' || CAST(b.No AS text)
                FROM T b
                WHERE b.ParentNo = f.No AND b.IsFolder = FALSE
-               ORDER BY b.SortNo DESC
-               FOR XML PATH(''), TYPE
-           ).value('.', 'text'), 1, 1, '') AS Boardlist
+               ORDER BY b.SortNo DESC), ''), 1, 1, '') AS Boardlist
     INTO BL
     FROM T f WHERE f.IsFolder = TRUE;
 
@@ -127,26 +125,15 @@ DROP TABLE IF EXISTS BL;
     -- Step 4: Build JSON array using FOR XML PATH (SQL 2008 R2 compatible);
 
 
-    json := (COALESCE((
+    json := (COALESCE(array_to_string(ARRAY(
 SELECT
-',' +
-'{"id":"' || CASE WHEN t.IsFolder = TRUE THEN 'f' ELSE 'b' END + CAST(t.No AS text) + '",' +
-'"parent":"' || CASE WHEN t.ParentNo=0 THEN '#' ELSE 'f' || CAST(t.ParentNo AS text) END || '",' +
-'"text":"' || REPLACE(REPLACE(
+',' || '{"id":"' || CASE WHEN t.IsFolder = TRUE THEN 'f' ELSE 'b' END || CAST(t.No AS text) || '",' || '"parent":"' || CASE WHEN t.ParentNo=0 THEN '#' ELSE 'f' || CAST(t.ParentNo AS text) END || '",' || '"text":"' || REPLACE(REPLACE(
 CASE WHEN t.IsFolder = FALSE AND t.CountContent>0
-THEN t.Name || ' <span class=''submenu_board_content_count''>' || CAST(t.CountContent AS text) + '</span>'
+THEN t.Name || ' <span class=''submenu_board_content_count''>' || CAST(t.CountContent AS text) || '</span>'
 ELSE t.Name END,
-'\', '\\'), '"', '\"') + '",' +
-'"icon":"' || CASE WHEN t.IsFolder = TRUE THEN 'fa fa-folder' ELSE 'fa fa-file-o' END || '",' +
-'"li_attr":{"type":"' || CASE WHEN t.IsFolder = TRUE THEN '0' ELSE CAST(t.ViewMode AS text) END || '","RegUserNo":' || CAST(t.ModUserNo AS text) + '},' +
-'"data":{'   +
-'"title":"' || REPLACE(REPLACE(COALESCE(t.Name,''), '\','\\'), '"','\"') + '",' +
-'"boardlist":' || CASE WHEN t.IsFolder = TRUE
-THEN '"' || COALESCE(bl.Boardlist, '') + '"'
-ELSE 'null' END || ',' +
-'"jsonName":"' || REPLACE(REPLACE(COALESCE(t.JsonName,''), '\','\\'), '"','\"') + '"' +
-'},' +
-'"state":' || CASE WHEN t.IsFolder = TRUE AND NOT EXISTS (SELECT 1 FROM T c WHERE c.ParentNo=t.No)
+'\', '\\'), '"', '\"') || '",' || '"icon":"' || CASE WHEN t.IsFolder = TRUE THEN 'fa fa-folder' ELSE 'fa fa-file-o' END || '",' || '"li_attr":{"type":"' || CASE WHEN t.IsFolder = TRUE THEN '0' ELSE CAST(t.ViewMode AS text) END || '","RegUserNo":' || CAST(t.ModUserNo AS text) || '},' || '"data":{' || '"title":"' || REPLACE(REPLACE(COALESCE(t.Name,''), '\','\\'), '"','\"') || '",' || '"boardlist":' || CASE WHEN t.IsFolder = TRUE
+THEN '"' || COALESCE(bl.Boardlist, '') || '"'
+ELSE 'null' END || ',' || '"jsonName":"' || REPLACE(REPLACE(COALESCE(t.JsonName,''), '\','\\'), '"','\"') || '"' || '},' || '"state":' || CASE WHEN t.IsFolder = TRUE AND NOT EXISTS (SELECT 1 FROM T c WHERE c.ParentNo=t.No)
 THEN 'null'
 ELSE '{"opened":' || CASE WHEN t.IsFolder = FALSE THEN 'true'
 WHEN t.IsOpen = TRUE   THEN 'true'
@@ -155,31 +142,7 @@ END || '}'
 FROM T t
 INNER JOIN O o  ON t.No = o.No AND t.IsFolder = o.IsFolder
 LEFT  JOIN BL bl ON t.IsFolder = TRUE AND bl.FolderNo = t.No
-ORDER BY o.SortPath
-FOR XML PATH(''), TYPE
-).value('.', 'text'), ''));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ORDER BY o.SortPath), ''), ''));
 
 
 
@@ -201,9 +164,9 @@ FOR XML PATH(''), TYPE
     RETURN QUERY
     SELECT '[' || STUFF(COALESCE(Json, ''), 1, 1, '') + ']' AS JsonData;
 
-    DROP TABLE IF EXISTS T;
-    DROP TABLE IF EXISTS O;
-    DROP TABLE IF EXISTS BL;
+    DROP TABLE IF; EXISTS T;
+    DROP TABLE IF; EXISTS O;
+    DROP TABLE IF; EXISTS BL;
 END;
 $function$
 LANGUAGE plpgsql;

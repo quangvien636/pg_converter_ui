@@ -569,6 +569,7 @@ BEGIN
 					Position = Position
 				WHERE Seq = CompanySeq
 			END;
+			END IF;
 		END IF;
 		-- 기존 메일 삭제후 재입력;
 		DELETE FROM ContactsEmail
@@ -969,7 +970,6 @@ BEGIN
 				0
 			);
 		END IF;
-	END IF;
 END;
 $function$
 LANGUAGE plpgsql;

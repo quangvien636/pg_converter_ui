@@ -28,53 +28,16 @@ BEGIN
 	-- declare
 
 	-- get Notification ID
-	SELECT NotificationNo INTO notificationno FROM Center_NotificationService where CompanyNo = board_updatenotificationservice.companyno and ProjectCode = board_updatenotificationservice.projectcode and Connectionkey = board_updatenotificationservice.connectionkey;
-
-	IF NotificationNo > 0 THEN
-		-- update main;
-		update Center_NotificationService set
-		CompanyNo = board_updatenotificationservice.companyno
-		, ProjectCode = board_updatenotificationservice.projectcode
-		, Connectionkey = board_updatenotificationservice.connectionkey
-		, SendUserNo = board_updatenotificationservice.senduserno
-		, RecipientUserNo = board_updatenotificationservice.recipientuserno
-		, RecipientDepartNo = board_updatenotificationservice.recipientdepartno
-		, StartDate = board_updatenotificationservice.startdate
-		, EndDate = board_updatenotificationservice.enddate
-		, RepeatType = board_updatenotificationservice.repeattype
-		, RepeatOptions = board_updatenotificationservice.repeatoptions
-		where NotificationNo = NotificationNo;
-
-		--DELETE FROM detail;
-		DELETE FROM Center_NotificationService_AlarmDetail where NotificationNo = NotificationNo;
-	ELSE
-		-- INSERT INTO main;
-		INSERT INTO Center_NotificationService(CompanyNo,ProjectCode,Connectionkey,SendUserNo,RecipientUserNo,RecipientDepartNo, StartDate, EndDate, RepeatType, RepeatOptions,State, Execution)
-		values (CompanyNo, ProjectCode, Connectionkey, SendUserNo,RecipientUserNo,RecipientDepartNo,StartDate,StartDate,RepeatType,RepeatOptions,State,Execution);
-
-		-- get Notification ID
-		SELECT NotificationNo INTO notificationno FROM Center_NotificationService where ProjectCode = board_updatenotificationservice.projectcode and Connectionkey = board_updatenotificationservice.connectionkey;
-	END IF;
-
-	-- INSERT INTO detail
-
-	---- Create an internal representation of the XML document.
--- TODO: XML shredding removed — rewrite as xmltable
-	CREATE TEMP TABLE tb ON COMMIT DROP AS SELECT * FROM xmltable('/*' PASSING NULL::xml COLUMNS NotificationNo integer PATH 'NotificationNo', AlarmCode text PATH 'AlarmCode', AlarmStartTime text PATH 'AlarmStartTime', AlarmTime integer PATH 'AlarmTime', Id integer PATH 'Id') /* TODO: verify XML path and column mappings */;
-
-	CREATE TEMP TABLE tb2 ON COMMIT DROP AS SELECT otificationServiceDetail.value('Id','INT') AS Id, --ATTRIBUTE
-	otificationServiceDetail.value('(Title/text())1','text') AS Title,
-	otificationServiceDetail.value('(ContentJson/text())1','text') AS ContentJson FROM
-	XmlDetail.nodes('/root/NotificationServiceDetails/NotificationServiceDetail')AS TEMPTABLE(otificationServiceDetail);
+	-- TODO: map SQL Server xml.nodes/value expressions to PostgreSQL XMLTABLE
+SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE;
 
 	insert into Center_NotificationService_AlarmDetail(NotificationNo,AlarmCode,AlarmStartTime, Alarm_Time,Title,Content_Json)
 	select NotificationNo, a.AlarmCode, a.AlarmStartTime, a.AlarmTime,b.Title, b.ContentJson
 	from tb a
 	join tb2 b on a.Id = b.Id;
 
-	DROP TABLE IF EXISTS tb;
-	DROP TABLE IF EXISTS tb2;
-	PERFORM sp_xml_removedocument(docHandle);
+	DROP TABLE IF; EXISTS tb;
+	DROP TABLE IF; EXISTS tb2;
 END;
 $function$
 LANGUAGE plpgsql;

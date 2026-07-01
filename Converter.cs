@@ -150,9 +150,16 @@ public static class Converter
 
         // For void: strip RETURN <literal number>;
         if (returnType == "void")
+        {
             convertedBody = Regex.Replace(convertedBody,
                 @"(?m)^([ \t]*)RETURN\s+[-+]?\d+\s*;",
                 "$1RETURN;", RegexOptions.IgnoreCase);
+            if (pgName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
+                pgName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
+                convertedBody = Regex.Replace(convertedBody,
+                    @"(?m)^([ \t]*)SELECT\s+([-+]?\d+|NULL|'(?:[^']|'')*')\s*;",
+                    "$1PERFORM $2;", RegexOptions.IgnoreCase);
+        }
 
         // Add _rowcount declare if needed
         if (Regex.IsMatch(convertedBody, @"\b_rowcount\b", RegexOptions.IgnoreCase))
@@ -583,12 +590,12 @@ public static class Converter
             if (depth == 0
                 && !trimmed.StartsWith("--", StringComparison.Ordinal)
                 && Regex.IsMatch(trimmed,
-                    @"^(?:INSERT\s+INTO|UPDATE\b|DELETE\s+FROM|CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\b)",
+                    @"^(?:INSERT\b|UPDATE\b|DELETE\b|CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\b)",
                     RegexOptions.IgnoreCase))
             {
                 inDmlStatement = true;
                 dmlIsInsert = Regex.IsMatch(trimmed,
-                    @"^(?:INSERT\s+INTO|CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\b)",
+                    @"^(?:INSERT\b|CREATE\s+TEMP(?:ORARY)?\s+TABLE\b.*\bAS\b)",
                     RegexOptions.IgnoreCase);
                 dmlHasValues = Regex.IsMatch(trimmed, @"\bVALUES\b", RegexOptions.IgnoreCase);
                 dmlHasSelect = false;
@@ -1056,12 +1063,20 @@ $$;";
             @"\bORDER\s+BY\s+(?:[^;()\n])+?(?=\s+UNION\b)",
             "", RegexOptions.IgnoreCase);
         // Strip SQL Server transaction control — PostgreSQL wraps the whole function in an implicit transaction
-        body = Regex.Replace(body, @"(?m)^[ \t]*BEGIN\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
-        body = Regex.Replace(body, @"(?m)^[ \t]*COMMIT\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
-        body = Regex.Replace(body, @"(?m)^[ \t]*ROLLBACK\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
-        body = Regex.Replace(body, @"(?m)^[ \t]*SAVE\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*BEGIN\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*(?:--.*)?$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*COMMIT\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*(?:--.*)?$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*ROLLBACK\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*(?:--.*)?$", "", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"(?m)^[ \t]*SAVE\s+TRAN(?:SACTION)?(?:\s+\w+)?[ \t]*;?[ \t]*(?:--.*)?$", "", RegexOptions.IgnoreCase);
         // Remove MSSQL session settings
         body = Regex.Replace(body, @"(?m)^[ \t]*SET\s+NOCOUNT\s+ON\s*;?[ \t]*$", "", RegexOptions.IgnoreCase);
+        // Inject semicolon to DROP TABLE if missing (supporting IF EXISTS)
+        body = Regex.Replace(body,
+            @"(?i)\bDROP\s+TABLE\s+(?:IF\s+EXISTS\s+(\w+)|\b(?!IF\s+EXISTS\b)(\w+))\b(?!\s*;)",
+            m => {
+                var tbl = m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value;
+                var ifExists = m.Groups[1].Success ? "IF EXISTS " : "";
+                return $"DROP TABLE {ifExists}{tbl};";
+            }, RegexOptions.IgnoreCase);
         // Fix ;WITH CTE
         body = Regex.Replace(body, @"(?m)^(\s*);(WITH\b)", "$1$2", RegexOptions.IgnoreCase);
         // Remove remaining DECLARE lines
@@ -1179,14 +1194,19 @@ $$;";
             }, RegexOptions.IgnoreCase);
 
         // DML fixes
-        body = Regex.Replace(body, @"\bDELETE\s+(?!FROM\b)(\w)", "DELETE FROM $1", RegexOptions.IgnoreCase);
-        body = Regex.Replace(body, @"\bINSERT\s+(?!INTO\b)(\w)", "INSERT INTO $1", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"\bDELETE\s+(?!FROM\b)(@?\w+)", "DELETE FROM $1", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"\bINSERT\s+(?!INTO\b)(@?\w+)", "INSERT INTO $1", RegexOptions.IgnoreCase);
         // Add ; at statement boundaries when the preceding SQL line has none.
         // Spans blank lines so VALUES (...)\n\n\nvar := ... gets semicolon added.
         // Negative lookbehind (?<!;) prevents double semicolons.
         // Negative lookbehind (?<!\*/) prevents adding ; after block-comment closing */ lines.
         body = Regex.Replace(body,
-            @"([^\s;,\(\r\n][^\r\n]*?)(?<!\*/)(?<!;)((?:\r?\n[ \t]*)+)([ \t]*(?:INSERT\s+INTO|DELETE\s+FROM|UPDATE\s+\w|\w+\s*:=\s|RETURN\s+QUERY\b|END\s+IF\b|END\s+LOOP\b|RAISE\b))",
+            @"([^\n]*?[^\s;,\(\r\n])(?<!\*/)(?<!;)((?:\n[ \t]*)+)([ \t]*(?:INSERT\s+INTO|DELETE\s+FROM|UPDATE\s+\w|\w+\s*:=\s|RETURN\s+QUERY\b|END\s+IF\b|END\s+LOOP\b|RAISE\b))",
+            m => m.Groups[1].Value + ";" + m.Groups[2].Value + m.Groups[3].Value,
+            RegexOptions.IgnoreCase);
+        // Inject semicolon before SELECT ... INTO statements
+        body = Regex.Replace(body,
+            @"([^\n]*?[^\s;,\(\r\n])(?<!\*/)(?<!;)((?:\n[ \t]*)+)([ \t]*SELECT\s+(?:(?!\bUNION\b|\bCREATE\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b|\bWHILE\b|\bLOOP\b|\bIF\b)[^;])*?\bINTO\b)",
             m => m.Groups[1].Value + ";" + m.Groups[2].Value + m.Groups[3].Value,
             RegexOptions.IgnoreCase);
         // Close common multi-line DML tails before a PL/pgSQL/result boundary.
@@ -1201,6 +1221,9 @@ $$;";
         body = Regex.Replace(body, @"(?m)\bLOOP\s*;[ \t]*$",  "LOOP",  RegexOptions.IgnoreCase);
 
         // Misc
+        body = Regex.Replace(body,
+            @"(?m)^([ \t]*)PRINT\s*\((.+)\)\s*;?\s*$",
+            "$1RAISE NOTICE '%', $2;", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"(?m)^([ \t]*)PRINT\s+", "$1RAISE NOTICE '%', ", RegexOptions.IgnoreCase);
         body = Regex.Replace(body,
             @"\bCHARINDEX\s*\(\s*','\s*,\s*([^)]+)\)",
@@ -1320,6 +1343,7 @@ $$;";
             BoardBlockKind block = stack.Pop();
             if (block == BoardBlockKind.If) lines.Add("END IF;");
             else if (block == BoardBlockKind.Loop) lines.Add("END LOOP;");
+            else if (block == BoardBlockKind.Plain) lines.Add("END;");
         }
         return string.Join('\n', lines);
     }

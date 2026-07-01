@@ -4,6 +4,7 @@
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: Dynamic SQL detected. Manual rewrite required for PostgreSQL.
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
+-- TODO: dynamic SQL converted best-effort; review EXECUTE statement
 DROP FUNCTION IF EXISTS public.contacts_getcontactslist(integer, integer, integer, character varying, character varying, character varying, character varying, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_getcontactslist(
     IN reguserno integer,
@@ -74,24 +75,40 @@ Name BETWEEN P_TS AND P_TE) PagingTable WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx')
 				SearchTxt := ' AND Name ILIKE ''%' || Search || '%''';
 			ELSIF SearchMode = '1' THEN
 				SearchTxt := ' AND Seq IN (select UserSeq from ContactsCompany WHERE Position ILIKE ''%' || Search || '%'')';
+			END IF;
+
 			ELSIF SearchMode = '2' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsNumber WHERE Value ILIKE ''%' || Search || '%'')';
+			END IF;
+
 			ELSIF SearchMode = '3' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsCompany WHERE Company ILIKE ''%' || Search || '%'')';
+
+
 			ELSIF SearchMode = '4' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsCompany WHERE Depart ILIKE ''%' || Search || '%'')';
+
+
 			ELSIF SearchMode = '5' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsEmail WHERE Value ILIKE ''%' || Search || '%'')';
+
+
 			ELSIF SearchMode = '6' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSEq FROM ContactsGroupUser WHERE;
 									GroupNo IN (SELECT GroupNo FROM ContactsGroup WHERE GroupName ILIKE ''%' || Search || '%''))';
 
+
 			ELSIF SearchMode = '7' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM ContactsGroup WHERE RegDate ILIKE ''%' || Search || '%'')';
+
+
 			ELSIF SearchMode = '8' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM  WHERE Value ILIKE ''%' || Search || '%'')';
+
+
 			ELSIF SearchMode = '9' THEN
 				SearchTxt := ' AND Seq IN (SELECT UserSeq FROM  WHERE Value ILIKE ''%' || Search || '%'')';
+
 			END IF;
 		END IF;
 
@@ -100,11 +117,9 @@ Name BETWEEN P_TS AND P_TE) PagingTable WHERE ROWNUM BETWEEN P_Sidx AND P_Eidx')
 
 
 	IF Mode = '0' THEN
-		PERFORM sp_executesql(PagingQry,PARAM,RegUserNo,Sidx);
-		P_Eidx = contacts_getcontactslist.eidx,P_TS = contacts_getcontactslist.ts,P_TE = contacts_getcontactslist.te,P_GroupNo = contacts_getcontactslist.groupno;
+		EXECUTE PagingQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
 	ELSE
-		PERFORM sp_executesql(CountQry,PARAM,RegUserNo,Sidx);
-		P_Eidx = contacts_getcontactslist.eidx,P_TS = contacts_getcontactslist.ts,P_TE = contacts_getcontactslist.te,P_GroupNo = contacts_getcontactslist.groupno;
+		EXECUTE CountQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
 	END IF;
 END;
 $function$

@@ -17,7 +17,7 @@ BEGIN
 
 
 	IF IsDisabled = TRUE THEN
-	   IF IsAdmin = FALSE THEN;
+	   IF IsAdmin = FALSE THEN
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
@@ -30,7 +30,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk.userno)) OR
 			FROM Board_Boards
 			WHERE (ViewMode=board_getboards_bk.viewmode OR ViewMode < 0) And (DisplayTypeNo=board_getboards_bk.displaytypeno OR DisplayTypeNo < 0)
 			ORDER BY SortNo ASC ,BoardNo ASC;
-	   ELSE;
+	   ELSE
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
@@ -39,12 +39,11 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk.userno)) OR
 			FROM Board_Boards
 			WHERE (ViewMode=board_getboards_bk.viewmode OR ViewMode < 0) And (DisplayTypeNo=board_getboards_bk.displaytypeno OR DisplayTypeNo < 0)
 			ORDER BY SortNo ASC ,BoardNo ASC;
-	   END IF;
 
 
 
 	ELSE
-		IF IsAdmin = FALSE THEN;
+		IF IsAdmin = FALSE THEN
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
@@ -57,7 +56,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk.userno)) OR
 			FROM Board_Boards
 			WHERE Enabled = TRUE AND (ViewMode=board_getboards_bk.viewmode  OR ViewMode < 0) And (DisplayTypeNo=board_getboards_bk.displaytypeno OR DisplayTypeNo < 0)
 			ORDER BY SortNo ASC ,BoardNo ASC;
-	   ELSE;
+	   ELSE
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
@@ -68,8 +67,9 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk.userno)) OR
 			FROM Board_Boards
 			WHERE Enabled = TRUE AND (ViewMode=board_getboards_bk.viewmode  OR ViewMode < 0) And (DisplayTypeNo=board_getboards_bk.displaytypeno OR DisplayTypeNo < 0)
 			ORDER BY SortNo ASC,BoardNo ASC;
-	   END IF;
 	END IF;
+END IF;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

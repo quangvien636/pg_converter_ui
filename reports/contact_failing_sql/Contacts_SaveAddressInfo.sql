@@ -160,7 +160,7 @@ BEGIN
 		-- 전화번호
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabnumber (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -191,7 +191,7 @@ BEGIN
 						TelTypeName := SUBSTRING(TempTel,0,STRPOS(TempTel, ','));
 					TelCnt := TelCnt + 1;
 					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LEN(TempTel));
-				END LOOP;
+				END IF;
 				TelValue := TempTel;
 				-- 임시테이블에 저장;
 				INSERT INTO tabNumber
@@ -225,11 +225,11 @@ BEGIN
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabNumber;
 		ELSE
 			DELETE FROM ContactsNumber WHERE RegUserNo = contacts_saveaddressinfo.userno AND UserSeq = contacts_saveaddressinfo.seq;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 이메일
 		-- ============================================
-		CREATE TEMP TABLE tabemail (IsDefault CHAR(1), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabEmail (IsDefault CHAR(1), Value varchar(50)) ON COMMIT DROP;
 
 
 
@@ -244,6 +244,7 @@ BEGIN
 				WHILE STRPOS(TempEmail, ',') > 0 LOOP
 					IF EmailCnt = 0 THEN
 						EmailIsDefault := SUBSTRING(TempEmail,0,STRPOS(TempEmail, ','));
+					END IF;
 					EmailCnt := EmailCnt + 1;
 					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LEN(TempEmail));
 				END LOOP;
@@ -276,7 +277,7 @@ BEGIN
 		-- ============================================
 		-- 회사
 		-- ============================================
-		CREATE TEMP TABLE tabcompany (IsDefault CHAR(1), Company varchar(50), Depart varchar(50), Position varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabCompany (IsDefault CHAR(1), Company varchar(50), Depart varchar(50), Position varchar(50)) ON COMMIT DROP;
 
 
 
@@ -297,7 +298,7 @@ BEGIN
 						Depart := SUBSTRING(TempCompany,0,STRPOS(TempCompany, ','));
 					CompanyCnt := CompanyCnt + 1;
 					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LEN(TempCompany));
-				END LOOP;
+				END IF;
 				Position := TempCompany;
 				INSERT INTO tabCompany
 				(
@@ -329,11 +330,11 @@ BEGIN
 			SELECT UserNo, Seq, Company, Depart, Position, IsDefault, NOW(), NOW() FROM tabCompany;
 		ELSE
 			DELETE FROM ContactsCompany WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabaddr (IsDefault CHAR(1), Type integer, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
 
 
 
@@ -358,7 +359,7 @@ BEGIN
 						AddrZipCode2 := SUBSTRING(TempAddr,0,STRPOS(TempAddr, ','));
 					AddrCnt := AddrCnt + 1;
 					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, ',')+1,LEN(TempAddr));
-				END LOOP;
+				END IF;
 				Address := TempAddr;
 				INSERT INTO tabAddr
 				(
@@ -396,12 +397,12 @@ BEGIN
 			SELECT UserNo, Seq, Type, TypeName, ZipCode1, ZipCode2, Address, IsDefault, NOW(), NOW() FROM tabAddr;
 		ELSE
 			DELETE FROM ContactsAddress WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabhome (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -424,7 +425,7 @@ BEGIN
 						HomeTypeName := SUBSTRING(TempHome,0,STRPOS(TempHome, ','));
 					HomeCnt := HomeCnt + 1;
 					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LEN(TempHome));
-				END LOOP;
+				END IF;
 				HomeValue := TempHome;
 				-- 임시테이블에 저장;
 				INSERT INTO tabHome
@@ -458,12 +459,12 @@ BEGIN
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabHome;
 		ELSE
 			DELETE FROM ContactsHomepage WHERE RegUserNo = contacts_saveaddressinfo.userno AND UserSeq = contacts_saveaddressinfo.seq;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabsns (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -486,7 +487,7 @@ BEGIN
 						SnsTypeName := SUBSTRING(TempSns,0,STRPOS(TempSns, ','));
 					SnsCnt := SnsCnt + 1;
 					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LEN(TempSns));
-				END LOOP;
+				END IF;
 				SnsValue := TempSns;
 				-- 임시테이블에 저장;
 				INSERT INTO tabSns
@@ -520,11 +521,11 @@ BEGIN
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabSns;
 		ELSE
 			DELETE FROM ContactsSns WHERE RegUserNo = contacts_saveaddressinfo.userno AND UserSeq = contacts_saveaddressinfo.seq;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 그룹관련
 		-- ============================================
-		CREATE TEMP TABLE tabgroup (GroupNo integer, UserSeq integer) ON COMMIT DROP;
+		CREATE TEMP TABLE tabGroup (GroupNo INT, UserSeq INT) ON COMMIT DROP;
 
 
 
@@ -588,7 +589,7 @@ BEGIN
 			ModDate = NOW()
 		WHERE Seq = contacts_saveaddressinfo.seq;
 
-		CREATE TEMP TABLE tabnumberup (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -613,7 +614,7 @@ BEGIN
 						TelTypeNameUp := SUBSTRING(TempTelUp,0,STRPOS(TempTelUp, ','));
 					TelCntUp := TelCntUp + 1;
 					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LEN(TempTelUp));
-				END LOOP;
+				END IF;
 				TelValueUp := TempTelUp;
 				-- 임시테이블에 저장;
 				INSERT INTO tabNumberUp
@@ -645,12 +646,12 @@ BEGIN
 				ModDate
 			)
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabNumberUp;
-		END IF;
+		END LOOP;
 
 		-- ============================================
 		-- 이메일
 		-- ============================================
-		CREATE TEMP TABLE tabemailup (IsDefault CHAR(1), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabEmailUp (IsDefault CHAR(1), Value varchar(50)) ON COMMIT DROP;
 
 
 
@@ -667,6 +668,7 @@ BEGIN
 				WHILE STRPOS(TempEmailUp, ',') > 0 LOOP
 					IF EmailCntUp = 0 THEN
 						EmailIsDefaultUp := SUBSTRING(TempEmailUp,0,STRPOS(TempEmailUp, ','));
+					END IF;
 					EmailCntUp := EmailCntUp + 1;
 					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LEN(TempEmailUp));
 				END LOOP;
@@ -698,7 +700,7 @@ BEGIN
 		-- ============================================
 		-- 회사
 		-- ============================================
-		CREATE TEMP TABLE tabcompanyup (IsDefault CHAR(1), Company varchar(50), Depart varchar(50), Position varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabCompanyUp (IsDefault CHAR(1), Company varchar(50), Depart varchar(50), Position varchar(50)) ON COMMIT DROP;
 
 
 
@@ -721,7 +723,7 @@ BEGIN
 						DepartUp := SUBSTRING(TempCompanyUp,0,STRPOS(TempCompanyUp, ','));
 					CompanyCntUp := CompanyCntUp + 1;
 					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LEN(TempCompanyUp));
-				END LOOP;
+				END IF;
 				PositionUp := TempCompanyUp;
 				INSERT INTO tabCompanyUp
 				(
@@ -751,11 +753,11 @@ BEGIN
 				ModDate
 			)
 			SELECT UserNo, Seq, Company, Depart, Position, IsDefault, NOW(), NOW() FROM tabCompanyUp;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabaddrup (IsDefault CHAR(1), Type integer, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
 
 
 
@@ -782,7 +784,7 @@ BEGIN
 						AddrZipCode2Up := SUBSTRING(TempAddrUp,0,STRPOS(TempAddrUp, ','));
 					AddrCntUp := AddrCntUp + 1;
 					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, ',')+1,LEN(TempAddrUp));
-				END LOOP;
+				END IF;
 				AddressUp := TempAddrUp;
 				INSERT INTO tabAddrUp
 				(
@@ -818,13 +820,13 @@ BEGIN
 				ModDate
 			)
 			SELECT UserNo, Seq, Type, TypeName, ZipCode1, ZipCode2, Address, IsDefault, NOW(), NOW() FROM tabAddrUp;
-		END IF;
+		END LOOP;
 
 		-- ============================================
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabhomeup (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -849,7 +851,7 @@ BEGIN
 						HomeTypeNameUp := SUBSTRING(TempHomeUp,0,STRPOS(TempHomeUp, ','));
 					HomeCntUp := HomeCntUp + 1;
 					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LEN(TempHomeUp));
-				END LOOP;
+				END IF;
 				HomeValueUp := TempHomeUp;
 				-- 임시테이블에 저장;
 				INSERT INTO tabHomeUp
@@ -881,12 +883,12 @@ BEGIN
 				ModDate
 			)
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabHomeUp;
-		END IF;
+		END LOOP;
 		-- ============================================
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabsnsup (IsDefault CHAR(1), Type integer, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
@@ -911,7 +913,7 @@ BEGIN
 						SnsTypeNameUp := SUBSTRING(TempSnsUp,0,STRPOS(TempSnsUp, ','));
 					SnsCntUp := SnsCntUp + 1;
 					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LEN(TempSnsUp));
-				END LOOP;
+				END IF;
 				SnsValueUp := TempSnsUp;
 				-- 임시테이블에 저장;
 				INSERT INTO tabSnsUp
@@ -943,12 +945,12 @@ BEGIN
 				ModDate
 			)
 			SELECT UserNo, Seq, Type, TypeName, Value, IsDefault, NOW(), NOW() FROM tabSnsUp;
-		END IF;
+		END LOOP;
 
 		-- ============================================
 		-- 그룹관련
 		-- ============================================
-		CREATE TEMP TABLE tabgroupup (GroupNo integer, UserSeq integer) ON COMMIT DROP;
+		CREATE TEMP TABLE tabGroupUp (GroupNo INT, UserSeq INT) ON COMMIT DROP;
 
 
 
@@ -990,9 +992,14 @@ BEGIN
 
 		END IF;
 
+	END IF;
 
 	RETURN QUERY
 	Select Seq;
+END IF;
+END IF;
+END IF;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

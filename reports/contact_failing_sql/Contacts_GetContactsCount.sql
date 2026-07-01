@@ -4,6 +4,7 @@
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: Dynamic SQL detected. Manual rewrite required for PostgreSQL.
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
+-- TODO: dynamic SQL converted best-effort; review EXECUTE statement
 DROP FUNCTION IF EXISTS public.contacts_getcontactscount(integer, character varying, character varying, character varying, character varying, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_getcontactscount(
     IN reguserno integer,
@@ -69,8 +70,10 @@ Name BETWEEN P_TS AND P_TE) PagingTable'), '');
 				SearchTxt := ' AND Name ILIKE ''%' || Search || '%''';
 			ELSIF SearchMode = '1' THEN
 				SearchTxt := '';
+			END IF;
 			ELSIF SearchMode = '2' THEN
 				SearchTxt := '';
+			END IF;
 			ELSE
 				SearchTxt := ' AND Memo ILIKE ''%' || Search || '%''';
 			END IF;
@@ -84,21 +87,17 @@ Name BETWEEN P_TS AND P_TE) PagingTable'), '');
 			END IF;
 		ELSE
 			IF Mode = '0' THEN
-				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE'), '');
-				+ SearchTxt || ') PagingTable';
+				pagingqry := COALESCE(pagingqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE' || SearchTxt || ') PagingTable'), '');
 			ELSE
-				countqry := COALESCE(countqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE'), '');
-				 + SearchTxt;
+				countqry := COALESCE(countqry, '') || COALESCE(('WHERE RegUserNo=P_RegUserNo AND Name BETWEEN P_TS AND P_TE' || SearchTxt), '');
 			END IF;
 		END IF;
 	END IF;
 
 	IF Mode = '0' THEN
-		PERFORM sp_executesql(PagingQry,PARAM,RegUserNo);
-		P_TS = contacts_getcontactscount.ts,P_TE = contacts_getcontactscount.te,P_GroupNo = contacts_getcontactscount.groupno;
+		EXECUTE PagingQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
 	ELSE
-		PERFORM sp_executesql(CountQry,PARAM,RegUserNo);
-		P_TS = contacts_getcontactscount.ts,P_TE = contacts_getcontactscount.te,P_GroupNo = contacts_getcontactscount.groupno;
+		EXECUTE CountQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
 	END IF;
 END;
 $function$

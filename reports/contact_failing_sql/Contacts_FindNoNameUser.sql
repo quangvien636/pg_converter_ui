@@ -49,22 +49,22 @@ BEGIN
 			WHERE
 			N.Value ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -112,7 +112,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND N.Value ILIKE '%' || SerchText || '%'
 				AND (U.FirstName+U.LastName) = ''
 				GROUP BY U.Seq
@@ -134,7 +134,6 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
-	END IF;
 	-- 회사 검색
 	ELSIF SerchType = 2 THEN
 	IF Initial = 'ETC' THEN
@@ -168,22 +167,22 @@ BEGIN
 			WHERE
 			C.Company ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -231,7 +230,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND C.Company ILIKE '%' || SerchText || '%'
 				AND (U.FirstName+U.LastName) = ''
 				GROUP BY U.Seq
@@ -287,22 +286,22 @@ BEGIN
 			WHERE
 			C.Depart ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -350,7 +349,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND C.Depart ILIKE '%' || SerchText || '%'
 				AND (U.FirstName+U.LastName) = ''
 				GROUP BY U.Seq
@@ -372,7 +371,7 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
-	END IF;
+
 	--직위검색
 	ELSIF SerchType = 4 THEN
 	IF Initial = 'ETC' THEN
@@ -406,22 +405,22 @@ BEGIN
 			WHERE
 			C.Position ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -469,7 +468,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND C.Position ILIKE '%' || SerchText || '%'
 				AND (U.FirstName+U.LastName) = ''
 				GROUP BY U.Seq
@@ -491,7 +490,7 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
-	END IF;
+
 	-- 이메일
 	ELSIF SerchType = 5 THEN
 	IF Initial = 'ETC' THEN
@@ -525,22 +524,22 @@ BEGIN
 			WHERE
 			E.Value ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -588,7 +587,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND E.Value ILIKE '%' || SerchText || '%'
 				AND (U.FirstName+U.LastName) = ''
 				GROUP BY U.Seq
@@ -610,7 +609,7 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
-	END IF;
+
 	-- 그룹
 	ELSIF SerchType = 6 THEN
 	IF Initial = 'ETC' THEN
@@ -644,22 +643,22 @@ BEGIN
 			WHERE
 			(SELECT GroupName FROM ContactsGroup WHERE G.GroupNo=GroupNo) ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -707,7 +706,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND (U.FirstName+U.LastName) = ''
 				AND (SELECT GroupName FROM ContactsGroup WHERE G.GroupNo=GroupNo) ILIKE '%' || SerchText || '%'
 				GROUP BY U.Seq
@@ -729,7 +728,7 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
-	END IF;
+
 	-- 주소 검색
 	ELSIF SerchType = 7 THEN
 	IF Initial = 'ETC' THEN
@@ -763,22 +762,22 @@ BEGIN
 			WHERE
 			A.Address ILIKE '%' || SerchText || '%'
 			AND (U.FirstName+U.LastName) = ''
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName) = 0
 			GROUP BY U.Seq
 			,U.FirstName
 			,U.LastName
@@ -826,7 +825,7 @@ BEGIN
 				LEFT JOIN (SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_findnonameuser.userno) N ON N.UserSeq=U.Seq
 				LEFT JOIN (SELECT * FROM ContactsSns WHERE RegUserNo=contacts_findnonameuser.userno) S ON S.UserSeq=U.Seq
 				WHERE
-				PATINDEX(public."UF_RegularExText"(Initial) + '%' , U.LastName) > 0
+				PATINDEX(public."UF_RegularExText"(Initial) || '%' , U.LastName) > 0
 				AND (U.FirstName+U.LastName) = ''
 				AND A.Address ILIKE '%' || SerchText || '%'
 				GROUP BY U.Seq
@@ -848,6 +847,7 @@ BEGIN
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 		END IF;
+
 	END IF;
 END;
 $function$

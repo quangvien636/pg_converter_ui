@@ -23,17 +23,16 @@ BEGIN
 
 	IF ItemType=2 THEN
 		DELETE FROM Board_AllowAccess
-		WHERE UserNo = board_updateallowaccess.userno AND ItemNo=board_updateallowaccess.itemno AND ItemType= board_updateallowaccess.itemtype; -- AND DepartNo=DepartNo AND PositionNo= PositionNo 
+		WHERE UserNo = board_updateallowaccess.userno AND ItemNo=board_updateallowaccess.itemno AND ItemType= board_updateallowaccess.itemtype; -- AND DepartNo=DepartNo AND PositionNo= PositionNo
 		IF AllowValue >0 THEN
 			INSERT INTO public."Board_AllowAccess"(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,ModDate,RegDate)
-			VALUES(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,NOW(),NOW());	 
-			CREATE TEMP TABLE FolderTemp1 ON COMMIT DROP AS WITH FolderNos AS
-			(
+			VALUES(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,NOW(),NOW());
+			CREATE TEMP TABLE FolderTemp1 ON COMMIT DROP AS WITH RECURSIVE FolderNos AS (
 				SELECT     PF.FolderNo , PF.ParentNo
 				FROM       Board_Folders PF
 
 				WHERE PF.FolderNo IN (SELECT FolderNo FROM Board_Boards where BoardNo=board_updateallowaccess.itemno AND PF.Enabled = TRUE)
-				UNION ALL
+				UNION ALL;
 				SELECT     CF.FolderNo , CF.ParentNo
 				FROM       Board_Folders CF
 				INNER JOIN FolderNos FN ON FN.ParentNo = CF.FolderNo AND CF.Enabled = TRUE
@@ -49,28 +48,27 @@ BEGIN
 					IF No=0 THEN
 						INSERT INTO public."Board_AllowAccess"(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,ModDate,RegDate)
 						SELECT DepartNo,PositionNo,UserNo,AllowValue,FT.FolderNo,1,NOW(),NOW() FROM FolderTemp1 FT;
-				
+
 					ELSE
 						IF AllowValue>Value THEN
 							RAISE NOTICE '%', No;
 							UPDATE Board_AllowAccess SET AllowValue=board_updateallowaccess.allowvalue,ModDate=NOW(),DepartNo=board_updateallowaccess.departno,PositionNo=board_updateallowaccess.positionno WHERE AllowAccessNo=No;
 						END IF;
 					END IF;
- 				
+
 				END IF;
-				DELETE FROM FolderTemp1 Where FolderNo = FolderNo;;
+				DELETE FROM FolderTemp1 Where FolderNo = FolderNo;
 
 			END LOOP;
 		END IF;
-		
+
 	ELSE
-		CREATE TEMP TABLE FolderParentTemp ON COMMIT DROP AS WITH FolderParentNos AS
-			(
+		CREATE TEMP TABLE FolderParentTemp ON COMMIT DROP AS WITH RECURSIVE FolderParentNos AS (
 				SELECT     PF.FolderNo , PF.ParentNo
 				FROM       Board_Folders PF
 
 				WHERE PF.FolderNo =board_updateallowaccess.itemno
-				UNION ALL
+				UNION ALL;
 				SELECT     CF.FolderNo , CF.ParentNo
 				FROM       Board_Folders CF
 				INNER JOIN FolderParentNos FN ON FN.ParentNo = CF.FolderNo AND CF.Enabled = TRUE
@@ -81,13 +79,13 @@ BEGIN
 
 
 		WHILE (Select Count(*) From FolderParentTemp) > 0 LOOP
-			
+
 			SELECT AllowAccessNo, AllowValue, FolderNo INTO prentaccessno, parentvalue, folderno1 FROM FolderParentTemp;
 				IF AllowValue >0 THEN
 					IF PrentAccessNo=0 THEN
 						INSERT INTO public."Board_AllowAccess"(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,ModDate,RegDate)
 						SELECT DepartNo,PositionNo,UserNo,AllowValue,FT.FolderNo,1,NOW(),NOW() FROM FolderParentTemp FT;
-				
+
 					ELSE
 						--IF(AllowValue>Value)
 
@@ -96,16 +94,15 @@ BEGIN
 							UPDATE Board_AllowAccess SET AllowValue=board_updateallowaccess.allowvalue,ModDate=NOW(),DepartNo=board_updateallowaccess.departno,PositionNo=board_updateallowaccess.positionno WHERE AllowAccessNo=PrentAccessNo;
 						END IF;
 					END IF;
- 				
+
 				END IF;
-				DELETE FROM FolderParentTemp Where FolderNo = FolderNo1;;
+				DELETE FROM FolderParentTemp Where FolderNo = FolderNo1;
 		END LOOP;
-		CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH FolderNos AS
-		(
-			SELECT     PF.FolderNo 
+		CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH RECURSIVE FolderNos AS (
+			SELECT     PF.FolderNo
 			FROM       Board_Folders PF
 			WHERE PF.FolderNo=board_updateallowaccess.itemno AND PF.Enabled = TRUE
-			UNION ALL
+			UNION ALL;
 			SELECT     CF.FolderNo
 			FROM       Board_Folders CF
 			INNER JOIN FolderNos FN ON FN.FolderNo = CF.ParentNo AND CF.Enabled = TRUE
@@ -125,7 +122,7 @@ BEGIN
 				END IF;
 			END IF;
 
-			DELETE FROM FolderTemp Where FolderNo = No1;;
+			DELETE FROM FolderTemp Where FolderNo = No1;
 
 		END LOOP;
 		WHILE (Select Count(*) From BoardTemp) > 0 LOOP
@@ -139,24 +136,24 @@ BEGIN
 					UPDATE Board_AllowAccess SET AllowValue=board_updateallowaccess.allowvalue,DepartNo=board_updateallowaccess.departno,PositionNo=board_updateallowaccess.positionno,ModDate=NOW()  WHERE ItemType=2 AND ItemNo=No1 AND UserNo=board_updateallowaccess.userno AND AllowValue>board_updateallowaccess.allowvalue;
 				END IF;
 			END IF;
-			DELETE FROM BoardTemp Where BoardNo = No1;;
+			DELETE FROM BoardTemp Where BoardNo = No1;
 		END LOOP;
 	END IF;
 
 	--IF(ItemType=2)
 	--BEGIN
 	--	DELETE FROM Board_AllowAccess
-	--	WHERE UserNo = UserNo AND ItemNo=ItemNo AND ItemType= ItemType-- AND DepartNo=DepartNo AND PositionNo= PositionNo 
+	--	WHERE UserNo = UserNo AND ItemNo=ItemNo AND ItemType= ItemType-- AND DepartNo=DepartNo AND PositionNo= PositionNo
 	--	IF (AllowValue >0 )
 	--	BEGIN
 	--		INSERT INTO public."Board_AllowAccess"(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,ModDate,RegDate)
-	--		VALUES(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,NOW(),NOW())	 
+	--		VALUES(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,NOW(),NOW())
 	--	END
 	--END
 	--ELSE BEGIN
 	--	WITH FolderNos AS
 	--	(
-	--		SELECT     PF.FolderNo 
+	--		SELECT     PF.FolderNo
 	--		FROM       Board_Folders PF
 	--		WHERE PF.FolderNo=ItemNo AND PF.Enabled = TRUE
 	--		UNION ALL
@@ -195,7 +192,7 @@ BEGIN
 	--		Print AllowValue
 	--		DELETE FROM Board_AllowAccess
 	--		WHERE UserNo = UserNo AND ItemNo=No AND ItemType= 2
-	--		IF (AllowValue >0 )	
+	--		IF (AllowValue >0 )
 	--		BEGIN
 	--			INSERT INTO public."Board_AllowAccess"(DepartNo,PositionNo,UserNo,AllowValue,ItemNo,ItemType,ModDate,RegDate)
 	--			VALUES(DepartNo,PositionNo,UserNo,AllowValue,No,2,NOW(),NOW())

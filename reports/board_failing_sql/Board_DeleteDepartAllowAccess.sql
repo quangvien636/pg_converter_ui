@@ -1,8 +1,9 @@
 -- ─── PROCEDURE→FUNCTION: board_deletedepartallowaccess ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
-DROP FUNCTION IF EXISTS public.board_deletedepartallowaccess();
+DROP FUNCTION IF EXISTS public.board_deletedepartallowaccess(character varying);
 CREATE OR REPLACE FUNCTION public.board_deletedepartallowaccess(
+    IN listallowaccessno character varying
 ) RETURNS void
 AS $function$
 DECLARE
@@ -23,8 +24,7 @@ BEGIN
 		IF ItemType=2 THEN
 			DELETE FROM Board_DepartAllowAccess WHERE ItemNo=ItemNo AND ItemType=ItemType AND DepartNo=DepartNo;
 		ELSE
-			CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH FolderNos AS
-			(
+			CREATE TEMP TABLE FolderTemp ON COMMIT DROP AS WITH RECURSIVE FolderNos AS (
 				SELECT     PF.FolderNo , PF.ParentNo
 				FROM       Board_Folders PF
 
@@ -38,11 +38,11 @@ BEGIN
 			ItemNo IN (SELECT FolderNo FROM FolderTemp);
 			DELETE FROM Board_DepartAllowAccess WHERE ItemType=2 AND DepartNo=DepartNo AND
 			ItemNo IN (SELECT BB.BoardNo FROM Board_Boards BB INNER JOIN FolderTemp BF ON BF.FolderNo=bb.FolderNo);
-			DROP TABLE IF EXISTS FolderTemp;
+			DROP TABLE IF; EXISTS FolderTemp;
 		END IF;
-		DELETE FROM Board_DepartAllowAccess WHERE ItemNo=ItemNo AND ItemType=ItemType AND DepartNo=DepartNo;;
+		DELETE FROM Board_DepartAllowAccess WHERE ItemNo=ItemNo AND ItemType=ItemType AND DepartNo=DepartNo;
 	END LOOP;
-	DROP TABLE IF EXISTS Board_DepartAllowAccess;
+	DROP TABLE IF; EXISTS Board_DepartAllowAccess;
 END;
 $function$
 LANGUAGE plpgsql;

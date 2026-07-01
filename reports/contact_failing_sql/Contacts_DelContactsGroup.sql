@@ -14,7 +14,7 @@ BEGIN
 		--BEGIN TRAN
 		--DELETE FROM ContactsGroupUser WHERE GroupNo = GroupNo
 		--DELETE FROM ContactsGroup WHERE GroupNo = GroupNo
-		CREATE TEMP TABLE temp(GroupNo int);
+		CREATE TEMP TABLE temp(GroupNo int) ON COMMIT DROP;
 		WITH RECURSIVE GroupTmp AS (
 			SELECT  G.*
 			FROM  ContactsGroup G
@@ -29,14 +29,14 @@ BEGIN
 		UPDATE ContactsGroup SET UseYn='' WHERE GroupNo IN (SELECT GroupNo FROM temp);
 		UPDATE ContactsUser SET UseYn='F', DelDate=NOW() WHERE Seq IN (SELECT UserSeq FROM ContactsGroupUser U INNER JOIN temp GU ON GU.GroupNo=U.GroupNo);
 		DELETE FROM ContactsGroupUser  WHERE Seq IN (SELECT GroupNo FROM  temp);
-		Drop Table Temp
+		DROP TABLE IF; EXISTS Temp;
 		--COMMIT TRAN
 	--END TRY
 	--BEGIN CATCH
 		--ROLLBACK TRAN
 	--END CATCH
 
-	SELECT 0;
+	PERFORM 0;
 END;
 $function$
 LANGUAGE plpgsql;

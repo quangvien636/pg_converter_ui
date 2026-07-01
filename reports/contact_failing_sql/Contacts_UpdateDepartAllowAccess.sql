@@ -19,15 +19,15 @@ BEGIN
 
 	--UPDATE Contacts_DepartAllowAccess SET DepartNo=DepartNo,AllowValue=AllowValue , ItemNo=ItemNo,ItemType=ItemType,ModUserNo=UserNo,ModDate=NOW()
 	--WHERE AllowAccessNo=AllowAccessNo
-	--CREATE TEMP TABLE FolderParentTemp AS SELECT AllowAccessNo
+	--SELECT AllowAccessNo
 
 
-		WITH RECURSIVE GroupTmp AS (
+		CREATE TEMP TABLE FolderParentTemp ON COMMIT DROP AS WITH RECURSIVE GroupTmp AS (
 				SELECT     PF.ShareGroupNo , PF.ParentNo
 				FROM       Contact_ShareGroup PF
 
 				WHERE PF.ShareGroupNo =contacts_updatedepartallowaccess.itemno
-				UNION ALL
+				UNION ALL;
 				SELECT     CF.ShareGroupNo , CF.ParentNo
 				FROM       Contact_ShareGroup CF
 				INNER JOIN GroupTmp FN ON FN.ParentNo = CF.ShareGroupNo AND CF.IsDelete = FALSE
@@ -43,7 +43,7 @@ BEGIN
 
 
 
-		WHILE (CREATE TEMP TABLE GroupTemp AS SELECT Count(*) From FolderParentTemp) > 0 LOOP
+		WHILE (Select Count(*) From FolderParentTemp) > 0 LOOP
 
 			SELECT AllowAccessNo, AllowValue, ShareGroupNo INTO prentaccessno, parentvalue, sharegroupno1 FROM FolderParentTemp;
 				IF AllowValue >0 THEN
@@ -63,11 +63,11 @@ BEGIN
 				END IF;
 				DELETE FROM FolderParentTemp Where ShareGroupNo = ShareGroupNo1;
 		END LOOP;
-				WITH RECURSIVE ShareGroupNos AS (
+		CREATE TEMP TABLE GroupTemp ON COMMIT DROP AS WITH RECURSIVE ShareGroupNos AS (
 			SELECT     PF.ShareGroupNo
 			FROM       Contact_ShareGroup PF
 			WHERE PF.ShareGroupNo=contacts_updatedepartallowaccess.itemno AND PF.IsDelete = FALSE
-			UNION ALL
+			UNION ALL;
 			SELECT     CF.ShareGroupNo
 			FROM       Contact_ShareGroup CF
 			INNER JOIN ShareGroupNos FN ON FN.ShareGroupNo = CF.ParentNo AND CF.IsDelete = FALSE

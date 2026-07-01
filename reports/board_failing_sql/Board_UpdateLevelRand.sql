@@ -1,9 +1,10 @@
 -- ─── PROCEDURE→FUNCTION: board_updatelevelrand ───────────────────────────────
 -- NOTE: SQL Server stored procedure converted to PostgreSQL function.
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
-DROP FUNCTION IF EXISTS public.board_updatelevelrand(integer);
+DROP FUNCTION IF EXISTS public.board_updatelevelrand(integer, character varying);
 CREATE OR REPLACE FUNCTION public.board_updatelevelrand(
-    IN parentid integer
+    IN parentid integer,
+    IN parentrand character varying
 ) RETURNS void
 AS $function$
 DECLARE
@@ -15,24 +16,21 @@ BEGIN
 	IF ParentId = 0 THEN
 		UPDATE Board_Folders SET LevelRand =  ',' WHERE ParentNo= board_updatelevelrand.parentid;
 	ELSE
-		UPDATE Board_Folders SET LevelRand = ParentRand  + CAST(ParentId AS nvarchar(500)) + ',' WHERE ParentNo= board_updatelevelrand.parentid;
-	END IF;
+		UPDATE Board_Folders SET LevelRand = board_updatelevelrand.parentrand  + CAST(ParentId AS text) + ',' WHERE ParentNo= board_updatelevelrand.parentid
 
 
 
 
 
 
-	FETCH NEXT FROM Board_Cursor
-
-	INTO FolderNo, LevelRand
-	FOR folderno, levelrand IN SELECT FolderNo,LevelRand FROM Board_Folders WHERE ParentNo= board_updatelevelrand.parentid LOOP
+		FOR folderno, levelrand IN SELECT FolderNo,LevelRand FROM Board_Folders WHERE ParentNo= board_updatelevelrand.parentid LOOP
 
 
-		PERFORM board_updatelevelrand(FolderNo, LevelRand
+		PERFORM board_updatelevelrand(FolderNo, LevelRand);
 
-			END);
-END LOOP;
+			END LOOP;
+	
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

@@ -50,7 +50,7 @@ BEGIN
 			WHERE RegUserNo = contacts_getoutlist.userno
 			AND UseYn = 'Y'
 		) A
-		WHERE 1>0
+		WHERE 1>0;
 	ELSIF GroupList = 'LIST' THEN
 		RETURN QUERY
 		SELECT
@@ -69,13 +69,14 @@ BEGIN
 		FROM ContactsUser U
 		WHERE RegUserNo = contacts_getoutlist.userno
 		AND UseYn = 'Y';
+	END IF;
 	ELSE
-		CREATE TEMP TABLE tabgroup (GroupNo integer) ON COMMIT DROP;
+		CREATE TEMP TABLE tabGroup (GroupNo INT) ON COMMIT DROP;
 
 		GroupList := contacts_getoutlist.grouplist || ',';
-		WHILE STRPOS(',GroupList, ') > 0 LOOP
+		WHILE STRPOS(GroupList, ',') > 0 LOOP
 
-			GroupNo := SUBSTRING(GroupList,0,STRPOS(',GroupList, '));
+			GroupNo := SUBSTRING(GroupList,0,STRPOS(GroupList, ','));
 			INSERT INTO tabGroup
 			(
 				GroupNo
@@ -85,8 +86,8 @@ BEGIN
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(',GroupList, ')+1,LEN(GroupList));
-		END LOOP
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+		END LOOP;
 
 		RETURN QUERY
 		SELECT

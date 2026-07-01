@@ -15,7 +15,7 @@ DECLARE
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
-	IF GroupList = 'ALL' THEN
+	IF GroupList = 'ALL' THEN;
 
 		RETURN QUERY
 		SELECT
@@ -24,12 +24,12 @@ BEGIN
 		WHERE RegUserNo = contacts_getoutlistcount.userno
 		AND UseYn = 'Y';
 	ELSE
-		CREATE TEMP TABLE tabgroup (GroupNo integer) ON COMMIT DROP;
+		CREATE TEMP TABLE tabGroup (GroupNo INT) ON COMMIT DROP;
 
 		GroupList := contacts_getoutlistcount.grouplist || ',';
-		WHILE STRPOS(',GroupList, ') > 0 LOOP
+		WHILE STRPOS(GroupList, ',') > 0 LOOP
 
-			GroupNo := SUBSTRING(GroupList,0,STRPOS(',GroupList, '));
+			GroupNo := SUBSTRING(GroupList,0,STRPOS(GroupList, ','));
 			INSERT INTO tabGroup
 			(
 				GroupNo
@@ -39,8 +39,8 @@ BEGIN
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(',GroupList, ')+1,LEN(GroupList));
-		END LOOP
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+		END LOOP;
 
 		RETURN QUERY
 		SELECT

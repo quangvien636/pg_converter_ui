@@ -11,7 +11,7 @@ namespace pg_converter_ui;
 /// </summary>
 public static class BodyConverter
 {
-    enum BlockKind { If, ElseIf, Else, While, Plain }
+    enum BlockKind { If, ElseIf, Else, While, Plain, SuppressedPlain }
 
     // Thread-static context for logging inside phase methods
     [ThreadStatic] static string? _fnName;
@@ -48,7 +48,7 @@ public static class BodyConverter
         body = TrySafe(body, fnName, "ConvertTryCatch",   ConvertTryCatch);
         body = TrySafe(body, fnName, "StripBoilerplate",  StripBoilerplate);
         body = TrySafe(body, fnName, "ConvertCursors",    ConvertCursors);
-        body = fnName.StartsWith("board_", StringComparison.OrdinalIgnoreCase)
+        body = isBoardOrContact
             ? TrySafe(body, fnName, "ConvertBoardTempTables", ConvertBoardTempTables)
             : TrySafe(body, fnName, "ConvertTempTables", ConvertTempTables);
         body = TrySafe(body, fnName, "ConvertExec",       ConvertExec);
@@ -591,11 +591,36 @@ public static class BodyConverter
 
     static string ConvertExec(string body)
     {
+        // Join multiline sp_executesql named-binding lists before line-based
+        // conversion. Continuation lines begin with @name = value.
+        string previous;
+        do
+        {
+            previous = body;
+            body = Regex.Replace(body,
+                @"(?m)^([ \t]*EXEC(?:UTE)?\s+sp_executesql[^\n]*,)[ \t]*\n[ \t]*(@\w+\s*=[^\n]+)$",
+                "$1 $2", RegexOptions.IgnoreCase);
+        } while (body != previous);
+
+        // Parameter metadata held in a variable cannot be translated to USING
+        // safely without rewriting @P placeholders. Keep executable SQL and
+        // leave the binding gap explicit rather than emitting invalid lines.
+        body = SafeReplace(body, "ExecSqlVariableParams",
+            @"(?m)^([ \t]*)EXEC(?:UTE)?\s+sp_executesql\s+@?(\w+)\s*,\s*@?\w+\s*,\s*.+$",
+            "$1EXECUTE $2; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters",
+            RegexOptions.IgnoreCase);
+
         // SQL Server style 120 is the sortable date/time representation.
         // Accept sized CHAR/VARCHAR targets as well as their Unicode variants.
         body = SafeReplace(body, "ConvertDateStyle120",
             @"\bCONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*\d+\s*\))?\s*,\s*([^,\r\n]+?)\s*,\s*120\s*\)",
             "TO_CHAR($1, 'YYYY-MM-DD HH24:MI:SS')",
+            RegexOptions.IgnoreCase);
+
+        // SQL Server style 112 is the YYYYMMDD date representation.
+        body = SafeReplace(body, "ConvertDateStyle112",
+            @"\bCONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*\d+\s*\))?\s*,\s*([^,\r\n]+?)\s*,\s*112\s*\)",
+            "TO_CHAR($1, 'YYYYMMDD')",
             RegexOptions.IgnoreCase);
 
         // P5: Remove sp_xml_preparedocument / sp_xml_removedocument (OPENXML XML shredding)
@@ -949,6 +974,7 @@ public static class BodyConverter
         int sqlCaseDepth = 0;
         bool isBoardProcedure = _fnName?.StartsWith("board_", StringComparison.OrdinalIgnoreCase) == true;
         bool suppressNextElseBegin = false;
+        bool closeSingleStatementIfBeforeNext = false;
 
         for (int li = 0; li < lines.Length; li++)
         {
@@ -956,10 +982,44 @@ public static class BodyConverter
             var trimmed = rawLine.TrimStart();
             var indent  = rawLine[..^trimmed.Length];
 
+            System.Console.WriteLine($"LINE: {trimmed}, PENDING: {pending}, STACK: {string.Join(", ", stack)}");
             if (string.IsNullOrWhiteSpace(trimmed))
             {
                 result.Add(rawLine);
                 continue;
+            }
+            if (trimmed.StartsWith("--", StringComparison.Ordinal))
+            {
+                result.Add(rawLine);
+                continue;
+            }
+
+            bool startsElseBranch = Regex.IsMatch(trimmed, @"^ELSE(?:\s+IF\b|\b)",
+                RegexOptions.IgnoreCase);
+            if (closeSingleStatementIfBeforeNext && !startsElseBranch)
+            {
+                EnsurePreviousBranchTerminator(result);
+                if (stack.Count > 0 && stack.Peek() is BlockKind.If or BlockKind.ElseIf)
+                    stack.Pop();
+                result.Add(indent + "END IF;");
+                closeSingleStatementIfBeforeNext = false;
+            }
+            else if (closeSingleStatementIfBeforeNext && startsElseBranch)
+            {
+                closeSingleStatementIfBeforeNext = false;
+            }
+
+            // T-SQL permits IF/ELSE IF with one following statement and no
+            // BEGIN/END. Keep the IF open across ELSE branches, then close it
+            // immediately before the first statement outside the chain.
+            if (pending.HasValue &&
+                stack.Contains(BlockKind.While) &&
+                !Regex.IsMatch(trimmed, @"^BEGIN\b", RegexOptions.IgnoreCase))
+            {
+                if (pending.Value == BlockKind.If)
+                    stack.Push(BlockKind.If);
+                pending = null;
+                closeSingleStatementIfBeforeNext = true;
             }
 
             int caseOpens = Regex.Matches(trimmed, @"\bCASE\b", RegexOptions.IgnoreCase).Count;
@@ -994,8 +1054,8 @@ public static class BodyConverter
                 bool inline  = Regex.IsMatch(condBody, @"\bBEGIN\s*$", RegexOptions.IgnoreCase);
                 if (inline) condBody = Regex.Replace(condBody, @"\s*BEGIN\s*$", "", RegexOptions.IgnoreCase).TrimEnd();
                 result.Add(indent + $"ELSIF {StripOuterParens(condBody)} THEN{trailingComment}");
-                if (inline) stack.Push(BlockKind.ElseIf);
-                else        pending = BlockKind.ElseIf;
+                if (inline) stack.Push(BlockKind.Plain);
+                else        pending = BlockKind.Plain;
                 continue;
             }
 
@@ -1028,7 +1088,8 @@ public static class BodyConverter
             }
 
             // ── ELSE ─────────────────────────────────────────────────────────
-            var elseM = Regex.Match(trimmed, @"^ELSE(?:\s+BEGIN)?\s*$", RegexOptions.IgnoreCase);
+            var elseM = Regex.Match(trimmed,
+                @"^ELSE(?:\s+BEGIN)?(?:\s*--.*)?$", RegexOptions.IgnoreCase);
             if (elseM.Success)
             {
                 EnsurePreviousBranchTerminator(result);
@@ -1037,8 +1098,27 @@ public static class BodyConverter
                 // "END / ELSE / BEGIN"; the END immediately before ELSE is suppressed
                 // below, so no second stack entry is needed here.
                 pending = null;
-                // Suppress the standalone BEGIN that follows ELSE (applies to all procedures)
-                suppressNextElseBegin = !Regex.IsMatch(trimmed, @"\bBEGIN\b", RegexOptions.IgnoreCase);
+                
+                bool nextIsBegin = false;
+                if (!Regex.IsMatch(trimmed, @"\bBEGIN\b", RegexOptions.IgnoreCase))
+                {
+                    int nextIdx = li + 1;
+                    while (nextIdx < lines.Length)
+                    {
+                        string nextTrimmed = lines[nextIdx].Trim();
+                        if (string.IsNullOrWhiteSpace(nextTrimmed) || IsCommentOnlyLine(nextTrimmed))
+                        {
+                            nextIdx++;
+                            continue;
+                        }
+                        if (Regex.IsMatch(nextTrimmed, @"^BEGIN\b(?!\s+TRAN\b|\s+TRANSACTION\b)", RegexOptions.IgnoreCase))
+                        {
+                            nextIsBegin = true;
+                        }
+                        break;
+                    }
+                }
+                suppressNextElseBegin = nextIsBegin;
                 continue;
             }
 
@@ -1080,7 +1160,7 @@ public static class BodyConverter
             }
 
             // ── BEGIN ────────────────────────────────────────────────────────
-            if (Regex.IsMatch(trimmed, @"^BEGIN\b", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(trimmed, @"^BEGIN\b(?!\s+TRAN\b|\s+TRANSACTION\b)", RegexOptions.IgnoreCase))
             {
                 if (suppressNextElseBegin)
                 {
@@ -1089,7 +1169,9 @@ public static class BodyConverter
                 }
                 if (pending.HasValue)
                 {
-                    stack.Push(pending.Value);
+                    var val = pending.Value;
+                    if (val == BlockKind.Plain) val = BlockKind.SuppressedPlain;
+                    stack.Push(val);
                     pending = null;
                     // Don't emit BEGIN — THEN / LOOP / ELSE already written
                 }
@@ -1110,18 +1192,45 @@ public static class BodyConverter
                 while (next < lines.Length &&
                     (string.IsNullOrWhiteSpace(lines[next]) || IsCommentOnlyLine(lines[next])))
                     next++;
-                if (next < lines.Length &&
-                    Regex.IsMatch(lines[next].Trim(), @"^ELSE\b", RegexOptions.IgnoreCase))
-                    continue;
+                
+                bool nextIsElse = next < lines.Length && Regex.IsMatch(lines[next].Trim(), @"^ELSE\b", RegexOptions.IgnoreCase);
+                if (nextIsElse)
+                {
+                    if (stack.Count > 0 && stack.Peek() == BlockKind.Plain)
+                    {
+                        // Do not skip END of a Plain BEGIN-END block
+                    }
+                    else
+                    {
+                        if (stack.Count > 0 && stack.Peek() == BlockKind.SuppressedPlain)
+                        {
+                            stack.Pop();
+                        }
+                        continue;
+                    }
+                }
 
                 var top = stack.Count > 0 ? stack.Pop() : BlockKind.Plain;
-                if (top is BlockKind.If or BlockKind.ElseIf or BlockKind.Else)
-                    EnsurePreviousBranchTerminator(result);
-                result.Add(indent + top switch {
+                string endStr = top switch {
                     BlockKind.If or BlockKind.ElseIf or BlockKind.Else => "END IF;",
                     BlockKind.While                                     => "END LOOP;",
+                    BlockKind.SuppressedPlain                          => "",
                     _                                                   => "END;"
-                });
+                };
+                if (!string.IsNullOrEmpty(endStr))
+                {
+                    EnsurePreviousBranchTerminator(result);
+                    result.Add(indent + endStr);
+                }
+
+                if ((top == BlockKind.Plain || top == BlockKind.SuppressedPlain) && stack.Count > 0 && 
+                    (stack.Peek() == BlockKind.If || stack.Peek() == BlockKind.ElseIf || stack.Peek() == BlockKind.Else) &&
+                    !nextIsElse)
+                {
+                    var parent = stack.Pop();
+                    EnsurePreviousBranchTerminator(result);
+                    result.Add(indent + "END IF;");
+                }
                 continue;
             }
 
@@ -1140,6 +1249,22 @@ public static class BodyConverter
             }
 
             result.Add(rawLine);
+        }
+
+        while (stack.Count > 0)
+        {
+            var top = stack.Pop();
+            string endStr = top switch {
+                BlockKind.If or BlockKind.ElseIf or BlockKind.Else => "END IF;",
+                BlockKind.While                                     => "END LOOP;",
+                BlockKind.SuppressedPlain                          => "",
+                _                                                   => "END;"
+            };
+            if (!string.IsNullOrEmpty(endStr))
+            {
+                EnsurePreviousBranchTerminator(result);
+                result.Add(endStr);
+            }
         }
 
         return string.Join('\n', result);
@@ -1476,7 +1601,8 @@ public static class BodyConverter
             var expression = new StringBuilder(match.Groups[3].Value.Trim());
 
             while (i + 1 < lines.Length &&
-                   NeedsStringAccumulationContinuation(expression.ToString()))
+                   (NeedsStringAccumulationContinuation(expression.ToString()) ||
+                    lines[i + 1].TrimStart().StartsWith("+", StringComparison.Ordinal)))
             {
                 i++;
                 if (expression.Length > 0) expression.AppendLine();

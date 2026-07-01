@@ -3,10 +3,11 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
-DROP FUNCTION IF EXISTS public.contact_checkinsertgroupdefault(integer, character varying);
+DROP FUNCTION IF EXISTS public.contact_checkinsertgroupdefault(integer, character varying, character varying);
 CREATE OR REPLACE FUNCTION public.contact_checkinsertgroupdefault(
     IN userno integer,
-    IN isdefault character varying
+    IN isdefault character varying,
+    IN groupname character varying
 ) RETURNS SETOF record
 AS $function$
 DECLARE
@@ -18,15 +19,14 @@ BEGIN
 
 
 	IF (select count(*)	from ContactsGroup	where RegUserNo=contact_checkinsertgroupdefault.userno and IsDefault=contact_checkinsertgroupdefault.isdefault)=0 THEN
-		INSERT INTO ContactsGroup (GroupName, ParentGNo, RegUserNo, Sort,RegDate,IsDefault,UseYn)
+		INSERT INTO ContactsGroup (GroupName, ParentGNo, RegUserNo, Sort,RegDate,IsDefault,UseYn);
+		END IF;
 		VALUES (GroupName, 0, UserNo, 0 ,NOW(),'1','Y');
 		GroupNo := lastval();
 		RETURN QUERY
 		SELECT GroupNo AS GroupNo;
 	ELSE
-		update ContactsGroup set GroupName=GroupName where RegUserNo=contact_checkinsertgroupdefault.userno and IsDefault=contact_checkinsertgroupdefault.isdefault
-
-	END;
+		update ContactsGroup set GroupName=contact_checkinsertgroupdefault.groupname where RegUserNo=contact_checkinsertgroupdefault.userno and IsDefault=contact_checkinsertgroupdefault.isdefault;
 END;
 $function$
 LANGUAGE plpgsql;

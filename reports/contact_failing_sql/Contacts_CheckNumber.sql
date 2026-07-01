@@ -14,7 +14,8 @@ AS $function$
 BEGIN
 IF Type = 0 THEN
 	RETURN QUERY
-	SELECT COUNT(*) cnt FROM ContactsNumber N
+	SELECT COUNT(*) cnt FROM ContactsNumber N;
+	END IF;
 	INNER JOIN ContactsUser U ON U.Seq = N.UserSeq AND U.UseYn='Y'
 	WHERE N.RegUserNo = contacts_checknumber.reguserno
 	AND REPLACE(N.Value,'-','') = REPLACE(Value,'-','');

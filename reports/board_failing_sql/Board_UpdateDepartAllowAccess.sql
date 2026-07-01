@@ -39,11 +39,12 @@ BEGIN
 				FROM       Board_Folders PF
 
 				WHERE PF.FolderNo IN (SELECT FolderNo FROM Board_Boards where BoardNo=board_updatedepartallowaccess.itemno AND PF.Enabled = TRUE)
-				UNION ALL
+				UNION ALL;
 				SELECT     CF.FolderNo , CF.ParentNo
 				FROM       Board_Folders CF
 				INNER JOIN FolderNos FN ON FN.ParentNo = CF.FolderNo AND CF.Enabled = TRUE
-			)
+			);
+			RETURN QUERY
 			SELECT COALESCE(BA.AllowAccessNo,0)AS AllowAccessNo ,COALESCE(BA.AllowValue,0) AS AllowValue,F.FolderNo FROM FolderNos F
 			LEFT JOIN Board_DepartAllowAccess BA ON BA.ItemType=1 AND BA.ItemNo=F.FolderNo AND BA.DepartNo=board_updatedepartallowaccess.departno;
 
@@ -75,11 +76,12 @@ BEGIN
 				FROM       Board_Folders PF
 
 				WHERE PF.FolderNo =board_updatedepartallowaccess.itemno
-				UNION ALL
+				UNION ALL;
 				SELECT     CF.FolderNo , CF.ParentNo
 				FROM       Board_Folders CF
 				INNER JOIN FolderParentNos FN ON FN.ParentNo = CF.FolderNo AND CF.Enabled = TRUE
-			)
+			);
+		RETURN QUERY
 		SELECT COALESCE(BA.AllowAccessNo,0)AS AllowAccessNo ,COALESCE(BA.AllowValue,0) AS AllowValue,F.FolderNo FROM FolderParentNos F
 		LEFT JOIN Board_DepartAllowAccess BA ON BA.ItemType=1 AND BA.ItemNo=F.FolderNo AND BA.DepartNo=board_updatedepartallowaccess.departno;
 
@@ -109,12 +111,12 @@ BEGIN
 			SELECT     PF.FolderNo
 			FROM       Board_Folders PF
 			WHERE PF.FolderNo=board_updatedepartallowaccess.itemno AND PF.Enabled = TRUE
-			UNION ALL
+			UNION ALL;
 			SELECT     CF.FolderNo
 			FROM       Board_Folders CF
 			INNER JOIN FolderNos FN ON FN.FolderNo = CF.ParentNo AND CF.Enabled = TRUE
 		)
-		---List FolderNo;
+		---List FolderNo;;
 		RETURN QUERY
 		SELECT FolderNo FROM FolderNos;
 		----List BoardNo

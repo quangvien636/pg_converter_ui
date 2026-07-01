@@ -85,7 +85,6 @@ BEGIN
 						WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
 					) A
 					WHERE ROWNUM BETWEEN Sidx AND Eidx;
-				END IF;
 			ELSE
 			-- ===========================
 			-- 색인 모드 일 경우
@@ -194,8 +193,6 @@ BEGIN
 									)
 					) A
 					WHERE ROWNUM BETWEEN Sidx AND Eidx;
-				END IF;
-			END IF;
 		-- ===========================
 		-- 검색일경우
 		-- ===========================
@@ -266,7 +263,6 @@ BEGIN
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -379,8 +375,6 @@ BEGIN
 							AND ( FirstName ILIKE '%' || Search || '%' OR LastName ILIKE '%' || Search || '%' )
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
-				END IF;
 			ELSIF SearchMode = '1' THEN
 			-- ===========================
 			-- 직위 검색일 경우
@@ -448,7 +442,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -563,8 +556,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
-				END IF;
 			ELSIF SearchMode = '2' THEN
 			-- ===========================
 			-- 전화번호 검색일 경우
@@ -633,7 +624,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -748,8 +738,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
-				END IF;
 			ELSIF SearchMode = '3' THEN
 			-- ===========================
 			-- 회사 검색일 경우
@@ -819,7 +807,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -934,8 +921,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
-				END IF;
 			ELSIF SearchMode = '4' THEN
 			-- ===========================
 			-- 부서 검색일 경우
@@ -1004,7 +989,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1120,8 +1104,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
-				END IF;
 			ELSIF SearchMode = '5' THEN
 			-- ===========================
 			-- 이메일 검색일 경우
@@ -1188,7 +1170,6 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1303,8 +1284,6 @@ BEGIN
 							AND Seq IN (select UserSeq from ContactsEmail WHERE Value ILIKE '%' || Search || '%')
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
-				END IF;
 			ELSIF SearchMode = '6' THEN
 			-- ===========================
 			-- 그룹 검색일 경우
@@ -1377,7 +1356,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1496,8 +1474,6 @@ BEGIN
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 
-					END IF;
-				END IF;
 			ELSIF SearchMode = '7' THEN
 			-- ===========================
 			-- 등록일 검색일 경우
@@ -1517,7 +1493,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1528,7 +1504,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1539,7 +1515,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1550,7 +1526,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1561,10 +1537,9 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1590,7 +1565,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1611,7 +1586,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1632,7 +1607,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1653,7 +1628,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1674,11 +1649,9 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
-				END IF;
 			ELSIF SearchMode = '8' THEN
 			-- ===========================
 			-- 수정일 검색일 경우
@@ -1698,7 +1671,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1709,7 +1682,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1720,7 +1693,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1731,7 +1704,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1742,10 +1715,9 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1771,7 +1743,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1792,7 +1764,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1813,7 +1785,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1834,7 +1806,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1855,11 +1827,9 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
-				END IF;
 			ELSIF SearchMode = '9' THEN
 			-- ===========================
 			-- 수정일 검색일 경우
@@ -1879,7 +1849,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1890,7 +1860,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY FirstName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1901,7 +1871,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName ASC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -1912,7 +1882,7 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY LastName DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -1923,10 +1893,9 @@ BEGIN
 							SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, FirstName, LastName, Memo
 							FROM ContactsUser CU
 							WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
 				ELSE
 				-- ===========================
 				-- 색인모드일 경우
@@ -1952,7 +1921,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'FirstName DESC' THEN
@@ -1973,7 +1942,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName ASC' THEN
@@ -1994,7 +1963,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSIF SortColumn = 'LastName DESC' THEN
@@ -2015,7 +1984,7 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
 					ELSE
@@ -2036,13 +2005,10 @@ BEGIN
 														FROM public."GetChildGroup"(RegUserNo, GroupNo)
 														)
 										)
-							AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%'
+							AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%'
 						) A
 						WHERE ROWNUM BETWEEN Sidx AND Eidx;
-					END IF;
-				END IF;
 			END IF;
-		END IF;
 	ELSE
 	-- ===========================
 	-- 카운트 쿼리
@@ -2327,7 +2293,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%';
+					AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2346,7 +2312,7 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CAST(RegDate, 112 AS text) ILIKE '%' || Search || '%';
+					AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || Search || '%';
 				END IF;
 			ELSIF SearchMode = '8' THEN
 			-- ===========================
@@ -2360,7 +2326,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CAST(ModDate, 112 AS text) = '%' || Search || '%';
+					AND TO_CHAR(ModDate, 'YYYYMMDD') = '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2379,7 +2345,7 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CAST(ModDate, 112 AS text) ILIKE '%' || Search || '%';
+					AND TO_CHAR(ModDate, 'YYYYMMDD') ILIKE '%' || Search || '%';
 				END IF;
 			ELSIF SearchMode = '9' THEN
 			-- ===========================
@@ -2393,7 +2359,7 @@ BEGIN
 					SELECT COUNT (*) CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist.reguserno
-					AND CAST(CheckDate, 112 AS text) = '%' || Search || '%';
+					AND TO_CHAR(CheckDate, 'YYYYMMDD') = '%' || Search || '%';
 				ELSE
 				-- ===========================
 				-- 색인인 경우
@@ -2412,12 +2378,46 @@ BEGIN
 													FROM public."GetChildGroup"(RegUserNo, GroupNo)
 													)
 									)
-					AND CAST(CheckDate, 112 AS text) ILIKE '%' || Search || '%';
+					AND TO_CHAR(CheckDate, 'YYYYMMDD') ILIKE '%' || Search || '%';
 				END IF;
-			END IF;
-		END IF;
 
-	END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

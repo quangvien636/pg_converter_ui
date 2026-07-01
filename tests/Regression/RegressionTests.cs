@@ -456,5 +456,234 @@ namespace RegressionTests
             Assert.That(pg, Does.Not.Match(@"(?m)^\s*BEGIN\s+--"));
             Assert.That(pg, Does.Contain("END IF;"));
         }
+
+        [Test]
+        public void TestSingleStatementElseIfClosesBeforeLoopEnd()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestInlineChain
+                AS
+                BEGIN
+                    DECLARE @i INT
+                    WHILE @i < 3
+                    BEGIN
+                        IF @i = 0
+                            SET @i = 1
+                        ELSE IF @i = 1
+                            SET @i = 2
+                        ELSE IF @i = 2
+                            SET @i = 3
+                    END
+                END
+                """;
+            var obj = new DbObject("Contacts_TestInlineChain", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Match(@"(?s)ELSIF.+i := 3;.+END IF;.+END LOOP;"));
+        }
+
+        [Test]
+        public void TestPrintParenthesizedExpression()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestPrint
+                AS
+                BEGIN
+                    PRINT('loop')
+                END
+                """;
+            var obj = new DbObject("Contacts_TestPrint", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("RAISE NOTICE '%', 'loop';"));
+            Assert.That(pg, Does.Not.Contain("PRINT("));
+        }
+
+        [Test]
+        public void TestElseWithCommentDoesNotCreatePlainBlock()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestElseLineComment @mode INT
+                AS
+                BEGIN
+                    IF @mode = 0
+                    BEGIN
+                        SELECT 0
+                    END
+                    ELSE -- update branch
+                    BEGIN
+                        UPDATE ContactsUser SET UseYn = 'N'
+                    END
+                END
+                """;
+            var obj = new DbObject("Contacts_TestElseLineComment", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Match(@"(?s)ELSE\s*\n\s*BEGIN\b"));
+            Assert.That(pg, Does.Contain("END IF;"));
+        }
+
+        [Test]
+        public void TestMultilineStringAccumulationStartingWithPlus()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestContinuation
+                AS
+                BEGIN
+                    DECLARE @query NVARCHAR(MAX), @filter NVARCHAR(MAX)
+                    SET @query += 'WHERE Enabled = 1'
+                        + @filter + ') Q'
+                    SELECT @query
+                END
+                """;
+            var obj = new DbObject("Contacts_TestContinuation", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("|| filter ||"));
+            Assert.That(pg, Does.Not.Match(@"(?m)^\s*\+\s*filter"));
+        }
+
+        [Test]
+        public void TestMultilineSpExecuteSqlBindingsDoNotLeakStatements()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestDynamic @userNo INT, @endId INT
+                AS
+                BEGIN
+                    DECLARE @query NVARCHAR(MAX), @params NVARCHAR(MAX)
+                    EXECUTE sp_executesql @query, @params, @P_UserNo = @userNo,
+                        @P_EndId = @endId
+                END
+                """;
+            var obj = new DbObject("Contacts_TestDynamic", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("EXECUTE query;"));
+            Assert.That(pg, Does.Contain("TODO: rewrite named sp_executesql bindings"));
+            Assert.That(pg, Does.Not.Match(@"(?m)^\s*P_EndId\s*="));
+        }
+
+        [Test]
+        public void TestDateStyle112Conversion()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestDate112
+                AS
+                BEGIN
+                    SELECT CONVERT(VARCHAR, RegDate, 112) FROM Table
+                END
+                """;
+            var obj = new DbObject("TestDate112", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("TO_CHAR(RegDate, 'YYYYMMDD')"));
+            Assert.That(pg, Does.Not.Contain("CAST(RegDate, 112 AS text)"));
+        }
+
+        [Test]
+        public void TestNamedTransactionStripping()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestNamedTran
+                AS
+                BEGIN
+                    BEGIN TRANSACTION MyTran -- starts here
+                    UPDATE Table SET Col = 1;
+                    COMMIT TRANSACTION MyTran -- commits here
+                END
+                """;
+            var obj = new DbObject("TestNamedTran", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Contain("MyTran"));
+            Assert.That(pg, Does.Not.Contain("TRANSACTION"));
+        }
+
+        [Test]
+        public void TestDropTableSemicolonInjection()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestDropTable
+                AS
+                BEGIN
+                    CREATE TABLE #Temp(A INT)
+                    DROP TABLE #Temp
+                END
+                """;
+            var obj = new DbObject("TestDropTable", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("DROP TABLE Temp;").Or.Contain("DROP TABLE temp;"));
+        }
+
+        [Test]
+        public void TestElseIfBeginBlockStackTracking()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestElseIfBegin
+                AS
+                BEGIN
+                    IF 1 = 1
+                    BEGIN
+                        PRINT('1')
+                    END
+                    ELSE IF 2 = 2
+                    BEGIN
+                        PRINT('2')
+                    END
+                    ELSE
+                    BEGIN
+                        PRINT('else')
+                    END
+                END
+                """;
+            var obj = new DbObject("TestElseIfBegin", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            // We expect ELSIF block to NOT close the IF statement early.
+            // There should be exactly one "END IF;" line.
+            var matches = System.Text.RegularExpressions.Regex.Matches(pg, @"\bEND\s+IF\s*;");
+            Assert.That(matches.Count, Is.EqualTo(1));
+        }
+
+
+
+
+
+
+
+        [Test]
+        public void TestNestedIfBlockClosure()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestNestedIfBlock
+                AS
+                BEGIN
+                    IF 1 = 1
+                    BEGIN
+                        IF 2 = 2
+                        BEGIN
+                            PRINT('inner')
+                        END
+                        ELSE
+                        BEGIN
+                            PRINT('inner else')
+                        END
+                    END
+                    ELSE IF 3 = 3
+                    BEGIN
+                        PRINT('outer else if')
+                    END
+                END
+                """;
+            var obj = new DbObject("TestNestedIfBlock", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            // Outer IF block should contain the inner IF statement.
+            // There should be exactly one "END IF;" for the inner block,
+            // and exactly one "END IF;" for the outer block at the very end.
+            var matches = System.Text.RegularExpressions.Regex.Matches(pg, @"\bEND\s+IF\s*;");
+            Assert.That(matches.Count, Is.EqualTo(2));
+        }
     }
 }

@@ -3,10 +3,11 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
-DROP FUNCTION IF EXISTS public.contacts_checkgroup(integer, integer);
+DROP FUNCTION IF EXISTS public.contacts_checkgroup(integer, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_checkgroup(
     IN reguserno integer,
-    IN type integer
+    IN type integer,
+    IN value character varying
 ) RETURNS SETOF record
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
@@ -17,15 +18,16 @@ BEGIN
 		RETURN QUERY
 		SELECT GroupNo FROM ContactsGroup
 		WHERE RegUserNo=contacts_checkgroup.reguserno
-		AND GroupNo=Value
-		AND UseYn='Y'
+		AND GroupNo=contacts_checkgroup.value
+		AND UseYn='Y';
 	-- 그룹이름으로 체크
 	ELSIF Type = 1 THEN
 		RETURN QUERY
 		SELECT GroupNo FROM ContactsGroup
 		WHERE RegUserNo=contacts_checkgroup.reguserno
-		AND GroupName=Value
+		AND GroupName=contacts_checkgroup.value
 		AND UseYn='Y';
+	END IF;
 	END IF;
 END;
 $function$

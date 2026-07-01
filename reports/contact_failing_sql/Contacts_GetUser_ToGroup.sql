@@ -3,7 +3,6 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
--- TODO: TOP was preserved as comment; add LIMIT manually
 DROP FUNCTION IF EXISTS public.contacts_getuser_togroup(integer, integer, integer, integer, character varying, character varying, character varying, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_getuser_togroup(
     IN userno integer DEFAULT 10,
@@ -22,9 +21,9 @@ DECLARE
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
-	--전체그룹인지 체크 합니다.
+	--전체그룹인지 체크 합니다.;
 
-	SELECT GroupNo INTO topgroupno FROM ContactsGroup WHERE ParentGNo=0 and RegUserNo=contacts_getuser_togroup.userno AND IsDefault='1'
+	SELECT GroupNo INTO topgroupno FROM ContactsGroup WHERE ParentGNo=0 and RegUserNo=contacts_getuser_togroup.userno AND IsDefault='1';
 
 	-- 전체 그룹이라면
 	IF TopGroupNo = contacts_getuser_togroup.groupno OR GroupNo=0 OR GroupNo=-1 THEN
@@ -62,26 +61,26 @@ BEGIN
 			FROM ContactsUser U
 			--LEFT JOIN ContactsGroupUser G ON G.UserSeq = U.Seq
 			--LEFT JOIN ContactsGroup M ON M.GroupNo = G.GroupNo
-			LEFT JOIN (SELECT /* /* TOP 1 */ */ G.UserSeq,M.IsDefault FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
+			LEFT JOIN (SELECT G.UserSeq,M.IsDefault FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
 			LEFT JOIN ContactsCompany C ON C.UserSeq = U.Seq AND C.IsDefault='1'
 			WHERE (U.RegUserNo = contacts_getuser_togroup.userno  Or U.Share=300)
 			AND U.UseYn = 'Y'
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName+U.FirstName) = 0
 			) T
 			WHERE T.RowNum
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
@@ -133,12 +132,12 @@ BEGIN
 			WHERE (U.RegUserNo = contacts_getuser_togroup.userno  Or U.Share='300' OR (SUBSTRING(U.Share,1,3)='200' and (U.Seq IN (select Distinct C.Seq from ContactsSharers C INNER JOIN public."Organization_GetDepartmentsByUser"(UserNo) DP ON DP.DepartNo = C.DepartNo))))
 			AND U.UseYn = 'Y'
 
-			AND PATINDEX('%' || public."UF_RegularExText"(Initial) + '%' , U.LastName+U.FirstName) > 0
+			AND PATINDEX('%' || public."UF_RegularExText"(Initial) || '%' , U.LastName+U.FirstName) > 0
 
 			) T
 			WHERE T.RowNum
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
-			AND CurrentPageIndex * ViewCount
+			AND CurrentPageIndex * ViewCount;
 
 
 		ELSIF GroupNo=-1 THEN
@@ -187,7 +186,7 @@ BEGIN
 			(U.RegUserNo = contacts_getuser_togroup.userno  Or U.Share='300' OR (SUBSTRING(U.Share,1,3)='200' and (U.Seq IN (select C.Seq from ContactsSharers C INNER JOIN public."Organization_GetDepartmentsByUser"(UserNo) DP ON DP.DepartNo = C.DepartNo))))
 			AND
 			 U.UseYn = 'Y'
-			AND PATINDEX( '%' || public."UF_RegularExText"(Initial) + '%' , U.LastName+U.FirstName) > 0
+			AND PATINDEX( '%' || public."UF_RegularExText"(Initial) || '%' , U.LastName+U.FirstName) > 0
 			--AND gg.IsDefault=IsDefault
 
 			) T
@@ -245,7 +244,7 @@ BEGIN
 				WHERE --(U.Seq IN (select C.Seq from ContactsSharers C INNER JOIN public."Organization_GetDepartmentsByUser"(UserNo) DP ON DP.DepartNo = C.DepartNo))--and gg.RegUserNo = UserNo)
 				  U.UseYn = 'Y'
 				AND	G.GroupNo in (select * from Contacts_GetChildGroupByGroupNo(GroupNo))
-				AND PATINDEX('%' || public."UF_RegularExText"(Initial) + '%' , U.LastName+U.FirstName) > 0
+				AND PATINDEX('%' || public."UF_RegularExText"(Initial) || '%' , U.LastName+U.FirstName) > 0
 				--AND gg.IsDefault=IsDefault
 				) T
 				WHERE T.RowNum
@@ -292,21 +291,20 @@ BEGIN
 			--		where M.RegUserNo=UserNo ) as gg ON gg.UserSeq = U.Seq
 
 			LEFT JOIN ContactsCompany C ON C.UserSeq = U.Seq AND C.IsDefault = TRUE
-			--LEFT JOIN (SELECT /* /* TOP 1 */ */ G.UserSeq FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
+			--LEFT JOIN (SELECT G.UserSeq FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
 			WHERE (U.RegUserNo = contacts_getuser_togroup.userno  Or U.Share='300' OR (SUBSTRING(U.Share,1,3)='200' AND G.GroupNo=contacts_getuser_togroup.groupno) OR (SUBSTRING(U.Share,1,3)='200' and U.RegUserNo = contacts_getuser_togroup.userno))
 			AND U.UseYn = 'Y'
 			AND	G.GroupNo in (select * from Contacts_GetChildGroupByGroupNo(GroupNo))
 
-			AND PATINDEX('%' || public."UF_RegularExText"(Initial) + '%' , U.LastName+U.FirstName) > 0
+			AND PATINDEX('%' || public."UF_RegularExText"(Initial) || '%' , U.LastName+U.FirstName) > 0
 			) T
 			WHERE T.RowNum
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
 
-			END IF;
 		END IF;
 
-		END;
+		END IF;
 	ELSE
 		IF Initial = 'ETC' THEN
 			RETURN QUERY
@@ -342,27 +340,27 @@ BEGIN
 			FROM ContactsUser U
 			INNER JOIN ContactsGroupUser G ON G.UserSeq = U.Seq
 			INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo
-			--LEFT JOIN (SELECT /* /* TOP 1 */ */ G.UserSeq FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
+			--LEFT JOIN (SELECT G.UserSeq FROM  ContactsGroupUser G INNER JOIN ContactsGroup M ON M.GroupNo = G.GroupNo) as gg ON gg.UserSeq = U.Seq
 			LEFT JOIN ContactsCompany C ON C.UserSeq = U.Seq AND C.IsDefault = TRUE
 			WHERE (U.RegUserNo = contacts_getuser_togroup.userno  Or U.Share=300) AND G.GroupNo = contacts_getuser_togroup.groupno
 			AND U.UseYn = 'Y'
 			AND M.UseYn='Y'
-			AND PATINDEX(public."UF_RegularExText"('ㄱ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄴ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄷ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㄹ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅁ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅂ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅅ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅇ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅈ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅊ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅋ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅌ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅍ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('ㅎ') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('A') + '%' , U.LastName+U.FirstName) = 0
-			AND PATINDEX(public."UF_RegularExText"('0') + '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄱ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄴ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄷ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㄹ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅁ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅂ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅅ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅇ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅈ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅊ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅋ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅌ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅍ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('ㅎ') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('A') || '%' , U.LastName+U.FirstName) = 0
+			AND PATINDEX(public."UF_RegularExText"('0') || '%' , U.LastName+U.FirstName) = 0
 			) T
 			WHERE T.RowNum
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
@@ -407,13 +405,14 @@ BEGIN
 			AND	gg.GroupNo in (select * from Contacts_GetChildGroupByGroupNo(GroupNo))
 			AND U.UseYn = 'Y'
 			--AND M.UseYn='Y'
-			AND PATINDEX( '%' || public."UF_RegularExText"(Initial) + '%' , U.LastName+U.FirstName) > 0
+			AND PATINDEX( '%' || public."UF_RegularExText"(Initial) || '%' , U.LastName+U.FirstName) > 0
 			) T
 			WHERE T.RowNum
 			BETWEEN ((CurrentPageIndex - 1) * ViewCount) + 1
 			AND CurrentPageIndex * ViewCount;
-		END IF;
-	END;
+	END IF;
+END IF;
+END IF;
 END;
 $function$
 LANGUAGE plpgsql;

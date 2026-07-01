@@ -28,6 +28,7 @@ AS $function$
 BEGIN
 
 RETURN QUERY
+RETURN QUERY
 WITH PERMISSION AS (
 	Select *
 	FROM Board_AllowAccess
@@ -64,7 +65,7 @@ TMP AS (
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE LanguageSign WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
-	CONVERT(CHAR(16), BC.RegDate, 120) as RegDateToString,
+	TO_CHAR(BC.RegDate, 'YYYY-MM-DD HH24:MI:SS') as RegDateToString,
 	CASE WHEN BV.ContentNo IS NOT NULL THEN TRUE ELSE FALSE END AS IsReaded ,
 	ROW_NUMBER() OVER(PARTITION BY BC.Enabled  ORDER BY BC.RegDate DESC) AS RowNumber,
 	B.ViewMode AS BoardType,
@@ -162,7 +163,7 @@ ORDER BY T.RootId DESC,T.ContentNo ASC;
 --	ELSE SET Query += 'DESC '
 
 
---	SET Query += ', BC.LevelRand + CAST(BC.ContentNo As Nvarchar(20)) ASC, OrderNo ASC'
+--	SET Query += ', BC.LevelRand + CAST(BC.ContentNo As text) ASC, OrderNo ASC'
 
 
 

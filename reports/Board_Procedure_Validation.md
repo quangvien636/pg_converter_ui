@@ -1,6 +1,6 @@
 # Board_% Procedure Validation Report
 
-**Generated**: 2026-06-30 17:26:51  
+**Generated**: 2026-07-01 07:02:34  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  
@@ -12,9 +12,9 @@
 | Total Board_% procedures (SQL Server) | **162** |
 | Conversion succeeded | **162** |
 | Conversion failed (timeout/error) | **0** |
-| Compile PASS (CREATE succeeded) | **162** |
-| Compile FAIL | **0** |
-| Compile success rate | **100%** |
+| Compile PASS (CREATE succeeded) | **158** |
+| Compile FAIL | **4** |
+| Compile success rate | **97%** |
 | SETOF record (needs RETURNS TABLE) | **116** |
 
 ## 2. Board_% Procedure Feature Matrix
@@ -190,7 +190,7 @@
 
 ### 3a. PASS
 
-162 procedures compiled successfully:
+158 procedures compiled successfully:
 
 - `Board_Authority_Select`
 - `Board_Board_MaxSortNo_Select`
@@ -213,9 +213,7 @@
 - `Board_DeleteReply`
 - `Board_DeleteShare`
 - `Board_DownBoard`
-- `Board_DownBoardByUser`
 - `Board_DownFolder`
-- `Board_DownFolderByUser`
 - `Board_DownMultilWidget`
 - `Board_DownMultiWidget`
 - `Board_DownWidget`
@@ -321,7 +319,6 @@
 - `Board_SetShare`
 - `Board_TreeBoard`
 - `Board_UpBoard`
-- `Board_UpBoardByUser`
 - `Board_UpdateAllowAccess`
 - `Board_UpdateAndroidDevice_NotificationOptions`
 - `Board_UpdateAndroidDevice_TimezoneOffset`
@@ -349,7 +346,6 @@
 - `Board_UpdateSpecType`
 - `Board_UpdateStatusApproval`
 - `Board_UpFolder`
-- `Board_UpFolderByUser`
 - `Board_UpMultiWidget`
 - `Board_UpWidget`
 - `Board_UserCollection_Select`
@@ -357,7 +353,18 @@
 
 ### 3b. FAIL
 
-All procedures compiled successfully.
+| Procedure | SqlState | Error |
+|-----------|----------|-------|
+| `Board_DownBoardByUser` | `42601` | syntax error at end of input |
+| `Board_DownFolderByUser` | `42601` | syntax error at end of input |
+| `Board_UpBoardByUser` | `42601` | syntax error at end of input |
+| `Board_UpFolderByUser` | `42601` | syntax error at end of input |
+
+## 4. Error Breakdown by PostgreSQL Code
+
+| SqlState | Count | Category | First Failure | Message |
+|----------|------:|----------|---------------|---------|
+| `42601` | 4 | syntax_error | `Board_DownBoardByUser` | syntax error at end of input |
 
 ## 5. SETOF record — Needs Manual RETURNS TABLE(...)
 
@@ -496,5 +503,6 @@ All procedures compiled successfully.
 
 | # | Issue | Affected | Notes |
 |---|-------|----------|-------|
-| 1 | SETOF record → needs RETURNS TABLE | 116 procedures | Infer column types from SELECT list per procedure |
+| 1 | `42601` syntax_error | 4 procedures | Syntax error in generated plpgsql — likely malformed control flow or unparsed MSSQL syntax |
+| 2 | SETOF record → needs RETURNS TABLE | 116 procedures | Infer column types from SELECT list per procedure |
 

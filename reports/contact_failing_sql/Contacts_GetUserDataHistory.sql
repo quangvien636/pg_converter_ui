@@ -3,11 +3,12 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
-DROP FUNCTION IF EXISTS public.contacts_getuserdatahistory(integer, integer, integer);
+DROP FUNCTION IF EXISTS public.contacts_getuserdatahistory(integer, integer, integer, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_getuserdatahistory(
     IN historyno integer,
     IN reguserno integer,
-    IN userseq integer
+    IN userseq integer,
+    IN key character varying
 ) RETURNS SETOF record
 AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
@@ -16,56 +17,68 @@ BEGIN
 
 	IF Key = 'number' THEN
 		RETURN QUERY
-		SELECT Value, Type FROM ContactsNumberHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Value, Type FROM ContactsNumberHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
 
 	ELSIF Key = 'email' THEN
 		RETURN QUERY
-		SELECT Value FROM ContactsEmailHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Value FROM ContactsEmailHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+	END IF;
 
 	ELSIF Key = 'days' THEN
 		RETURN QUERY
-		SELECT Value FROM ContactsDaysHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Value FROM ContactsDaysHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+
 
 	ELSIF Key = 'comp' THEN
 		RETURN QUERY
-		SELECT Company FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Company FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+
 
 	ELSIF Key = 'dept' THEN
 		RETURN QUERY
-		SELECT Depart FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Depart FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+
 
 	ELSIF Key = 'position' THEN
 		RETURN QUERY
-		SELECT Position FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Position FROM ContactsCompanyHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+
 
 	ELSIF Key = 'addr' THEN
 		RETURN QUERY
 		SELECT '(' || ZipCode1 || '-' || ZipCode2 || ')' || Address Address FROM ContactsAddressHistory
-        WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq AND IsDefault='1'
+        WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq AND IsDefault='1';
+
 
 	ELSIF Key = 'sns' THEN
 		RETURN QUERY
-		SELECT Value FROM ContactsSnsHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC
+		SELECT Value FROM ContactsSnsHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND UserSeq=contacts_getuserdatahistory.userseq ORDER BY IsDefault DESC, Seq DESC;
+
 
 	ELSIF Key = 'memo' THEN
 		RETURN QUERY
-		SELECT Memo FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq
+		SELECT Memo FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq;
+
 
 	ELSIF Key = 'firstname' THEN
 		RETURN QUERY
-		SELECT FirstName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq
+		SELECT FirstName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq;
+
 
 	ELSIF Key = 'lastname' THEN
 		RETURN QUERY
-		SELECT LastName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq
+		SELECT LastName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq;
+
 
 	ELSIF Key = 'callname' THEN
 		RETURN QUERY
-		SELECT CallName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq
+		SELECT CallName FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq;
+
 
 	ELSIF Key = 'deldate' THEN
 		RETURN QUERY
-		SELECT DelDate FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq
+		SELECT DelDate FROM ContactsUserHistory WHERE HistoryNo=contacts_getuserdatahistory.historyno AND RegUserNo=contacts_getuserdatahistory.reguserno AND Seq=contacts_getuserdatahistory.userseq;
+
 	ELSIF Key = 'group' THEN
 		RETURN QUERY
 		SELECT G.GroupName
@@ -75,6 +88,7 @@ BEGIN
 		AND GU.RegUserNo = contacts_getuserdatahistory.reguserno
 		AND GU.UserSeq = contacts_getuserdatahistory.userseq
 		ORDER BY G.Sort;
+
 	ELSE
 		RETURN QUERY
 		SELECT FirstName, LastName, CallName, Memo, Share FROM ContactsUserHistory

@@ -3,7 +3,6 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
--- TODO: TOP was preserved as comment; add LIMIT manually
 -- TODO: LEN was not fully converted; use length()
 DROP FUNCTION IF EXISTS public.contacts_getoutlistexcel(integer, character varying, character varying, character varying, boolean);
 CREATE OR REPLACE FUNCTION public.contacts_getoutlistexcel(
@@ -19,11 +18,11 @@ DECLARE
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
-CREATE TEMP TABLE tabgroup (GroupNo integer) ON COMMIT DROP;
+CREATE TEMP TABLE tabGroup (GroupNo INT) ON COMMIT DROP;
 	GroupList := contacts_getoutlistexcel.grouplist || ',';
-		WHILE STRPOS(',GroupList, ') > 0 LOOP
+		WHILE STRPOS(GroupList, ',') > 0 LOOP
 
-			GroupNo := SUBSTRING(GroupList,0,STRPOS(',GroupList, '));
+			GroupNo := SUBSTRING(GroupList,0,STRPOS(GroupList, ','));
 			INSERT INTO tabGroup
 			(
 				GroupNo
@@ -33,8 +32,8 @@ CREATE TEMP TABLE tabgroup (GroupNo integer) ON COMMIT DROP;
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(',GroupList, ')+1,LEN(GroupList));
-		END LOOP
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+		END LOOP;
 IF IsAdmin = TRUE THEN
 		RETURN QUERY
 		SELECT distinct
@@ -57,7 +56,7 @@ IF IsAdmin = TRUE THEN
 			homepage,
 			ModDate,
 			RegDate,
-			CASE WHEN STRPOS(GroupName, '{')>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(GroupName)  WHERE NAME='KO') ELSE GroupName END AS GroupName ,
+			CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>'KO' ELSE GroupName END AS GroupName ,
 			--GroupName,
 			Memo,
 			GroupId,
@@ -84,7 +83,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,
@@ -118,7 +117,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,
@@ -152,7 +151,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,
@@ -171,7 +170,7 @@ IF IsAdmin = TRUE THEN
 			AND COALESCE(G.ShareGroupNo,0) IN (SELECT * FROM Contacts_StringToListInt(ShareList))
 		) A;
 
-		ELSE
+		ELSE;
 
 
 
@@ -197,7 +196,7 @@ IF IsAdmin = TRUE THEN
 			homepage,
 			ModDate,
 			RegDate,
-			CASE WHEN STRPOS(GroupName, '{')>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(GroupName)  WHERE NAME='KO') ELSE GroupName END AS GroupName ,
+			CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>'KO' ELSE GroupName END AS GroupName ,
 			--GroupName,
 			Memo,
 			GroupId,
@@ -224,7 +223,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,
@@ -258,7 +257,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,
@@ -292,7 +291,7 @@ IF IsAdmin = TRUE THEN
 				public."UF_ContactsDetailExcel"(U.Seq,'homeaddress') AS homeaddress,
 				public."UF_ContactsDetailExcel"(U.Seq,'homepage') AS homepage,
 				U.Memo,
-				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT /* /* TOP 1 */ */ StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
+				CASE WHEN STRPOS(public."UF_ContactsDetailExcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."UF_ContactsDetailExcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."UF_ContactsDetailExcel"(U.Seq,'group') END AS GroupName ,
 				--public."UF_ContactsDetailExcel"(U.Seq,'group') AS GroupName,
 				U.ModDate,
 				U.RegDate,

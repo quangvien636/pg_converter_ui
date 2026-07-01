@@ -3,11 +3,12 @@
 -- TODO: Review converted output — stored procedure semantics differ; test before use in production.
 -- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually
 -- TODO: procedure contains result-returning SELECT; replace SETOF record with correct column types
-DROP FUNCTION IF EXISTS public.contacts_setshare(integer, integer, character varying);
+DROP FUNCTION IF EXISTS public.contacts_setshare(integer, integer, character varying, character varying);
 CREATE OR REPLACE FUNCTION public.contacts_setshare(
     IN seq integer,
     IN departno integer,
-    IN ischild character varying
+    IN ischild character varying,
+    IN mode character varying
 ) RETURNS SETOF record
 AS $function$
 DECLARE
@@ -19,16 +20,17 @@ BEGIN
 
 		DepartName := public."COMNGetDepartName"(DepartNo);
 		IF (select count(*) from ContactsSharers where Seq=contacts_setshare.seq and DepartNo= contacts_setshare.departno )=0 THEN
-			INSERT INTO ContactsSharers(Seq,DepartNo,DepartName,IsChild)
+			INSERT INTO ContactsSharers(Seq,DepartNo,DepartName,IsChild);
+			END IF;
 			VALUES(Seq,DepartNo,DepartName,IsChild);
 		END IF;
 
 	ELSE
-		DELETE FROM ContactsSharers WHERE Seq = contacts_setshare.seq
-	END;
+		DELETE FROM ContactsSharers WHERE Seq = contacts_setshare.seq;
+
 
 	RETURN QUERY
-	SELECT @ERROR;
+	SELECT 0;
 END;
 $function$
 LANGUAGE plpgsql;

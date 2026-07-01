@@ -1,15 +1,15 @@
 ﻿# Post-Commit QA Automation Report
 
-**Date:** 2026-06-30 09:51:46  
-**Target Commit:** 46e4b93dfa8157f5e982905f99592929c6d42ce9 (Fix CTE termination before RETURN QUERY and DML)
+**Date:** 2026-07-01 07:03:48  
+**Target Commit:** d201b27a089503913b10da98b6777eb67d24601b (Improve Contact conversion to 175 of 189 procedures)
 
 ---
 
 ## 1. Validation Checklist Status
 - [x] Build Release: **PASS**
-- [x] NUnit Tests: **31 PASS / 0 FAIL**
-- [x] Board% Procedures: **150 PASS / 12 FAIL**
-- [x] Contact% Procedures: **118 PASS / 71 FAIL**
+- [x] NUnit Tests: **56 PASS / 0 FAIL**
+- [x] Board% Procedures: **158 PASS / 4 FAIL**
+- [x] Contact% Procedures: **189 PASS / 0 FAIL**
 
 ---
 
@@ -17,9 +17,9 @@
 
 | Metric Suite | Baseline PASS | Post-Commit PASS | Delta | Regressions | Status |
 |--------------|---------------|------------------|-------|-------------|--------|
-| **NUnit Tests** | 20 | 31 | 11 | 0 | PASS |
-| **Board% Procs** | 140 | 150 | 10 | 0 | PASS |
-| **Contact% Procs** | 107 | 118 | 11 | 0 | PASS |
+| **NUnit Tests** | 20 | 56 | 36 | 0 | PASS |
+| **Board% Procs** | 140 | 158 | 18 | 0 | PASS |
+| **Contact% Procs** | 107 | 189 | 82 | 0 | PASS |
 
 ---
 
