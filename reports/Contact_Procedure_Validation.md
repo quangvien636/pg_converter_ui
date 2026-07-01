@@ -1,6 +1,6 @@
 # Contact_% Procedure Validation Report
 
-**Generated**: 2026-07-01 07:03:48  
+**Generated**: 2026-07-01 07:39:43  
 **Source**: `CrewCloud_Company_Bootstrap` @ `221.148.141.4,14233`  
 **Target**: `pg_converter_runtime_test` @ `221.148.141.4:5432` (PostgreSQL 15.7)  
 **Converter fixes applied**: DECLARE extraction, InjectReturnQuery CTE, multi-line IF, semicolons  

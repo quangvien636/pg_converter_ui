@@ -1219,6 +1219,8 @@ $$;";
         body = Regex.Replace(body, @"(?m)\bELSE\s*;[ \t]*$",  "ELSE",  RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"(?m)\bBEGIN\s*;[ \t]*$", "BEGIN", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"(?m)\bLOOP\s*;[ \t]*$",  "LOOP",  RegexOptions.IgnoreCase);
+        // Strip spurious ; after set-operation keywords (UNION ALL / UNION / INTERSECT / EXCEPT)
+        body = Regex.Replace(body, @"(?m)\b(UNION\s+ALL|UNION|INTERSECT|EXCEPT)\s*;[ \t]*$", "$1", RegexOptions.IgnoreCase);
 
         // Misc
         body = Regex.Replace(body,
