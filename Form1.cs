@@ -5,6 +5,10 @@ namespace pg_converter_ui;
 
 public partial class Form1 : Form
 {
+    const string DefaultImagesFolderName = "short_video_images";
+    const string DefaultVideoRootFolder = "pg_converter_ui";
+    const string DefaultVideoOutputFolderName = "short_videos";
+
     private List<DbObject> _allObjects = new();
     private List<DbObject> _filtered  = new();
 
@@ -240,7 +244,7 @@ public partial class Form1 : Form
 
         grpVideo.Controls.Add(MkLabel("Images:", 340, 29));
         txtVideoImages = MkTextBox(397, 26, 380);
-        txtVideoImages.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "short_video_images");
+        txtVideoImages.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), DefaultImagesFolderName);
         grpVideo.Controls.Add(txtVideoImages);
         var btnBrowseImages = MkButton("...", 786, 25, 36);
         btnBrowseImages.Click += (_, _) => BrowseVideoFolder(txtVideoImages, "Chọn thư mục ảnh nguồn");
@@ -267,7 +271,7 @@ public partial class Form1 : Form
 
         grpVideo.Controls.Add(MkLabel("Output:", 385, 99));
         txtVideoOutput = MkTextBox(430, 96, 347);
-        txtVideoOutput.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "pg_converter_ui", "short_videos");
+        txtVideoOutput.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), DefaultVideoRootFolder, DefaultVideoOutputFolderName);
         grpVideo.Controls.Add(txtVideoOutput);
         var btnBrowseOutput = MkButton("...", 786, 95, 36);
         btnBrowseOutput.Click += (_, _) => BrowseVideoFolder(txtVideoOutput, "Chọn thư mục output video");
@@ -333,12 +337,16 @@ public partial class Form1 : Form
         {
             try
             {
-                Directory.CreateDirectory(txtVideoOutput.Text.Trim());
-                Process.Start(new ProcessStartInfo(txtVideoOutput.Text.Trim()) { UseShellExecute = true });
+                var outputPath = txtVideoOutput.Text.Trim();
+                if (string.IsNullOrWhiteSpace(outputPath) || outputPath.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                    throw new InvalidOperationException("Đường dẫn output không hợp lệ.");
+
+                Directory.CreateDirectory(outputPath);
+                Process.Start(new ProcessStartInfo(outputPath) { UseShellExecute = true });
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không mở được thư mục output:\\n{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Không mở được thư mục output:\n{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         };
         grpVideo.Controls.Add(btnOpenVideoFolder);
@@ -724,7 +732,7 @@ public partial class Form1 : Form
     {
         var outputFolder = txtVideoOutput.Text.Trim();
         if (string.IsNullOrWhiteSpace(outputFolder))
-            outputFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "pg_converter_ui", "short_videos");
+            outputFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), DefaultVideoRootFolder, DefaultVideoOutputFolderName);
 
         return new ShortVideoRequest(
             txtFfmpeg.Text.Trim(),
@@ -826,9 +834,7 @@ public partial class Form1 : Form
         }
 
         picVideoPreview.Image?.Dispose();
-        using var fs = new FileStream(resolvedPreview, FileMode.Open, FileAccess.Read);
-        using var img = Image.FromStream(fs);
-        picVideoPreview.Image = new Bitmap(img);
+        picVideoPreview.Image = new Bitmap(resolvedPreview);
         lblVideoStatus.ForeColor = Color.Green;
         lblVideoStatus.Text = "✓ Preview ready";
     }
@@ -855,7 +861,9 @@ public partial class Form1 : Form
         };
         if (!string.IsNullOrWhiteSpace(target.Text) && File.Exists(target.Text))
         {
-            dlg.InitialDirectory = Path.GetDirectoryName(target.Text);
+            var dir = Path.GetDirectoryName(target.Text);
+            if (!string.IsNullOrWhiteSpace(dir))
+                dlg.InitialDirectory = dir;
             dlg.FileName = Path.GetFileName(target.Text);
         }
 

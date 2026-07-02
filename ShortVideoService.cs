@@ -8,6 +8,7 @@ namespace pg_converter_ui;
 public static partial class ShortVideoService
 {
     static readonly string[] _imageExtensions = [".jpg", ".jpeg", ".png", ".bmp", ".webp"];
+    const string PreviewSeekTime = "00:00:00.500";
 
     public static bool TryCreatePlan(ShortVideoRequest request, out ShortVideoPlan plan, out string error)
     {
@@ -40,13 +41,14 @@ public static partial class ShortVideoService
 
         var secPerImage = Math.Clamp(request.SecondsPerImage, 1, 10);
         var maxSeconds = Math.Clamp(request.MaxDurationSeconds, 5, 300);
+        // Keep total duration <= MaxDurationSeconds by using floor division.
         var maxImages = Math.Max(1, maxSeconds / secPerImage);
 
         var imageFiles = allImages.Take(maxImages).ToList();
         var targetSeconds = imageFiles.Count * secPerImage;
 
         Directory.CreateDirectory(request.OutputFolder);
-        var stamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        var stamp = DateTime.UtcNow.ToString("yyyyMMdd_HHmmss");
         var outputFile = Path.Combine(request.OutputFolder, $"short_video_{stamp}.mp4");
         var concatListFile = Path.Combine(Path.GetTempPath(), $"pg_converter_ui_video_{stamp}.txt");
         var previewImageFile = Path.Combine(request.OutputFolder, $"short_video_{stamp}_preview.jpg");
@@ -149,7 +151,7 @@ public static partial class ShortVideoService
 
         info.ArgumentList.Add("-y");
         info.ArgumentList.Add("-ss");
-        info.ArgumentList.Add("00:00:00.500");
+        info.ArgumentList.Add(PreviewSeekTime);
         info.ArgumentList.Add("-i");
         info.ArgumentList.Add(outputVideo);
         info.ArgumentList.Add("-vframes");
@@ -201,6 +203,7 @@ public static partial class ShortVideoService
         if (hasAudio)
         {
             audioInputIndex = 1;
+            // Loop audio indefinitely; -shortest below ensures output still stops with video duration.
             args.AddRange(["-stream_loop", "-1", "-i", request.AudioFile!]);
         }
 
@@ -226,7 +229,7 @@ public static partial class ShortVideoService
             }
             else
             {
-                complex.Append(";[logoed]copy[vout]");
+                complex.Append(";[logoed]null[vout]");
             }
 
             args.AddRange(["-filter_complex", complex.ToString(), "-map", "[vout]"]);
