@@ -4,8 +4,18 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 
 | Procedure | PostgreSQL execution | SQL Server reference | Behaviour verdict |
 |---|---|---|---|
+| `board_countfolderinfolder` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getcommentsetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getlistconverturlfile` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getreplyfilebycontentno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getusersetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `board_insertboard` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_insertdepartallowaccess` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_insertusersetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_setfolders` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_checkexitgroupandcontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_countgroupcountchild` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_countuserpublicwithoutgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_delcontactsuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_deletecontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_deletehistory` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -13,10 +23,32 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_downsharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_finall` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_findnonameuser` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getcontactsforoutlook` | Executed; 0 row(s), 28 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getdefaultcategory` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getdupelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getgrouplist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getlatitudeandlongitudecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getlatitudeandlongitudeonecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getlikelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getlistgroup` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getlistgroupwithid` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getnamegroup` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getoneaddress` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getprivateboxcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getpublicboxcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getranklist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getranklistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getuser_groupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getuser_touserno` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertlistgroupcontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_listgroupcontent` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_savearrange` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_savearrangelike` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_savelocation` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_saverestore` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_search_nodistance` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_seqtoname` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_setaddress` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_setcompany` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_setdays` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

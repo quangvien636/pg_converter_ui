@@ -86,9 +86,13 @@ await using (var runtimeConnection = new NpgsqlConnection(connectionString))
         (functions, var patchResults) = await ApplyConfirmedRuntimeFixes(
             runtimeConnection, runtimeTransaction, functions, timeoutSeconds);
         dependencyResults.AddRange(patchResults);
+        var inferredRecordColumns = await InferRecordColumns(
+            runtimeConnection, runtimeTransaction, functions, typeNames, timeoutSeconds, dependencyResults);
         foreach (var function in functions)
         {
-            var result = await Execute(runtimeConnection, runtimeTransaction, function, typeNames, timeoutSeconds);
+            var result = await Execute(
+                runtimeConnection, runtimeTransaction, function, typeNames,
+                inferredRecordColumns.GetValueOrDefault(function.Oid, []), timeoutSeconds);
             results.Add(result);
             Console.WriteLine($"{result.Status,-7} {function.Name} ({result.DurationMs} ms){FormatError(result)}");
         }
@@ -111,6 +115,9 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
     var confirmedLenFailures = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
         "contacts_deletehistory",
+        "contacts_savearrange",
+        "contacts_savearrangelike",
+        "contacts_saverestore",
         "contacts_setaddress",
         "contacts_setemail",
         "contacts_setnumber"
@@ -142,16 +149,147 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
     return (updated, results);
 }
 
+static async Task<Dictionary<uint, IReadOnlyList<ResultColumn>>> InferRecordColumns(
+    NpgsqlConnection connection,
+    NpgsqlTransaction transaction,
+    IReadOnlyList<FunctionInfo> functions,
+    IReadOnlyDictionary<uint, string> typeNames,
+    int timeoutSeconds,
+    ICollection<DependencyResult> evidence)
+{
+    var inferred = new Dictionary<uint, IReadOnlyList<ResultColumn>>();
+    var attempt = 0;
+    foreach (var function in functions.Where(f =>
+        f.ReturnsSet && f.Result.Equals("SETOF record", StringComparison.OrdinalIgnoreCase)))
+    {
+        var queries = ExtractReturnQueries(function.Definition);
+        if (queries.Count == 0)
+            continue;
+
+        IReadOnlyList<ResultColumn>? commonShape = null;
+        var safe = true;
+        foreach (var rawQuery in queries)
+        {
+            var query = ReplaceQualifiedParameters(rawQuery, function, typeNames);
+            if (!Regex.IsMatch(query, @"^\s*(?:SELECT|WITH)\b", RegexOptions.IgnoreCase))
+            {
+                safe = false;
+                break;
+            }
+
+            var savepoint = $"infer_{attempt++}";
+            await transaction.SaveAsync(savepoint);
+            try
+            {
+                await using var command = connection.CreateCommand();
+                command.Transaction = transaction;
+                command.CommandText = $"SELECT * FROM ({query}) AS runtime_shape LIMIT 0;";
+                command.CommandTimeout = timeoutSeconds;
+                await using var reader = await command.ExecuteReaderAsync();
+                var shape = Enumerable.Range(0, reader.FieldCount)
+                    .Select(i => new ResultColumn($"column_{i + 1}", reader.GetDataTypeName(i)))
+                    .ToArray();
+                await reader.CloseAsync();
+                await transaction.RollbackAsync(savepoint);
+                if (commonShape is null)
+                    commonShape = shape;
+                else if (!SameShape(commonShape, shape))
+                {
+                    safe = false;
+                    break;
+                }
+            }
+            catch (PostgresException)
+            {
+                await transaction.RollbackAsync(savepoint);
+                safe = false;
+                break;
+            }
+        }
+
+        if (safe && commonShape is { Count: > 0 })
+        {
+            inferred[function.Oid] = commonShape;
+            evidence.Add(new DependencyResult(
+                function.Name, "INFERRED RECORD SHAPE",
+                string.Join(", ", commonShape.Select(c => $"{c.Name} {c.Type}"))));
+        }
+    }
+    return inferred;
+}
+
+static List<string> ExtractReturnQueries(string definition)
+{
+    var results = new List<string>();
+    foreach (Match match in Regex.Matches(
+        definition, @"\bRETURN\s+QUERY\b", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(2)))
+    {
+        var start = match.Index + match.Length;
+        var inSingleQuote = false;
+        var inDoubleQuote = false;
+        var depth = 0;
+        for (var i = start; i < definition.Length; i++)
+        {
+            var ch = definition[i];
+            if (ch == '\'' && !inDoubleQuote)
+            {
+                if (inSingleQuote && i + 1 < definition.Length && definition[i + 1] == '\'')
+                {
+                    i++;
+                    continue;
+                }
+                inSingleQuote = !inSingleQuote;
+            }
+            else if (ch == '"' && !inSingleQuote)
+                inDoubleQuote = !inDoubleQuote;
+            else if (!inSingleQuote && !inDoubleQuote)
+            {
+                if (ch == '(') depth++;
+                else if (ch == ')') depth--;
+                else if (ch == ';' && depth == 0)
+                {
+                    results.Add(definition[start..i].Trim());
+                    break;
+                }
+            }
+        }
+    }
+    return results;
+}
+
+static string ReplaceQualifiedParameters(
+    string query,
+    FunctionInfo function,
+    IReadOnlyDictionary<uint, string> typeNames)
+{
+    foreach (var parameter in function.GetInputParameters())
+    {
+        var dummy = DummyValue(typeNames.GetValueOrDefault(parameter.TypeOid, "text"));
+        query = Regex.Replace(
+            query,
+            $@"\b{Regex.Escape(function.Name)}\s*\.\s*{Regex.Escape(parameter.Name)}\b",
+            $"({dummy})",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+            TimeSpan.FromSeconds(2));
+    }
+    return query;
+}
+
+static bool SameShape(IReadOnlyList<ResultColumn> left, IReadOnlyList<ResultColumn> right) =>
+    left.Count == right.Count
+    && left.Zip(right).All(pair => pair.First.Type.Equals(pair.Second.Type, StringComparison.OrdinalIgnoreCase));
+
 static async Task<RuntimeResult> Execute(
     NpgsqlConnection connection,
     NpgsqlTransaction transaction,
     FunctionInfo function,
     IReadOnlyDictionary<uint, string> typeNames,
+    IReadOnlyList<ResultColumn> inferredRecordColumns,
     int timeoutSeconds)
 {
     var inputTypes = function.GetInputTypes();
     var arguments = inputTypes.Select(oid => DummyValue(typeNames.GetValueOrDefault(oid, "text"))).ToArray();
-    var invocation = BuildInvocation(function, arguments, typeNames);
+    var invocation = BuildInvocation(function, arguments, typeNames, inferredRecordColumns);
     var stopwatch = Stopwatch.StartNew();
     var savepoint = $"procedure_{function.Oid}";
     try
@@ -258,7 +396,11 @@ static async Task<IReadOnlyList<DependencyResult>> DeployTemporaryDependencies(
     return results;
 }
 
-static string BuildInvocation(FunctionInfo function, string[] arguments, IReadOnlyDictionary<uint, string> typeNames)
+static string BuildInvocation(
+    FunctionInfo function,
+    string[] arguments,
+    IReadOnlyDictionary<uint, string> typeNames,
+    IReadOnlyList<ResultColumn> inferredRecordColumns)
 {
     var qualifiedName = $"{Quote(function.Schema)}.{Quote(function.Name)}";
     var call = $"{qualifiedName}({string.Join(", ", arguments)})";
@@ -268,6 +410,8 @@ static string BuildInvocation(FunctionInfo function, string[] arguments, IReadOn
         return $"SELECT * FROM {call};";
 
     var outputColumns = function.GetOutputColumns(typeNames);
+    if (outputColumns.Count == 0)
+        outputColumns = inferredRecordColumns;
     if (outputColumns.Count == 0)
         // A record-returning SRF can execute in scalar context without inventing
         // a column definition. Its result shape remains unvalidated.
@@ -437,6 +581,26 @@ sealed record FunctionInfo(
         return AllArgumentTypes.Where((_, i) => ArgumentModes[i] is "i" or "b" or "v").ToArray();
     }
 
+    public IReadOnlyList<InputParameter> GetInputParameters()
+    {
+        var parameters = new List<InputParameter>();
+        if (ArgumentModes.Length == 0 || AllArgumentTypes.Length == 0)
+        {
+            for (var i = 0; i < InputArgumentTypes.Length; i++)
+                parameters.Add(new InputParameter(
+                    i < ArgumentNames.Length ? ArgumentNames[i] : $"parameter_{i + 1}",
+                    InputArgumentTypes[i]));
+            return parameters;
+        }
+
+        for (var i = 0; i < ArgumentModes.Length && i < AllArgumentTypes.Length; i++)
+            if (ArgumentModes[i] is "i" or "b" or "v")
+                parameters.Add(new InputParameter(
+                    i < ArgumentNames.Length ? ArgumentNames[i] : $"parameter_{i + 1}",
+                    AllArgumentTypes[i]));
+        return parameters;
+    }
+
     public IReadOnlyList<ResultColumn> GetOutputColumns(IReadOnlyDictionary<uint, string> typeNames)
     {
         var columns = new List<ResultColumn>();
@@ -450,6 +614,7 @@ sealed record FunctionInfo(
 }
 
 enum RuntimeStatus { Pass, Fail, Blocked }
+sealed record InputParameter(string Name, uint TypeOid);
 sealed record ResultColumn(string Name, string Type);
 sealed record DependencyResult(string Name, string Status, string Evidence);
 sealed record RuntimeResult(
