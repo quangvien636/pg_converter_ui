@@ -1,0 +1,10532 @@
+-- MSSQL source schema snapshot
+-- Generated 2026-07-02T15:59:15.6891904+07:00
+-- Metadata export; read-only source access.
+
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__COVER_F__134F1084
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__MSG_TYP__1072A3D9
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__RE_TYPE__125AEC4B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__REPLY_F__153758F6
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__SMS_FLA__144334BD
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__SN_RESU__1813C5A1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__STATUS__1166C812
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__TEL_INF__1907E9DA
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__USE_PAG__162B7D2F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__USE_TIM__171FA168
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Aut__DTS_I__3B83265D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Aut__DTS_U__3C774A96
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Aut__USE_Y__3A8F0224
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Boa__SpecT__13A34AE8
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Com__IsDel__6E5D82F7
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Com__ModDa__6D695EBE
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Com__RegDa__6C753A85
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Fol__SpecT__12AF26AF
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Men__DTS_I__3E5F9308
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Men__DTS_U__3F53B741
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Men__USE_Y__3D6B6ECF
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Mul__IsDel__46B9A5F1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Mul__ModDa__45C581B8
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Mul__RegDa__44D15D7F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_New__IsDel__7FD227BC
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_New__ModDa__7DE9DF4A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_New__RegDa__7CF5BB11
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Use__DTS_I__310597EA
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Board_Use__DTS_U__31F9BC23
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BSLG_OrgL__RegTi__124FFF53
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Center_No__CrewC__0F2979E5
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__AppUs__243A70BB
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__Conte__1D8D732C
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__EndDa__1F75BB9E
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__EndTi__215E0410
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__Start__1E819765
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__Start__2069DFD7
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__State__23464C82
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__Title__1C994EF3
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_S__UserN__22522849
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_T__EndTi__19BCE248
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_T__Shift__16E0759D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_T__SortN__17D499D6
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_T__Start__18C8BE0F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Commute_T__UseYn__1AB10681
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__IsDel__6DE881AB
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__IsDel__71B9128F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__ModDa__6CF45D72
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__ModDa__70C4EE56
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__RegDa__6C003939
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_P__RegDa__6FD0CA1D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__IsDel__6A17F0C7
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__IsDel__7589A373
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__ModDa__6923CC8E
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__ModDa__74957F3A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__RegDa__682FA855
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Contact_S__RegDa__73A15B01
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostC__Depar__6C521198
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostC__Grade__6E3A5A0A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostC__Posit__6D4635D1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostC__Useri__6F2E7E43
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostD__Regda__7022A27C
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCostM__Regda__7116C6B5
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPCPDra__Regda__720AEAEE
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPDocHi__modda__72FF0F27
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPErpSu__SlipA__75DB7BD2
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPErpSu__SlipN__74E75799
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPErpUp__RegDa__77C3C444
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPErpUp__Resul__76CFA00B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPFile__Sortno__78B7E87D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__EDMSAu__014D2E7E
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__EDMSSe__7C887961
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__ERPFix__7B945528
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__IsErpS__7D7C9D9A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__IsHotN__00590A45
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__IsMod__7F64E60C
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__LinkFo__024152B7
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__Rotati__033576F0
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__Rotati__04299B29
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPForm__Serial__7E70C1D3
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPFormT__UseYN__4AA9670F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPGPDoc__isdel__051DBF62
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPOpera__IsAll__0611E39B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPOpini__regda__070607D4
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPRecei__SendS__07FA2C0D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPRefDo__IsLin__09E2747F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPUserE__Appro__0DB30563
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPUserE__Recei__0AD698B8
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPUserE__Summa__0BCABCF1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EAPPUserE__Total__0CBEE12A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EDMSTreeA__Paren__4FB834EF
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__EDMSTreeItem__ID__26149ED9
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__HNEWMaste__Orgcd__60597C63
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Integrate__IsImp__09E4D684
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Mail_Shar__Depar__4CDC939B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Au__DTS_I__4CADB25F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Au__DTS_U__4DA1D698
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Au__USE_Y__4BB98E26
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Me__DTS_I__4F8A1F0A
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Me__DTS_U__507E4343
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Me__USE_Y__4E95FAD1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Us__DTS_I__5172677C
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notice_Us__DTS_U__52668BB5
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Notices__isdelet__0A5AA327
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__IsImp__08F0B24B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__Optio__6B604F64
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__TreeI__5E065446
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__TreeI__5EFA787F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__TreeN__5D12300D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticesSy__TreeR__5C1E0BD4
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__Depar__4DBADDE4
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_I__3C1B5096
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_I__4A696FED
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_I__53F2DA27
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_U__3D0F74CF
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_U__4B5D9426
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__DTS_U__54E6FE60
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__USE_Y__3B272C5D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__NoticeSyn__USE_Y__49754BB4
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Organizat__Birth__55D1CC4F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Organizat__Faile__395FAAD3
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Organizat__FaxNu__195CEF95
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Organizat__Sende__70F9F880
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleG__Creat__797AFB3F
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleU__LastU__115284D0
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleV__IsSub__123003C2
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleV__IsSub__132427FB
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleV__IsSub__14184C34
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__ScheduleV__IsSub__150C706D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Users__CompanyPh__20196C5C
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Users__Extension__210D9095
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__Users__Sex__1A609306
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTEAutho__Depar__46EEB01B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTEAutho__RegDa__1729C309
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTEItem__Select__12650DEC
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTEMaste__IsAno__0E947D08
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTEMaste__RegDa__0F88A141
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__VOTESubIt__Resul__06F35B40
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__WorkGroup__Start__4EC4DC0D
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__WorkingTi__Devic__0AD8FABD
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__WorkingTi__Enabl__5C9241C9
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__WorkingTi__Enabl__655D5D4B
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__WorkingTi__Rejec__4FF82C11
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_AccessLog_AccDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_AccessLog_ClientIP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_BelongToDepartment_DutyNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_BelongToDepartment_IsDefault
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Board_AllowAccess_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Board_AllowAccess_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Board_Config_LastestDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Board_HistoryFolder_IsOpen
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Board_Replys_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Center_GoogleOTPInfo_REGDATE
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Center_NotificationData_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Center_NotificationService_AlarmDetail_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Center_NotificationService_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Center_PhoneTokens_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CODE
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Commute_Schedule_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Commute_Schedule_ShiftNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Commute_Times_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Commute_Times_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Commute_TimeShift_BackColor
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsAddress_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsAddress_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsBackup_ContactCnt
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsBackup_GroupCnt
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsBackup_Memo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsBackup_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsBackup_Type
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsCompany_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsCompany_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsDays_ModeDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsDays_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsEmail_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsEmail_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroup_IsDefault
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroup_Memo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroup_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroup_Sort
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroup_UseYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroupOutlook_OutlookFolderEntryID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroupUser_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsGroupUser_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsHomepage_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsHomepage_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsNumber_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsNumber_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_IsFolderExpanded
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSetup_StartContactBoxNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSns_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsSns_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsUser_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ContactsUser_ViewCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_AndroidDevices_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Attach_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Attach_ThumbHeight
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Attach_ThumbWidth
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_CheckMessage_IsRead
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_CheckMessage_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_FavoriteGroups_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_IOSDevices_RegDate_1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Messages_AttachNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Messages_Type
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_GroupType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_IsOne
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsg
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsgAttachName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsgAttachNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsgAttachType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsgNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_LastedMsgType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_Rooms_RoomType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_RoomUsers_Closed
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_RoomUsers_Notification
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_RoomUsers_StartMessageNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_UserProfiles_NickName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_CrewChat_UserProfiles_StateName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Dake_ViewedLog_ContentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Dake_ViewedLog_UserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Dake_ViewedLog_ViewedDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_Depart_IsDelete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_Depart_IsRead
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_Depart_IsWrite
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_User_IsAdmin
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_User_IsDelete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_User_IsRead
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Auth_User_IsWrite
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_BoardType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_ChartColors
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_ChartType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_BoardNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ChartYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ClassCd
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ControlNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldDataType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldReadOnly
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldRequire
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_FieldUpNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Height
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ImagePath
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Label_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Label_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Label_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Label_KO
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Label_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_LabelAlign
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_LabelBackColor
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_LabelFontWeight
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ListOrder
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_ListYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_PopupLink
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_PopupYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_SearchYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_SortOrder
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_UseYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_Fields_Width
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_IsAttachFile
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_IsLog
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_IsNotRightClick
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Boards_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Class_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Code
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_CodeList_SortNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField01
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField02
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField03
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField04
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField05
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField06
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField07
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField08
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField09
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_AddField10
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ApprovalUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_BoardNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_Content
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_EndDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_FileCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_IsAnomymous
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_IsApproval
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_IsDeleted
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_IsFile
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_IsHead
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ModUserName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ParentContentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_RecommentedCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_RegUserName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ReplyCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_StartDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_Title
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_TitleEffect
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Contents_ViewedCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_ColumnName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_ControlType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_DataType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_FieldType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_IsFixedColumn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Controls_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Field_Copy_History_BoardNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Field_Copy_History_HistoryDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Field_Copy_History_NewFieldNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Field_Copy_History_OldFieldNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Files_ContentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Files_FileLength
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Files_FileName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Files_FilePath
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_ParentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Folders_SortNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_InitForm_FormContent
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_InitForm_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_InitForm_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_InitForm_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_InitForm_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_RecommendLog_ContentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_RecommendLog_RecomendDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_RecommendLog_UserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_Content
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_Depth
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_GroupNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_ModUserName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_OrderNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_ParentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_RegUserName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Replies_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMake_Widget_TopCount_TopCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Description
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_FolderNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_IsAnomymous
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_IsApproval
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_IsNotice
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_IsRecommend
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_IsReply
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Name_Ch
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_NAME_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_RecommendedDisplayCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_DMakeBoard_SortNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Duties_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Duties_SortNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_EAPPDocRotation_SendDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_EAPPDocumentUpdateLog_regdate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_EAPPReceiveSendMail_Regdate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_EDMSDocument_IsDelete_1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfconvdata_intfiles
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfconvdata_intstate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfreceivedata_intstate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_intconvtif
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_intdeleted
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_intfiles
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_intstate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_retrycnt
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsenddata_strcountrycode
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsmsdata_intfiles
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsmsdata_intstate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsmsdata_strcountrycode
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.df_hfsmsdata_strkind
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_HNEWMaster_IsGroupReg
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Integrated_Reference_ReadDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Integrated_Replys_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Integrateds_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Integrateds_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Integrateds_TotalViews
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Leave_Types_IsPaid
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Leave_Types_LeaveDays
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Leave_Types_LeaveName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Leave_Types_Remark
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Leave_Types_UseYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Messenger_Rooms_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Messenger_RoomUsers_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Messenger_RoomUsers_RoomTitle
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Name
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Attachment_AttachTimeZone
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Attachment_IsAvatar_1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Comments_ModTimeZone
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Comments_ParentID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Comments_RegTimeZone
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Group_CheckDelete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Group_Show
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_FavoriteType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_NoteId
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_NoteTimeZoneCreate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_NoteTimeZoneEdit
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_NoteTimeZoneEdit1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_ReadDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_List_Show
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Share_FavoriteType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Share_IsRead
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Share_IsReads
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Share_ReadDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Note_Share_ShareType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeReference_ReadDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Notices_IsPopup
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Notices_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Notices_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Notices_TotalViews
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticesDelete_DeleteDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeSetup_EndNoticeView
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeSetup_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeSetup_PageSize
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeSetup_UsePopup
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticesSyn_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticesSyn_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticesSyn_TotalViews
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_NoticeSyn_Reference_ReadDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Departments_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Departments_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Departments_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Departments_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Duties_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Positions_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Positions_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Positions_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Positions_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_organization_users_Name_CH
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Organization_Users_Name_EN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_organization_users_Name_JP
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_organization_users_Name_VN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_PersonalGroup_DepartNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_PersonalGroup_Description
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonClass_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonClass_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonClass_UseYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonCode_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonCode_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonCode_SortOrder
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ProposalCommonCode_UseYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_QuickLink_IsActive
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_QuickLink_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleAttacthments_FileLength
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleAttacthments_FileName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleAttacthments_FilePath
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleAttacthments_ScheduleNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarDefaultSharers_PositionNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_CalendarViewType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_DefaultCalendarNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_DivisionUseYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_ModUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSetup_StartWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarSharers_PositionNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarsOutlook_OutlookEntryID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleCalendarType_IsActive
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_IsFiveWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_IsHoliday
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_IsLastDay
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_IsLunar
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_Latitude
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_Longitude
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContents_Place
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsContacts_GroupNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsContacts_ScheduleNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsContacts_UserSeq
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentSharers_PositionNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsHistory_HistoryType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsHistory_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsHistory_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsHistory_ScheduleNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleContentsOutlook_OutlookEntryID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayHistory_HistoryType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayHistory_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayHistory_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayRepeat_CompleteDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayRepeat_IsComplete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdayRepeat_RepeatDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_CompleteDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_Contents
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_DisplayType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_IsComplete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_IsFiveWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_IsHoliday
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_IsLastDay
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_IsLunar
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatDay
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatDOWs
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatEndDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatMonth
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdays_RepeatWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_CompleteDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_Contents
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_DisplayType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_IsComplete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_IsFiveWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_IsHoliday
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_IsLastDay
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_IsLunar
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatDay
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatDOWs
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatEndDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatMonth
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysDelete_RepeatWeek
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaySharers_DdayNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaySharers_DepartNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaySharers_PositionNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaySharers_UserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysTag_GroupNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleDdaysTag_UserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleHoliday_DayType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleHoliday_IsHoliday
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleHoliday_IsLunar
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleHoliday_IsRepeat
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_ConfirmUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_ProcessDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_ProcessView
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_ReturnReason
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_RsvnStatus
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservations_UserView
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservationsRevision_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservationsRevision_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservationsRevision_ResourceNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceReservationsRevision_RevisionType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResources_BuyGroupNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResources_Description
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResources_IsDisposed
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResources_isRepair
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResources_IsReservation
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourceSetup_ViewCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_EndDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_LastUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_Reason
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_RepairAmount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_RepairCompanyName
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_StartDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleResourcesRepair_Status
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDoGroupsOutlook_FolderEntryID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDos_ProgressRate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDoSharers_PositionNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDosHistory_HistoryType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDosHistory_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDosHistory_RegUserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDosHistory_ToDoNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_ScheduleToDosOutlook_OutlookEntryID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSErrorMessage_ErrorMessage
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSErrorMessage_Message
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSErrorMessage_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSFavoritesText_FavType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSFavoritesText_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSFavoritesText_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SMSFavoritesText_SortOrder
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroups_DepartNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroups_Enabled
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroups_OpenType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroups_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroupUsers_IsBookmark
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroupUsers_IsJoin
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsGroupUsers_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsIssues_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessageChk_IsCheck
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessageChk_Regdate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_IsAttach
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_IsDelete
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_IsPicture
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_IsShare
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsMessages_ShareContentNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsReplyChk_IsCheck
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsReplyChk_Regdate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SnsReplys_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_Company_CreateDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_Company_DatabaseType
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_Company_Disable
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_CompanyHistory_CreateDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_CompanyHistory_IsLastVersion
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_DatabaseHistory_CreateDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_DatabaseHistory_IsLastVersion
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_Project_CreateDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_ProjectHistory_CreateDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SourceControl_ProjectHistory_IsLastVersion
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_01
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_02
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_03
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_04
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_05
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_06
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_07
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_08
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_09
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_10
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_11
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_12
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_13
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_14
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_15
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_16
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_17
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_18
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_19
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_DetailContent_20
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_EtcEcheck
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyDetail_ExampleText
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyList_ModifyDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyList_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyPoll_DetailNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyPoll_SelectNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyPoll_SurveyNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyPollEtcComments_EtcComment
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_SurveyPollEtcComments_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Table_1_TagImgNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Table_1_ViewCount
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMBusinessInfoFile_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMCollectMoneyMaster_CustomerID
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMContractAuth_UseYN
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMContractInfo_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMContractInfo_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMHoliday_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMHoliday_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TCMUserOptions_IsAllUserSearch
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_IsEnd
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_LinkKey
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_LinkUrl
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_Memo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_Mode
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Main_ViewDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Share_DepartId
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_TimeLine_Share_UserId
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_Users_Photo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_VOTEMaster_IsReg
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATContents_AttachNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATContents_IsAttach
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATContents_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATMembers_IsAlarm
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATMembers_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATRooms_IsClose
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WCHATRooms_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_FaxNum
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_HFNum
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_ParentUserGrpCd
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_SortOrd
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_UserGrpNm1
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_UserGrpNm2
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_UserGrpNm3
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_UserGrpNm4
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WFAXUserGroup_UseYn
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_AllowDevice_DepartNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_AllowDevice_IsUserFull
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_AllowDevice_UserNo
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_AllowDevices_ModDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_AllowDevices_RegDate
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_RequestCorrectionTime_Status
+-- OBJECT DEFAULT_CONSTRAINT public/dbo.DF_WorkingTime_Times_TimeOffset
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPCMONO__Depar__034CE78E
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPCostD__Check__0EA7299C
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPCostD__Maste__0F9B4DD5
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPDocHi__eadoc__108F720E
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPDocum__docid__146002F2
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPErpSu__docid__1554272B
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPErpSu__docid__16484B64
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__EAPPLinkQ__conne__173C6F9D
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK__HNEWAttac__DocID__614DA09C
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK_EAPPDocument_EAPPHistory
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK_EAPPDocument_EAPPPath
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK_EAPPPathDetail_EAPPPath
+-- OBJECT FOREIGN_KEY_CONSTRAINT public/dbo.FK_TimeLine_Share_TimeLine_Main
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__BIZ_MSG__F67C76EE0E8A5B67
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Board_Au__E6B77A6E34D628CE
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Board_Me__B10590CF38A6B9B2
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Board_Us__AE84E1672F1D4F78
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPAppr__3213E83F53BB6DF8
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPATTE__3213E83F578BFEDC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPCMON__0E50384E01649F1C
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPCost__3214EC275F2D20A4
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPCost__3214EC2762FDB188
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPCost__3214EC2766CE426C
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPCPDr__3213E83F6A9ED350
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDepa__3214EC27723FF518
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDocD__DDDFBCBE761085FC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDocH__3213E83F79E116E0
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__eappdocu__3213E83F25D709BC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDocu__3213E83F7F99F036
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDocU__3214EC07082F3637
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPDocu__DDDFBCBE045EA553
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPEdit__DDDFBCBE39A8F83F
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPErpS__3213E83F0FD057FF
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPErpS__A296F5430BFFC71B
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPErpU__BC3F5A5913A0E8E3
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPForm__ED787F8148C11E9D
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPGPDo__DDDFBCBE1FB0EEB6
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPLink__3213E83F21EF083A
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPLink__3213E83F25BF991E
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPLink__3213E83F29902A02
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPMigr__3213E83F31314BCA
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPOpin__3214EC2737DE4959
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPPath__3214EC273F7F6B21
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPProg__3213E83F4AF11DCD
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPRece__3213E83F50A9F723
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPRefD__3214EC2753E7ED2F
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPSear__CBA1B2575662D079
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__eapptemp__3213E83F5467DB73
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPTemp__3214EC2760E05EEC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EAPPWork__3213E83F6A69C926
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSDocS__3213E83F6BE7FD44
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSKeyw__3214EC2700E31A2A
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSKeyw__3214EC277D128946
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSMigr__CA1E3C88069BF380
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSMigr__CA1E3C880A6C8464
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSMigr__CA1E3C880E3D1548
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__EDMSTree__CD0DBD611E737D11
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__erprbrdg__92E746CA0243B4BC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__HNEWAtta__CA1E3C885D7D0FB8
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__HolidayS__3214D4A877DCCB90
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Notice_A__E6B77A6E423023EC
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Notice_M__B10590CF4600B4D0
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Notice_U__A90F88B2423E3E40
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Notice_U__AE84E16749D145B4
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NoticeCo__3214EC077FDD14B4
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NoticePe__3214EC071463304E
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NoticeSy__AE84E167520A91B5
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NoticeSy__B10590CF478D0342
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NoticeSy__E6B77A6E393EE3EB
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__NSFAAtta__CA1E3C887CFFDCB2
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__PhotoBoa__3214EC277BE95AE3
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__PhotoBoa__3214EC277FB9EBC7
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__PhotoBoa__DDDFBCBE038A7CAB
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__PhotoBoa__DDDFBCBE075B0D8F
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Schedule__076400732AF18FEB
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Schedule__3214EC070E761825
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Schedule__3214EC0771D9D977
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Schedule__C3B4E47922E58E78
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Schedule__C5B17E9E386C51F1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__sysdiagr__C2B05B6100551192
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__UF_TEXT___7A7484D75C6D822E
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__1788955F761EA050
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__3214EC072D24BC77
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__33A8517A52757160
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__33A8517A6E1D8BD5
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__516F03B55A169328
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__Vacation__FFC9424C09C5A64A
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__VOTEAuth__3214EC2715417A97
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__VOTEQues__EE6F772A35793FFF
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXAttached
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXBox__CCC9521C78BB15D9
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXBoxJ__CCC9521C7C8BA6BD
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXRead
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXReceive
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WFAXSend
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__1788955F09DB803A
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__2CCB8AEA5C5ECE4D
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__2D9677C304ABEB72
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__2EC9C99153C9884C
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__3214D4A8199CE6B7
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__3214EC0767BAA709
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__3214EC0771A403F6
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__3214EC07775CDD4C
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__3214EC2745459374
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__516E273F3CE622F4
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__7510124B6E3CBC0F
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__DF11FDDE65E83887
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK__WorkingT__E420DFE41CEE54AE
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_AccessLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_AutherKey_AuthNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Authority_UserPermissions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_AllowAccess
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Attachs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Boards
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Config
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Contents
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_ContentSetting
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Folders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Heads
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_HistoryFolder
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_RecommendedLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_Replys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_UserSetting
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Board_ViewedLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BoardOptions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BSLGBusinessLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BSLGComment
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BSLGOrgLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BSLGOrgLogMonth
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_BSLGWLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_CompanyInformation
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_Configuration
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_ExclusionUsersForIPFilter
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_ExclusionUsersForOTP
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_HolidayGroupOfDepartments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_HolidayGroupOfUsers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_HolidayGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_Holidays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_IPFilters
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_IPFiltersForApplication
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_LoginLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_MobileDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_MobileSessions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_Modules
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_NotificationData
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_OTPNumbers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_PCSessions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Center_QuickFunctions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Commute_Options
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Commute_Times
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Contact_PublicGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Contact_ShareGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactDayHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Contacts_ListGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Contacts_ListGroupContact
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsAddress
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsAddressHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsBackup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsCompany
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsCompanyHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsDays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsEmail
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsEmailHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsGroupOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsGroupUser
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsGroupUserHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsHomepage
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsHomepageHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsNumber
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsNumberHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsSetup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsSns
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsSnsHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsUser
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsUserHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ContactsUserOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_Attach
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_CheckMessage
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_FavoriteChatRoom
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_FavoriteGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_FavoriteUsers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_IOSDevices_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_Messages
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_PCDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_PCSessions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_CrewChat_UserProfiles
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Dake_ViewedLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_CompletedRecords
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_CountOfAppBadge
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_CoveredDays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Days
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Directors
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_ExcludedSharers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_GroupInfoOfSharedDays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Groups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Managers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Notifications
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DDay_Sharers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Departments_DepartNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Auth_Depart
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Auth_User
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Boards_Fields
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Class
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_CodeList
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Contents
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Controls
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Field_Copy_History
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Files
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Folders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_InitForm
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Option
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_RecommendLog
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Replies
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Shares
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Widget
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMake_Widget_TopCount
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_DMakeBoard
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_CommonFolders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_DownloadingLogsForFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_DownloadingLogsForFolder
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_Drive_PemissionCommonFolders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_Files
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_Folders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_SharingForCommonFolders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_SharingForFolders
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_Trash
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Drive_UserConfigurations
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Duties
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EABuptleOption
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EADocument
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAFSM
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPP_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPP_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPAddFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPCertificate
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPCustomAuth
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDepartAuth
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDepartAuthDetail
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDesignatedAdmin
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDocRotation
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDocUserSign_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPDocWriterInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPForm
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPFormDepart
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPLine
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPLineDetail
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPMark
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPMarkSymbol
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPOperation
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPPopup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPPostMessage
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPPrivateDoc
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPPrivateForm
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPReceive
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPRefDoc
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPSerial
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPSetting_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPSMTPEnv
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAPPTreeItem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAProcess
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EASetPopUp
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EASVOption
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EAUserEnv
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSAuthFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSAuthFolder
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSAuthUser
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSComent
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSDocFolder
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSDocument
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSDocWriterInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSEssential
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSKeyWord
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSListTemplate
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSOrgDoc
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSPrivateDoc
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSReceive
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSSerial
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSSetting_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSTreeAuthority
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_edmstreeitem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_EDMSUserAuthorityLevel
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_GroupPlace_GNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.pk_hfconvdata
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.pk_hfreceivedata
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.pk_hfsenddata
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.pk_hfsmsdata
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_HNEWComment
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_HNEWMaster
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_HNEWReference
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_Attachs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_Comments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_Reference
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_Replys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_treeitem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrated_ViewedLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Integrateds
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Leave_Options
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Leave_Types
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Leave_UserApplies
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Leave_UserBaseYear
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_LocationsOutside_LocationNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_Accounts
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_FrequentlyUsedAddresses
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailBoxs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailCalendars
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailConversations
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailFiles
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailFilters
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailLargeFiles
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailReceivedStatistics
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_Mails
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_Mails_Mapping
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailSigns
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailTags
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailTemplateCategories
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailTemplates
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_MailThreads
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_RecentMailFiles
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_SentLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_Servers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_SharedAccounts
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Mail_UserSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_DashBoards
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_DefaultUserSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_UserSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_UserWidgetPlacements
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_WidgetCategories
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_WidgetFixedPlacements
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_WidgetPlacements
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Main_Widgets
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Messenger_Rooms
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Messenger_RoomUsers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_AttachmentNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_Comments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_Group
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_GroupNoteUser
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_HistoryGCM
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_List
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Note_Share
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Notece_Menu
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Notice_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Notice_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Notice_Menu
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeAttachments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeComments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeContentImgs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeOptions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeReferences
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Notices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticesSyn
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_Attachments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_Comments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_ContentImgs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_Reference
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_References
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_Type
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NoticeSyn_ViewedLogs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFAAuthUsers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFABusiNegativeInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFABusinessInfo_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFAClaimInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFACompanyBns
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFACompanyInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFACompanyStaff
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFADeliverInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFADetailItem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFAFileInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFARefMailAttachedSeq
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_NSFARefMailSeq
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Organization_BelongToDepartment
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Organization_CommonGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Organization_PersonalGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Organization_SortingEachDepartment
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_PersonalGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_PersonalGroupUser
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Positions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ProposalCommonClass
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ProposalCommonCode
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ProposalUserApproval_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_QuickLink
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_RegularWorkGroupDivisions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_RegularWorkGroupHistorys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_RegularWorkGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_RegularWorkJournalDivisions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_RegularWorkJournals
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ReqularWorkGroupsCSCSync
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Schedule_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Schedule_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Schedule_Notifications
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleAlarmSetting
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleCalendarGoogle
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleCalendars
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleCalendarSetup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleCalendarsOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleCalendarType
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleContentsGoogle
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleContentsHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleContentsHistorys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleContentsOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleContentUpdateds
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdayGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdayHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdayRepeat
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdaysDelete
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleDdaysTag
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleGoogleContents
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleHoliday
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleNotifications
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleOptions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceAlarmSetting
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceAndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceCategories
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceIOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceNotifications
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceReservations
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceReservationsHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceReservationsRevision
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResources
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourcesBuyGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleResourceSetup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Schedules
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleToDoGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleToDoGroupsOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleToDos
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleToDosHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleToDosOutlook
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleTypes
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_ScheduleUserSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SMSAuth
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SMSErrorMessage
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SMSFavoritesText
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SMSOption
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsAttachs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsGroupUsers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsIssues
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsMessageChk
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsMessages
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsReplyChk
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SnsReplys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_Company
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_CompanyHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_DatabaseHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_Project
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_ProjectHistory
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SourceControl_ProjectOwner
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyAttachments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyComments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyDetail_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyExample_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyList
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyPoll_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyPollEtcComments
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_SurveyReferences
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Table_1
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMBusinessInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMBusinessInfoFile
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCalendarColor
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCollectMoneyMaster
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCommonClass
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCommonCode
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCompanyInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMCompanyStaff
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMContractInfo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMHoliday
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMOptions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TCMUserOptions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TimeLine_Main
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_TPRWkYyEmpDays
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Users
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_VOTEItem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_VOTEMaster
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_VOTEResult
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_VOTESettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_VOTESubItem
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WCHATContents
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WCHATMembers
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WCHATRooms
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WebService_GCMRegistration
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXBoxSet
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXCountryList
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXFilter
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXOption
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXUserGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WFAXUserGroupOrgSet
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkDivisions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkGroupHistorys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkGroups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkHistorys
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_AllowDevice
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_AndroidDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_BeaconPoints
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_DisplayPaths
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_IOSDevices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_Locations_Office
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_Logs
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_RequestCorrectionTime
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_SettingGroup
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_SetupOther_No
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_Times
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTime_Times_v2
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTimeDefaultNotices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTimeLocation_LocationNo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTimeMessages
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTimeNotices
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkingTimeSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkJournalDivisions
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkJournals
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_Works
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkToDo_FilesOfToDo
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkToDo_Groups
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkToDo_Journals
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkToDo_ToDoList
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkToDo_ToDoTypes
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.PK_WorkUserSettings
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.TPK_TCACompany
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.TPK_TCOMCalendarHoliday
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.TPK_TDAEmpIn
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.TPK_TPRWkAbsEmp
+-- OBJECT PRIMARY_KEY_CONSTRAINT public/dbo.TPK_TPRWkAbsEmp_taekyung
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.AddWorkingDayTimes
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.ChangeTimeOffset
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.COMNGetDepartName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.COMNGetParentDepartName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.COMNGetUserName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.ConverToUtcTime
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.ConvertWorkingTimeWorkToTime
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.CrewChat_GetChatRoomTitle
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.CrewChat_GetChatRoomUnreadCount
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.CrewChat_GetNotifyUserChatRoom
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.CrewChat_GetOneUserChatRoom
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.DictanceKM
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.DMakeGetClassNo
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.DMakeSearchText
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.Drive_CountFiles
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.Drive_GetLength
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.Drive_GetPath
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPAuthChk
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPAuthorityNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPFCulture
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPFileyn
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetAlarmMessage
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetDocBoxPath
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetFormCode
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetFormNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetGrdNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetHistoryPrintCnt
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetHistoryUserDepart
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetLastManageDate
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetLastManager
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetMenuAuthCheck
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetOperationSender
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetOrganNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetPosNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetReceiveDepartUser
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetReceiveViewCount
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetRepresenter
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetShortenName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPGetUserNm
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EAPPReceiptCheck
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMS_GetParentID
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSAuthChk
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSAuthReturn
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSAuthTotalChk
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSFileyn
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSGetAuthorityLevelContents
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSGetFolderList
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSGetFolderList2
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSGetStoreFolder
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSReturnEACode
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.EDMSRETURNSerial
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.fn_diagramobjects
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.fn_GetDepartmentName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.fn_GetUserName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.func_DateFromParts
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.fVietnameseAccentFilters
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.GetDepartMentTop
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.notice_CountReadByUser
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.notice_isview
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.notice_viewusercnt
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.Organization_Departments_GetPath
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.udf_StripHTML
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_CalTimeLateIgnoreTimezone
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_ContactsDetail
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_ContactsDetailExcel
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_DepartmentBranchName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_DepartmentName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_DepartmentName_EN
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_DutyNo
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_PositionName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_PositionName_EN
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_PositionNo
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UF_RegularExText
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.UNICODE_CNT
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WFAXGetFaxBoxTopCd
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.Work_UserNo
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTime_CalculatorTimeWork
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.workingTime_CountNocheck
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.workingTime_CountNocheck2
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTime_GetCompanyName
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTime_TimeWorkForUser_Funtion
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTime_TimeWorkForUser_Funtion_v2
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTimeWorks
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTimeWorks_CheckIn_Lunch
+-- OBJECT SQL_SCALAR_FUNCTION public/dbo.WorkingTimeWorksAddLunch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_DeleteAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetAccessInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetAccessKey
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetAllForms
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetApproximateDocuments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetAttachments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetDocumentCounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetDocumentInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetDocuments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetForm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetFormCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetFormInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetForms
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_GetUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertAccessKey
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertApprover
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertForm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_InsertUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_UpdateDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_UpdateDocumentInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_UpdateDocumentState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Approval_UpdateForm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_DeleteModuleAccessrestriction
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_DeleteModulePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetCustomOrgPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetCustomOrgPermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetModuleAccessrestriction
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetModulePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetSitePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_GetSitePermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_InsertModuleAccessrestriction
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_InsertModulePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_ListModuleAccessrestriction
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_ListModulePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_UpdateCustomOrgPermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Authority_UpdateSitePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_Authority_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_Board_MaxSortNo_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CheckAllowByItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CheckPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CheckPermissionByContentNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_ConvertBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CountBoardInFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CountContentInBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_CountFolderInFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteCommentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteFileByContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteMultiBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteNewBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DeleteShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownBoardByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownFolderByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownMultilWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownMultiWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_DownWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_Folder_MaxSortNo_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllBoardContents
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllBoardContentsByBoardList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllowByItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllowByItemType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAllowByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAndroidDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetAndroidDeviceOfUsersByDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetApprovalDoc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetApprovalFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardCommunityWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardContentInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardContents
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoardContents_BK20181227
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoards
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoards_BK
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetBoards_Improved
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetCommentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetCompanyList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetConfig
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetContentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetCurrentManagerList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetDepartAndPositionName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetFolderByFolderNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetFolderByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetHeads
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetIOSDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetIOSDeviceOfUsersByDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContent_BK
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContent_Search
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContentByFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContentSearch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListBoardContentToExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListCommentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListConvertUrlFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListNoticePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListUserPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetListUserPermissionToExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetMaxSortOfTree
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetMultiWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetNewBoardContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetNewBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetOpenFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetPreNextContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetRecommendCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetRecommendedLogByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetRecommendedLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetRecommendLogCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReplies
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReplyByContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReplyFileByContentNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReplyFileByReplyFileNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetReplyFileByReplyNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetSettingCommunityWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetStatusApprovalPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetSubMenus
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTeamList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTeamName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTreeBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTreeSubMenu
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTreeSubMenu_V2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTreeSubMenu_V2_Json
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetTreeSubMenuTest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetUserByShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetViewedLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_GetWidgetCarousel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertBoardContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertCommentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertMultiBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertNewBoardWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertRecommendedLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertReplyFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_InsertViewedLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_Mobile_Search
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_SetAllHistoryFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_SetContentSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_SetFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_SetHistoryFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_SetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_TreeBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpBoardByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateApprovalDoc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_Content
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_EnabledForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_IsNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_TitleEffect
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardContent_Viewed
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateBoardCustorm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateConfig
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateLevelRand
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateNoticePermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdatePermissionsByParent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateRecommendPublic
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateSpecType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpdateStatusApproval
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpFolderByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpMultiWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UpWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_UserCollection_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Board_Web_Search
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_AuthReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_CmtDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_CmtEdit
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_CmtMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_Del
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_DFileMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetAuth
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetCmonOrgan
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetCmt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetCmtInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetCmtInfo_DepartNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDeptCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDeptDWLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDeptLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDeptUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDiaryLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetDWLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetOrgLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetOrgLog_Depth
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetOrgLog_Excel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetOrgLogYYYY
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetOrgs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetRead
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetSchmLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetUserInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_GetWLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_Loworg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_LoworgCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_MainList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_Mod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_ODFileMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_ODFileYYYYMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_Org
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_OrgLogDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_OrgLogMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_OrgLogYYYYDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_OrgLogYYYYMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_ReaderMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthUserCk
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthUserCnt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpAuthUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_SpList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_WDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLG_WMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.BSLGGetOrgLog_Depth
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Board_GetAndroidDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Board_GetIOSDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteAllNotificationData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteExclusionUsersForIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteExclusionUsersForOTP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteHolidayGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteHolidayGroupOfDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteHolidayGroupOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteIPFilterForApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteMobileSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteMobileSessionInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteNotificationData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteNotificationService_Connectionkey
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteNotify
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteNotifyMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeletePCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteQuickFunctions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteSessionInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DeleteSessionUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_DelMobileDevicesAccessrestrictions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetAccessLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetAccessLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetAllOfHolidays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetApplications
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetAuthUserInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetBizSoftNotify
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetBizSoftNotifyMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCompanyInformation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCompanyInformationToList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCompanyLicenceInformation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCompanyLicenceInformationList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCrewChatNotificationList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetCrewChatNotificationUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetDepart_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetExclusionUsersForIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetExclusionUsersForOTP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetHolidayForSaturdayAndSunday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetHolidayGroupNoByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetHolidayGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetHolidays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetHRWorksLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetIPFilters
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetIPFiltersForApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetLicence
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetLicenceList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetLoginLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileApplications
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileDevicesAccessrestrictions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileDevicesAccessrestrictions_moduleName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileDevicesAccessrestrictions_UserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetMobileSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetModule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetModules
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetNotificationData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetOTPNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetPCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetPhoneTokens
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetQuickFunctions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetService_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetService_NotificationService_AlarmDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetService_NotificationService_AlarmDetail_Execution
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetSessionInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUserALL_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUserFailedLoginCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUserFailedLoginList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUserNo_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUserNo_NotificationService_Row
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GetUsersAndDepartmentsOfHolidayGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GoogleOTP_Delete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GoogleOTP_Insert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GoogleOTP_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_GoogleOTP_Select_List
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertAccessLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertCompanyInformation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertCompanyLicenceInformation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertCrewChatNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertExclusionUsersForIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertExclusionUsersForOTP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertFailedLoginLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertHolidayGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertIPFilterForApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertLicence
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertLoginLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertMobileDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertMobileDevice_All
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertMobileDevicesAccessrestrictions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertMobileSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertMobileSession_All
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertNotificationData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertNotificationService_AlarmDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertNotificationService_AlarmDetail_Execution
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertNotificationService_AlarmDetail_User
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertOpenAI
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertOTPNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertPCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertPCSession_All
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertPhoneTokens
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_InsertQuickFunction
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Notice_GetAndroidDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Notice_GetIOSDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Schedule_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Schedule_GetAndroidDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Schedule_GetIOSDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_ScheduleResource_GetAndroidDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_ScheduleResource_GetIOSDevice_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_SetSessionInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_Update_State_Service_NotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateApplication_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateApplication_Status
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateCompanyInformation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateHolidayForSaturdayAndSunday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateHolidayGroup_Title
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateHolidayGroupOfDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateHolidayGroupOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateIPFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateIPFilter_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateIPFilterForApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateIPFilterForApplication_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateLicence_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateMobileDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateMobileDevicesAccessrestrictions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Center_UpdateUserFailedLogin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contact_CheckInsertGroupDefault
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contact_GetGroupDefaultByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contact_InsertShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_ChangeGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_ChangePublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_ChangeShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CheckExitGroupAndContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CheckGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CheckNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.contacts_countgroupcountchild
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CountGroupUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CountUserPublicWithoutGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_CountUserShareWithoutGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DelAllContactsTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DelContactsGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DelContactsShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DelContactsUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteAddressAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteAllGroupByUserSeq
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteBackupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeletePublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DeleteShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DownPublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_DownShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_FinAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_FindNoNameUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_FindUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAddressInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAddressNotUpdateCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllAddress
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllCompany
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllContactsList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllEmail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllGroupsRestore
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllGroupUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllHomepage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllListGroupContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllSns
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllUser_Distinct
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetAllUserNotRequite
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetBackupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetBackupInfoOnce
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetCheckGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactsForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactsGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactsList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetContactsTrashList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetCountChildUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetDefaultBoxCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetDefaultCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetDepartmentBoxCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetDupeList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetGroupBySeq
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetGroupByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetGroupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetGroupList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetHistoryList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetHistoryListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetLatitudeAndLongitudeContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetLatitudeAndLongitudeOneContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetLikeList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetListGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetListGroupWithId
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetLocationOneContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetLocations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetNameGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOneAddress
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOneRowChildGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOutFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOutFileExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOutList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOutListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetOutListExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetPrivateBoxCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetPublicBoxCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetPublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetRankList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetRankListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetShareDepartmentDefault
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetShareGroupByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetShareGroupSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetTopCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetTrashCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetTrashUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Address
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Company
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Days
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Department
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Email
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_GroupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Homepage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Noname
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Number
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_PhoneInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_Share
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_SNS
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_ToGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_ToGroupMobile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_ToUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUser_UnGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserByPublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserByShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserDataHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserGroupByLanguage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserGroupByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserGroupMobi
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_GetUserNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertBackupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertContactForOutlookEntryID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertContactForOutlookFolderEntryID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertListGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertListGroupContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertPublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_InsertUserForExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_ListGroupContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_MoveAllContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_MoveContactGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_MoveUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_ParentGroupNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_RestoreContactList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveAddressInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveAddressInfo_Web
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveArrange
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveArrangeLike
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveContactsForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveContactsHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveGroupForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveRestore
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SaveSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_Search_NoDistance
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SearchMobi
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SeqToName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetAddress
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetCallPhone
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetCompany
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetContactsGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetContactsRestore
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetContactsTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetContactsUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetEmail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetMoveContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetNumber
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetSns
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_SetUserCheckDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateContactGroupUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateContactImportant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpDateContactsUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateDepartAllowAccess
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateGroupMemo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateGroupParent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateGroupState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateListGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateListGroupContact
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdatePublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdatePublicGroupUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateShareGroupUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateSortDownOfGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateSortUpOfGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateUserInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpdateUserState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpPublicGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Contacts_UpShareGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.ContactsAddress_InsertAddressLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Crew_InsertNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_AllImageAttachFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_CreateGroupChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_CreateMyChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_CreateNotifyUserChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_CreateOneUserChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_CreateSubjectGroupChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteAttachFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteChatUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteCheckMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteFavoriteChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteFavoriteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteFavoriteUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteMessageChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeleteNoUseChatRooms
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_DeletePCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAllAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAllChatRoomUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAllIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAllMessageUnreadCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAllUserProfile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAttachFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAttachFileList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAttachFileList_ToAttachNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAttachFileListChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetAttachFileToBeforeDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatAllMessageRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatAllMessages
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageBefore
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageBeforeAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageBeforeTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageFirst
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageFirstTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageNewTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessageOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatMessages
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomAndUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomInfo_My
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomStartEndMessageNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomUserListUnreadCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetChatRoomUserNoList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetCheckMessageUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetClientVersion
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetFavotiteChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetFavotiteGroupAndData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetFavotiteGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetFavotiteTopGroupData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetFavotiteUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetGroupWare_BadgeCount_ForV8
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetMessageToAttachFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetMessageUnreadCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetMessageUnreadCountToDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetPCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetPCSessionUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetSearchChatMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetUserProfile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_GetVersion
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertAttachChatMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertAttachChatMessageToDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertAttachFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertAttachFileData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertChatMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertChatMessageToDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertChatUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertFavoriteChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertFavoriteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertFavoriteUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertPCDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_InsertPCSession
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateChatRoomInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateChatRoomNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateFavoriteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateOptionAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateOptionIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateUnreadCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateUnreadCountToDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateUserProfile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateUserProfileVersion
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.CrewChat_UpdateUserStateType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCompletedRecord
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCompletedRecords
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCountOfAppBadge
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCountOfAppBadgeOfSpecificUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCoveredDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteCoveredDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteDirector
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteExcludedSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteManagers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Dday_DeleteNotificationByDayNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteNotificationFromDDayNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_DeleteSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetAllOfDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetAndroidDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetCompletedRecordsForDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetCountOfAppBadge
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetCoveredDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetIOSDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Dday_GetNotificationDayList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetNotifications
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_GetUserShareByDayNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertCompletedRecord
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertCountOfAppBadge
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertCoveredDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertDirector
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertExcludedSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertManagers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_InsertSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Dday_LocationHost
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateGroupNoOfDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateNameOfGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DDay_UpdateTagNoOfGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DeleteFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.DeleteFileByContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_CountFileFromForderNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteAllOfSharingForCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteAllOfSharingForFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteFileTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteFolderTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeletePermissionCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteSharingForCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteSharingForFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_DeleteTrashByFolderNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetAllFileCommons
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetAllFileMys
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetAllFileReciveds
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetAllFileShareds
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetAllTopCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetChildFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetChildFolders2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetClientVersion
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetCommonFolderLength
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetDownloadingLogsForFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetDownloadingLogsForFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFileFromFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFolderLength
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetFoldersAndFilesFromTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetMyDriveFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetPemissionCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetPemissionCommonFoldersByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetReceivedFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetSharedFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetSharingForCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetSharingForFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetTopCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetTrashItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetUserConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_GetUserConfigurationForSpecified
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertDownloadingLogForFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertDownloadingLogForFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertFile2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertPemissionCommonFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertSharingForCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertSharingForFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertTrash
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_InsertUserConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveDown
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveDownCommon
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveUp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_MoveUpCommon
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_SaveFileNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_SaveFolderNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_UpdateCommonFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_UpdateFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_UpdateFile2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_UpdateFolder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Drive_UpdateUserConfiguration
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_UpdateCompleteDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPP_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPPCancelManage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EappDocument_Insert_GetDocId
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EappDocument_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPPProgressOpionUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAPPSetFormErp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsForm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsGapType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsListDetail_Select
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsRegType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsRegTypeList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EAStatisticsUserTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDdocumentDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_DeleteDocumentPermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_DeleteDocumentTags
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_EDMSGetAdminByUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetChildFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocListForWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocTitle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocumentPermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocuments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetDocumentTags
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetEdmsUserOrgcdList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetGroupNM
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetPublicLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetPublicLevels
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetSecurityLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetSecurityLevels
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetStorageData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetTags
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetTreeItemDesc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_GetUsersForDepart
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_InsertDocument
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_InsertDocumentPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_InsertDocumentTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMS_SetTreeItemDesc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSComentDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSComentInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSComentList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSComentUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDoc_Saup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocInsert2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocInsert3
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocInsertFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocumentDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocumentDiscard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocumentExpand
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocumnetCheckout
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSDocUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSEssentialINSERT
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSEssentialSELECT
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSEssentialUPDATE
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetAdmin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetAdminList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetAuthority
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetDocumentView
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetPopuplistSelect
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGETTRANSFERFILE
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSGetVersionList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSReturnDoc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSelectTreeName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSelectTreeNameByEDMSID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSerialSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSerialSetting2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSetAdmin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSetAdminList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSetHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSSetTransferFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSStateDiscard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTRAN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTran_EAFILETran
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeAuthorityCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeAuthorityInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeAuthorityList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeDocumentChange
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemChange
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemInsert2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemList2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemSameDepthList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSTreeItemSortChange
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSUSERLIST
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.EDMSUSERSetAuthorityLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.ERPRSetGetTmpDoc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.FormBuilder_GetForm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.FormBuilder_GetTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.FormBuilder_SetEditor
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.FormBuilder_SetTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.GetHQUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.GWWkYyEmpDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.HRWork_Organization_InsertUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.HRWork_Organization_UpdateUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrate_GetPreNext
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_DeleteComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_DeleteFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_Deletes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_DeleteTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetAllMultiTable
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetIntegratedDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetIntegratedDetailMultiTable
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetListWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetReplies
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetSearchMultiTable
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetSetTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetTreeItemById
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetTreeItemList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_GetTreeItemName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_Insert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_InsertComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_InsertFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_InsertView
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_IsSetTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_SetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_SetUseYnTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_TreeItemInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_UnIsSetTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_UpdateImportant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Integrated_UpdateTreeItem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Log_GetUserAccessLogList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Log_InsertAccessLogData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_CleanupCountOfMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_CleanupCountOfMailBoxs_UserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_CMSend_Update_RD
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteBccSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMail_AccNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMail_ForMailBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailAccount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailBoxSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteMailTemplateCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteSharedAccounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_DeleteSharedComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetBccSetting_Count
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetCMSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetCMSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetDefaultMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetEnabledMailSigns
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetFrequentlyUsedAddresses
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetLargeFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetLargeFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailAccount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailAccounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBccUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBccUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBccUserMailAddress
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailBoxSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailEmlFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailFilterCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailFilters
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailNos_ByTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailNos_ForBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails__2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_Back
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ByTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ByTag_ForMobile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ByTag_ForScrollPaging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ByTag_Shared
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ForBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ForMobile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ForNos
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ForScrollPaging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_ForShareMailBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_Search
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMails_Shared
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailSharedAccounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailSigns
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailTags
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailTemplateCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetMailTemplates
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetPrevAndNextMails
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetReceivedDailyStatistic
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetReceivedMonthlyStatistic
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetRecentFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSentLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSentLogs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetServer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetServers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSharedAccounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSharedAccounts_SharedUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSharedComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetSharedReference
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetShareMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetUserSetting_Default
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetUserSetting_OpenMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetUserSetting_UseSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_GetUserSettings_BoxSize
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertBccSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertDefaultSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertFrequentlyUsedAddresses
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertLargeFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailAccount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailBoxSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailTemplateCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertMailUpload
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertNewAccount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertNewReceivedMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertRecentFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertSentLog
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertSentMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertSentMail2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertSharedAccounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_InsertSharedComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_POP3_ReadCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_ReadSharedReference
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateCMSetting_AutoMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateCMSetting_AutoYN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateCMSetting_Forward
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_BoxNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_CMSendNum
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_Content
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_ForMailBox_BoxNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_ForMailBox_ReadDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_Important
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_ReadDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_ReserveDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMail_TagNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailAccount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailAccount_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailAccount_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailAccount_Password
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailBox_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailBox_ParentNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailBox_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailFilter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailFilter_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailSign_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailTag_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailTemplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailTemplate_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateMailTemplateCategory_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateSentLog_ForMail_IsCancel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateSentLog_IsCancel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateSentLog_ReadDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateSharedComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateUserSetting_Default
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateUserSetting_MailBoxSize
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateUserSetting_OpenMailBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Mail_UpdateUserSetting_UseSign
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteDashBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteInitialWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteUserWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_DeleteWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetDashBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetDashBoards
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetDefaultUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetInitialWidgetPlacements
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetUserWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetUserWidgetPlacements
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetWidgetCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetWidgetPlacements
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_GetWidgets
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InitialWidgetPlacements_DefaultSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertDashBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertDefaultUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertInitialWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertUserWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_InsertWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateDashBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateDefaultUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateInitialWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateUserSetting_DashBoardDisplayOrder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateUserSetting_IsDashBoardChangeNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateUserSettings_FirstProjectCode
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateUserWidgetPlacement_Position
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Main_UpdateWidgetPlacement
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Menu_GetBadgeCount_Module
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Menu_GetBadgeCount_User
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Menu_UpdateBadgeCount_Module
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddAndUpdateComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddAndUpdateGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddAndUpdateList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddAndUpdateListNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddAndUpdateShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddGroupDefault
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AddHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AndAndUpdateAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AttachmentUpdateDayEdit
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_AttachmentUpdateFileName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteEmptyCommment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteSharesDepartNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteSharesFalse
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeleteSharesUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeteteShareWithNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_DeteteShareWithNoteUserShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAllNoteOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAllNoteOfUser_Total
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAttachmentAndShareForListNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAttactmentAndShareForListNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetAvatarForNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetComments_ListNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetComments_ListNo_Counts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetComments_Reply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetComments_Reply_Counts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetGroupOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListNoteOfGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListNoteOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListNoteOfUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListNotesMaps
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListNotesMaps_Total
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListShare_OwnerNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetListShares
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetLocatedNotes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetLocatedNotes_Total
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetNoteList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetNoteListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetNoteListNotReadCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetReceiveUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetSingleAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetSingleGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetSingleList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetSingleNotesMaps
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetSingleShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_GetUserWithDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_InsertSharesDepartNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_InsertSharesUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetAllOfNotes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetAllOfNotes_OnlyDateChanged
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetAttachments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetGroups_OnlyDateChanged
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetSpecifiedGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LGetSpecifiedNotes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LInsertSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LUpdateAvatarAttachment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LUpdateDateReadOfNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_LUpdateRepresentative
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_MoveNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SearchNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SendCancel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SendNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SetFavoriteType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SetRead
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SetReadNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_SetReadOwnNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateDisableNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateForShareNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateMultiGroupForNote
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Note_UpdateReadComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_AddAndroidOt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_AddIOSOt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_AddOrg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_AddWidgetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_AndroidDeviceGetListByTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_CheckView
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DeleteNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DelOrg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DelWidgetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_DownDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_EndDateForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAllAdmin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAllCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAndroidDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAndroidDeviceOfUsersByDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetAttachInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetCommentById
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetCurrentManagerList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetDivisionsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetIOSDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetIOSDeviceOfUsersByDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNoticeCols
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNoticeDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNotices_Search
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNoticeSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNoticeTrashs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetNoticeWgs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetPermissionForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetPermissionForUser2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_getperOrgs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetPopups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetPreNextNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetReferenceNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetUnreadNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_GetUserPermissions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertUpdateComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_InsertViewNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_IOSDeviceGetListByTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_DeleteCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_GetContentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_GetListOfNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_GetListOfReference
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_InsertCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_Mobile_UpdateCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_MoveDown
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_MoveUp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_RestoreNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SaveNoticeSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SaveReferences
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetDateNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetEndDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetNoticeCols
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_SetUserPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_ShifDeleteNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateDivisionSort
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateImportant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpdateNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Notice_UpDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_AddWidgetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DeleteNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DelWidgetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_DownDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetAllAdmin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetAndroidDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetAttachInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetCountDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetCurrentManagerList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetDepartments_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetIOSDeviceOfAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetListUserByDepartmentNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetListView
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetNoticeSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetPermission
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetPreNextNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetPrevNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetReferenceNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_GetUserByDepartNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertContentImg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_InsertViewNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_DeleteCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_GetContentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_GetListOfNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_GetListOfReference
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_InsertCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_Mobile_UpdateCommentNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_SaveNoticeSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_SetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_SetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_SetShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_SetShareUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateCurrentManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateImportant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.NoticeSyn_UpdateNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_DeleteBelongToDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_DeleteCommonGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_DeletePersonalGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_DeleteSortingEachDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_Get_Scalar_UserAddfields
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers_Mailplug
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers_ToSearch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers_ToSearch_Field_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsers_ToSearch_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsersWithBelongs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsersWithBelongs_CrewChat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetAllUsersWithBelongs_Mod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetBelongUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetCommonGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetCommonGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetComposeUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetCountOfSortingEachDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetCustomOrgUsers_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartmentNameByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartmentNameByUserWoori
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartments_Mod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDepartmentsViewHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDuties
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetDuty
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetInfoAddfield
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetInfoAddfield_Sub
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetInfoAddfield_UserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetListDepartmentsDepartByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetPersonalGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetPersonalGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetPosition
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetPositions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUser_Belong
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUser_CrewChat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUser_TimeZone
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUserAddfields
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersByDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersByDepartment_CrewChat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersByDepartment_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersByPosition
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersByPosition_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersOfCommonGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersOfDepartmentAndIncludeChild
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersOfDepartmentAndIncludeChild_Paging
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_GetUsersOfPersonalGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertBelongToDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertCommonGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertDuty
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertFirstManager
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertInfoAddfield
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertInfoAddfield_Sub
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertPersonalGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertPosition
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertSortingEachDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_InsertUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_Update_Addfields
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateBelongToDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateCommonGroup_ListOfUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateCommonGroup_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateCommonGroup_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Name_CH
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Name_EN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Name_JP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Name_VN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_Names
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_ParentNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_ShortName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartment_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartmentEnabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDepartmentName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Name_CH
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Name_EN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Name_JP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_Name_VN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateDuty_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateInfoAddfield
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateInfoAddfield_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateInfoAddfield_Sub
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePersonalGroup_ListOfUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePersonalGroup_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePersonalGroup_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Name_CH
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Name_EN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Name_JP
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_Name_VN
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdatePosition_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateUser_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateUser_Password
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateUser_Personal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Organization_UpdateUser_Photo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.OrganizationCrewChat_RoomNo_UserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Permission_GetMenuPermissionLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Permission_GetPermissionLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Permission_GetUserMenuList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Permission_InsertPermissionLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Permission_UpdatePermissionLevel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_CheckPassword
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_DeleteDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_DeleteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetDuties
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetGroupList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetGroupListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetGroupOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetMyDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_GetPosition
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_SaveDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_SaveGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_SavePassword
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Personal_UpdateUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDAllSelect
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDCmtDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDCmtInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDCmtUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDCountAllBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDFileDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDFileInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDFileUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDGetCmtByParentID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDGetFilesByParentID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDGetPrevNextBoard
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDHitUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDKeySelect
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDLogDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDLogInsert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDLogUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDSearch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDSearchByTitle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.PHOTOBOARDUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.QuickLink_AddNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.QuickLink_ChangeOrder
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.QuickLink_Delete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.QuickLink_GetData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.QuickLink_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Recover_Deleted_Data_Proc
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_ActiveCalendars
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_AddAndroidOt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_AddIOSOt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_AddNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_AddNotificationServiceAlarmDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_AndroidDeviceGetListByTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_CheckActiveCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteCalendarDefaultSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteCalendarPermision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteCalendarSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteContentsGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaysAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaysGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaySharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaysOrRepeart
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaysOver
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDdaysRepeatAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteDivisionCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResource
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceDispose
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceParticipants
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceRepair
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteResourceReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteSchedule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteScheduleContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteScheduleSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDoForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDoGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDos
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDosAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDosComplete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DeleteToDoSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DelToken
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_DelUdScheduleUd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetAlarmSettingByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetAndroidDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetAttachInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarByCalendarType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarByCalendarTypeAndShare
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarDefaultSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarPermision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarPermisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendars
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarSearchs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarSearchsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarsGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetCalendarStatsSum
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetChildDeparts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetConfig
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdayCounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdayGroupCounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdayGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdayRepeartComplate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdayRepeartComplateForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaySharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfMonth
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfMonth_New
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfMonth_NewRepeat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfMonth_Repeat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfMonthWidget
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfPeriod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysOfRepeat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDdaysTags
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDivisionById
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetDivisionList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetGoogleContents
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetHolidays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetHolidaySetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetMyReservationOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetNotifications
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetNotificationType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationForMeLeftCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationLeftCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMe
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMe2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMeByReservationNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMeCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMeCount2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetReservationsForMeCount21
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResevationByNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceAlarmSettingByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceBuyGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceBuyGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceBuyGroupsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceChildDeparts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceDisposeCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceDisposeDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceDisposeForHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceDisposes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceDisposesCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceForUseDetailList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceForUseDetailListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceForUseList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceForUseListCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceIsAdmin
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceNotificationType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceParticipants
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceRepairCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceRepairDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceRepairForHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceRepairs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceRepairsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceReservations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResources
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesEnabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourceSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesForBuyGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesForBuyGroupCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesForCategory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesForCategoryCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesSearch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetResourcesSearchCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSchedule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleCycless
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleNotificationByScheduleNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleReport
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleReportAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleResourceNotificationByResourceNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSchedules
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSchedulesContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSchedulesDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSchedulesForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleTypes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetScheduleUds
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetSharerByCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDoCounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDoGroupCounts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDoGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDos
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDosForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDoSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToDosOfPeriod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetToken
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetViewCalendars
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetViewCalendarsAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_GetViewCalendarSubOpen
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertCalendarDefaultSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertCalendarPermision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertCalendarSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertContentsHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDdayGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDdaySharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDdaysHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDdaysRepeat
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertGoogleCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InserToken
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertReservationRivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResource
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceBuyGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceDispose
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceParticipants
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceRepair
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertResourceReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertSchedule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertScheduleContacts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertScheduleForOutlookEntryID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertScheduleSharer
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertScheduleUd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertToDoForOutlookEntryID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertToDoGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertToDoSharers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertToDosHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertUpdateResourceNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertUpdateScheduleNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_InsertViewCalendars
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_IOSDeviceGetListByTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.schedule_movecontentCoppy
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveDday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveScheduleDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveScheduleDateTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_MoveTodo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_NotificationSetTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_OnGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_Removegroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_RemoveResourceAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveCalendarsGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveCalendarsGoogleEntry
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveCalendarsOutlookEntry
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveCalerndarSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveCalerndarSetupStartWeek
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveDdaysTag
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveHolidaySetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveResourceSetup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveScheduleForGoogle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveScheduleForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SaveToDoForOutlook
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SetComment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SetDefaultCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_SetFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateCalendar
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateCalendarColor
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateCalendarWriter
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDdayComplete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDdayComplete_
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDdayGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDdaysForGroupNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateDivision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateNotification
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResource
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceBuyGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceCategories
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceNotificationService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceRepairStatus
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateResourceReservation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateSchedule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateScheduleStartUd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateScheduleUd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToDoGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToDosForGroupNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToDosForImportant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToDosForIsComplete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateToken
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateViewCalendars
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateViewCalendarsAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateViewCalendarsForDday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateViewCalendarsForToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateViewCalendarSubOpen
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Schedule_UpdateWorkToDoIsComplete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_DeleteIssue
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_DeleteMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_DeleteReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_FindGetMessages
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetBirthdayUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetFreeTalkInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetGroupInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetGroupTopIssue
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetGroupUserInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetGroupUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetInviteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetIssueCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetLastestMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetLastestMessageData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetMessageData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetMessages
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetMyTalkMessageData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetMyTalkMsgCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetNewsList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetPeopleList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetReplys
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetShareCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetUserDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetUserInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetUserListToGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_GetUserListToUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_InsertGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_InsertIssue
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_InsertMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_InsertReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateGroupBookmark
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateInviteGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateMessageChk
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Sns_UpdateReply
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.SourceControl_CompleteSource
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.SourceControl_GetCompanies
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.SourceControl_GetSourceControlByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_alterdiagram
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_creatediagram
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_dropdiagram
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_helpdiagramdefinition
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_helpdiagrams
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_renamediagram
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.sp_upgraddiagrams
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Statistics_GetAccessByApplicationAndUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Statistics_GetAccessByMonthAndApplication
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Statistics_GetLoginCountByDayAndUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Strategic_GetFolders
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Strategic_GetPreNextContent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TimeLine_AddNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TimeLine_GetAllData
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_Delete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_GetCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_Insert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_SelectAll
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_SelectOne
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_SelectPage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.TradeMark_Article_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Update_Addfields
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.User_GetAllUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.User_GetDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.User_GetDepartments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.User_GetUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.User_GetUsersOfDepartment
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_Add
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AddAllRequestEp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AddEpDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AddRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AddRequestEp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AddType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_AplyRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_CancelRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_CancelRequest2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_DelRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_DelRequestEp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_DelType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_Departements
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_EappAdd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_EappDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_EappUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetEpDetails
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequestBewteens
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequestByDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequestEpByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequests
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequests2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetRequestSearchs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetSetups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetSumVacations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetTotalVa
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetTypes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_GetVacations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_MoveDown
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_MoveUp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_RequestEp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_RequestEpAdd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_RequestEpDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_RequestEpsGet
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_RequestEpUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_SaveSetups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateByExcel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateEpDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateRequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateRequestEp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateRequestEpByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_UpdateType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_VacationGetByDeparts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_VacationGetByMys
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Vacation_VacationGetDays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthMod_Depart
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthMod_DepartNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEAuthReg_Depart
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEItemDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEItemList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEItemMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEItemReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEJoinCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEJoinCnt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterConfirm
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEMasterResCnt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEQuestionnaireDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEQuestionnaireList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEQuestionnaireReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEResultList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEResultReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTESubItemDel
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTESubItemList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTESubItemMod
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTESubItemReg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.VOTEUsersList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WBLDInsertScript
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_DeleteChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_FindChatRoomList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_FindUserInitial
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_GetChatRoomAllMsgList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_GetChatRoomList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_GetChatRoomMsgInfo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_GetChatRoomNewMsg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_GetChatRoomUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_InsertChatMember
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_InsertChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_InsertChatRoomMsg
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WCHAT_OutChatRoom
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_AddHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_GCMgetListRegIDs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_GCMinsertRegID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_GCMUpdateRegID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_GetRegID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WebService_InsertHistory
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DelCooperation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DelCooperationComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteJournals
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteRegularJournals
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteRegularWorkGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteWorkFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteWorkGroupFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteWorkGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteWorkProjectFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_DeleteWorks
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAdminRegularWorkGroupDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAdminRegularWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAdminWorkDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAdminWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAllJournalsForDaily
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAllJournalsPerGroupAndUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAllJournalsPerRegularGroupAndUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAllWorkGroupCountPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetAllWorkGroupsPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCommentsUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperation_CooperationNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperationComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperationFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperationGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperationGroupsCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetCooperationUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetJournalCountForList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetJournals
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetJournalsForDaily
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetJournalsForList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularJournalCountForList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularJournalsForList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupCountPerGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupPersons
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkGroupsPerGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetRegularWorkTimesPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetToDoCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetToDos
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetUserSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetUserSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetViewCooperationUserList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWork
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkAssistants
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupAssistants
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupCount
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupCountPerGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupPersons
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkGroupsPerGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkProjectFiles
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorks
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_GetWorkTimesPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertAdminRegularWorkGroupDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertAdminRegularWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertAdminWorkDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertAdminWorkJournalDivisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertCooperation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertCooperationComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertCooperationFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertJournalForAssistant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertRegularJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertRegularWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertRegularWorkGroupFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertRegularWorkGroupPerson
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWork
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkAssistant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkGroupAssistant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkGroupFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkGroupPerson
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_InsertWorkProjectFile
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_ReadCooperation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_ReadCooperationComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkGroupDivisions_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkGroupDivisions_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkGroupDivisions_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkJournalDivisions_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkJournalDivisions_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminRegularWorkJournalDivisions_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkDivisions_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkDivisions_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkDivisions_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkJournalDivisions_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkJournalDivisions_Name
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateAdminWorkJournalDivisions_SortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateCooperation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateCooperation_Content
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateCooperationComments
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateCooperationReferenceViewBool
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateJournalForAssistant
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateRegularJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateRegularWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateWork
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateWorkGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateWorkGroupLock
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Work_UpdateWorkGroupState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ABsent
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Accept_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AcceptCalculater
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AcceptOutCalculater
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AddBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AddCalculater
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AddImageUpload
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AddSettingGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AllEmployeeLate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AllEmployeeNoCheckIn
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_AllEmployeeNoCheckOut
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ChangePassWord
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CheckExitUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CheckPassWord
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CountCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CountLate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CountLateByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CountLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_CountLocationOnly
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.workingtime_countrequest
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteAllowDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteBeaconPoint
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeleteLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelGroupPlaces
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DELLBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelLocationOutside
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelSettingGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelWorkingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelWorkingTime2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DelWorkingTimeNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_DeparAndUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EditSettingGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeDateOff
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeEdit
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeEdits
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeLate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeLates
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeNoCheckIn
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeNoCheckIns
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeNoCheckOut
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeNoOuts
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeOffVacations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeOn
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeOutsides
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_EmployeeVacation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Get_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Get_RequestCorrectionTime_Detail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Get_Status_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Get_totalPage_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAdminDepart
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAdminModule
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAlarmCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAlarmSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAllChildDepartByUID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAllDepartByUID
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetALLemployedForSort
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAllowDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAllowDevices2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAllowDevicesUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAndroidDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetAutherKey
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetBeaconPoint
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetBeaconPointByLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetBeaconPoints
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetBoxs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetCalculaterForDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetCalculaterStatusForDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetCheckOutByDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetCompany
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetDepartmentsByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetDepartNoByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetDisplayPathsForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetEmpMonthStats
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetGroupPlaces
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetHolidays
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLastBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLastStatus
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLastTimeType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLatestWorkingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetListImage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetListUserOfOffice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationCompanies
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationFormys
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutside
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutsides
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutsidesByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutsidesByUserAndDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutsidesRang
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocationOutsidesSearch
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetLocations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetMyMonthStats
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOffice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficeByLocationNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficeByWorkTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficeCountByLocationNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficeCountByWorkTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficePageByLocationNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficePageByWorkTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetOfficeUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetPreviousTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetsettingByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSettingGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSettingGroupByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSettingGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Getsetupitem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSetupOther
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSetupOthers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSetupPage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSingle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSingleNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSingleNoticeDefualt
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetSingleUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimeCheckIn
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimeCheckInOutSide
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimeReturnOutSide
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimesAllUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimesForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimesListUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetTimesPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GettypeCheck
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetUserNoAllowDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetUsersByDepartAndGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetUsersByDepartAndGroup2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetUsersSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetUsersSettings2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWeekDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingByLocationOutside
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_DefaultNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_Locations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_Notices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_NoticesType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_Settings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_Times
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTime_TimesForDaily
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeDefaultNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeLocations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeLocations2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeMessages
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeNotices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeSettings
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimesForDaily
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeWorktime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_GetWorkingTimeWorktimes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InitializeAllowDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Insert_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertAllowDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertAndroidDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertBeaconPoint
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertDisplayPath
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_InsertIOSDevice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ListDayOff
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ListEdit
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.Workingtime_ListOff
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ListOutSide
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.workingtime_listvacation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationAdd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationListAdd
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationListDelete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationListGetsingle
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LocationListUpdate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Locations_Office_Add
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Locations_Office_Delete
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_LogOutUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_MoreOffs
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_MoveDown
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_MoveUp
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.workingtime_Recal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reject_RequestTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_RemovSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Report
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportDetail
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportNews
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export3
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export4
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export5
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export6
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports_Export7
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Reports2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportsOutside
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportsOutside1
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportsOutside2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportsOutsideTotal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportsTotals
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_ReportWork
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Save_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveGroupPlaces
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveLocationOutside
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveMove
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveSettingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveSetupitem
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SaveSetupPage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetDevicesId
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetDevicesId2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SettingsDefault
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeDefaultNoticeMultilanguage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeMessage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeNoticeMultilanguage
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeService
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeWeb
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SetWorkingTimeWorktime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_SumLocations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Times_v2_Insert
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Times_v2_Update
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_TimeWorkForUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_Update_RequestCorrectionTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateAlarmSetting
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateAllowDevices
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateAndroidDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateAndroidDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateAutherKey
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateBeaconPoint
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateCalculater
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateGroupByUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateGroupPlace
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateHoliday
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateIOSDevice_NotificationOptions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateIOSDevice_TimezoneOffset
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateIsCheckIn
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateLocation_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateOther
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateSetupOther
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWeekDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorking
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorKingTimeLocation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorkingTimeNotice
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorkingTimeTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorkingTimeTime2
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_UpdateWorkingTimeTimeOffDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_WorkingTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTime_WorkingTimeBox
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV2_GetTimesPerUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV2_InsertDbFromOld
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_AddOvertime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetPermision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetPermisions
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetSumVacation
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetSumVacations
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetUnoFromUid
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetUsers
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetWsum
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_GetWsums
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_OverTime
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_OverTimes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkingTimeV3_UpdatePermision
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_DateChoiceToDoList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetFileOfToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetFilesOfToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetGroupNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetGroups
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetGroupsByState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetGroupsNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetJournals
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetJournalsByWriteDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetJournalsOfToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetJournalsOfUser
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetListAssigned
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetListByRunningDDay
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetListByState
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetReportByUserNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetToDoList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetToDoType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_GetToDoTypes
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertFileOfToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertFilesOfToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertGroup
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertGroupNew
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertJournal
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_InsertToDoType
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_SearchToDoList
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_TotalWorkingTimeByGroupNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateGroupEnabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateGroupName
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDo_ActualityEndDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDo_StartDate
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDo_State
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDoType_Enabled
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDoTypeBySortNo
+-- OBJECT SQL_STORED_PROCEDURE public/dbo.WorkToDo_UpdateToDoTypeByTitle
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Board_GetBoardAllow
+--   COLUMN BoardNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Board_GetFolderAllow
+--   COLUMN FolderNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Contacts_GetChildGroupByGroupNo
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Contacts_StringToListInt
+--   COLUMN item int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EAPPGetAuthDepart
+--   COLUMN OrgCd varchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EAPPGetCodeToTable
+--   COLUMN IDX int NULLABLE=True DEFAULT=
+--   COLUMN CODE nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EAPPGetOrganChild
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN DepartPath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EAPPParentList
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMS_GetAultAuthorityLevelByString
+--   COLUMN Authorlevel int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSClassSplitTable
+--   COLUMN Id int NULLABLE=True DEFAULT=
+--   COLUMN Contents varchar NULLABLE=True DEFAULT=
+--   COLUMN DivID varchar NULLABLE=True DEFAULT=
+--   COLUMN ORGFLAG char NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSGetCodeToTable
+--   COLUMN IDX int NULLABLE=True DEFAULT=
+--   COLUMN CODE nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSGetEappfile
+--   COLUMN ID int NULLABLE=True DEFAULT=
+--   COLUMN EDDocID int NULLABLE=True DEFAULT=
+--   COLUMN ShowName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RealName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSGetParent
+--   COLUMN ParentCd varchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSGetTreeChild
+--   COLUMN TreeID varchar NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSGetTreeParent
+--   COLUMN TreeID varchar NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.EDMSSplitTable
+--   COLUMN Id int NULLABLE=True DEFAULT=
+--   COLUMN Contents varchar NULLABLE=True DEFAULT=
+--   COLUMN ORGFLAG char NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.FN_GetChildDepartNoByDepartNo
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.fn_getchilddepartnolist
+--   COLUMN Id int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.fn_split_array
+--   COLUMN Items nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.fnStringToListInt
+--   COLUMN item int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.GetChildGroup
+--   COLUMN TreeID int NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.GetChildsDepartment
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.GetCodeToTableUNICODE
+--   COLUMN IDX int NULLABLE=True DEFAULT=
+--   COLUMN CODE nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Mail_GetMailBoxs_ForAllBox
+--   COLUMN BoxNo bigint NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.NoticeSyn_GetChildDepartNo
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Organization_GetDepartments_Reflexive
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Organization_GetDepartmentsByUser
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Organization_GetDepartmentsChildByUser
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.Organization_GetDepartmentsListByUser
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.parseJSON
+--   COLUMN element_id int NULLABLE=False DEFAULT=
+--   COLUMN sequenceNo int NULLABLE=True DEFAULT=
+--   COLUMN parent_ID int NULLABLE=True DEFAULT=
+--   COLUMN Object_ID int NULLABLE=True DEFAULT=
+--   COLUMN NAME nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StringValue nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ValueType varchar NULLABLE=False DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.SplitString
+--   COLUMN SplitItem varchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.UF_TEXT_SPLIT
+--   COLUMN POSITION int NULLABLE=False DEFAULT=
+--   COLUMN VALUE nvarchar NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.WFAXGetFaxBoxParent
+--   COLUMN FaxBoxCd varchar NULLABLE=True DEFAULT=
+--   COLUMN Level int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.WorkingTime_Get
+--   COLUMN WorkingNo int NULLABLE=True DEFAULT=
+--   COLUMN CheckTime datetimeoffset NULLABLE=True DEFAULT=
+--   COLUMN TimeType int NULLABLE=True DEFAULT=
+-- OBJECT SQL_TABLE_VALUED_FUNCTION public/dbo.WorkingTime_Get_WorkingTime_Times
+--   COLUMN WorkingNo int NULLABLE=True DEFAULT=
+--   COLUMN CheckTime datetime NULLABLE=True DEFAULT=
+--   COLUMN TimeType int NULLABLE=True DEFAULT=
+--   COLUMN TimeOffset float NULLABLE=True DEFAULT=
+-- OBJECT SQL_TRIGGER public/dbo.CrewChat_Message_Trigger
+-- OBJECT SQL_TRIGGER public/dbo.Notify_ResourceRsvn
+-- OBJECT SQL_TRIGGER public/dbo.Notify_Schedule
+-- OBJECT SQL_TRIGGER public/dbo.Notify_SnsMessages
+-- OBJECT SQL_TRIGGER public/dbo.Notify_SnsReplys
+-- OBJECT SQL_TRIGGER public/dbo.Notify_ToDo
+-- OBJECT SQL_TRIGGER public/dbo.Organization_Departments_Board_UpdatePermissionsByParent
+-- OBJECT UNIQUE_CONSTRAINT public/dbo.PK_NoticeReference
+-- OBJECT UNIQUE_CONSTRAINT public/dbo.UC_UNo
+-- OBJECT UNIQUE_CONSTRAINT public/dbo.UK_principal_name
+-- OBJECT UNIQUE_CONSTRAINT public/dbo.UQ__Schedule__17E7538274B64622
+-- OBJECT UNIQUE_CONSTRAINT public/dbo.UQ__Schedule__A89A7DB27792B2CD
+-- OBJECT USER_TABLE public/dbo._TCACompany
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN CompanyName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CompanyShortName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OrderSeq int NULLABLE=False DEFAULT=
+--   COLUMN Owner nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OwnerJpName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CompanyNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SetUpDate nchar NULLABLE=True DEFAULT=
+--   COLUMN OwnerID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CellPhone nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthStockQty int NULLABLE=True DEFAULT=
+--   COLUMN IssueStockQty int NULLABLE=True DEFAULT=
+--   COLUMN StockAmt decimal NULLABLE=True DEFAULT=
+--   COLUMN SttlMonth int NULLABLE=True DEFAULT=
+--   COLUMN CustSeq int NULLABLE=True DEFAULT=
+--   COLUMN DSNSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN BMSeq int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TCAUser
+--   COLUMN CompanySeq int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserType int NULLABLE=False DEFAULT=
+--   COLUMN UserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EmpSeq int NULLABLE=True DEFAULT=
+--   COLUMN LoginPwd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Password1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Password2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Password3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CustSeq int NULLABLE=True DEFAULT=
+--   COLUMN DeptSeq int NULLABLE=True DEFAULT=
+--   COLUMN UserSecu int NULLABLE=True DEFAULT=
+--   COLUMN LoginStatus int NULLABLE=True DEFAULT=
+--   COLUMN LoginDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PwdChgDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PassHis nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PwdMailAdder nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LoginFailCnt int NULLABLE=True DEFAULT=
+--   COLUMN PwdType nchar NULLABLE=True DEFAULT=
+--   COLUMN LoginType int NULLABLE=True DEFAULT=
+--   COLUMN ManagementType int NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN Dsn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserlimitDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LoginFailFirstTime datetime NULLABLE=True DEFAULT=
+--   COLUMN IsLayoutAdmin int NULLABLE=True DEFAULT=
+--   COLUMN IsGroupWareUser nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SMUserType int NULLABLE=True DEFAULT=
+--   COLUMN LicenseType int NULLABLE=True DEFAULT=
+--   COLUMN IsScndAuthCS nchar NULLABLE=True DEFAULT=
+--   COLUMN ScndAuthTypeCS int NULLABLE=True DEFAULT=
+--   COLUMN IsScndAuthWEB nchar NULLABLE=True DEFAULT=
+--   COLUMN ScndAuthTypeWEB int NULLABLE=True DEFAULT=
+--   COLUMN IsScndAuthMBL nchar NULLABLE=True DEFAULT=
+--   COLUMN ScndAuthTypeMBL int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TCOMCalendarHoliday
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN Solar int NULLABLE=False DEFAULT=
+--   COLUMN SMHolidayType int NULLABLE=False DEFAULT=
+--   COLUMN HolidayName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CountrySeq int NULLABLE=False DEFAULT=
+--   COLUMN IsCommon int NULLABLE=False DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=False DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=False DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TDAEmpIn
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN EmpSeq int NULLABLE=False DEFAULT=
+--   COLUMN EmpID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UMEmpType int NULLABLE=True DEFAULT=
+--   COLUMN EntDate nchar NULLABLE=True DEFAULT=
+--   COLUMN RetireDate nchar NULLABLE=True DEFAULT=
+--   COLUMN IsDisabled nchar NULLABLE=True DEFAULT=
+--   COLUMN IsForeigner nchar NULLABLE=True DEFAULT=
+--   COLUMN SMBirthType int NULLABLE=True DEFAULT=
+--   COLUMN BirthDate nchar NULLABLE=True DEFAULT=
+--   COLUMN UMNationSeq int NULLABLE=True DEFAULT=
+--   COLUMN SMSexSeq int NULLABLE=True DEFAULT=
+--   COLUMN IsMarriage nchar NULLABLE=True DEFAULT=
+--   COLUMN MarriageDate nchar NULLABLE=True DEFAULT=
+--   COLUMN UMReligionSeq int NULLABLE=True DEFAULT=
+--   COLUMN Hobby nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Speciality nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Phone nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Cellphone nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Extension nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Email nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UMEmployType int NULLABLE=True DEFAULT=
+--   COLUMN WishTask1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WishTask2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Recommender nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RcmmndrCom nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RcmmndrRank nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PrevEmpSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN Height decimal NULLABLE=True DEFAULT=
+--   COLUMN Weight decimal NULLABLE=True DEFAULT=
+--   COLUMN SMBloodType int NULLABLE=True DEFAULT=
+--   COLUMN UMHandiType int NULLABLE=True DEFAULT=
+--   COLUMN UMHandiGrd int NULLABLE=True DEFAULT=
+--   COLUMN HandiAppdate nchar NULLABLE=True DEFAULT=
+--   COLUMN IsVeteranEmp nchar NULLABLE=True DEFAULT=
+--   COLUMN VeteranNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UMRelSeq int NULLABLE=True DEFAULT=
+--   COLUMN IsJobEmp nchar NULLABLE=True DEFAULT=
+--   COLUMN EyeLt decimal NULLABLE=True DEFAULT=
+--   COLUMN EyeRt decimal NULLABLE=True DEFAULT=
+--   COLUMN People int NULLABLE=True DEFAULT=
+--   COLUMN UMHouseSort int NULLABLE=True DEFAULT=
+--   COLUMN IsDivision nchar NULLABLE=True DEFAULT=
+--   COLUMN IsDelete nchar NULLABLE=True DEFAULT=
+--   COLUMN HandiEndDate nchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TPRWkAbsEmp
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN AbsDate nchar NULLABLE=False DEFAULT=
+--   COLUMN EmpSeq int NULLABLE=False DEFAULT=
+--   COLUMN WkItemSeq int NULLABLE=False DEFAULT=
+--   COLUMN IsHalf nchar NULLABLE=True DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CCSeq int NULLABLE=True DEFAULT=
+--   COLUMN SMInputType int NULLABLE=True DEFAULT=
+--   COLUMN UMGrpSeq int NULLABLE=True DEFAULT=
+--   COLUMN UMWkGrpSeq int NULLABLE=True DEFAULT=
+--   COLUMN Seq int NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN AbsHour decimal NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TPRWkAbsEmp_taekyung
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN AbsDate nchar NULLABLE=False DEFAULT=
+--   COLUMN EmpSeq int NULLABLE=False DEFAULT=
+--   COLUMN WkItemSeq int NULLABLE=False DEFAULT=
+--   COLUMN IsHalf nchar NULLABLE=True DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CCSeq int NULLABLE=True DEFAULT=
+--   COLUMN SMInputType int NULLABLE=True DEFAULT=
+--   COLUMN UMGrpSeq int NULLABLE=True DEFAULT=
+--   COLUMN UMWkGrpSeq int NULLABLE=True DEFAULT=
+--   COLUMN Seq int NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN empno char NULLABLE=False DEFAULT=
+--   COLUMN docno int NULLABLE=False DEFAULT=
+--   COLUMN flag char NULLABLE=False DEFAULT=
+--   COLUMN IsCancel char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo._TPRWkYyEmpDays
+--   COLUMN CompanySeq int NULLABLE=False DEFAULT=
+--   COLUMN YY nchar NULLABLE=False DEFAULT=
+--   COLUMN EmpSeq int NULLABLE=False DEFAULT=
+--   COLUMN ProcMM nchar NULLABLE=True DEFAULT=
+--   COLUMN BasePayYM nchar NULLABLE=True DEFAULT=
+--   COLUMN PayYM nchar NULLABLE=True DEFAULT=
+--   COLUMN PileDays decimal NULLABLE=True DEFAULT=
+--   COLUMN ExProbOccurDays decimal NULLABLE=True DEFAULT=
+--   COLUMN ExProbUseDays decimal NULLABLE=True DEFAULT=
+--   COLUMN OccurDays decimal NULLABLE=True DEFAULT=
+--   COLUMN RestDays decimal NULLABLE=True DEFAULT=
+--   COLUMN AbsDays decimal NULLABLE=True DEFAULT=
+--   COLUMN OccurFrDate nchar NULLABLE=True DEFAULT=
+--   COLUMN OccurToDate nchar NULLABLE=True DEFAULT=
+--   COLUMN UseFrDate nchar NULLABLE=True DEFAULT=
+--   COLUMN UseEndDate nchar NULLABLE=True DEFAULT=
+--   COLUMN UseToDate nchar NULLABLE=True DEFAULT=
+--   COLUMN BasePileDays decimal NULLABLE=True DEFAULT=
+--   COLUMN AddPileDays decimal NULLABLE=True DEFAULT=
+--   COLUMN PbSeq int NULLABLE=True DEFAULT=
+--   COLUMN IsEnd nchar NULLABLE=True DEFAULT=
+--   COLUMN GnerAmtYyMm nchar NULLABLE=True DEFAULT=
+--   COLUMN LastUserSeq int NULLABLE=True DEFAULT=
+--   COLUMN LastDateTime datetime NULLABLE=True DEFAULT=
+--   COLUMN DutyDays decimal NULLABLE=True DEFAULT=
+--   COLUMN AddDays decimal NULLABLE=True DEFAULT=
+--   COLUMN PileTime decimal NULLABLE=True DEFAULT=
+--   COLUMN OccurTime decimal NULLABLE=True DEFAULT=
+--   COLUMN RestTime decimal NULLABLE=True DEFAULT=
+--   COLUMN AbsTime decimal NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Authority_CustomOrgPermissions
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN PermissionType int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Authority_ModuleAccessrestriction
+--   COLUMN ModuleAccessrestrictionNo int NULLABLE=False DEFAULT=
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN UserofDepart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Authority_ModulePermission
+--   COLUMN ModulePermissionNo int NULLABLE=False DEFAULT=
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN UserofDepart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Authority_SitePermissions
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN PermissionType int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BIZ_MSG
+--   COLUMN CMID varchar NULLABLE=False DEFAULT=
+--   COLUMN UMID varchar NULLABLE=True DEFAULT=
+--   COLUMN MSG_TYPE int NULLABLE=True DEFAULT=((0))
+--   COLUMN STATUS int NULLABLE=True DEFAULT=((0))
+--   COLUMN CALL_STATUS varchar NULLABLE=True DEFAULT=
+--   COLUMN REQUEST_TIME datetime NULLABLE=False DEFAULT=
+--   COLUMN SEND_TIME datetime NULLABLE=False DEFAULT=
+--   COLUMN REPORT_TIME datetime NULLABLE=True DEFAULT=
+--   COLUMN DEST_PHONE varchar NULLABLE=True DEFAULT=
+--   COLUMN SEND_PHONE varchar NULLABLE=True DEFAULT=
+--   COLUMN DEST_NAME varchar NULLABLE=True DEFAULT=
+--   COLUMN SEND_NAME varchar NULLABLE=True DEFAULT=
+--   COLUMN SUBJECT varchar NULLABLE=True DEFAULT=
+--   COLUMN MSG_BODY varchar NULLABLE=True DEFAULT=
+--   COLUMN NATION_CODE varchar NULLABLE=True DEFAULT=
+--   COLUMN SENDER_KEY varchar NULLABLE=True DEFAULT=
+--   COLUMN TEMPLATE_CODE varchar NULLABLE=True DEFAULT=
+--   COLUMN RESPONSE_METHOD varchar NULLABLE=True DEFAULT=
+--   COLUMN TIMEOUT int NULLABLE=True DEFAULT=
+--   COLUMN RE_TYPE varchar NULLABLE=True DEFAULT=('N')
+--   COLUMN RE_BODY varchar NULLABLE=True DEFAULT=
+--   COLUMN RE_PART varchar NULLABLE=True DEFAULT=
+--   COLUMN COVER_FLAG int NULLABLE=True DEFAULT=((0))
+--   COLUMN SMS_FLAG int NULLABLE=True DEFAULT=((0))
+--   COLUMN REPLY_FLAG int NULLABLE=True DEFAULT=((0))
+--   COLUMN RETRY_CNT int NULLABLE=True DEFAULT=
+--   COLUMN ATTACHED_FILE varchar NULLABLE=True DEFAULT=
+--   COLUMN VXML_FILE varchar NULLABLE=True DEFAULT=
+--   COLUMN USE_PAGE int NULLABLE=True DEFAULT=((0))
+--   COLUMN USE_TIME int NULLABLE=True DEFAULT=((0))
+--   COLUMN SN_RESULT int NULLABLE=True DEFAULT=((0))
+--   COLUMN TEL_INFO varchar NULLABLE=True DEFAULT=('-')
+--   COLUMN CINFO varchar NULLABLE=True DEFAULT=
+--   COLUMN USER_KEY varchar NULLABLE=True DEFAULT=
+--   COLUMN AD_FLAG varchar NULLABLE=True DEFAULT=
+--   COLUMN RCS_REFKEY varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_AllowAccess
+--   COLUMN AllowAccessNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN AllowValue int NULLABLE=False DEFAULT=
+--   COLUMN ItemNo int NULLABLE=False DEFAULT=
+--   COLUMN ItemType int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Board_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_AuthoGroup
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_NM varchar NULLABLE=False DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Board_Boards
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FolderNo int NULLABLE=False DEFAULT=
+--   COLUMN DisplayTypeNo int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN IsReply bit NULLABLE=False DEFAULT=
+--   COLUMN IsHead bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotice bit NULLABLE=False DEFAULT=
+--   COLUMN IsRecommend bit NULLABLE=False DEFAULT=
+--   COLUMN RecommendedDisplayCount int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN ViewMode int NULLABLE=True DEFAULT=
+--   COLUMN SpecType int NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.Board_CommentSetting
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=('FALSE')
+-- OBJECT USER_TABLE public/dbo.Board_Config
+--   COLUMN ConfigNo int NULLABLE=False DEFAULT=
+--   COLUMN ConfigKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ConfigValue nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN LastestDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Board_Contents
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModPositionNo int NULLABLE=False DEFAULT=
+--   COLUMN ModPositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModDepartNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TitleEffect int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Depth int NULLABLE=False DEFAULT=
+--   COLUMN OrderNo int NULLABLE=False DEFAULT=
+--   COLUMN HeadNo int NULLABLE=False DEFAULT=
+--   COLUMN IsNotice bit NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsFile bit NULLABLE=False DEFAULT=
+--   COLUMN FileCount int NULLABLE=False DEFAULT=
+--   COLUMN ReplyCount int NULLABLE=False DEFAULT=
+--   COLUMN RecommendedCount int NULLABLE=False DEFAULT=
+--   COLUMN ViewedCount int NULLABLE=False DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN EndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegPositionNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDepartNo int NULLABLE=True DEFAULT=
+--   COLUMN ViewMode int NULLABLE=True DEFAULT=
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=
+--   COLUMN RootId bigint NULLABLE=True DEFAULT=
+--   COLUMN LevelRand nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsShareAll bit NULLABLE=True DEFAULT=
+--   COLUMN Type nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ErrorType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PersonType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN VisitDate datetime NULLABLE=True DEFAULT=
+--   COLUMN VisitCompleteDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DateView datetime NULLABLE=True DEFAULT=
+--   COLUMN DesignNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ConstructionName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ApplyTo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Important bit NULLABLE=True DEFAULT=
+--   COLUMN MailRecipientNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MailRecipientName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Private bit NULLABLE=True DEFAULT=
+--   COLUMN BusinessDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Purpose nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Other nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Inspector nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Generation nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BadNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Standard nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsRecommendPublic bit NULLABLE=True DEFAULT=
+--   COLUMN EappNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_ContentSetting
+--   COLUMN ContentSettingNo int NULLABLE=False DEFAULT=
+--   COLUMN ContentSetting nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_DepartAllowAccess
+--   COLUMN AllowAccessNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN AllowValue int NULLABLE=False DEFAULT=
+--   COLUMN ItemNo int NULLABLE=False DEFAULT=
+--   COLUMN ItemType int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Files
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+--   COLUMN Url nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Folders
+--   COLUMN FolderNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN LevelRand nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SpecType int NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.Board_Heads
+--   COLUMN HeadNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_HistoryFolder
+--   COLUMN HistoryFolderNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN FolderNo int NULLABLE=False DEFAULT=
+--   COLUMN IsOpen bit NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.Board_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Managers
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN Auth int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Menu
+--   COLUMN MENU_IDX int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_TITLE varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_PARENT_ID int NULLABLE=True DEFAULT=
+--   COLUMN MENU_URL varchar NULLABLE=True DEFAULT=
+--   COLUMN MENU_DESCRIPTION varchar NULLABLE=True DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Board_MultiBoardWidget
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=('FALSE')
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_NewBoardWidget
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=('FALSE')
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_NoticePermission
+--   COLUMN AllowAccessNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN AllowValue int NULLABLE=False DEFAULT=
+--   COLUMN ItemNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_RecommendedLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RecommendedDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Replies
+--   COLUMN ReplyNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModPositionNo int NULLABLE=False DEFAULT=
+--   COLUMN ModPositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModDepartNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Depth int NULLABLE=False DEFAULT=
+--   COLUMN OrderNo int NULLABLE=False DEFAULT=
+--   COLUMN ParentNo bigint NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_ReplyFiles
+--   COLUMN ReplyFileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ReplyNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+--   COLUMN Url nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_Sharers
+--   COLUMN ContentNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsChild char NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_UserByGroup
+--   COLUMN USERGROUP_ID int NULLABLE=False DEFAULT=
+--   COLUMN USER_NO int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN DEPARTMENT_ID int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_UserSetting
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModeView int NULLABLE=True DEFAULT=
+--   COLUMN PageSize int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Board_ViewedLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ViewedDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ClientIP nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BoardOptions
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_AuthInfo
+--   COLUMN OrgMgm varchar NULLABLE=False DEFAULT=
+--   COLUMN UsersMgm varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_BALog
+--   COLUMN DepartID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN SLog ntext NULLABLE=True DEFAULT=
+--   COLUMN ELog ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_BusinessLog
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ATTDCont ntext NULLABLE=True DEFAULT=
+--   COLUMN ATTDEtc varchar NULLABLE=True DEFAULT=
+--   COLUMN SCHMCont ntext NULLABLE=True DEFAULT=
+--   COLUMN SCHMEtc varchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN Content2 ntext NULLABLE=True DEFAULT=
+--   COLUMN TagetID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Status char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_Comment
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TargetID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=True DEFAULT=
+--   COLUMN Status varchar NULLABLE=True DEFAULT=
+--   COLUMN WriterDate varchar NULLABLE=True DEFAULT=
+--   COLUMN orgcd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_Log
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN Content1 ntext NULLABLE=True DEFAULT=
+--   COLUMN Content2 ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Plot varchar NULLABLE=True DEFAULT=
+--   COLUMN Orgcd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_Master
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ATTDCont ntext NULLABLE=True DEFAULT=
+--   COLUMN ATTDEtc varchar NULLABLE=True DEFAULT=
+--   COLUMN SCHMCont ntext NULLABLE=True DEFAULT=
+--   COLUMN SCHMEtc varchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN Content2 ntext NULLABLE=True DEFAULT=
+--   COLUMN TagetID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Status char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_OrgLog
+--   COLUMN DepartID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN SLog ntext NULLABLE=True DEFAULT=
+--   COLUMN ELog ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_OrgLogMonth
+--   COLUMN DepartID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN SLog ntext NULLABLE=True DEFAULT=
+--   COLUMN ELog ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegTime datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.BSLG_Reader
+--   COLUMN RegId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ReaderId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_SpAuthInfo
+--   COLUMN PermissionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SharedUserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SharedDepartNo int NULLABLE=False DEFAULT=
+--   COLUMN UserofDepart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_WLog
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.BSLG_WWLog
+--   COLUMN DepartID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN SLog ntext NULLABLE=True DEFAULT=
+--   COLUMN ELog ntext NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_AccessLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ClientIP varchar NULLABLE=False DEFAULT=('')
+--   COLUMN AccessDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_Applications
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+--   COLUMN ProjectCode nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Status int NULLABLE=False DEFAULT=
+--   COLUMN Option nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_CompaniesLicence
+--   COLUMN CompaniesLicenceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN LicenceKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DB nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserCnt int NULLABLE=False DEFAULT=
+--   COLUMN CompaniesLicenceDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_CompanyInformation
+--   COLUMN InfoNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Key nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_CompanyLicenceInformation
+--   COLUMN CompanyLicenceInformationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN LicenceKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DB nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserCnt nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CompanyLicenceInformationDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_Configuration
+--   COLUMN ConfigNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Key nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Value varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_CrewChatNotification
+--   COLUMN No bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Message nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_ExclusionUsersForIPFilter
+--   COLUMN ExclusionNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_ExclusionUsersForOTP
+--   COLUMN ExclusionNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_FailedLoginLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ClientIP varchar NULLABLE=False DEFAULT=
+--   COLUMN FailedLoginDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_GoogleOTPInfo
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+--   COLUMN OTPSetUpKey nvarchar NULLABLE=True DEFAULT=
+--   COLUMN QrCodeSetupImageUrl nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ManualEntryKey nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Center_HolidayGroupOfDepartments
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_HolidayGroupOfUsers
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_HolidayGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_Holidays
+--   COLUMN HolidayNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN HolidayType int NULLABLE=False DEFAULT=
+--   COLUMN HolidayDate nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Lunar char NULLABLE=False DEFAULT=
+--   COLUMN Substitution char NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_HRWorksLogs
+--   COLUMN HRWorksNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HRWorksDate datetime NULLABLE=False DEFAULT=
+--   COLUMN UsersInsert int NULLABLE=False DEFAULT=
+--   COLUMN UsersUpdate int NULLABLE=False DEFAULT=
+--   COLUMN DepartmentsInsert int NULLABLE=False DEFAULT=
+--   COLUMN DepartmentsUpdate int NULLABLE=False DEFAULT=
+--   COLUMN DutiesInsert int NULLABLE=False DEFAULT=
+--   COLUMN DutiesUpdate int NULLABLE=False DEFAULT=
+--   COLUMN PositionsInsert int NULLABLE=False DEFAULT=
+--   COLUMN PositionsUpdate int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_IPFilters
+--   COLUMN FilterNo int NULLABLE=False DEFAULT=
+--   COLUMN ClientIP varchar NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_IPFiltersForApplication
+--   COLUMN FilterNo int NULLABLE=False DEFAULT=
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+--   COLUMN ClientIP varchar NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_LoginLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ClientIP varchar NULLABLE=False DEFAULT=
+--   COLUMN LoginDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_MobileDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN SerialNumber char NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_MobileDevicesAccessrestrictions
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN mobileType nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModuleName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DeviceId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DeviceName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UUID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_MobileSessions
+--   COLUMN SessionNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SessionID char NULLABLE=False DEFAULT=
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_NotificationData
+--   COLUMN NotificationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DeviceType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModuleName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ProjectID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeviceKey nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JsonData nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Center_NotificationService
+--   COLUMN NotificationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CompanyNo int NULLABLE=False DEFAULT=
+--   COLUMN ProjectCode nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Connectionkey int NULLABLE=False DEFAULT=
+--   COLUMN SendUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RecipientUserNo nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RecipientDepartNo nvarchar NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN RepeatType nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RepeatOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN State bit NULLABLE=True DEFAULT=
+--   COLUMN Execution datetime NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN CrewChatRoomNo int NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.Center_NotificationService_AlarmDetail
+--   COLUMN NotificationService_AlarmDetailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN AlarmCode nvarchar NULLABLE=False DEFAULT=
+--   COLUMN AlarmStartTime time NULLABLE=False DEFAULT=
+--   COLUMN Alarm_Time int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content_Json nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Center_NotificationService_AlarmDetail_Execution
+--   COLUMN NotificationService_AlarmDetail_Execution bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationService_AlarmDetailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ExecutionDate date NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_NotificationService_AlarmDetail_User
+--   COLUMN NotificationService_AlarmDetail_User bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationService_AlarmDetailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Message nvarchar NULLABLE=False DEFAULT=
+--   COLUMN State bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_OpenAI
+--   COLUMN No bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN Messages nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Date datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_OTPNumbers
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Number char NULLABLE=False DEFAULT=
+--   COLUMN ExpirationTime datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_PCSessions
+--   COLUMN SessionNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SessionID char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_PhoneTokens
+--   COLUMN PhoneToken nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SessionID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Domain nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Center_QuickFunctions
+--   COLUMN FunctionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ApplicationNo int NULLABLE=False DEFAULT=
+--   COLUMN FunctionId varchar NULLABLE=False DEFAULT=
+--   COLUMN IconUrl nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Url nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsPopup bit NULLABLE=False DEFAULT=
+--   COLUMN PopupWidth int NULLABLE=False DEFAULT=
+--   COLUMN PopupHeight int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Center_Sessions
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN SessionID char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CMONConfiguration
+--   COLUMN KeyCode nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=False DEFAULT=
+--   COLUMN Description varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Busan
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_ChungcheongBuk
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_ChungcheongNam
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Daegu
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Daejeon
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Gangwon
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Gwangju
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Gyeonggi
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_GyeongsangBuk
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_GyeongsangNam
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Incheon
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Jeju
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_JeollaBuk
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_JeollaNam
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Sejong
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Seoul
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cmonzip_Ulsan
+--   COLUMN ZipNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiDo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SiGunGu nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RoadName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingMain varchar NULLABLE=True DEFAULT=
+--   COLUMN BuildingSub varchar NULLABLE=True DEFAULT=
+--   COLUMN BJEMD nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ri nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunMain varchar NULLABLE=True DEFAULT=
+--   COLUMN JiBunSub varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ColletMoney_Master
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN Title varchar NULLABLE=False DEFAULT=
+--   COLUMN Customer varchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=False DEFAULT=
+--   COLUMN userpkno int NULLABLE=False DEFAULT=
+--   COLUMN RegDate char NULLABLE=False DEFAULT=
+--   COLUMN SellingDate char NULLABLE=False DEFAULT=
+--   COLUMN SellingMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN AdrateMoney bigint NULLABLE=False DEFAULT=
+--   COLUMN ColletDate char NULLABLE=False DEFAULT=
+--   COLUMN ColletMoney bigint NULLABLE=False DEFAULT=
+--   COLUMN Divide int NULLABLE=True DEFAULT=
+--   COLUMN homepagepkno int NULLABLE=True DEFAULT=
+--   COLUMN IsComplete tinyint NULLABLE=True DEFAULT=
+--   COLUMN TotalMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN RestMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN Name varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Commute_Options
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Commute_Schedule
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN Contents nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN StartDate nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN EndDate nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN StartTime nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN EndTime nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN ShiftNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN State int NULLABLE=False DEFAULT=((100))
+--   COLUMN AppUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN AppDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Commute_Times
+--   COLUMN CommuteNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN CommuteDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StartTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EndTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OTType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OTStart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OTEnd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN VacationType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Vacation nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Commute_TimeShift
+--   COLUMN ShiftNo int NULLABLE=False DEFAULT=
+--   COLUMN ShiftName nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN BackColor nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN SortNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN StartTime nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN EndTime nvarchar NULLABLE=False DEFAULT=(N'')
+--   COLUMN UseYn nvarchar NULLABLE=False DEFAULT=(N'N')
+-- OBJECT USER_TABLE public/dbo.CompanyLicenseInformation
+--   COLUMN CompanyLicenseInformationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN LicenceKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DB nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserCnt int NULLABLE=False DEFAULT=
+--   COLUMN CompanyLicenseInformationDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Contact_DepartAllowAccess
+--   COLUMN AllowAccessNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN AllowValue int NULLABLE=False DEFAULT=
+--   COLUMN ItemNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Contact_PublicGroup
+--   COLUMN PublicGroupNo int NULLABLE=False DEFAULT=
+--   COLUMN PublicGroupName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=False DEFAULT=
+--   COLUMN IsDelete bit NULLABLE=False DEFAULT=('FALSE')
+-- OBJECT USER_TABLE public/dbo.Contact_PublicGroupUser
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN PublicGroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsDelete bit NULLABLE=False DEFAULT=('FALSE')
+-- OBJECT USER_TABLE public/dbo.Contact_ShareGroup
+--   COLUMN ShareGroupNo int NULLABLE=False DEFAULT=
+--   COLUMN ShareGroupName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=False DEFAULT=
+--   COLUMN IsDelete bit NULLABLE=False DEFAULT=('FALSE')
+-- OBJECT USER_TABLE public/dbo.Contact_ShareGroupUser
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN ShareGroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsDelete bit NULLABLE=False DEFAULT=('FALSE')
+-- OBJECT USER_TABLE public/dbo.Contacts_ListGroup
+--   COLUMN ListGroup_Id int NULLABLE=False DEFAULT=
+--   COLUMN ListGroup_Content varchar NULLABLE=True DEFAULT=
+--   COLUMN ListGroup_RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ListGroup_ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Contacts_ListGroupContact
+--   COLUMN ListGroupContact_Id int NULLABLE=False DEFAULT=
+--   COLUMN ListGroupContact_ContactId int NULLABLE=False DEFAULT=
+--   COLUMN ListGroup_Id int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Contacts_Locations
+--   COLUMN LocationNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN ErrorRange int NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ContactUserId int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsAddress
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ZipCode1 varchar NULLABLE=True DEFAULT=
+--   COLUMN ZipCode2 varchar NULLABLE=True DEFAULT=
+--   COLUMN Address nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Latitude float NULLABLE=True DEFAULT=
+--   COLUMN Longitude float NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsAddressHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ZipCode1 varchar NULLABLE=True DEFAULT=
+--   COLUMN ZipCode2 varchar NULLABLE=True DEFAULT=
+--   COLUMN Address nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsBackup
+--   COLUMN BackupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ContactCnt int NULLABLE=False DEFAULT=((0))
+--   COLUMN GroupCnt int NULLABLE=False DEFAULT=((0))
+--   COLUMN Memo nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Path nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ContactsCompany
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Company nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Depart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Position nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsCompanyHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Company nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Depart nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Position nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsDays
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value varchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN SolarLunar char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsDaysHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN SolarLunar char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsEmail
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsEmailHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsGroup
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Memo nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ParentGNo int NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=False DEFAULT=((1))
+--   COLUMN IsDefault char NULLABLE=False DEFAULT=((0))
+--   COLUMN UseYn char NULLABLE=True DEFAULT=('Y')
+-- OBJECT USER_TABLE public/dbo.ContactsGroupOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN OutlookFolderEntryID nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ContactsGroupUser
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsGroupUserHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsHomepage
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsHomepageHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsNumber
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value varchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN SetCall int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsNumberHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value varchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsSetup
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN PageSize int NULLABLE=False DEFAULT=((20))
+--   COLUMN StartContactBoxNo bigint NULLABLE=True DEFAULT=((1))
+--   COLUMN IsFolderExpanded bit NULLABLE=True DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.ContactsSharers
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsChild char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsSns
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value varchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ContactsSnsHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserSeq int NULLABLE=True DEFAULT=
+--   COLUMN Type tinyint NULLABLE=True DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault char NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsUser
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN FirstName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LastName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN Memo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Photo varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Share nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseYn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DelDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Important int NULLABLE=True DEFAULT=
+--   COLUMN CallName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ViewCount int NULLABLE=False DEFAULT=((0))
+--   COLUMN GroupList varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsUserHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=True DEFAULT=
+--   COLUMN FirstName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LastName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN Memo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Photo varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Share nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseYn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DelDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Important int NULLABLE=True DEFAULT=
+--   COLUMN CallName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ViewCount int NULLABLE=True DEFAULT=
+--   COLUMN Status nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ContactsUserOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN OutlookEntryID nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Cooperation
+--   COLUMN CooperationNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CooperationFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CooperationNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN NotifyEnable bit NULLABLE=True DEFAULT=
+--   COLUMN NotifySound bit NULLABLE=True DEFAULT=
+--   COLUMN NotifyVibrate bit NULLABLE=True DEFAULT=
+--   COLUMN NotifyUseTime bit NULLABLE=True DEFAULT=
+--   COLUMN NotifyStartTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NotifyEndTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NotifyConfirmOnline bit NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffset int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_Attach
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FullPath nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN Size bigint NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ThumPath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ThumbWidth int NULLABLE=False DEFAULT=((0))
+--   COLUMN ThumbHeight int NULLABLE=False DEFAULT=((0))
+--   COLUMN RoomNo bigint NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_CheckMessage
+--   COLUMN CheckNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MessageNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsRead bit NULLABLE=False DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_DeleteRooms
+--   COLUMN SEQ_NO int NULLABLE=False DEFAULT=
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN LastedDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_FavoriteChatRoom
+--   COLUMN FavoriteChatRoomNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_FavoriteGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.CrewChat_FavoriteUsers
+--   COLUMN GroupUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN NotifyEnable bit NULLABLE=False DEFAULT=
+--   COLUMN NotifyUseTime bit NULLABLE=False DEFAULT=
+--   COLUMN NotifyStartTime nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotifyEndTime nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotifyConfirmOnline bit NULLABLE=False DEFAULT=
+--   COLUMN TimeZoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_Messages
+--   COLUMN MessageNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Message nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=((0))
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_PCDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN SerialNumber char NULLABLE=False DEFAULT=
+--   COLUMN MacAddress char NULLABLE=False DEFAULT=
+--   COLUMN Allow bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_PCSessions
+--   COLUMN SessionNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SessionID char NULLABLE=False DEFAULT=
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_Rooms
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MakeUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsOne bit NULLABLE=False DEFAULT=((1))
+--   COLUMN LastedMsg nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN LastedMsgDate datetime NULLABLE=True DEFAULT=
+--   COLUMN LastedMsgNo bigint NULLABLE=True DEFAULT=((0))
+--   COLUMN LastedMsgType int NULLABLE=True DEFAULT=((-1))
+--   COLUMN LastedMsgAttachNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN LastedMsgAttachType int NULLABLE=True DEFAULT=((0))
+--   COLUMN LastedMsgAttachName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN RoomType int NULLABLE=True DEFAULT=((0))
+--   COLUMN GroupType int NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.CrewChat_RoomUsers
+--   COLUMN RoomUserNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RoomNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RoomTitle nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN StartMessageNo bigint NULLABLE=False DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Notification bit NULLABLE=False DEFAULT=((1))
+--   COLUMN Closed bit NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.CrewChat_UserProfiles
+--   COLUMN ProfileNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN NickName nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN StateMessage nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN StateType int NULLABLE=False DEFAULT=
+--   COLUMN PCVersion nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CrewChat_Versions
+--   COLUMN PCVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN AndroidVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN iOSVersion nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Custom_Authority
+--   COLUMN CustomAuthorityNo int NULLABLE=False DEFAULT=
+--   COLUMN CustomId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CustomName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.CustomOrg_AuthInfo
+--   COLUMN PermissionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SharedDepartNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_CompletedRecords
+--   COLUMN RecordNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CompletedDate date NULLABLE=False DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_CountOfAppBadge
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BadgeCount int NULLABLE=False DEFAULT=
+--   COLUMN ListOfDays varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_CoveredDays
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CoveredDate date NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Days
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN RepeatOptions varchar NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CanHide bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Directors
+--   COLUMN DirectorNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_ExcludedSharers
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_GroupInfoOfSharedDays
+--   COLUMN InfoNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Groups
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN TagNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN LanguageCode varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Managers
+--   COLUMN ManagerNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Notifications
+--   COLUMN NotiNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN NotificationType int NULLABLE=False DEFAULT=
+--   COLUMN NotificationTime time NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DDay_Sharers
+--   COLUMN SharerNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DayNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DMake_Auth_Depart
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN IsRead bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsWrite bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.DMake_Auth_User
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN IsRead bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsWrite bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsAdmin bit NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.DMake_Boards
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN BoardType nvarchar NULLABLE=True DEFAULT=('B')
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+--   COLUMN FolderNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN SortNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN IsReply bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsHead bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsRecommend bit NULLABLE=True DEFAULT=((0))
+--   COLUMN RecommendedDisplayCount int NULLABLE=True DEFAULT=((0))
+--   COLUMN IsApproval bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsAnomymous bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsNotRightClick bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsAttachFile bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsLog bit NULLABLE=True DEFAULT=((0))
+--   COLUMN ChartType nvarchar NULLABLE=True DEFAULT=('none')
+--   COLUMN ChartColors nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Boards_Fields
+--   COLUMN FieldNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ControlNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN Label_KO nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Label_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Label_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Label_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Label_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FieldUpNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN SortNo int NULLABLE=True DEFAULT=((999))
+--   COLUMN ListNo int NULLABLE=True DEFAULT=((999))
+--   COLUMN ListYN nvarchar NULLABLE=True DEFAULT=(N'N')
+--   COLUMN SearchYN nvarchar NULLABLE=True DEFAULT=(N'N')
+--   COLUMN FieldName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FieldDataType nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FieldType nvarchar NULLABLE=True DEFAULT=('T')
+--   COLUMN FieldReadOnly nvarchar NULLABLE=True DEFAULT=('N')
+--   COLUMN FieldRequire nvarchar NULLABLE=True DEFAULT=('N')
+--   COLUMN Width nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Height nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ClassNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN PopupYn nvarchar NULLABLE=True DEFAULT=('N')
+--   COLUMN PopupLink nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ImagePath nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+--   COLUMN LabelTextAlign nvarchar NULLABLE=True DEFAULT=(N'text-left')
+--   COLUMN LabelBackColor nvarchar NULLABLE=True DEFAULT=(N'lightgray')
+--   COLUMN LabelFontWeight nvarchar NULLABLE=True DEFAULT=(N'normal')
+--   COLUMN ChartYN nvarchar NULLABLE=True DEFAULT=(N'N')
+-- OBJECT USER_TABLE public/dbo.DMake_Class
+--   COLUMN ClassNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.DMake_Code
+--   COLUMN ClassNo int NULLABLE=False DEFAULT=
+--   COLUMN Code nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN SortNo int NULLABLE=True DEFAULT=((1))
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.DMake_Contents
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN TitleEffect int NULLABLE=True DEFAULT=((0))
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN IsFile bit NULLABLE=True DEFAULT=((0))
+--   COLUMN FileCount int NULLABLE=True DEFAULT=((0))
+--   COLUMN ReplyCount int NULLABLE=True DEFAULT=((0))
+--   COLUMN RecommendedCount int NULLABLE=True DEFAULT=((0))
+--   COLUMN ViewedCount int NULLABLE=True DEFAULT=((0))
+--   COLUMN IsDeleted bit NULLABLE=True DEFAULT=((0))
+--   COLUMN StartDate nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN EndDate nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN IsHead bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsApproval nvarchar NULLABLE=True DEFAULT=('D')
+--   COLUMN ApprovalUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ApprovalDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsAnomymous bit NULLABLE=True DEFAULT=((0))
+--   COLUMN ParentNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ModUserName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN DMakeField01 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField02 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField03 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField04 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField05 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField06 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField07 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField08 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField09 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DMakeField10 nvarchar NULLABLE=True DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.DMake_Controls
+--   COLUMN ControlNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ControlType nvarchar NULLABLE=True DEFAULT=('L')
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+--   COLUMN IsFixedColumn bit NULLABLE=True DEFAULT=((1))
+--   COLUMN ColumnName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN DataType nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FieldType nvarchar NULLABLE=True DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.DMake_Field_Copy_History
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN OldFieldNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN NewFieldNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN HistoryDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Files
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=True DEFAULT=((0))
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FileLength int NULLABLE=True DEFAULT=((0))
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.DMake_Folders
+--   COLUMN FolderNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_CH nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ParentNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN SortNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_InitForm
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN FormContent nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Option
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DMake_RecommendLog
+--   COLUMN LogNo int NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=True DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RecomendDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Replies
+--   COLUMN ReplyNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ParentNo bigint NULLABLE=True DEFAULT=((0))
+--   COLUMN Depth int NULLABLE=True DEFAULT=((1))
+--   COLUMN OrderNo int NULLABLE=True DEFAULT=((1))
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ModUserName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Shares
+--   COLUMN ShareNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN IsChild bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DMake_ViewedLog
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=True DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN ViewedDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.DMake_Widget
+--   COLUMN Type nvarchar NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.DMake_Widget_TopCount
+--   COLUMN Type nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TopCount int NULLABLE=True DEFAULT=((5))
+-- OBJECT USER_TABLE public/dbo.Drive_CommonFolders
+--   COLUMN CommonNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MaxLength bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_DownloadingLogsForFile
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateDownloaded datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_DownloadingLogsForFolder
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateDownloaded datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_Files
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=False DEFAULT=
+--   COLUMN DateModified datetime NULLABLE=False DEFAULT=
+--   COLUMN DateAccessed datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Length bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN IsDeleted bit NULLABLE=False DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_Folders
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=False DEFAULT=
+--   COLUMN DateModified datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Length bigint NULLABLE=False DEFAULT=
+--   COLUMN ParentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN IsDeleted bit NULLABLE=False DEFAULT=
+--   COLUMN Sort float NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_PemissionCommonFolders
+--   COLUMN SharingNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_SharingForCommonFolders
+--   COLUMN SharingNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_SharingForFolders
+--   COLUMN SharingNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_Trash
+--   COLUMN ItemNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateDeleted datetime NULLABLE=False DEFAULT=
+--   COLUMN FullPath nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FolderNo bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_UserConfigurations
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN MaxLengthForMyDrive bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Drive_Versions
+--   COLUMN ClientVersion nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EABuptleOption
+--   COLUMN KeyCode varchar NULLABLE=False DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAFSM
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN FormID int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Script nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Url varchar NULLABLE=True DEFAULT=
+--   COLUMN Flag char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPP_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPP_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPAddFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegUser varchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Size bigint NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPApprovalExtend
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN progid int NULLABLE=True DEFAULT=
+--   COLUMN arrivedate datetime NULLABLE=True DEFAULT=
+--   COLUMN delaydate datetime NULLABLE=True DEFAULT=
+--   COLUMN delaycount int NULLABLE=True DEFAULT=
+--   COLUMN isUsing char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPATTEApprovalLog
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN writerid nvarchar NULLABLE=True DEFAULT=
+--   COLUMN attecode varchar NULLABLE=True DEFAULT=
+--   COLUMN startymd varchar NULLABLE=True DEFAULT=
+--   COLUMN endymd varchar NULLABLE=True DEFAULT=
+--   COLUMN memo varchar NULLABLE=True DEFAULT=
+--   COLUMN rdoidx varchar NULLABLE=True DEFAULT=
+--   COLUMN rdotype varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPAuthorityLang
+--   COLUMN Authoritylevel int NULLABLE=False DEFAULT=
+--   COLUMN Kor varchar NULLABLE=False DEFAULT=
+--   COLUMN Eng varchar NULLABLE=False DEFAULT=
+--   COLUMN Chi varchar NULLABLE=False DEFAULT=
+--   COLUMN Jap varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPCertificate
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN Kind nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Macro1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro6 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro7 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro8 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro9 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Macro10 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPCMONOrgan
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN EACode nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPConfiguration
+--   COLUMN KeyCode varchar NULLABLE=False DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CodeGroup varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPContentHistory
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN content ntext NULLABLE=True DEFAULT=
+--   COLUMN regdate datetime NULLABLE=True DEFAULT=
+--   COLUMN Contentid int NULLABLE=True DEFAULT=
+--   COLUMN Docid int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPCostCheck
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Depart varchar NULLABLE=False DEFAULT=('')
+--   COLUMN Position varchar NULLABLE=False DEFAULT=('')
+--   COLUMN Grade varchar NULLABLE=False DEFAULT=('')
+--   COLUMN Userid varchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPCostDetail
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Masterid int NULLABLE=False DEFAULT=
+--   COLUMN FromCost bigint NULLABLE=False DEFAULT=
+--   COLUMN ToCost bigint NULLABLE=False DEFAULT=
+--   COLUMN Checkid int NULLABLE=False DEFAULT=
+--   COLUMN Regdate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPCostMaster
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Regdate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPCPDraftLink
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN CPDraftDocID int NULLABLE=True DEFAULT=
+--   COLUMN CPApprovalDocID int NULLABLE=True DEFAULT=
+--   COLUMN Regdate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPCustomAuth
+--   COLUMN ID bigint NULLABLE=False DEFAULT=
+--   COLUMN AuthType varchar NULLABLE=True DEFAULT=
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN FormID int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPData
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=True DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PName varchar NULLABLE=True DEFAULT=
+--   COLUMN Idx int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDecision
+--   COLUMN DCCode varchar NULLABLE=True DEFAULT=
+--   COLUMN DCName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DCParentCode varchar NULLABLE=True DEFAULT=
+--   COLUMN depth int NULLABLE=True DEFAULT=
+--   COLUMN SortOrd varchar NULLABLE=True DEFAULT=
+--   COLUMN PathId int NULLABLE=True DEFAULT=
+--   COLUMN RegUserid varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserid varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RangeFrom bigint NULLABLE=True DEFAULT=
+--   COLUMN RangeTo bigint NULLABLE=True DEFAULT=
+--   COLUMN DCName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DCName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DCName4 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDecisioner
+--   COLUMN Decisioner nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ID float NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDepartAuth
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN IsLow char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDepartAuthDetail
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DAID int NULLABLE=False DEFAULT=
+--   COLUMN Forms varchar NULLABLE=False DEFAULT=
+--   COLUMN IsModify char NULLABLE=False DEFAULT=
+--   COLUMN IsCancel char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDepartDoc
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DepartID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID int NULLABLE=True DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN MoveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDesignatedAdmin
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Depart nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Form nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FromDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ToDate datetime NULLABLE=True DEFAULT=
+--   COLUMN AuthView char NULLABLE=False DEFAULT=
+--   COLUMN AuthModify char NULLABLE=False DEFAULT=
+--   COLUMN DocProgress char NULLABLE=False DEFAULT=
+--   COLUMN DocReserve char NULLABLE=False DEFAULT=
+--   COLUMN DocReject char NULLABLE=False DEFAULT=
+--   COLUMN DocComplete char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocDuty
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN eadocid int NULLABLE=True DEFAULT=
+--   COLUMN dutycode nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocHistory
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN eadocid int NULLABLE=True DEFAULT=
+--   COLUMN content ntext NULLABLE=True DEFAULT=
+--   COLUMN reference ntext NULLABLE=True DEFAULT=
+--   COLUMN addinfo ntext NULLABLE=True DEFAULT=
+--   COLUMN attach ntext NULLABLE=True DEFAULT=
+--   COLUMN fileinfo ntext NULLABLE=True DEFAULT=
+--   COLUMN docinfo ntext NULLABLE=True DEFAULT=
+--   COLUMN modifier nvarchar NULLABLE=True DEFAULT=
+--   COLUMN moddate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN wbldcontentid int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocRotation
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN Sender varchar NULLABLE=False DEFAULT=
+--   COLUMN Receiver varchar NULLABLE=False DEFAULT=
+--   COLUMN SendDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Sdel char NULLABLE=True DEFAULT=
+--   COLUMN Rdel char NULLABLE=True DEFAULT=
+--   COLUMN IsOP char NULLABLE=True DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocument
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionID varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN GradeID varchar NULLABLE=True DEFAULT=
+--   COLUMN WOrder int NULLABLE=True DEFAULT=
+--   COLUMN WLevel int NULLABLE=True DEFAULT=
+--   COLUMN WGroup int NULLABLE=True DEFAULT=
+--   COLUMN IsNotice char NULLABLE=True DEFAULT=
+--   COLUMN LCategory nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SCategory nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthorityLevel int NULLABLE=True DEFAULT=
+--   COLUMN IsSecret char NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modifier nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ValDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PathID int NULLABLE=True DEFAULT=
+--   COLUMN ProgID int NULLABLE=True DEFAULT=
+--   COLUMN State int NULLABLE=True DEFAULT=
+--   COLUMN FormID int NULLABLE=True DEFAULT=
+--   COLUMN Serial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OperationDate varchar NULLABLE=True DEFAULT=
+--   COLUMN StorePeriod int NULLABLE=True DEFAULT=
+--   COLUMN ContentID int NULLABLE=True DEFAULT=
+--   COLUMN TotalStoredBoxID int NULLABLE=True DEFAULT=
+--   COLUMN HistoryID int NULLABLE=True DEFAULT=
+--   COLUMN ErpKey nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DocSign nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AgreeOrder int NULLABLE=True DEFAULT=
+--   COLUMN Duty char NULLABLE=True DEFAULT=
+--   COLUMN Drafter char NULLABLE=True DEFAULT=
+--   COLUMN RootID int NULLABLE=True DEFAULT=
+--   COLUMN Summary ntext NULLABLE=True DEFAULT=
+--   COLUMN ContentText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OpinionText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileNameText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN timestamp timestamp NULLABLE=True DEFAULT=
+--   COLUMN GroupCode char NULLABLE=True DEFAULT=
+--   COLUMN IsDraftDel char NULLABLE=True DEFAULT=
+--   COLUMN OperationType int NULLABLE=True DEFAULT=
+--   COLUMN EDMSID int NULLABLE=True DEFAULT=
+--   COLUMN EDMSState int NULLABLE=True DEFAULT=
+--   COLUMN IsClose char NULLABLE=True DEFAULT=
+--   COLUMN AgreeDocId int NULLABLE=True DEFAULT=
+--   COLUMN AgreeManagerID varchar NULLABLE=True DEFAULT=
+--   COLUMN BSCODE varchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsAutoAfter char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.eappdocument_hiddencontent
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN content ntext NULLABLE=True DEFAULT=
+--   COLUMN title nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocumentSubData
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN WorkCode nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WorkName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocumentUpdateLog
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=False DEFAULT=
+--   COLUMN userid nchar NULLABLE=True DEFAULT=
+--   COLUMN regdate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN path varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocumentWBLD
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN EALink1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink6 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink7 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink8 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink9 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EALink10 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocUserSerial
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN DocId int NULLABLE=True DEFAULT=
+--   COLUMN ES01 varchar NULLABLE=True DEFAULT=
+--   COLUMN ES02 varchar NULLABLE=True DEFAULT=
+--   COLUMN SerialNum varchar NULLABLE=True DEFAULT=
+--   COLUMN SaupjangName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SaupjangCode nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocUserSign
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN PID int NULLABLE=False DEFAULT=
+--   COLUMN Sign varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPDocWriterInfo
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN PosName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_EN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_CH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_JP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_VN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_EN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_CH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_JP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_VN nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPEditorForm
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN formid varchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPErpState
+--   COLUMN EAErpStateCode int NULLABLE=False DEFAULT=
+--   COLUMN ConvertCode nvarchar NULLABLE=True DEFAULT=
+--   COLUMN sortord int NULLABLE=True DEFAULT=
+--   COLUMN desc nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPErpSubData
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN SlipNo nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN SlipAmount decimal NULLABLE=True DEFAULT=((0))
+--   COLUMN SlipDate varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPErpUpdate
+--   COLUMN UpdateKey int NULLABLE=False DEFAULT=
+--   COLUMN EADocID int NULLABLE=False DEFAULT=
+--   COLUMN Result char NULLABLE=False DEFAULT=('N')
+--   COLUMN ResultMemo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN ShowName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RealName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ContentID int NULLABLE=True DEFAULT=
+--   COLUMN Length bigint NULLABLE=True DEFAULT=
+--   COLUMN Sortno int NULLABLE=True DEFAULT=((1))
+--   COLUMN OpYn char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPForm
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN SeqNo int NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN BoardID varchar NULLABLE=True DEFAULT=
+--   COLUMN PathID int NULLABLE=True DEFAULT=
+--   COLUMN FixedPath char NULLABLE=True DEFAULT=
+--   COLUMN StorePeriod int NULLABLE=True DEFAULT=
+--   COLUMN EACode nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FormType varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Code nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Width int NULLABLE=True DEFAULT=
+--   COLUMN Height int NULLABLE=True DEFAULT=
+--   COLUMN IsOpenWindow char NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN IsErp char NULLABLE=True DEFAULT=
+--   COLUMN CategoryID int NULLABLE=True DEFAULT=
+--   COLUMN ErpType nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsFixedForm char NULLABLE=True DEFAULT=
+--   COLUMN IsUsing char NULLABLE=True DEFAULT=
+--   COLUMN DepartID char NULLABLE=True DEFAULT=
+--   COLUMN DraftLine char NULLABLE=True DEFAULT=
+--   COLUMN AgreeLine char NULLABLE=True DEFAULT=
+--   COLUMN AssistLine char NULLABLE=True DEFAULT=
+--   COLUMN ProposalLine char NULLABLE=True DEFAULT=
+--   COLUMN ExecuteLine char NULLABLE=True DEFAULT=
+--   COLUMN AuditLine char NULLABLE=True DEFAULT=
+--   COLUMN ReceiveLine char NULLABLE=True DEFAULT=
+--   COLUMN ReferenceLine char NULLABLE=True DEFAULT=
+--   COLUMN DraftCount int NULLABLE=True DEFAULT=
+--   COLUMN AgreeCount int NULLABLE=True DEFAULT=
+--   COLUMN AssistCount int NULLABLE=True DEFAULT=
+--   COLUMN ProposalCount int NULLABLE=True DEFAULT=
+--   COLUMN ExecuteCount int NULLABLE=True DEFAULT=
+--   COLUMN AuditCount int NULLABLE=True DEFAULT=
+--   COLUMN ReceiveCount int NULLABLE=True DEFAULT=
+--   COLUMN ReferenceCount int NULLABLE=True DEFAULT=
+--   COLUMN PrintType char NULLABLE=True DEFAULT=
+--   COLUMN TopMargin varchar NULLABLE=True DEFAULT=
+--   COLUMN BottomMargin varchar NULLABLE=True DEFAULT=
+--   COLUMN LeftMargin varchar NULLABLE=True DEFAULT=
+--   COLUMN RightMargin varchar NULLABLE=True DEFAULT=
+--   COLUMN OperationType int NULLABLE=True DEFAULT=
+--   COLUMN RequireManager char NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Standard nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModApproval char NULLABLE=True DEFAULT=
+--   COLUMN ReApproval char NULLABLE=True DEFAULT=
+--   COLUMN PassageLine char NULLABLE=True DEFAULT=
+--   COLUMN PassageCount int NULLABLE=True DEFAULT=
+--   COLUMN IsClose char NULLABLE=True DEFAULT=
+--   COLUMN ERPFixedPath char NULLABLE=True DEFAULT=((0))
+--   COLUMN EDMSSet char NULLABLE=True DEFAULT=('0')
+--   COLUMN IsErpStartGW varchar NULLABLE=True DEFAULT=('0')
+--   COLUMN SerialLang varchar NULLABLE=True DEFAULT=('1')
+--   COLUMN IsMod char NULLABLE=True DEFAULT=('0')
+--   COLUMN EDMSFolderID varchar NULLABLE=True DEFAULT=
+--   COLUMN EDMSFolderFix char NULLABLE=True DEFAULT=
+--   COLUMN EDMSAuth varchar NULLABLE=True DEFAULT=
+--   COLUMN EDMSAuthFix char NULLABLE=True DEFAULT=
+--   COLUMN EDMSAuthDefault char NULLABLE=True DEFAULT=
+--   COLUMN DocSerial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsHotNews char NULLABLE=True DEFAULT=('0')
+--   COLUMN YesanLine char NULLABLE=True DEFAULT=
+--   COLUMN YesanCount int NULLABLE=True DEFAULT=
+--   COLUMN GamsaLine char NULLABLE=True DEFAULT=
+--   COLUMN GamsaCount int NULLABLE=True DEFAULT=
+--   COLUMN PopUpUrl nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseTemp char NULLABLE=True DEFAULT=
+--   COLUMN UseMod char NULLABLE=True DEFAULT=
+--   COLUMN UseDel char NULLABLE=True DEFAULT=
+--   COLUMN PreFinalLine char NULLABLE=True DEFAULT=
+--   COLUMN PreFinalCount int NULLABLE=True DEFAULT=
+--   COLUMN FinalLine char NULLABLE=True DEFAULT=
+--   COLUMN FinalCount int NULLABLE=True DEFAULT=
+--   COLUMN IsShare char NULLABLE=True DEFAULT=
+--   COLUMN ProAgreeLine char NULLABLE=True DEFAULT=
+--   COLUMN ProAgreeCount int NULLABLE=True DEFAULT=
+--   COLUMN ExeAgreeLine char NULLABLE=True DEFAULT=
+--   COLUMN ExeAgreeCount int NULLABLE=True DEFAULT=
+--   COLUMN noDecision char NULLABLE=True DEFAULT=
+--   COLUMN EDMSAuthorityLevel int NULLABLE=False DEFAULT=((0))
+--   COLUMN LinkForm char NULLABLE=False DEFAULT=('0')
+--   COLUMN RotationLine char NULLABLE=False DEFAULT=('0')
+--   COLUMN RotationCount int NULLABLE=False DEFAULT=((10))
+-- OBJECT USER_TABLE public/dbo.EAPPFormDepart
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN FormID int NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPFormTemplate
+--   COLUMN EftID int NULLABLE=False DEFAULT=
+--   COLUMN EFormID int NULLABLE=False DEFAULT=
+--   COLUMN TemplateType char NULLABLE=False DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseYN char NULLABLE=True DEFAULT=('Y')
+-- OBJECT USER_TABLE public/dbo.EAPPGamsaCount
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN GamsaYear varchar NULLABLE=True DEFAULT=
+--   COLUMN GamsaCount int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPGPDocPack
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN eadocid int NULLABLE=True DEFAULT=
+--   COLUMN mode varchar NULLABLE=True DEFAULT=
+--   COLUMN senderorgcode varchar NULLABLE=True DEFAULT=
+--   COLUMN senderid varchar NULLABLE=True DEFAULT=
+--   COLUMN sendname nvarchar NULLABLE=True DEFAULT=
+--   COLUMN receiveid varchar NULLABLE=True DEFAULT=
+--   COLUMN receivename nvarchar NULLABLE=True DEFAULT=
+--   COLUMN date datetime NULLABLE=True DEFAULT=
+--   COLUMN title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN docid varchar NULLABLE=True DEFAULT=
+--   COLUMN doctype_type nvarchar NULLABLE=True DEFAULT=
+--   COLUMN doctype_name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN doctype_dept varchar NULLABLE=True DEFAULT=
+--   COLUMN sendgw nvarchar NULLABLE=True DEFAULT=
+--   COLUMN dtdversion varchar NULLABLE=True DEFAULT=
+--   COLUMN xslversion varchar NULLABLE=True DEFAULT=
+--   COLUMN packxmlfilename char NULLABLE=True DEFAULT=
+--   COLUMN isdelete char NULLABLE=False DEFAULT=('0')
+-- OBJECT USER_TABLE public/dbo.EAPPGPDocPackContent
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN headerseq int NULLABLE=False DEFAULT=
+--   COLUMN filename nvarchar NULLABLE=True DEFAULT=
+--   COLUMN filepath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN contentrole varchar NULLABLE=True DEFAULT=
+--   COLUMN contenttype varchar NULLABLE=True DEFAULT=
+--   COLUMN charset varchar NULLABLE=True DEFAULT=
+--   COLUMN encoding varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPHistory
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN HType int NULLABLE=True DEFAULT=
+--   COLUMN TargetID int NULLABLE=True DEFAULT=
+--   COLUMN ActorID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ActState int NULLABLE=True DEFAULT=
+--   COLUMN ActDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsMobile char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPLinkConnection
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN provider varchar NULLABLE=True DEFAULT=
+--   COLUMN ConnectionString ntext NULLABLE=True DEFAULT=
+--   COLUMN Regid varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modid varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPLinkQuery
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN formid int NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN eventstate int NULLABLE=True DEFAULT=
+--   COLUMN query ntext NULLABLE=True DEFAULT=
+--   COLUMN connectionid int NULLABLE=True DEFAULT=
+--   COLUMN Regid varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modid varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPLinkScript
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN formid int NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN eventstate char NULLABLE=True DEFAULT=
+--   COLUMN script nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Regid varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modid varchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPLoginCheck
+--   COLUMN Pwd varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPMark
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DocID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SymbolID int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPMarkSymbol
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Symbol nchar NULLABLE=True DEFAULT=
+--   COLUMN Color char NULLABLE=True DEFAULT=
+--   COLUMN ActCode int NULLABLE=True DEFAULT=
+--   COLUMN Auth int NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPMigrationDataKey
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN reporterid varchar NULLABLE=True DEFAULT=
+--   COLUMN reportnum int NULLABLE=True DEFAULT=
+--   COLUMN eadocid int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPOperation
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN IsSend char NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN Description varchar NULLABLE=True DEFAULT=
+--   COLUMN Receiver nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Reference nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DocSerial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OperationDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN HiddenFile char NULLABLE=True DEFAULT=
+--   COLUMN receivebottom char NULLABLE=True DEFAULT=
+--   COLUMN IsAllow char NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.EAPPOperationHistory
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN OpSerial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OpSerialNum int NULLABLE=True DEFAULT=
+--   COLUMN OpID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN IsSend char NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN Description varchar NULLABLE=True DEFAULT=
+--   COLUMN Receiver nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Reference nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DocSerial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OperationDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN HiddenFile char NULLABLE=True DEFAULT=
+--   COLUMN receivebottom char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPOpinionFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN progid int NULLABLE=False DEFAULT=
+--   COLUMN saveFile_Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN regdate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPPath
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsInReceive char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPath_DecideID
+--   COLUMN EALineOrder varchar NULLABLE=True DEFAULT=
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPathDetail
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN LineID int NULLABLE=True DEFAULT=
+--   COLUMN ManagerID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN PositionID varchar NULLABLE=True DEFAULT=
+--   COLUMN GradeID varchar NULLABLE=True DEFAULT=
+--   COLUMN Depth int NULLABLE=True DEFAULT=
+--   COLUMN AccessType int NULLABLE=True DEFAULT=
+--   COLUMN LineOrder int NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPathGroup
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN FormID int NULLABLE=True DEFAULT=
+--   COLUMN GroupCd varchar NULLABLE=True DEFAULT=
+--   COLUMN PathID int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPopup
+--   COLUMN PopName varchar NULLABLE=False DEFAULT=
+--   COLUMN Script nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Html nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Conn varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPostMessage
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Category char NULLABLE=True DEFAULT=
+--   COLUMN Code int NULLABLE=True DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type char NULLABLE=True DEFAULT=
+--   COLUMN X int NULLABLE=True DEFAULT=
+--   COLUMN Y int NULLABLE=True DEFAULT=
+--   COLUMN Width int NULLABLE=True DEFAULT=
+--   COLUMN Height int NULLABLE=True DEFAULT=
+--   COLUMN Message ntext NULLABLE=True DEFAULT=
+--   COLUMN IsAlways char NULLABLE=True DEFAULT=
+--   COLUMN IsExpand char NULLABLE=True DEFAULT=
+--   COLUMN Authority int NULLABLE=True DEFAULT=
+--   COLUMN SubAuth int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPrivateDoc
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID int NULLABLE=True DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN MoveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPPrivateForm
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID int NULLABLE=True DEFAULT=
+--   COLUMN FormID int NULLABLE=True DEFAULT=
+--   COLUMN MoveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPProgress
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocumentID int NULLABLE=True DEFAULT=
+--   COLUMN ManagerID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Depth int NULLABLE=True DEFAULT=
+--   COLUMN ArriveState int NULLABLE=True DEFAULT=
+--   COLUMN ArriveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ManageState int NULLABLE=True DEFAULT=
+--   COLUMN ManageDate datetime NULLABLE=True DEFAULT=
+--   COLUMN AccessType int NULLABLE=True DEFAULT=
+--   COLUMN AccessKey varchar NULLABLE=True DEFAULT=
+--   COLUMN ProgressState int NULLABLE=True DEFAULT=
+--   COLUMN LineOrder int NULLABLE=True DEFAULT=
+--   COLUMN RepresentID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Opinion ntext NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN PositionID varchar NULLABLE=True DEFAULT=
+--   COLUMN GradeID varchar NULLABLE=True DEFAULT=
+--   COLUMN IsClose char NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN NextDrafter char NULLABLE=True DEFAULT=
+--   COLUMN DepartName1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionName1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GradeName1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GradeName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GradeName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartName4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionName4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GradeName4 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPProgressSubData
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN progid int NULLABLE=True DEFAULT=
+--   COLUMN PreManageState int NULLABLE=True DEFAULT=
+--   COLUMN PreManageDate datetime NULLABLE=True DEFAULT=
+--   COLUMN PreDocumentID int NULLABLE=True DEFAULT=
+--   COLUMN PreManagerID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PreAccessType int NULLABLE=True DEFAULT=
+--   COLUMN PreLineOrder int NULLABLE=True DEFAULT=
+--   COLUMN PreArriveState int NULLABLE=True DEFAULT=
+--   COLUMN PreArriveDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPReceive
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ProgID int NULLABLE=True DEFAULT=
+--   COLUMN ReceiverID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ReceiveState int NULLABLE=True DEFAULT=
+--   COLUMN ReceiveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Comment ntext NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPReceiveSendMail
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN SenderID varchar NULLABLE=True DEFAULT=
+--   COLUMN SendTitle varchar NULLABLE=True DEFAULT=
+--   COLUMN ReceiverEmail varchar NULLABLE=True DEFAULT=
+--   COLUMN ReceiverName varchar NULLABLE=True DEFAULT=
+--   COLUMN ReceiveContent varchar NULLABLE=True DEFAULT=
+--   COLUMN SendState char NULLABLE=True DEFAULT=('0')
+--   COLUMN Regdate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.EAPPRefDoc
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN RefDocID int NULLABLE=True DEFAULT=
+--   COLUMN ReporterID varchar NULLABLE=True DEFAULT=
+--   COLUMN ReportNum int NULLABLE=True DEFAULT=
+--   COLUMN IsOld char NULLABLE=True DEFAULT=
+--   COLUMN RefEdmsId int NULLABLE=True DEFAULT=
+--   COLUMN IsLink char NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.EAPPRefDoc_Temp
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN SessionID varchar NULLABLE=True DEFAULT=
+--   COLUMN SessionKey varchar NULLABLE=True DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN RefDocID int NULLABLE=True DEFAULT=
+--   COLUMN ReporterID varchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ReportNum int NULLABLE=True DEFAULT=
+--   COLUMN IsOld char NULLABLE=True DEFAULT=
+--   COLUMN RefEdmsId int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPSearchPeriod
+--   COLUMN userid varchar NULLABLE=False DEFAULT=
+--   COLUMN startdate datetime NULLABLE=True DEFAULT=
+--   COLUMN enddate datetime NULLABLE=True DEFAULT=
+--   COLUMN valdate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPSerial
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN KeyCode nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Serial int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPSignFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Category nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=True DEFAULT=
+--   COLUMN ShowName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FullPath nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPSMTPEnv
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ID varchar NULLABLE=False DEFAULT=
+--   COLUMN PW varchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.eapptempapprovalreadydoc
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN number int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPTempHotNews
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN EAPPDocID int NULLABLE=True DEFAULT=
+--   COLUMN HnewDocID int NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterNm nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MgmCd varchar NULLABLE=True DEFAULT=
+--   COLUMN MgmNm ntext NULLABLE=True DEFAULT=
+--   COLUMN Sdate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Edate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Import varchar NULLABLE=True DEFAULT=
+--   COLUMN PopYn varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCd varchar NULLABLE=True DEFAULT=
+--   COLUMN AuthCd varchar NULLABLE=True DEFAULT=
+--   COLUMN OrgGubun varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.eapptestupdate
+--   COLUMN docid int NULLABLE=True DEFAULT=
+--   COLUMN docstate varchar NULLABLE=True DEFAULT=
+--   COLUMN comment varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPTreeItem
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DivID varchar NULLABLE=True DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentID int NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN UseYn char NULLABLE=True DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPUserEnv
+--   COLUMN UserID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ShortenName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Password varchar NULLABLE=True DEFAULT=
+--   COLUMN SignPath varchar NULLABLE=True DEFAULT=
+--   COLUMN Absence char NULLABLE=True DEFAULT=
+--   COLUMN AbsenceProg char NULLABLE=True DEFAULT=
+--   COLUMN RepresenterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NoteRcvState varchar NULLABLE=True DEFAULT=
+--   COLUMN NoteRcvArrive varchar NULLABLE=True DEFAULT=
+--   COLUMN NoteRcvAll varchar NULLABLE=True DEFAULT=
+--   COLUMN NoteForMessanger char NULLABLE=True DEFAULT=
+--   COLUMN NoteForSMS char NULLABLE=True DEFAULT=
+--   COLUMN NoteForEmail char NULLABLE=True DEFAULT=
+--   COLUMN DefaultPrintStyle char NULLABLE=True DEFAULT=
+--   COLUMN FileNameFormat varchar NULLABLE=True DEFAULT=
+--   COLUMN AutoOpenLock char NULLABLE=True DEFAULT=
+--   COLUMN ApprovalPosition char NULLABLE=True DEFAULT=
+--   COLUMN EAPPRule char NULLABLE=True DEFAULT=
+--   COLUMN DefaultPathID int NULLABLE=True DEFAULT=
+--   COLUMN CompanyColor varchar NULLABLE=True DEFAULT=
+--   COLUMN PreviewID int NULLABLE=True DEFAULT=
+--   COLUMN StoreToDelete char NULLABLE=True DEFAULT=
+--   COLUMN ReferenceAutoConfirm char NULLABLE=True DEFAULT=
+--   COLUMN OperationAddress nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OperationTel nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OperationFax nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UnloadMsg int NULLABLE=True DEFAULT=
+--   COLUMN ReceiveAutoConfirm char NULLABLE=True DEFAULT=((0))
+--   COLUMN SummaryPosition char NULLABLE=True DEFAULT=('B')
+--   COLUMN NextSeleter nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ProgressView char NULLABLE=True DEFAULT=
+--   COLUMN TotalApproval char NULLABLE=False DEFAULT=((0))
+--   COLUMN ShowCount nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalContinue char NULLABLE=False DEFAULT=('0')
+-- OBJECT USER_TABLE public/dbo.EAPPWorkCode
+--   COLUMN Code nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentCd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Depth nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPWorkRule
+--   COLUMN Code nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Decisioner nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EAPPWorkTransfer
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN TransferDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Sender varchar NULLABLE=True DEFAULT=
+--   COLUMN Receiver varchar NULLABLE=True DEFAULT=
+--   COLUMN Manager varchar NULLABLE=True DEFAULT=
+--   COLUMN SenderOrgcd char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EASetPopUp
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Mode varchar NULLABLE=False DEFAULT=
+--   COLUMN Conn varchar NULLABLE=True DEFAULT=
+--   COLUMN Qry nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CountQry nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Temp nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SearchOption nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Script nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EASVOption
+--   COLUMN KeyCode varchar NULLABLE=False DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMS_Saupjang
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN SaupName varchar NULLABLE=True DEFAULT=
+--   COLUMN SaupCode varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSAuthDepart
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DOCID int NULLABLE=False DEFAULT=
+--   COLUMN ORGCD int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSAuthFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DivID char NULLABLE=False DEFAULT=
+--   COLUMN FolderID varchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN IsView char NULLABLE=False DEFAULT=
+--   COLUMN IsDownload char NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSAuthFolder
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DivID char NULLABLE=False DEFAULT=
+--   COLUMN FolderID varchar NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSAuthUser
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DOCID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSComent
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocId int NULLABLE=True DEFAULT=
+--   COLUMN Coment nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Writer nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriteDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modifier nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModiDate datetime NULLABLE=True DEFAULT=
+--   COLUMN isDelete char NULLABLE=True DEFAULT=
+--   COLUMN OrgCd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSConfiguration
+--   COLUMN KeyCode varchar NULLABLE=False DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CodeGroup varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSDocFolder
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN FolderID varchar NULLABLE=True DEFAULT=
+--   COLUMN divid varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSDocSubInfo
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN edmsid int NULLABLE=False DEFAULT=
+--   COLUMN FormName1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FormName2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FormName3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FormName4 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSDocument
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionID varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN GradeID varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=True DEFAULT=
+--   COLUMN WOrder int NULLABLE=True DEFAULT=
+--   COLUMN WLevel int NULLABLE=True DEFAULT=
+--   COLUMN WGroup int NULLABLE=True DEFAULT=
+--   COLUMN IsNotice char NULLABLE=True DEFAULT=
+--   COLUMN LCategory int NULLABLE=True DEFAULT=
+--   COLUMN SCategory int NULLABLE=True DEFAULT=
+--   COLUMN AuthorityLevel int NULLABLE=True DEFAULT=
+--   COLUMN IsSecret char NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modifier nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ValDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=((0))
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN State char NULLABLE=True DEFAULT=
+--   COLUMN Serial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StorePeriod int NULLABLE=True DEFAULT=
+--   COLUMN HistoryID int NULLABLE=True DEFAULT=
+--   COLUMN Summary ntext NULLABLE=True DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=True DEFAULT=
+--   COLUMN KeyWord nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ContentText ntext NULLABLE=True DEFAULT=
+--   COLUMN timestamp timestamp NULLABLE=True DEFAULT=
+--   COLUMN EADocFlag int NULLABLE=True DEFAULT=
+--   COLUMN CheckoutId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Docstate char NULLABLE=True DEFAULT=
+--   COLUMN VersionState varchar NULLABLE=True DEFAULT=
+--   COLUMN DocLevel varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSDocWriterInfo
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN DeptName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName_EN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName_CH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName_JP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName_VN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_EN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_CH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_JP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PosName_VN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_EN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_CH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_JP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DutyName_VN nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSEssential
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN EADocId int NULLABLE=True DEFAULT=
+--   COLUMN TITLE varchar NULLABLE=True DEFAULT=
+--   COLUMN KEYWORD varchar NULLABLE=True DEFAULT=
+--   COLUMN SUMMARY ntext NULLABLE=True DEFAULT=
+--   COLUMN VERSION nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassFlag varchar NULLABLE=True DEFAULT=
+--   COLUMN Sucurity varchar NULLABLE=True DEFAULT=
+--   COLUMN Sucuritylevel varchar NULLABLE=True DEFAULT=
+--   COLUMN KeepDate varchar NULLABLE=True DEFAULT=
+--   COLUMN OrgCD varchar NULLABLE=True DEFAULT=
+--   COLUMN Susin varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DOCID int NULLABLE=False DEFAULT=
+--   COLUMN ATTACHPATH varchar NULLABLE=True DEFAULT=
+--   COLUMN ATTACHNAME nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ATTACHFlag varchar NULLABLE=True DEFAULT=
+--   COLUMN IsPDF char NULLABLE=True DEFAULT=
+--   COLUMN ContentId int NULLABLE=True DEFAULT=
+--   COLUMN Length bigint NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSHistory
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN HType int NULLABLE=True DEFAULT=
+--   COLUMN TargetID int NULLABLE=True DEFAULT=
+--   COLUMN ActorID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ActState int NULLABLE=True DEFAULT=
+--   COLUMN ActDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSKeyWord
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN Docid int NULLABLE=True DEFAULT=
+--   COLUMN KeyWord nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSKeywordMaster
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ItemNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrd varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSKeywordSub
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ItemNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MasterID int NULLABLE=False DEFAULT=
+--   COLUMN ItemNm5 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSListTemplate
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ListID varchar NULLABLE=True DEFAULT=
+--   COLUMN Template varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSMigration
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN EDMSID int NULLABLE=True DEFAULT=
+--   COLUMN MigrationID varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSMigrationHSIND
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN EDMSID int NULLABLE=True DEFAULT=
+--   COLUMN MigrationID varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSMigrationKeyang
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN EDMSID int NULLABLE=True DEFAULT=
+--   COLUMN MigrationID varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSOrgDoc
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID int NULLABLE=True DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN MoveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSPrivateDoc
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID varchar NULLABLE=True DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN MoveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSReceive
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=True DEFAULT=
+--   COLUMN ReceiverID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ReceiveState int NULLABLE=True DEFAULT=
+--   COLUMN ReceiveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Comment ntext NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSReceiveOrg
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DOCID int NULLABLE=False DEFAULT=
+--   COLUMN ORGCD varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSReceiveUser
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN DOCID int NULLABLE=False DEFAULT=
+--   COLUMN USERID nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSSerial
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN KeyCode nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Serial int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSTreeAuthority
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN DivID varchar NULLABLE=True DEFAULT=
+--   COLUMN FolderID varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN Authorityflag char NULLABLE=True DEFAULT=
+--   COLUMN writer varchar NULLABLE=True DEFAULT=
+--   COLUMN Regdate datetime NULLABLE=True DEFAULT=
+--   COLUMN Modifier varchar NULLABLE=True DEFAULT=
+--   COLUMN Moddate datetime NULLABLE=True DEFAULT=
+--   COLUMN ParentId int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.EDMSTreeItem
+--   COLUMN DivID varchar NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ItemNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentID varchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN UseYn char NULLABLE=True DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ID varchar NULLABLE=False DEFAULT=('-1')
+--   COLUMN StorePeriod nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSTreeItemDesc
+--   COLUMN ID varchar NULLABLE=False DEFAULT=
+--   COLUMN DivID varchar NULLABLE=False DEFAULT=
+--   COLUMN Desc1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Desc2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Desc3 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSUserAuthorityLevel
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthorityLevel varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Writer nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.EDMSUserEnv
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ApplyAllList char NULLABLE=True DEFAULT=
+--   COLUMN AuthorityLevel varchar NULLABLE=True DEFAULT=
+--   COLUMN AdminFlag char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.erprbrdgmapping
+--   COLUMN erpseq int NULLABLE=False DEFAULT=
+--   COLUMN empno nvarchar NULLABLE=True DEFAULT=
+--   COLUMN userid varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.GESCConfiguration
+--   COLUMN KeyCode varchar NULLABLE=True DEFAULT=
+--   COLUMN ValueData nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CodeGroup varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.hfconvdata
+--   COLUMN intid int NULLABLE=False DEFAULT=
+--   COLUMN strfilenames varchar NULLABLE=False DEFAULT=
+--   COLUMN intfiles int NULLABLE=False DEFAULT=((1))
+--   COLUMN strtifnames varchar NULLABLE=True DEFAULT=
+--   COLUMN intpages int NULLABLE=True DEFAULT=
+--   COLUMN intstate int NULLABLE=False DEFAULT=((0))
+--   COLUMN strregdate char NULLABLE=False DEFAULT=
+--   COLUMN strsid varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.hfreceivedata
+--   COLUMN intid int NULLABLE=False DEFAULT=
+--   COLUMN strsender_faxnum varchar NULLABLE=False DEFAULT=
+--   COLUMN strreceiver_faxnum varchar NULLABLE=False DEFAULT=
+--   COLUMN strsubject varchar NULLABLE=True DEFAULT=
+--   COLUMN strfilename varchar NULLABLE=False DEFAULT=
+--   COLUMN intfilesize int NULLABLE=False DEFAULT=
+--   COLUMN intpages int NULLABLE=False DEFAULT=
+--   COLUMN strreceivedate char NULLABLE=False DEFAULT=
+--   COLUMN intstate int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.hfsenddata
+--   COLUMN intid int NULLABLE=False DEFAULT=
+--   COLUMN strsender_faxnum varchar NULLABLE=False DEFAULT=
+--   COLUMN strreceiver_faxnum varchar NULLABLE=False DEFAULT=
+--   COLUMN strsubject varchar NULLABLE=True DEFAULT=
+--   COLUMN intconvtif int NULLABLE=False DEFAULT=((1))
+--   COLUMN strfilenames varchar NULLABLE=False DEFAULT=
+--   COLUMN intfiles int NULLABLE=False DEFAULT=((1))
+--   COLUMN strtifnames varchar NULLABLE=True DEFAULT=
+--   COLUMN intpages int NULLABLE=True DEFAULT=
+--   COLUMN intsentpages int NULLABLE=True DEFAULT=
+--   COLUMN intstate int NULLABLE=False DEFAULT=((0))
+--   COLUMN strregdate char NULLABLE=False DEFAULT=
+--   COLUMN strreservedate char NULLABLE=True DEFAULT=
+--   COLUMN strstarttime char NULLABLE=True DEFAULT=
+--   COLUMN strendtime char NULLABLE=True DEFAULT=
+--   COLUMN strsid varchar NULLABLE=False DEFAULT=
+--   COLUMN strcountrycode varchar NULLABLE=False DEFAULT=('82')
+--   COLUMN intdeleted int NULLABLE=False DEFAULT=((0))
+--   COLUMN strresultcode char NULLABLE=True DEFAULT=
+--   COLUMN retrycnt int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.hfsmsdata
+--   COLUMN intid int NULLABLE=False DEFAULT=
+--   COLUMN strsender_num varchar NULLABLE=False DEFAULT=
+--   COLUMN strreceiver_num varchar NULLABLE=False DEFAULT=
+--   COLUMN strsubject varchar NULLABLE=True DEFAULT=
+--   COLUMN strmessage varchar NULLABLE=False DEFAULT=
+--   COLUMN strkind char NULLABLE=False DEFAULT=('a')
+--   COLUMN intfiles int NULLABLE=True DEFAULT=((0))
+--   COLUMN strfilenames varchar NULLABLE=True DEFAULT=
+--   COLUMN intstate int NULLABLE=False DEFAULT=((0))
+--   COLUMN strregdate char NULLABLE=False DEFAULT=
+--   COLUMN strreservedate char NULLABLE=True DEFAULT=
+--   COLUMN strstarttime char NULLABLE=True DEFAULT=
+--   COLUMN strendtime char NULLABLE=True DEFAULT=
+--   COLUMN strsid varchar NULLABLE=False DEFAULT=
+--   COLUMN strcountrycode varchar NULLABLE=False DEFAULT=('82')
+--   COLUMN strresultcode char NULLABLE=True DEFAULT=
+--   COLUMN intuserno int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.HNEWAttached
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN Attnum int NULLABLE=True DEFAULT=
+--   COLUMN Attname nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.HNEWComment
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN WriterID varchar NULLABLE=False DEFAULT=
+--   COLUMN DocId int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.HNEWMaster
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterNm nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OrgCd varchar NULLABLE=True DEFAULT=
+--   COLUMN OrgNm ntext NULLABLE=True DEFAULT=
+--   COLUMN RegYmd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EndYmd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ImpYn varchar NULLABLE=True DEFAULT=
+--   COLUMN PopYn varchar NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=True DEFAULT=
+--   COLUMN GroupCd varchar NULLABLE=True DEFAULT=
+--   COLUMN AuthCd varchar NULLABLE=True DEFAULT=
+--   COLUMN Acnt int NULLABLE=True DEFAULT=
+--   COLUMN Ocnt int NULLABLE=True DEFAULT=
+--   COLUMN att1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN att5 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsGroupReg tinyint NULLABLE=True DEFAULT=((0))
+--   COLUMN OrgcdU nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN messangerYN char NULLABLE=True DEFAULT=
+--   COLUMN IsPermanent char NULLABLE=True DEFAULT=
+--   COLUMN PopupStartYmd char NULLABLE=True DEFAULT=
+--   COLUMN PopupEndYmd char NULLABLE=True DEFAULT=
+--   COLUMN IsPopupPermanent char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.HNEWReference
+--   COLUMN DocID int NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN ReadDate varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.HolidaySetup
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN show bit NULLABLE=False DEFAULT=
+--   COLUMN Url varchar NULLABLE=False DEFAULT=
+--   COLUMN Key varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_Comments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN IntegratedNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_Files
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_Reference
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN IntegratedNo int NULLABLE=True DEFAULT=
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Department nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Position nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_Replies
+--   COLUMN ReplyNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModPositionNo int NULLABLE=False DEFAULT=
+--   COLUMN ModPositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModDepartNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Depth int NULLABLE=False DEFAULT=
+--   COLUMN OrderNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_Sharers
+--   COLUMN IntegratedNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsChild char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_TreeItem
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentID int NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN UseYn char NULLABLE=True DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN TreeID int NULLABLE=True DEFAULT=
+--   COLUMN IsSet char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrated_ViewedLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN TreeNo int NULLABLE=False DEFAULT=
+--   COLUMN ContentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ViewedDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ClientIP nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Integrateds
+--   COLUMN IntegratedNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Important bit NULLABLE=False DEFAULT=
+--   COLUMN IsShare bit NULLABLE=False DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=False DEFAULT=
+--   COLUMN TotalViews int NULLABLE=False DEFAULT=((0))
+--   COLUMN CurrentViews int NULLABLE=False DEFAULT=
+--   COLUMN IsContentImg bit NULLABLE=False DEFAULT=
+--   COLUMN TreeRoot int NULLABLE=True DEFAULT=
+--   COLUMN TreeNo int NULLABLE=True DEFAULT=
+--   COLUMN TreeItem2 int NULLABLE=True DEFAULT=
+--   COLUMN TreeItem3 int NULLABLE=True DEFAULT=
+--   COLUMN TypeNo int NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN IsImportant bit NULLABLE=False DEFAULT=('False')
+-- OBJECT USER_TABLE public/dbo.Leave_Options
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Leave_Types
+--   COLUMN LeaveNo int NULLABLE=False DEFAULT=
+--   COLUMN LeaveName nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN IsPaid nvarchar NULLABLE=True DEFAULT=(N'P')
+--   COLUMN LeaveDays float NULLABLE=True DEFAULT=((1))
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+--   COLUMN UseYN nvarchar NULLABLE=True DEFAULT=(N'Y')
+-- OBJECT USER_TABLE public/dbo.Leave_UserApplies
+--   COLUMN ApplyNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LeaveYear int NULLABLE=True DEFAULT=
+--   COLUMN LeaveTypeNo int NULLABLE=True DEFAULT=
+--   COLUMN FromDate date NULLABLE=True DEFAULT=
+--   COLUMN ToDate date NULLABLE=True DEFAULT=
+--   COLUMN LeaveDaysTotal float NULLABLE=True DEFAULT=
+--   COLUMN Reason nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalYN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EappID int NULLABLE=True DEFAULT=
+--   COLUMN ApprovalUserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Leave_UserBaseYear
+--   COLUMN LeaveYear int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN YearOfService int NULLABLE=True DEFAULT=
+--   COLUMN LeaveMaxDays float NULLABLE=True DEFAULT=
+--   COLUMN LeaveUseDays float NULLABLE=True DEFAULT=
+--   COLUMN PrevUseDays float NULLABLE=True DEFAULT=
+--   COLUMN StartDate date NULLABLE=True DEFAULT=
+--   COLUMN EndDate date NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Accounts
+--   COLUMN AccountNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Server varchar NULLABLE=False DEFAULT=
+--   COLUMN Port int NULLABLE=False DEFAULT=
+--   COLUMN PopUser varchar NULLABLE=False DEFAULT=
+--   COLUMN PopPwd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsServerAccount bit NULLABLE=False DEFAULT=
+--   COLUMN IsSharedAccount bit NULLABLE=False DEFAULT=
+--   COLUMN IsDeleteEmlFile bit NULLABLE=False DEFAULT=
+--   COLUMN IsWebMail bit NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN MailAddress varchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Accounts_Delete
+--   COLUMN AccountNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Server varchar NULLABLE=False DEFAULT=
+--   COLUMN Port int NULLABLE=False DEFAULT=
+--   COLUMN PopUser varchar NULLABLE=False DEFAULT=
+--   COLUMN PopPwd varchar NULLABLE=False DEFAULT=
+--   COLUMN IsServerAccount bit NULLABLE=False DEFAULT=
+--   COLUMN IsSharedAccount bit NULLABLE=False DEFAULT=
+--   COLUMN IsDeleteEmlFile bit NULLABLE=False DEFAULT=
+--   COLUMN IsWebMail bit NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN MailAddress varchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_BccSetting
+--   COLUMN BccSettingNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BccUserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_CMSettings
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN PopAcc varchar NULLABLE=False DEFAULT=
+--   COLUMN Domain varchar NULLABLE=False DEFAULT=
+--   COLUMN AutoYN char NULLABLE=False DEFAULT=
+--   COLUMN AutoMessage nvarchar NULLABLE=False DEFAULT=
+--   COLUMN AutoStartDate datetime NULLABLE=False DEFAULT=
+--   COLUMN AutoEndDate datetime NULLABLE=False DEFAULT=
+--   COLUMN MaxDisk int NULLABLE=False DEFAULT=
+--   COLUMN Forward nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ForwardRemark nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_FrequentlyUsedAddresses
+--   COLUMN AddressNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Address nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UsedCount int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Mail_BccSetting
+--   COLUMN BccSettingNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BccUserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailAdminSigns
+--   COLUMN AmdinSignNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailBoxs
+--   COLUMN BoxNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ParentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN TotalCount int NULLABLE=False DEFAULT=
+--   COLUMN UnReadCount int NULLABLE=False DEFAULT=
+--   COLUMN IsShare bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailBoxSharers
+--   COLUMN BoxNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN Permission int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailCalendars
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsConvertXml bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailConversations
+--   COLUMN ConversationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN MailCount int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Address nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailFilters
+--   COLUMN FilterNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN FieldFg varchar NULLABLE=False DEFAULT=
+--   COLUMN ConditionFg varchar NULLABLE=False DEFAULT=
+--   COLUMN ExecFg varchar NULLABLE=False DEFAULT=
+--   COLUMN ExecValue nvarchar NULLABLE=False DEFAULT=
+--   COLUMN MailBoxNo bigint NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailLargeFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+--   COLUMN ExpirationDate date NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailReceivedStatistics
+--   COLUMN StatisticsNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN AccNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ReceivedDate date NULLABLE=False DEFAULT=
+--   COLUMN NormalCount int NULLABLE=False DEFAULT=
+--   COLUMN SpamCount int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Mails
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CMSendNum bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN BoxNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FromName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FromAddr nvarchar NULLABLE=True DEFAULT=
+--   COLUMN To nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Cc nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Bcc nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ToDomain nvarchar NULLABLE=False DEFAULT=
+--   COLUMN AccNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsSent bit NULLABLE=False DEFAULT=
+--   COLUMN ReplyDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ForwardDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsDelete bit NULLABLE=False DEFAULT=
+--   COLUMN TagNo bigint NULLABLE=False DEFAULT=
+--   COLUMN TextMode int NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+--   COLUMN FileCount int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+--   COLUMN EmlFileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsOneByOne bit NULLABLE=False DEFAULT=
+--   COLUMN IsImportant bit NULLABLE=False DEFAULT=
+--   COLUMN RecipientsCount int NULLABLE=False DEFAULT=
+--   COLUMN ReadCount int NULLABLE=False DEFAULT=
+--   COLUMN Priority char NULLABLE=False DEFAULT=
+--   COLUMN ReserveDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsFile bit NULLABLE=False DEFAULT=
+--   COLUMN IsCalendar bit NULLABLE=False DEFAULT=
+--   COLUMN ConversationNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN DeleteDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Mails_Mapping
+--   COLUMN MailType nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SeqNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN MailNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailSigns
+--   COLUMN SignNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN AccNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailTags
+--   COLUMN TagNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ImageNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TotalCount int NULLABLE=False DEFAULT=
+--   COLUMN UnReadCount int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailTemplateCategories
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailTemplates
+--   COLUMN TemplateNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_MailThreads
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ConversationNo bigint NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_RecentMailFiles
+--   COLUMN RecentNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Size int NULLABLE=False DEFAULT=
+--   COLUMN ActionDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_SentLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CMSendNum bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Address nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SentType int NULLABLE=False DEFAULT=
+--   COLUMN IsComplete bit NULLABLE=False DEFAULT=
+--   COLUMN IsCancel bit NULLABLE=False DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DeliveredDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_Servers
+--   COLUMN ServerNo int NULLABLE=False DEFAULT=
+--   COLUMN ServerHost varchar NULLABLE=False DEFAULT=
+--   COLUMN MailDomain varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_SharedAccounts
+--   COLUMN SharedAccountNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SharedUserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.Mail_SharedComments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CommentsType int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_SharedReference
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN MailNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Mail_UserSettings
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN StartMailBoxNo bigint NULLABLE=False DEFAULT=
+--   COLUMN IsFolderExpanded bit NULLABLE=False DEFAULT=
+--   COLUMN PagePerCount int NULLABLE=False DEFAULT=
+--   COLUMN IsTitleOneLine bit NULLABLE=False DEFAULT=
+--   COLUMN IsAsNameAddress bit NULLABLE=False DEFAULT=
+--   COLUMN IsConversationList bit NULLABLE=False DEFAULT=
+--   COLUMN IsAddressAreaExpanded bit NULLABLE=False DEFAULT=
+--   COLUMN IsIncludedReference int NULLABLE=False DEFAULT=
+--   COLUMN UseSign bit NULLABLE=False DEFAULT=
+--   COLUMN MailBoxSize bigint NULLABLE=False DEFAULT=
+--   COLUMN CurrentMailBoxSize bigint NULLABLE=False DEFAULT=
+--   COLUMN AutoSavingTime int NULLABLE=False DEFAULT=
+--   COLUMN MailBoxLimit bigint NULLABLE=True DEFAULT=
+--   COLUMN OpenMailBoxs varchar NULLABLE=False DEFAULT=
+--   COLUMN IsNotSavingSentMail bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_DashBoards
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_DefaultUserSettings
+--   COLUMN SettingName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SettingValue nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_InitialWidgetPlacements
+--   COLUMN PlaceNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN WidgetNo int NULLABLE=False DEFAULT=
+--   COLUMN IsFixed bit NULLABLE=False DEFAULT=
+--   COLUMN Left int NULLABLE=False DEFAULT=
+--   COLUMN Top int NULLABLE=False DEFAULT=
+--   COLUMN Width int NULLABLE=False DEFAULT=
+--   COLUMN Height int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_MSGStatus
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN State int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_MSGStatusSort
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_UserSettings
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UseCustomDashBoard bit NULLABLE=False DEFAULT=
+--   COLUMN DashBoardDisplayOrder varchar NULLABLE=False DEFAULT=
+--   COLUMN IsDashBoardChangeNotification bit NULLABLE=False DEFAULT=
+--   COLUMN FirstProjectCode nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_UserWidgetPlacements
+--   COLUMN PlaceNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN WidgetData nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Left int NULLABLE=False DEFAULT=
+--   COLUMN Top int NULLABLE=False DEFAULT=
+--   COLUMN Width int NULLABLE=False DEFAULT=
+--   COLUMN Height int NULLABLE=False DEFAULT=
+--   COLUMN ZIndex int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_WidgetCategories
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_WidgetMEMO
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN Num int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_WidgetPlacements
+--   COLUMN PlaceNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN WidgetNo int NULLABLE=False DEFAULT=
+--   COLUMN BoardNo int NULLABLE=False DEFAULT=
+--   COLUMN IsFixed bit NULLABLE=False DEFAULT=
+--   COLUMN Left int NULLABLE=False DEFAULT=
+--   COLUMN Top int NULLABLE=False DEFAULT=
+--   COLUMN Width int NULLABLE=False DEFAULT=
+--   COLUMN Height int NULLABLE=False DEFAULT=
+--   COLUMN ZIndex int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Main_Widgets
+--   COLUMN WidgetNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Width int NULLABLE=False DEFAULT=
+--   COLUMN Height int NULLABLE=False DEFAULT=
+--   COLUMN ControlUrl varchar NULLABLE=False DEFAULT=
+--   COLUMN IsCompany bit NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_Attachment
+--   COLUMN AttachmentNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN FileUrl nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ListNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN TypeFile varchar NULLABLE=True DEFAULT=
+--   COLUMN DayCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN DayEdit datetime NULLABLE=True DEFAULT=
+--   COLUMN fileURI nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RealPath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsAvatar bit NULLABLE=False DEFAULT=((0))
+--   COLUMN AttachTimeZone float NULLABLE=True DEFAULT=((0))
+--   COLUMN FileSize nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_Comments
+--   COLUMN CommentNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN ListNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegTimeZone float NULLABLE=True DEFAULT=((0))
+--   COLUMN ModTimeZone float NULLABLE=True DEFAULT=((0))
+--   COLUMN ReadUserList nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentID uniqueidentifier NULLABLE=True DEFAULT=(CONVERT([uniqueidentifier],CONVERT([binary],(0),(0)),(0)))
+--   COLUMN ContentHTML nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_Group
+--   COLUMN GroupNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OrderPostion int NULLABLE=True DEFAULT=
+--   COLUMN DayCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN DayEdit datetime NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Show int NULLABLE=True DEFAULT=((1))
+--   COLUMN Icon varchar NULLABLE=True DEFAULT=
+--   COLUMN CheckDelete int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.Note_GroupNoteUser
+--   COLUMN GroupNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN ListNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Note_List
+--   COLUMN ListNo uniqueidentifier NULLABLE=False DEFAULT=(newid())
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GroupNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Description ntext NULLABLE=True DEFAULT=
+--   COLUMN Latitude float NULLABLE=True DEFAULT=
+--   COLUMN Longitude float NULLABLE=True DEFAULT=
+--   COLUMN DayCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN DayEdit datetime NULLABLE=True DEFAULT=
+--   COLUMN Show int NULLABLE=True DEFAULT=((1))
+--   COLUMN NoteTimeZoneCreate float NULLABLE=True DEFAULT=((0))
+--   COLUMN NoteTimeZoneEdit float NULLABLE=True DEFAULT=((0))
+--   COLUMN FavoriteType int NULLABLE=True DEFAULT=((0))
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=(getutcdate())
+--   COLUMN NoteTimeZoneRead float NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.Note_Share
+--   COLUMN ShareNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN ListNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN DayCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN DayEdit datetime NULLABLE=True DEFAULT=
+--   COLUMN UserShare int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN IsRead bit NULLABLE=True DEFAULT=((0))
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=(getutcdate())
+--   COLUMN IsReads int NULLABLE=True DEFAULT=((0))
+--   COLUMN FavoriteType int NULLABLE=True DEFAULT=((0))
+--   COLUMN ShareType int NULLABLE=True DEFAULT=((2))
+--   COLUMN timeOffset float NULLABLE=True DEFAULT=
+--   COLUMN CompanyNo int NULLABLE=True DEFAULT=
+--   COLUMN ShareCompanyNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Notice_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmTime bit NULLABLE=True DEFAULT=
+--   COLUMN StartTime time NULLABLE=True DEFAULT=
+--   COLUMN EndTime time NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Notice_AuthoGroup
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_NM varchar NULLABLE=False DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Notice_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmTime bit NULLABLE=True DEFAULT=
+--   COLUMN StartTime time NULLABLE=True DEFAULT=
+--   COLUMN EndTime time NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Notice_Menu
+--   COLUMN MENU_IDX int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_TITLE varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_PARENT_ID int NULLABLE=True DEFAULT=
+--   COLUMN MENU_URL varchar NULLABLE=True DEFAULT=
+--   COLUMN MENU_DESCRIPTION varchar NULLABLE=True DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.Notice_UserByGroup
+--   COLUMN USERGROUP_ID int NULLABLE=False DEFAULT=
+--   COLUMN USER_NO int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN DEPARTMENT_ID int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Notice_UserPermission
+--   COLUMN UserPermissionId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN CategoryId int NULLABLE=False DEFAULT=
+--   COLUMN Permission int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ViewEndDate int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeAttachments
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileLength bigint NULLABLE=False DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Sort float NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeCols
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN checkbox bit NULLABLE=False DEFAULT=
+--   COLUMN important bit NULLABLE=False DEFAULT=
+--   COLUMN category bit NULLABLE=False DEFAULT=
+--   COLUMN title bit NULLABLE=False DEFAULT=
+--   COLUMN writer bit NULLABLE=False DEFAULT=
+--   COLUMN WriteDate bit NULLABLE=False DEFAULT=
+--   COLUMN Hit bit NULLABLE=False DEFAULT=
+--   COLUMN NoticeDetp bit NULLABLE=False DEFAULT=
+--   COLUMN NoticeDetpShare bit NULLABLE=False DEFAULT=
+--   COLUMN NoticePeriod bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeComments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModPositionNo int NULLABLE=True DEFAULT=
+--   COLUMN ModPositionName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDepartNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GroupNo bigint NULLABLE=True DEFAULT=
+--   COLUMN OrderNo int NULLABLE=True DEFAULT=
+--   COLUMN Depth int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeContentImgs
+--   COLUMN ContentImgNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileSize int NULLABLE=False DEFAULT=
+--   COLUMN Path nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+--   COLUMN Status int NULLABLE=True DEFAULT=
+--   COLUMN ViewMode int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeOptions
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticePermissions
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN DeparNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN PositionNo int NULLABLE=True DEFAULT=
+--   COLUMN ViewEndDate int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeReference
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=True DEFAULT=
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Department nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Position nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeReferences
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Notices
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Important bit NULLABLE=False DEFAULT=
+--   COLUMN IsShare bit NULLABLE=False DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=False DEFAULT=
+--   COLUMN TotalViews int NULLABLE=False DEFAULT=((0))
+--   COLUMN CurrentViews int NULLABLE=False DEFAULT=
+--   COLUMN IsContentImg bit NULLABLE=False DEFAULT=
+--   COLUMN IsPopup bit NULLABLE=False DEFAULT=((0))
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN PPStartDate date NULLABLE=True DEFAULT=
+--   COLUMN PPEndDate date NULLABLE=True DEFAULT=
+--   COLUMN isdeleted int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsSeen2 int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticesDelete
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN DeleteDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN EndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Important bit NULLABLE=True DEFAULT=
+--   COLUMN IsShare bit NULLABLE=True DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=True DEFAULT=
+--   COLUMN TotalViews int NULLABLE=True DEFAULT=
+--   COLUMN CurrentViews int NULLABLE=True DEFAULT=
+--   COLUMN IsContentImg bit NULLABLE=True DEFAULT=
+--   COLUMN IsPopup bit NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN PPStartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN PPEndDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSetup
+--   COLUMN UsePopup char NULLABLE=False DEFAULT=('N')
+--   COLUMN PageSize int NULLABLE=False DEFAULT=((20))
+--   COLUMN EndNoticeView char NULLABLE=False DEFAULT=('Y')
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN NoticeTreeSub char NULLABLE=True DEFAULT=
+--   COLUMN IsImportant int NULLABLE=True DEFAULT=
+--   COLUMN popupType int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSharers
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsChild char NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticesShiftDelete
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN DeleteDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN EndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Important bit NULLABLE=True DEFAULT=
+--   COLUMN IsShare bit NULLABLE=True DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=True DEFAULT=
+--   COLUMN TotalViews int NULLABLE=True DEFAULT=
+--   COLUMN CurrentViews int NULLABLE=True DEFAULT=
+--   COLUMN IsContentImg bit NULLABLE=True DEFAULT=
+--   COLUMN IsPopup bit NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN PPStartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN PPEndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN UserNo2 int NULLABLE=True DEFAULT=
+--   COLUMN DeleteDate2 datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticesSyn
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Important bit NULLABLE=False DEFAULT=
+--   COLUMN IsShare bit NULLABLE=False DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=False DEFAULT=
+--   COLUMN TotalViews int NULLABLE=False DEFAULT=((0))
+--   COLUMN CurrentViews int NULLABLE=False DEFAULT=
+--   COLUMN IsContentImg bit NULLABLE=False DEFAULT=
+--   COLUMN TypeNo int NULLABLE=True DEFAULT=
+--   COLUMN IsDelete char NULLABLE=True DEFAULT=
+--   COLUMN IntegratedNo int NULLABLE=True DEFAULT=
+--   COLUMN TreeRoot int NULLABLE=False DEFAULT=((0))
+--   COLUMN TreeNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN TreeItem2 int NULLABLE=False DEFAULT=((0))
+--   COLUMN TreeItem3 int NULLABLE=False DEFAULT=((0))
+--   COLUMN Options int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsImportant bit NULLABLE=False DEFAULT=('False')
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Attachments
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileLength int NULLABLE=False DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_AuthoGroup
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_NM varchar NULLABLE=False DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Comments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_ContentImgs
+--   COLUMN ContentImgNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileSize int NULLABLE=False DEFAULT=
+--   COLUMN Path nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Divisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+--   COLUMN Status int NULLABLE=True DEFAULT=
+--   COLUMN viewmode int NULLABLE=True DEFAULT=
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Menu
+--   COLUMN MENU_IDX int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_TITLE varchar NULLABLE=False DEFAULT=
+--   COLUMN MENU_PARENT_ID int NULLABLE=True DEFAULT=
+--   COLUMN MENU_URL varchar NULLABLE=True DEFAULT=
+--   COLUMN MENU_DESCRIPTION varchar NULLABLE=True DEFAULT=
+--   COLUMN USE_YN char NULLABLE=True DEFAULT=('Y')
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Reference
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=True DEFAULT=
+--   COLUMN UserID varchar NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Department nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Position nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_References
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Sharers
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsChild char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_Type
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_KO nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_VN nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_CH nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Sort int NULLABLE=True DEFAULT=
+--   COLUMN Status int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_UserByGroup
+--   COLUMN USERGROUP_ID int NULLABLE=False DEFAULT=
+--   COLUMN USER_NO int NULLABLE=False DEFAULT=
+--   COLUMN MENU_ID int NULLABLE=False DEFAULT=
+--   COLUMN AUTH_GRP_ID int NULLABLE=False DEFAULT=
+--   COLUMN ID_INSERT int NULLABLE=False DEFAULT=
+--   COLUMN DTS_INSERT datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ID_UPDATE int NULLABLE=True DEFAULT=
+--   COLUMN DTS_UPDATE datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN DEPARTMENT_ID int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NoticeSyn_ViewedLogs
+--   COLUMN LogNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DividionNo int NULLABLE=False DEFAULT=
+--   COLUMN NoticeNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ViewedDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ClientIP nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFA_BK_Ranking
+--   COLUMN seq nvarchar NULLABLE=True DEFAULT=
+--   COLUMN 순위 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN 수정 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN 업체명 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN 등록일 nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFAAttached
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN ParentSeq int NULLABLE=False DEFAULT=
+--   COLUMN Attnum int NULLABLE=True DEFAULT=
+--   COLUMN Attname nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFAAuthUsers
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DeptCode int NULLABLE=False DEFAULT=
+--   COLUMN AuthFg varchar NULLABLE=True DEFAULT=
+--   COLUMN TeamAuthFg varchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFABusiNegativeInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN AuthFlag varchar NULLABLE=True DEFAULT=
+--   COLUMN AuthName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Writer varchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFABusinessInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN Writer varchar NULLABLE=True DEFAULT=
+--   COLUMN WriteName varchar NULLABLE=True DEFAULT=
+--   COLUMN BsDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsType1 varchar NULLABLE=True DEFAULT=
+--   COLUMN BsType2 varchar NULLABLE=True DEFAULT=
+--   COLUMN BsClient varchar NULLABLE=True DEFAULT=
+--   COLUMN BsMoney varchar NULLABLE=True DEFAULT=
+--   COLUMN BsContent nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileNames varchar NULLABLE=True DEFAULT=
+--   COLUMN FileSizes varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSubject varchar NULLABLE=True DEFAULT=
+--   COLUMN BsNDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSalsDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSalsCont varchar NULLABLE=True DEFAULT=
+--   COLUMN BsRegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN NextDate varchar NULLABLE=True DEFAULT=
+--   COLUMN NextAct varchar NULLABLE=True DEFAULT=
+--   COLUMN NextActYn varchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalSeq varchar NULLABLE=True DEFAULT=
+--   COLUMN MailSeq varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFABusinessInfo2
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN Writer varchar NULLABLE=True DEFAULT=
+--   COLUMN WriteName varchar NULLABLE=True DEFAULT=
+--   COLUMN BsDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsType1 varchar NULLABLE=True DEFAULT=
+--   COLUMN BsType2 varchar NULLABLE=True DEFAULT=
+--   COLUMN BsClient varchar NULLABLE=True DEFAULT=
+--   COLUMN BsMoney varchar NULLABLE=True DEFAULT=
+--   COLUMN BsContent nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileNames varchar NULLABLE=True DEFAULT=
+--   COLUMN FileSizes varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSubject varchar NULLABLE=True DEFAULT=
+--   COLUMN BsNDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSalsDate varchar NULLABLE=True DEFAULT=
+--   COLUMN BsSalsCont varchar NULLABLE=True DEFAULT=
+--   COLUMN BsRegDate varchar NULLABLE=False DEFAULT=
+--   COLUMN NextDate varchar NULLABLE=True DEFAULT=
+--   COLUMN NextAct varchar NULLABLE=True DEFAULT=
+--   COLUMN NextActYn varchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalSeq varchar NULLABLE=True DEFAULT=
+--   COLUMN MailSeq varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFAClaimInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=True DEFAULT=
+--   COLUMN CmName varchar NULLABLE=True DEFAULT=
+--   COLUMN ClType1 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClType2 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClType3 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClClient varchar NULLABLE=True DEFAULT=
+--   COLUMN ClWriter varchar NULLABLE=True DEFAULT=
+--   COLUMN ClReDate varchar NULLABLE=True DEFAULT=
+--   COLUMN ClCpDate varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFhDate varchar NULLABLE=True DEFAULT=
+--   COLUMN ClRegDate varchar NULLABLE=True DEFAULT=
+--   COLUMN ClCharge varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFlag varchar NULLABLE=True DEFAULT=
+--   COLUMN ClSubject varchar NULLABLE=True DEFAULT=
+--   COLUMN ClReContent text NULLABLE=True DEFAULT=
+--   COLUMN ClFhContent text NULLABLE=True DEFAULT=
+--   COLUMN ClFile1 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFile2 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFile3 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFile4 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFile5 varchar NULLABLE=True DEFAULT=
+--   COLUMN ClFile6 varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFACompanyBns
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN CmFName varchar NULLABLE=True DEFAULT=
+--   COLUMN CmFID varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSName varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSID varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSalsDate varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSales varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType1 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmPath varchar NULLABLE=True DEFAULT=
+--   COLUMN CmNDate varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType2 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmCont text NULLABLE=True DEFAULT=
+--   COLUMN CmRanking varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFACompanyInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN Writer varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate varchar NULLABLE=True DEFAULT=
+--   COLUMN CmName varchar NULLABLE=True DEFAULT=
+--   COLUMN CmNum varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType1 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType2 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmDate varchar NULLABLE=True DEFAULT=
+--   COLUMN CmCEO varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSite varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType3 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmTel varchar NULLABLE=True DEFAULT=
+--   COLUMN CmFax varchar NULLABLE=True DEFAULT=
+--   COLUMN CmAdrr varchar NULLABLE=True DEFAULT=
+--   COLUMN CmBank varchar NULLABLE=True DEFAULT=
+--   COLUMN CmTrust varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSales varchar NULLABLE=True DEFAULT=
+--   COLUMN CmType4 varchar NULLABLE=True DEFAULT=
+--   COLUMN CmScale varchar NULLABLE=True DEFAULT=
+--   COLUMN CmStaff varchar NULLABLE=True DEFAULT=
+--   COLUMN CmEtc text NULLABLE=True DEFAULT=
+--   COLUMN CmRegion varchar NULLABLE=True DEFAULT=
+--   COLUMN CmRanking varchar NULLABLE=True DEFAULT=
+--   COLUMN CompanyType char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFACompanyStaff
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN CmName varchar NULLABLE=True DEFAULT=
+--   COLUMN CmOrg varchar NULLABLE=True DEFAULT=
+--   COLUMN CmPos varchar NULLABLE=True DEFAULT=
+--   COLUMN CmTel varchar NULLABLE=True DEFAULT=
+--   COLUMN CmMobile varchar NULLABLE=True DEFAULT=
+--   COLUMN CmMail varchar NULLABLE=True DEFAULT=
+--   COLUMN CmSex varchar NULLABLE=True DEFAULT=
+--   COLUMN CmBirth varchar NULLABLE=True DEFAULT=
+--   COLUMN CmRel varchar NULLABLE=True DEFAULT=
+--   COLUMN CmMarr varchar NULLABLE=True DEFAULT=
+--   COLUMN CmMarrMil varchar NULLABLE=True DEFAULT=
+--   COLUMN CmHobby varchar NULLABLE=True DEFAULT=
+--   COLUMN CmAddr varchar NULLABLE=True DEFAULT=
+--   COLUMN CmCareer text NULLABLE=True DEFAULT=
+--   COLUMN CmSchol text NULLABLE=True DEFAULT=
+--   COLUMN CmFamily text NULLABLE=True DEFAULT=
+--   COLUMN CmEtc text NULLABLE=True DEFAULT=
+--   COLUMN CmWriter varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFADeliverInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN CmSeq int NULLABLE=False DEFAULT=
+--   COLUMN CmName varchar NULLABLE=True DEFAULT=
+--   COLUMN DlInstDate varchar NULLABLE=True DEFAULT=
+--   COLUMN DlName varchar NULLABLE=True DEFAULT=
+--   COLUMN DlVer varchar NULLABLE=True DEFAULT=
+--   COLUMN DlStaff varchar NULLABLE=True DEFAULT=
+--   COLUMN DlTel varchar NULLABLE=True DEFAULT=
+--   COLUMN DlMobile varchar NULLABLE=True DEFAULT=
+--   COLUMN DlEMail varchar NULLABLE=True DEFAULT=
+--   COLUMN DlChage varchar NULLABLE=True DEFAULT=
+--   COLUMN DlFhDate varchar NULLABLE=True DEFAULT=
+--   COLUMN DlID varchar NULLABLE=True DEFAULT=
+--   COLUMN DlPWD varchar NULLABLE=True DEFAULT=
+--   COLUMN DlContent1 text NULLABLE=True DEFAULT=
+--   COLUMN DlContent2 text NULLABLE=True DEFAULT=
+--   COLUMN DlContent3 text NULLABLE=True DEFAULT=
+--   COLUMN DlContent4 text NULLABLE=True DEFAULT=
+--   COLUMN DlContent5 text NULLABLE=True DEFAULT=
+--   COLUMN DlContent6 text NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFADetailItem
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=True DEFAULT=
+--   COLUMN Flag int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFAFileInfo
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN ParentSeq int NULLABLE=False DEFAULT=
+--   COLUMN FileName varchar NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFARefMail
+--   COLUMN SEQ int NULLABLE=False DEFAULT=
+--   COLUMN OriSeq int NULLABLE=True DEFAULT=
+--   COLUMN RegUserId varchar NULLABLE=True DEFAULT=
+--   COLUMN RegName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FromName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FromAddr nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ToAddr nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Cc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Bcc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN InsideYn char NULLABLE=True DEFAULT=
+--   COLUMN FromSeq int NULLABLE=True DEFAULT=
+--   COLUMN EmlFileNm nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MsgUid nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RecSendDate datetime NULLABLE=True DEFAULT=
+--   COLUMN FileCnt int NULLABLE=True DEFAULT=
+--   COLUMN ToDomain varchar NULLABLE=True DEFAULT=
+--   COLUMN Email varchar NULLABLE=True DEFAULT=
+--   COLUMN ScheSendYn varchar NULLABLE=True DEFAULT=
+--   COLUMN ErrMsg varchar NULLABLE=True DEFAULT=
+--   COLUMN MsgSize int NULLABLE=True DEFAULT=
+--   COLUMN Pop3Yn char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.NSFARefMailAttached
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN FileSeq int NULLABLE=False DEFAULT=
+--   COLUMN FileNm nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileSize int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_BelongToDepartment
+--   COLUMN BelongNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN DutyNo int NULLABLE=False DEFAULT=((-1))
+--   COLUMN IsDefault bit NULLABLE=False DEFAULT=('1')
+-- OBJECT USER_TABLE public/dbo.Organization_CommonGroups
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ListOfUsers varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Departments
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ShortName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN Name_CH nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN SenderName nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.Organization_Duties
+--   COLUMN DutyNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN SortNo int NULLABLE=False DEFAULT=((1))
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=((1))
+--   COLUMN Name_CH nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.Organization_PersonalGroups
+--   COLUMN GroupNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ListOfUsers varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Positions
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN Name_CH nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.Organization_SortingEachDepartment
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Users
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN Password nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PasswordChangeDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name_EN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN MailAddress nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Sex int NULLABLE=False DEFAULT=('1')
+--   COLUMN CellPhone varchar NULLABLE=False DEFAULT=
+--   COLUMN CompanyPhone nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ExtensionNumber varchar NULLABLE=False DEFAULT=('')
+--   COLUMN EntranceDate datetime NULLABLE=False DEFAULT=
+--   COLUMN BirthDate datetime NULLABLE=False DEFAULT=
+--   COLUMN UserPhoto bit NULLABLE=False DEFAULT=
+--   COLUMN Photo nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN TimeZone nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN IsVirtual bit NULLABLE=False DEFAULT=
+--   COLUMN Name_CH nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_JP nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Name_VN nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN WorkPlaceType varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupId int NULLABLE=True DEFAULT=
+--   COLUMN SkinName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxNumber nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FailedLoginCount int NULLABLE=False DEFAULT=((0))
+--   COLUMN BirthDateType int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.Organization_Users_Addfields
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN Key varchar NULLABLE=False DEFAULT=
+--   COLUMN Value varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Users_AutoResignation
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UserID varchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DepartmentsName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PositionsName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DutiesName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN AutoResignationDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Users_InfoAddfield
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Code varchar NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN ModAuth bit NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN DisPlay bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Organization_Users_InfoAddfield_Sub
+--   COLUMN NoSub int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Code varchar NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.PersonalGroup
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ShareType nchar NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.PersonalGroupUser
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN SeqNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.PhotoBoard
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PositionID varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN WOrder int NULLABLE=True DEFAULT=
+--   COLUMN WLevel int NULLABLE=True DEFAULT=
+--   COLUMN WGroup int NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN TextContent nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.PhotoBoardCmt
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Comment nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.PhotoBoardFile
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FirstFlag bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.PhotoBoardLog
+--   COLUMN seq int NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN ViewerID varchar NULLABLE=False DEFAULT=
+--   COLUMN ViewTime datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ProjectFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ProposalCommonClass
+--   COLUMN ClassCode int NULLABLE=False DEFAULT=
+--   COLUMN ClassName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameEN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameVN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameCH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameJP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassDesc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseYn nchar NULLABLE=True DEFAULT=(N'N')
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ProposalCommonCode
+--   COLUMN CommonCode int NULLABLE=False DEFAULT=
+--   COLUMN ClassCode int NULLABLE=True DEFAULT=
+--   COLUMN CommonName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameEN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameVN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameCH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameJP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=True DEFAULT=((1))
+--   COLUMN UseYn nchar NULLABLE=True DEFAULT=(N'Y')
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ProposalUserApproval
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Kind int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.QuickLink
+--   COLUMN Seq bigint NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Url nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN OrderId int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsActive bit NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroupDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroupFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroupHistorys
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsEveryPerson bit NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroupPersons
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkGroupsCSCSync
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN CompanyID int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkJournalDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.RegularWorkJournals
+--   COLUMN JournalNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN CreationDate date NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN WorkTime int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Schedule_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmTime bit NULLABLE=True DEFAULT=
+--   COLUMN StartTime time NULLABLE=True DEFAULT=
+--   COLUMN EndTime time NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Schedule_CancelGoogle
+--   COLUMN UNo int NULLABLE=False DEFAULT=
+--   COLUMN GData int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Schedule_Comments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Schedule_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmTime bit NULLABLE=True DEFAULT=
+--   COLUMN StartTime time NULLABLE=True DEFAULT=
+--   COLUMN EndTime time NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Schedule_Notifications
+--   COLUMN NotiNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN NotificationType int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleAlarmSetting
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsEmail bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmi bit NULLABLE=True DEFAULT=
+--   COLUMN IsPC bit NULLABLE=True DEFAULT=
+--   COLUMN IsMobile bit NULLABLE=True DEFAULT=
+--   COLUMN TimeAlarm int NULLABLE=True DEFAULT=
+--   COLUMN IsUnuse bit NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsWebAlarm bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarDefaultSharers
+--   COLUMN CalendarNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarPermisions
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN PositionNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendars
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN Color char NULLABLE=False DEFAULT=
+--   COLUMN UseLevel int NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN IsFixed bit NULLABLE=False DEFAULT=
+--   COLUMN SortOrder float NULLABLE=False DEFAULT=
+--   COLUMN IsActive bit NULLABLE=True DEFAULT=
+--   COLUMN isall bit NULLABLE=True DEFAULT=
+--   COLUMN isDetail bit NULLABLE=True DEFAULT=
+--   COLUMN Detail ntext NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarSetup
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN CalendarViewType int NULLABLE=False DEFAULT=((0))
+--   COLUMN StartWeek int NULLABLE=False DEFAULT=((0))
+--   COLUMN DefaultCalendarNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN DivisionUseYN nvarchar NULLABLE=False DEFAULT=('Y')
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=('1900-01-01')
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=('1900-01-01')
+--   COLUMN IsFunctionComplete bit NULLABLE=True DEFAULT=
+--   COLUMN is12hours bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarsGoogle
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN GoogleCalendarID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN GoogleCalendarUri nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarSharers
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarsOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN OutlookEntryID nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ScheduleCalendarType
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsActive bit NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.ScheduleContents
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsLunar char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsHoliday int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsFiveWeek char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsLastDay char NULLABLE=False DEFAULT=('0')
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN StartTime time NULLABLE=False DEFAULT=
+--   COLUMN EndTime time NULLABLE=False DEFAULT=
+--   COLUMN IsAllDay bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN Place nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Latitude float NULLABLE=False DEFAULT=((0))
+--   COLUMN Longitude float NULLABLE=False DEFAULT=((0))
+--   COLUMN IsCompleted bit NULLABLE=True DEFAULT=
+--   COLUMN Idea nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CycleNo int NULLABLE=True DEFAULT=
+--   COLUMN OldScheduleNo int NULLABLE=True DEFAULT=
+--   COLUMN ScheduleNoOldverson int NULLABLE=True DEFAULT=
+--   COLUMN writer varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsAttachments
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN FileLength int NULLABLE=False DEFAULT=((0))
+--   COLUMN FilePath nchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsContacts
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN UserSeq int NULLABLE=False DEFAULT=((0))
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsGoogle
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN GoogleEntryID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN GoogleEntryUri nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleContentSharers
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN HistoryType varchar NULLABLE=False DEFAULT=('I')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsHistorys
+--   COLUMN hno int NULLABLE=False DEFAULT=
+--   COLUMN DelUno int NULLABLE=False DEFAULT=
+--   COLUMN DelDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsLunar char NULLABLE=False DEFAULT=
+--   COLUMN IsHoliday int NULLABLE=False DEFAULT=
+--   COLUMN IsFiveWeek char NULLABLE=False DEFAULT=
+--   COLUMN IsLastDay char NULLABLE=False DEFAULT=
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN StartTime time NULLABLE=False DEFAULT=
+--   COLUMN EndTime time NULLABLE=False DEFAULT=
+--   COLUMN IsAllDay bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN Place nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN IsCompleted bit NULLABLE=True DEFAULT=
+--   COLUMN Idea nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CycleNo int NULLABLE=True DEFAULT=
+--   COLUMN OldScheduleNo int NULLABLE=True DEFAULT=
+--   COLUMN ScheduleNoOldverson int NULLABLE=True DEFAULT=
+--   COLUMN writer varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleContentsOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN OutlookEntryID nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ScheduleContentUds
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNoRef int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CalendarNo int NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsLunar char NULLABLE=False DEFAULT=
+--   COLUMN IsHoliday int NULLABLE=False DEFAULT=
+--   COLUMN IsFiveWeek char NULLABLE=False DEFAULT=
+--   COLUMN IsLastDay char NULLABLE=False DEFAULT=
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN StartTime time NULLABLE=False DEFAULT=
+--   COLUMN EndTime time NULLABLE=False DEFAULT=
+--   COLUMN IsAllDay bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN Place nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN IsCompleted bit NULLABLE=True DEFAULT=
+--   COLUMN Idea nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CycleNo int NULLABLE=True DEFAULT=
+--   COLUMN IsDelete int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleCycles
+--   COLUMN CycleNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NameEn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameJp nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameCh nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameVn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleDdayGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleDdays
+--   COLUMN DdayNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Contents nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN DoomDate date NULLABLE=False DEFAULT=
+--   COLUMN IsLunar char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsHoliday int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsFiveWeek char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsLastDay char NULLABLE=False DEFAULT=('0')
+--   COLUMN PeriodYear int NULLABLE=False DEFAULT=
+--   COLUMN RepeatEndDate date NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN DisplayType char NULLABLE=False DEFAULT=('D')
+--   COLUMN IsComplete char NULLABLE=False DEFAULT=('N')
+--   COLUMN CompleteDate date NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ScheduleDdaysDelete
+--   COLUMN DdayNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Contents nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN DoomDate date NULLABLE=False DEFAULT=
+--   COLUMN IsLunar char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsHoliday int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsFiveWeek char NULLABLE=False DEFAULT=('0')
+--   COLUMN IsLastDay char NULLABLE=False DEFAULT=('0')
+--   COLUMN PeriodYear int NULLABLE=False DEFAULT=
+--   COLUMN RepeatEndDate date NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=((0))
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN DisplayType char NULLABLE=False DEFAULT=('D')
+--   COLUMN IsComplete char NULLABLE=False DEFAULT=('N')
+--   COLUMN CompleteDate date NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ScheduleDdaySharers
+--   COLUMN DdayNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleDdaysHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN DdayNo int NULLABLE=False DEFAULT=
+--   COLUMN HistoryType varchar NULLABLE=False DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleDdaysRepeat
+--   COLUMN DdayNo int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDate date NULLABLE=False DEFAULT=(getdate())
+--   COLUMN CompleteDate date NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsComplete char NULLABLE=False DEFAULT=('N')
+-- OBJECT USER_TABLE public/dbo.ScheduleDdaysTag
+--   COLUMN UserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN TagImageNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NameEn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameJp nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameCh nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameVn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Color char NULLABLE=False DEFAULT=
+--   COLUMN SortOrder int NULLABLE=False DEFAULT=
+--   COLUMN NoOldverson varchar NULLABLE=True DEFAULT=
+--   COLUMN writer varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleGoogleAppConfigs
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN ConfigName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN domainName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN JsonData nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CreatedAt datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ScheduleGoogleContents
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=False DEFAULT=
+--   COLUMN EndDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ColorId varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleHoliday
+--   COLUMN HolidayNo int NULLABLE=False DEFAULT=
+--   COLUMN HolidayDate date NULLABLE=False DEFAULT=
+--   COLUMN HolidayName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsRepeat bit NULLABLE=False DEFAULT=((0))
+--   COLUMN IsLunar bit NULLABLE=False DEFAULT=((0))
+--   COLUMN IsHoliday bit NULLABLE=False DEFAULT=((1))
+--   COLUMN DayType char NULLABLE=False DEFAULT=('H')
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN color char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleNotifications
+--   COLUMN NotificationNo int NULLABLE=False DEFAULT=
+--   COLUMN ScheduleNo int NULLABLE=False DEFAULT=
+--   COLUMN NotificationType varchar NULLABLE=True DEFAULT=
+--   COLUMN AlarmTime int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleOptions
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceAlarmSetting
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsEmail bit NULLABLE=True DEFAULT=
+--   COLUMN IsAlarmi bit NULLABLE=True DEFAULT=
+--   COLUMN IsPC bit NULLABLE=True DEFAULT=
+--   COLUMN IsMobile bit NULLABLE=True DEFAULT=
+--   COLUMN TimeAlarm int NULLABLE=True DEFAULT=
+--   COLUMN IsUnuse bit NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsWebAlarm bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceAndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceCategories
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceIOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceNotifications
+--   COLUMN NotificationNo int NULLABLE=False DEFAULT=
+--   COLUMN ResourceNo int NULLABLE=False DEFAULT=
+--   COLUMN NotificationType varchar NULLABLE=True DEFAULT=
+--   COLUMN AlarmTime int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceParticipants
+--   COLUMN ReservationNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceReservations
+--   COLUMN ReservationNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ResourceNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RepeatType int NULLABLE=False DEFAULT=
+--   COLUMN RepeatCount int NULLABLE=False DEFAULT=
+--   COLUMN RepeatMonth int NULLABLE=False DEFAULT=
+--   COLUMN RepeatWeek int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDay int NULLABLE=False DEFAULT=
+--   COLUMN RepeatDOWs int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN StartTime time NULLABLE=False DEFAULT=
+--   COLUMN EndTime time NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN RsvnStatus nchar NULLABLE=False DEFAULT=('RW')
+--   COLUMN ProcessDate datetime NULLABLE=False DEFAULT=('1900-01-01')
+--   COLUMN ProcessUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN Reason nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ProcessView bit NULLABLE=False DEFAULT=((0))
+--   COLUMN UserView bit NULLABLE=False DEFAULT=((0))
+--   COLUMN IsAllDay bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceReservationsHistory
+--   COLUMN ReservationNo int NULLABLE=False DEFAULT=
+--   COLUMN SeqNo int NULLABLE=False DEFAULT=
+--   COLUMN RsvnStatus nchar NULLABLE=False DEFAULT=
+--   COLUMN ProcessDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ProcessUserNo int NULLABLE=False DEFAULT=
+--   COLUMN Reason nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceReservationsRevision
+--   COLUMN RevisionNo int NULLABLE=False DEFAULT=
+--   COLUMN ReservationNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN RevisionType varchar NULLABLE=False DEFAULT=('I')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleResources
+--   COLUMN ResourceNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CategoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN BuyGroupNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN IsRepair bit NULLABLE=False DEFAULT=((0))
+--   COLUMN IsDisposed bit NULLABLE=False DEFAULT=((0))
+--   COLUMN IsReservation bit NULLABLE=False DEFAULT=((1))
+--   COLUMN Type int NULLABLE=True DEFAULT=
+--   COLUMN IsHidenReg bit NULLABLE=True DEFAULT=
+--   COLUMN Color varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourcesBuyGroup
+--   COLUMN BuyGroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CompanyName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN BuyDate date NULLABLE=False DEFAULT=
+--   COLUMN BuyQty int NULLABLE=False DEFAULT=
+--   COLUMN BuyAmount decimal NULLABLE=False DEFAULT=
+--   COLUMN MainManagerNo int NULLABLE=False DEFAULT=
+--   COLUMN SubManagerNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourcesDispose
+--   COLUMN DisposeNo int NULLABLE=False DEFAULT=
+--   COLUMN ResourceNo int NULLABLE=False DEFAULT=
+--   COLUMN DisposeDate date NULLABLE=False DEFAULT=
+--   COLUMN DisposeReason nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourceSetup
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ViewType int NULLABLE=False DEFAULT=
+--   COLUMN ViewCount int NULLABLE=False DEFAULT=((0))
+--   COLUMN StartWeek int NULLABLE=False DEFAULT=
+--   COLUMN RsvnMethod int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN can int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleResourcesRepair
+--   COLUMN RepairNo int NULLABLE=False DEFAULT=
+--   COLUMN ResourceNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN LastUserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN CompanyName nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Amount decimal NULLABLE=False DEFAULT=((0))
+--   COLUMN StartDate date NULLABLE=False DEFAULT=('1900-01-01')
+--   COLUMN EndDate date NULLABLE=False DEFAULT=('1900-01-01')
+--   COLUMN Reason nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN Status varchar NULLABLE=False DEFAULT=('R')
+-- OBJECT USER_TABLE public/dbo.ScheduleToDoGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.ScheduleToDoGroupsOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN FolderEntryID nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ScheduleToDos
+--   COLUMN ToDoNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN Important int NULLABLE=False DEFAULT=
+--   COLUMN CompleteDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsComplete bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiNote bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiMail bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiSMS bit NULLABLE=False DEFAULT=
+--   COLUMN IsNotiPopup bit NULLABLE=False DEFAULT=
+--   COLUMN NotiTimeType int NULLABLE=False DEFAULT=
+--   COLUMN ProgressRate int NULLABLE=False DEFAULT=((-1))
+-- OBJECT USER_TABLE public/dbo.ScheduleToDoSharers
+--   COLUMN ToDoNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=
+--   COLUMN PositionNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleToDosHistory
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN ToDoNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN HistoryType varchar NULLABLE=False DEFAULT=('I')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.ScheduleToDosOutlook
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ToDoNo int NULLABLE=False DEFAULT=
+--   COLUMN OutlookEntryID nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.ScheduleUserGoogleTokens
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN UNo int NULLABLE=True DEFAULT=
+--   COLUMN TokenData nvarchar NULLABLE=False DEFAULT=
+--   COLUMN LastUpdated datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.ScheduleViewCalendars
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN IsToDoView bit NULLABLE=False DEFAULT=
+--   COLUMN IsDdayView bit NULLABLE=False DEFAULT=
+--   COLUMN ViewCalendars varchar NULLABLE=False DEFAULT=
+--   COLUMN IsCompanyView bit NULLABLE=True DEFAULT=
+--   COLUMN IsPersonalView bit NULLABLE=True DEFAULT=
+--   COLUMN IsShareView bit NULLABLE=True DEFAULT=
+--   COLUMN IsAllView bit NULLABLE=True DEFAULT=
+--   COLUMN IsWorkToDoView bit NULLABLE=True DEFAULT=
+--   COLUMN IsSubCompanyOpen bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsSubPersonalOpen bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsSubShareOpen bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsSubWorkToDoOpen bit NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.SMSAuth
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SMSAuth nchar NULLABLE=True DEFAULT=
+--   COLUMN LMSAuth nchar NULLABLE=True DEFAULT=
+--   COLUMN LogAuth nchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SMSErrorMessage
+--   COLUMN LogID int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Message nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ErrorMessage nvarchar NULLABLE=True DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.SMSFavoritesText
+--   COLUMN FavNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN FavType nvarchar NULLABLE=True DEFAULT=(N'U')
+--   COLUMN FavText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=True DEFAULT=((1))
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SMSOption
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SnsAttachs
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileType int NULLABLE=True DEFAULT=
+--   COLUMN MessageNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SnsGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MakeUserNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupType int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN OpenType int NULLABLE=True DEFAULT=((0))
+--   COLUMN Enabled bit NULLABLE=True DEFAULT=((1))
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.SnsGroupUsers
+--   COLUMN GroupUserNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN IsJoin bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsBookmark bit NULLABLE=True DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SnsIssues
+--   COLUMN IssueNo int NULLABLE=False DEFAULT=
+--   COLUMN IssueType int NULLABLE=True DEFAULT=
+--   COLUMN ActionType int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN ParentNo int NULLABLE=True DEFAULT=
+--   COLUMN Send_UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Recv_UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Message varchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SnsMessageChk
+--   COLUMN MessageChkNo int NULLABLE=False DEFAULT=
+--   COLUMN MessageNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN IsCheck bit NULLABLE=True DEFAULT=((0))
+--   COLUMN Regdate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SnsMessages
+--   COLUMN MessageNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN Message varchar NULLABLE=True DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsPicture bit NULLABLE=True DEFAULT=((0))
+--   COLUMN IsShare bit NULLABLE=True DEFAULT=((0))
+--   COLUMN ShareContentNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN IsDelete bit NULLABLE=True DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.SnsReplyChk
+--   COLUMN ReplyChkNo int NULLABLE=False DEFAULT=
+--   COLUMN ReplyNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN IsCheck bit NULLABLE=True DEFAULT=((0))
+--   COLUMN Regdate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SnsReplys
+--   COLUMN ReplyNo int NULLABLE=False DEFAULT=
+--   COLUMN MessageNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Message varchar NULLABLE=True DEFAULT=
+--   COLUMN GroupNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SourceControl_Company
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Code nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Website nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IpAddress nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Disable bit NULLABLE=False DEFAULT=((1))
+--   COLUMN CreateUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreateDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UpdateUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UpdateDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DatabaseType int NULLABLE=False DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.SourceControl_CompanyHistory
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN CompanyId int NULLABLE=True DEFAULT=
+--   COLUMN ProjectHistoryId int NULLABLE=False DEFAULT=
+--   COLUMN IsLastVersion bit NULLABLE=False DEFAULT=((1))
+--   COLUMN CreateUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreateDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UpdateUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UpdateDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DatabaseHistoryId int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SourceControl_DatabaseHistory
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN UrlFile nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ProjectHistoryId int NULLABLE=False DEFAULT=
+--   COLUMN IsLastVersion bit NULLABLE=False DEFAULT=((1))
+--   COLUMN CreateUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreateDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UpdateUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UpdateDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SourceControl_Project
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Code nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CreateUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreateDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UpdateUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UpdateDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SourceControl_ProjectHistory
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ProjectId int NULLABLE=False DEFAULT=
+--   COLUMN IsLastVersion bit NULLABLE=False DEFAULT=((1))
+--   COLUMN CreateUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreateDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UpdateUserNo int NULLABLE=True DEFAULT=
+--   COLUMN UpdateDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SourceControl_ProjectOwner
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN ProjectId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SurveyAttachments
+--   COLUMN AttachNo int NULLABLE=False DEFAULT=
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileLength int NULLABLE=False DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SurveyComments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SurveyDetail
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN DetailNo int NULLABLE=False DEFAULT=
+--   COLUMN ExampleText nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ExampleNo int NULLABLE=False DEFAULT=
+--   COLUMN OverlapCheck nchar NULLABLE=False DEFAULT=
+--   COLUMN EtcCheck nchar NULLABLE=False DEFAULT=('N')
+--   COLUMN DetailContent_01 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_02 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_03 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_04 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_05 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_06 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_07 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_08 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_09 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_10 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_11 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_12 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_13 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_14 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_15 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_16 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_17 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_18 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_19 nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN DetailContent_20 nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.SurveyExample
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN ExampleNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ExampleText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ExampleEtc nchar NULLABLE=False DEFAULT=
+--   COLUMN ExampleOrder char NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SurveyList
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN SurveyTitle nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SurveyCnt tinyint NULLABLE=False DEFAULT=
+--   COLUMN SurveyChartType nchar NULLABLE=True DEFAULT=
+--   COLUMN SurveyStartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN SurveyEndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN SurveyMailSend nchar NULLABLE=False DEFAULT=
+--   COLUMN SurveyPopup nchar NULLABLE=False DEFAULT=
+--   COLUMN SurveyPurpose nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SurveyImportent nchar NULLABLE=False DEFAULT=
+--   COLUMN RegUser int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModifyUser int NULLABLE=False DEFAULT=
+--   COLUMN ModifyDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SurveyPoll
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN DetailNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN SelectNo int NULLABLE=False DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.SurveyPollEtcComments
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN DetailNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN EtcComment nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.SurveyReferences
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN SurveyNo int NULLABLE=False DEFAULT=
+--   COLUMN Poll nchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.sysdiagrams
+--   COLUMN name sysname NULLABLE=False DEFAULT=
+--   COLUMN principal_id int NULLABLE=False DEFAULT=
+--   COLUMN diagram_id int NULLABLE=False DEFAULT=
+--   COLUMN version int NULLABLE=True DEFAULT=
+--   COLUMN definition varbinary NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMBusinessInfo
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN CompanyID int NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegUserID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN BsnsDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Type1Code int NULLABLE=True DEFAULT=
+--   COLUMN Type1Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type2Code int NULLABLE=True DEFAULT=
+--   COLUMN Type2Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClientStaffID int NULLABLE=True DEFAULT=
+--   COLUMN ClientStaffName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Money nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Subject nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NDate date NULLABLE=True DEFAULT=
+--   COLUMN SalesDate date NULLABLE=True DEFAULT=
+--   COLUMN SalesComment nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN NextDate datetime NULLABLE=True DEFAULT=
+--   COLUMN NextAction nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NextActionYn nchar NULLABLE=True DEFAULT=
+--   COLUMN ApprovalID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN MailSeq nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthUser nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ImportantNote nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMBusinessInfoFile
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN BusinessID int NULLABLE=True DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileSize int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.TCMCalendarColor
+--   COLUMN CommonCode int NULLABLE=False DEFAULT=
+--   COLUMN ColorCode nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCollectMoneyAuth
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN UseYn nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCollectMoneyMaster
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CustomerID int NULLABLE=True DEFAULT=((0))
+--   COLUMN Customer nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content ntext NULLABLE=True DEFAULT=
+--   COLUMN SellingDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SellingMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN AdrateMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN CollectDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CollectMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN Divide int NULLABLE=True DEFAULT=
+--   COLUMN IsComplete tinyint NULLABLE=True DEFAULT=
+--   COLUMN TotalMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN RestMoney bigint NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCommonClass
+--   COLUMN ClassCode int NULLABLE=False DEFAULT=
+--   COLUMN ClassName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameEN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameVN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameCH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassNameJP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ClassDesc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UseYn nchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCommonCode
+--   COLUMN CommonCode int NULLABLE=False DEFAULT=
+--   COLUMN ClassCode int NULLABLE=True DEFAULT=
+--   COLUMN CommonName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameEN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameVN nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameCH nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CommonNameJP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=True DEFAULT=
+--   COLUMN UseYn nchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCompanyInfo
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Num nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type1Code int NULLABLE=True DEFAULT=
+--   COLUMN Type1Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type2Code int NULLABLE=True DEFAULT=
+--   COLUMN Type2Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type3Code int NULLABLE=True DEFAULT=
+--   COLUMN Type3Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type4Code nchar NULLABLE=True DEFAULT=
+--   COLUMN Type4Desc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ConnectDate date NULLABLE=True DEFAULT=
+--   COLUMN CEOName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Site nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TelNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Addr nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Bank nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Trust nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Sales nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Scale nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Staff nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Etc ntext NULLABLE=True DEFAULT=
+--   COLUMN RegionCode int NULLABLE=True DEFAULT=
+--   COLUMN RegionName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Ranking nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CompanyType char NULLABLE=True DEFAULT=
+--   COLUMN FirstUserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FirstUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SecondUserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SecondUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SalesDate date NULLABLE=True DEFAULT=
+--   COLUMN SalesAmount decimal NULLABLE=True DEFAULT=
+--   COLUMN ProductCode int NULLABLE=True DEFAULT=
+--   COLUMN ProductName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StateCode int NULLABLE=True DEFAULT=
+--   COLUMN StateDesc nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Path nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NextDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NextTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Comment ntext NULLABLE=True DEFAULT=
+--   COLUMN RankingCode int NULLABLE=True DEFAULT=
+--   COLUMN RankingDesc nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMCompanyStaff
+--   COLUMN StaffID int NULLABLE=False DEFAULT=
+--   COLUMN CompanyID int NULLABLE=True DEFAULT=
+--   COLUMN StaffName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffOrgan nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffPosition nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffTelNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffHpNo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffMail nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffSex nchar NULLABLE=True DEFAULT=
+--   COLUMN StaffBirth nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffReligion nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffMarriage nchar NULLABLE=True DEFAULT=
+--   COLUMN StaffMarriageDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffHobby nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffAddr nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StaffCareer ntext NULLABLE=True DEFAULT=
+--   COLUMN StaffEducation ntext NULLABLE=True DEFAULT=
+--   COLUMN StaffFamily ntext NULLABLE=True DEFAULT=
+--   COLUMN StaffMemo ntext NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMContractAuth
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN UseYN nvarchar NULLABLE=True DEFAULT=(N'N')
+-- OBJECT USER_TABLE public/dbo.TCMContractInfo
+--   COLUMN ContractNo int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Contents ntext NULLABLE=True DEFAULT=
+--   COLUMN Checkday char NULLABLE=True DEFAULT=
+--   COLUMN EndDate nvarchar NULLABLE=True DEFAULT=
+--   COLUMN EndTime nvarchar NULLABLE=True DEFAULT=
+--   COLUMN State char NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModUserName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.TCMHoliday
+--   COLUMN HolidayNo int NULLABLE=False DEFAULT=
+--   COLUMN HolidayDate date NULLABLE=True DEFAULT=
+--   COLUMN HolidayName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsRepeat bit NULLABLE=True DEFAULT=
+--   COLUMN IsLunar bit NULLABLE=True DEFAULT=
+--   COLUMN IsHoliday bit NULLABLE=True DEFAULT=
+--   COLUMN DayType nchar NULLABLE=True DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.TCMOptions
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.TCMUserOptions
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsAllUserSearch nchar NULLABLE=True DEFAULT=(N'N')
+-- OBJECT USER_TABLE public/dbo.TimeLine_Main
+--   COLUMN Seq bigint NULLABLE=False DEFAULT=
+--   COLUMN Mode int NULLABLE=False DEFAULT=((0))
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsEnd char NULLABLE=False DEFAULT=('N')
+--   COLUMN Memo nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN ViewDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN LinkUrl nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN LinkKey nvarchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.TimeLine_Share
+--   COLUMN Seq bigint NULLABLE=False DEFAULT=
+--   COLUMN UserId varchar NULLABLE=False DEFAULT=('')
+--   COLUMN DepartId varchar NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.Vacation_RequestEps
+--   COLUMN RequestId int NULLABLE=False DEFAULT=
+--   COLUMN TypeId int NULLABLE=False DEFAULT=
+--   COLUMN Fromd datetime NULLABLE=True DEFAULT=
+--   COLUMN Tod datetime NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN StatusUser int NULLABLE=True DEFAULT=
+--   COLUMN StatusAdmin int NULLABLE=True DEFAULT=
+--   COLUMN TypeForAll int NULLABLE=True DEFAULT=
+--   COLUMN TimeDis float NULLABLE=True DEFAULT=
+--   COLUMN UserNo varchar NULLABLE=True DEFAULT=
+--   COLUMN departno varchar NULLABLE=True DEFAULT=
+--   COLUMN UsernoI int NULLABLE=True DEFAULT=
+--   COLUMN VacationsCount int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Vacation_Requests
+--   COLUMN RequestId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN TypeId int NULLABLE=False DEFAULT=
+--   COLUMN Fromd datetime NULLABLE=True DEFAULT=
+--   COLUMN Tod datetime NULLABLE=True DEFAULT=
+--   COLUMN VacationsCount float NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN StatusUser int NULLABLE=True DEFAULT=
+--   COLUMN StatusAdmin int NULLABLE=True DEFAULT=
+--   COLUMN DateUpdate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Vacation_Setups
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN val bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Vacation_SumRequests
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN VacationsCount float NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Vacation_Types
+--   COLUMN TypeId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Typei int NULLABLE=True DEFAULT=
+--   COLUMN Time int NULLABLE=True DEFAULT=
+--   COLUMN TimeDis float NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN statusr int NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Sort float NULLABLE=True DEFAULT=
+--   COLUMN OffType int NULLABLE=True DEFAULT=
+--   COLUMN special int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Vacation_Vacations
+--   COLUMN VacationId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Vacations float NULLABLE=True DEFAULT=
+--   COLUMN Used float NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN statusr int NULLABLE=True DEFAULT=
+--   COLUMN Memo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN years int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.VOTEAuthority
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN IsFullAuth int NULLABLE=True DEFAULT=
+--   COLUMN IsRegMod int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.VOTEItem
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN Cnt int NULLABLE=False DEFAULT=
+--   COLUMN SelectOption tinyint NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.VOTEMaster
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Type nvarchar NULLABLE=False DEFAULT=
+--   COLUMN PopUp varchar NULLABLE=True DEFAULT=
+--   COLUMN StartDate varchar NULLABLE=False DEFAULT=
+--   COLUMN EndDate varchar NULLABLE=False DEFAULT=
+--   COLUMN Public varchar NULLABLE=False DEFAULT=
+--   COLUMN ItemCnt int NULLABLE=False DEFAULT=
+--   COLUMN IsStandBy smallint NULLABLE=True DEFAULT=
+--   COLUMN IsReg smallint NULLABLE=True DEFAULT=((1))
+--   COLUMN IsOuterVote char NULLABLE=True DEFAULT=
+--   COLUMN CompleteMessage nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsAnonyVote char NULLABLE=True DEFAULT=('Y')
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN ModUserNo int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.VOTEQuestionnaire
+--   COLUMN MasterID int NULLABLE=False DEFAULT=
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN Type varchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.VOTEResult
+--   COLUMN ID bigint NULLABLE=False DEFAULT=
+--   COLUMN MasterID int NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN Type int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Result varchar NULLABLE=False DEFAULT=
+--   COLUMN PollDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.VOTESettings
+--   COLUMN SettingNo int NULLABLE=False DEFAULT=
+--   COLUMN SettingCd varchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN SettingValue nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.VOTESubItem
+--   COLUMN ID bigint NULLABLE=False DEFAULT=
+--   COLUMN ParentID int NULLABLE=False DEFAULT=
+--   COLUMN MasterID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ResultCount int NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.VW_HR_GW_TIME_INOUT
+--   COLUMN EMP_NO int NULLABLE=False DEFAULT=
+--   COLUMN WORK_DATE int NULLABLE=False DEFAULT=
+--   COLUMN TOT_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN USE_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN JAN_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN ORG_ATTEND_TIME varchar NULLABLE=True DEFAULT=
+--   COLUMN ORG_FINISH_TIME varchar NULLABLE=True DEFAULT=
+--   COLUMN ATTEND_TIME varchar NULLABLE=True DEFAULT=
+--   COLUMN FINISH_TIME varchar NULLABLE=True DEFAULT=
+--   COLUMN ABSENCE_NAME nvarchar NULLABLE=True DEFAULT=
+--   COLUMN insertDate int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WCHATAttachs
+--   COLUMN AttachNo int NULLABLE=True DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileType int NULLABLE=True DEFAULT=
+--   COLUMN FilePath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WCHATContents
+--   COLUMN ContentNo int NULLABLE=False DEFAULT=
+--   COLUMN ChatNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN IsAttach bit NULLABLE=True DEFAULT=((0))
+--   COLUMN AttachNo int NULLABLE=True DEFAULT=((0))
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+-- OBJECT USER_TABLE public/dbo.WCHATMembers
+--   COLUMN MemberNo int NULLABLE=False DEFAULT=
+--   COLUMN ChatNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN IsAlarm bit NULLABLE=True DEFAULT=((1))
+-- OBJECT USER_TABLE public/dbo.WCHATRooms
+--   COLUMN ChatNo int NULLABLE=False DEFAULT=
+--   COLUMN MakeUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=(getdate())
+--   COLUMN IsClose bit NULLABLE=False DEFAULT=((0))
+-- OBJECT USER_TABLE public/dbo.WebService_GCMRegistration
+--   COLUMN RegNo int NULLABLE=False DEFAULT=
+--   COLUMN RegID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreate date NULLABLE=True DEFAULT=
+--   COLUMN IsDeleted int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN PhoneToken varchar NULLABLE=True DEFAULT=
+--   COLUMN AppKey varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WebService_HistoryGCM
+--   COLUMN HistoryNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Message ntext NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=True DEFAULT=
+--   COLUMN DateCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN Sucess int NULLABLE=True DEFAULT=
+--   COLUMN Fail int NULLABLE=True DEFAULT=
+--   COLUMN multicast_id varchar NULLABLE=True DEFAULT=
+--   COLUMN AppKey varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXAttached
+--   COLUMN FaxFg varchar NULLABLE=False DEFAULT=
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN FileSeq int NULLABLE=False DEFAULT=
+--   COLUMN FileNm nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileSize int NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN FilePages int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXBox
+--   COLUMN FaxBoxCd varchar NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FaxBoxNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentFaxBoxCd varchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN UseYn varchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXBoxJoint
+--   COLUMN FaxBoxCd varchar NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FaxBoxNm1 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm3 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxNm4 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentFaxBoxCd varchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN UseYn varchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXBoxSet
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN FaxFg varchar NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FaxBoxCd varchar NULLABLE=False DEFAULT=
+--   COLUMN StatFg varchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ReadDt datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXCountryList
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN CountryNum nvarchar NULLABLE=True DEFAULT=
+--   COLUMN CountryName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrder int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXFilter
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FieldFg varchar NULLABLE=True DEFAULT=
+--   COLUMN ConditionFg varchar NULLABLE=True DEFAULT=
+--   COLUMN ExecFg varchar NULLABLE=True DEFAULT=
+--   COLUMN FaxBoxCd varchar NULLABLE=True DEFAULT=
+--   COLUMN SortOrd int NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN ExecValue nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXOption
+--   COLUMN OptionKey nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OptionVal nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXRead
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN FaxFg varchar NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ReadCnt int NULLABLE=True DEFAULT=
+--   COLUMN ReadTime varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXReceive
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StatFg varchar NULLABLE=True DEFAULT=
+--   COLUMN intID int NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd varchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXSend
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PriorityYn varchar NULLABLE=True DEFAULT=
+--   COLUMN intID int NULLABLE=True DEFAULT=
+--   COLUMN SenderIp nvarchar NULLABLE=True DEFAULT=
+--   COLUMN StatFg nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXUserGroup
+--   COLUMN UserGrpCd nchar NULLABLE=False DEFAULT=
+--   COLUMN UserId nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserGrpNm1 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN UserGrpNm2 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN UserGrpNm3 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN UserGrpNm4 nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN FaxNum nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN HFNum nvarchar NULLABLE=True DEFAULT=('')
+--   COLUMN ParentUserGrpCd nchar NULLABLE=False DEFAULT=((0))
+--   COLUMN SortOrd int NULLABLE=False DEFAULT=((0))
+--   COLUMN UseYn nchar NULLABLE=False DEFAULT=(N'Y')
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WFAXUserGroupOrgSet
+--   COLUMN Seq int NULLABLE=False DEFAULT=
+--   COLUMN UserGrpCd nchar NULLABLE=True DEFAULT=
+--   COLUMN DepartNo int NULLABLE=True DEFAULT=
+--   COLUMN RegId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegYmd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ModYmd nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Work_Cooperation
+--   COLUMN CooperationNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Work_CooperationCommentReference
+--   COLUMN CommentReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN CommentNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Work_CooperationComments
+--   COLUMN CommentNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN CooperationNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Work_CooperationFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN CooperationNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Work_CooperationReference
+--   COLUMN ReferenceNo int NULLABLE=False DEFAULT=
+--   COLUMN CooperationNo int NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN ReadDate datetime NULLABLE=True DEFAULT=
+--   COLUMN ViewBool bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkAssistants
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkGroupAssistants
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkGroupFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkGroupHistorys
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN CompleteDate date NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=('')
+-- OBJECT USER_TABLE public/dbo.WorkGroupPersons
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkGroups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN IsLock bit NULLABLE=False DEFAULT=
+--   COLUMN State int NULLABLE=False DEFAULT=
+--   COLUMN FinalDate date NULLABLE=True DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkHistorys
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN WorkNo int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN WorkTime int NULLABLE=False DEFAULT=
+--   COLUMN CompleteDate date NULLABLE=False DEFAULT=
+--   COLUMN IsEveryPerson bit NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_AlarmSetting
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN IsAlarm int NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=True DEFAULT=
+--   COLUMN alText nvarchar NULLABLE=True DEFAULT=
+--   COLUMN alTextEn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN alTextJP nvarchar NULLABLE=True DEFAULT=
+--   COLUMN alTextVi nvarchar NULLABLE=True DEFAULT=
+--   COLUMN alTextCi nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_AllowDevices
+--   COLUMN AllowDeviceNo int NULLABLE=False DEFAULT=
+--   COLUMN DepartNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN UserNo int NULLABLE=False DEFAULT=((0))
+--   COLUMN ContentAllow nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=(getdate())
+--   COLUMN IsUserFull bit NULLABLE=True DEFAULT=((0))
+--   COLUMN DeviceId nvarchar NULLABLE=False DEFAULT=('')
+--   COLUMN verson varchar NULLABLE=True DEFAULT=
+--   COLUMN SessionID char NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_AndroidDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN LanguageCode varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_AutherKey
+--   COLUMN AuthNo int NULLABLE=False DEFAULT=
+--   COLUMN Value nvarchar NULLABLE=True DEFAULT=
+--   COLUMN statusi int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_BeaconPoints
+--   COLUMN PointNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN LocationNo int NULLABLE=False DEFAULT=
+--   COLUMN BeaconUUID varchar NULLABLE=False DEFAULT=
+--   COLUMN BeaconMajor int NULLABLE=False DEFAULT=
+--   COLUMN BeaconMinor int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_BoxUses
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN sort float NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Calculater
+--   COLUMN Calculaterno int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN WorkingDay int NULLABLE=True DEFAULT=
+--   COLUMN TimeCheckIn float NULLABLE=True DEFAULT=
+--   COLUMN TimeCheckOut float NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN TimeWork float NULLABLE=True DEFAULT=
+--   COLUMN Type int NULLABLE=True DEFAULT=
+--   COLUMN WorkingNoRef int NULLABLE=True DEFAULT=
+--   COLUMN TimeLate int NULLABLE=True DEFAULT=
+--   COLUMN TimeOfset float NULLABLE=True DEFAULT=
+--   COLUMN CheckIn datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckOut datetime NULLABLE=True DEFAULT=
+--   COLUMN Status int NULLABLE=True DEFAULT=
+--   COLUMN typeOut int NULLABLE=True DEFAULT=
+--   COLUMN IsCheckIn int NULLABLE=True DEFAULT=
+--   COLUMN IsCheckOut int NULLABLE=True DEFAULT=
+--   COLUMN StatusOut int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Companies
+--   COLUMN CompanyNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN CreationDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ConnectionString nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Domain nvarchar NULLABLE=False DEFAULT=
+--   COLUMN State int NULLABLE=False DEFAULT=
+--   COLUMN hin int NULLABLE=True DEFAULT=
+--   COLUMN hout int NULLABLE=True DEFAULT=
+--   COLUMN miin int NULLABLE=True DEFAULT=
+--   COLUMN miout int NULLABLE=True DEFAULT=
+--   COLUMN timeofset int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_DateInsert
+--   COLUMN DateInsert datetime NULLABLE=True DEFAULT=
+--   COLUMN DateInt int NULLABLE=False DEFAULT=
+--   COLUMN DAYOFWEEK int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_DefaultNotices
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN TimeType int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content_Ko nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content_Vn nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_DisplayPaths
+--   COLUMN PathNo bigint NULLABLE=False DEFAULT=
+--   COLUMN StartWorkingNo int NULLABLE=False DEFAULT=
+--   COLUMN EndWorkingNo int NULLABLE=False DEFAULT=
+--   COLUMN Paths varchar NULLABLE=False DEFAULT=
+--   COLUMN Distance int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_GroupPlace
+--   COLUMN GNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN GNameEn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GType int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Images
+--   COLUMN ImageNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateUpload datetime NULLABLE=False DEFAULT=
+--   COLUMN UrlImage varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_IOSDevices
+--   COLUMN DeviceNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN DeviceID nvarchar NULLABLE=False DEFAULT=
+--   COLUMN OSVersion nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NotificationOptions nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimezoneOffset int NULLABLE=False DEFAULT=
+--   COLUMN LanguageCode varchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_LocationList
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN dayadd int NULLABLE=True DEFAULT=
+--   COLUMN timeadd nvarchar NULLABLE=True DEFAULT=
+--   COLUMN distance float NULLABLE=True DEFAULT=
+--   COLUMN lat float NULLABLE=True DEFAULT=
+--   COLUMN lng float NULLABLE=True DEFAULT=
+--   COLUMN userno int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Locations
+--   COLUMN LocationNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN ErrorRange int NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=((1))
+--   COLUMN Description2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Representation nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PhoneNumber nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TType int NULLABLE=True DEFAULT=
+--   COLUMN GType int NULLABLE=True DEFAULT=
+--   COLUMN uids varchar NULLABLE=True DEFAULT=
+--   COLUMN dids varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Locations_Office
+--   COLUMN id int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN LocationNo int NULLABLE=True DEFAULT=
+--   COLUMN DayCreate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsWorking bit NULLABLE=True DEFAULT=
+--   COLUMN WorkTimeNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_LocationsOutside
+--   COLUMN LocationNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude varchar NULLABLE=False DEFAULT=
+--   COLUMN Longitude varchar NULLABLE=False DEFAULT=
+--   COLUMN ErrorRange int NULLABLE=False DEFAULT=
+--   COLUMN Representation nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PhoneNumber nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=((1))
+--   COLUMN Description2 nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TType int NULLABLE=True DEFAULT=
+--   COLUMN GType int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Logs
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN CheckDate date NULLABLE=False DEFAULT=
+--   COLUMN CheckTime nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN Distance nvarchar NULLABLE=False DEFAULT=
+--   COLUMN EnterOrExit nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Messages
+--   COLUMN MessageNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN Message nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Notices
+--   COLUMN NoticeNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN TimeType int NULLABLE=False DEFAULT=
+--   COLUMN StartDate date NULLABLE=False DEFAULT=
+--   COLUMN EndDate date NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content_Ko nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Content_Vn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LocationNo int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_RequestCorrectionTime
+--   COLUMN WorkingNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetimeoffset NULLABLE=False DEFAULT=
+--   COLUMN AccUserNo int NULLABLE=False DEFAULT=
+--   COLUMN AccDate datetimeoffset NULLABLE=False DEFAULT=
+--   COLUMN Status int NULLABLE=True DEFAULT=((0))
+--   COLUMN Reject int NULLABLE=True DEFAULT=((0))
+--   COLUMN RejectDate datetimeoffset NULLABLE=True DEFAULT=
+--   COLUMN RejectDes nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_SettingGroup
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN NameEn nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TimeIn char NULLABLE=False DEFAULT=
+--   COLUMN TimeOut char NULLABLE=False DEFAULT=
+--   COLUMN LunchStart char NULLABLE=False DEFAULT=
+--   COLUMN LunchEnd char NULLABLE=False DEFAULT=
+--   COLUMN IsAddLunch bit NULLABLE=False DEFAULT=
+--   COLUMN BIn1 char NULLABLE=False DEFAULT=
+--   COLUMN BOut1 char NULLABLE=False DEFAULT=
+--   COLUMN BIn2 char NULLABLE=False DEFAULT=
+--   COLUMN BOut2 char NULLABLE=False DEFAULT=
+--   COLUMN IsB1 bit NULLABLE=False DEFAULT=
+--   COLUMN IsB2 bit NULLABLE=False DEFAULT=
+--   COLUMN RegisteredId int NULLABLE=False DEFAULT=
+--   COLUMN RegisteredDate date NULLABLE=False DEFAULT=
+--   COLUMN UpdateId int NULLABLE=True DEFAULT=
+--   COLUMN UpdatedDate date NULLABLE=True DEFAULT=
+--   COLUMN Statust int NULLABLE=False DEFAULT=
+--   COLUMN Sun int NULLABLE=True DEFAULT=
+--   COLUMN Mon int NULLABLE=True DEFAULT=
+--   COLUMN Tue int NULLABLE=True DEFAULT=
+--   COLUMN Wen int NULLABLE=True DEFAULT=
+--   COLUMN Thur int NULLABLE=True DEFAULT=
+--   COLUMN Fri int NULLABLE=True DEFAULT=
+--   COLUMN Sat int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Settings
+--   COLUMN SettingNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN SettingValue nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_setupitems
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN checkin varchar NULLABLE=True DEFAULT=
+--   COLUMN checkout varchar NULLABLE=True DEFAULT=
+--   COLUMN workoutside varchar NULLABLE=True DEFAULT=
+--   COLUMN returnv varchar NULLABLE=True DEFAULT=
+--   COLUMN wfh varchar NULLABLE=True DEFAULT=
+--   COLUMN early varchar NULLABLE=True DEFAULT=
+--   COLUMN nightwork varchar NULLABLE=True DEFAULT=
+--   COLUMN extension varchar NULLABLE=True DEFAULT=
+--   COLUMN training varchar NULLABLE=True DEFAULT=
+--   COLUMN holiday varchar NULLABLE=True DEFAULT=
+--   COLUMN quatertoff varchar NULLABLE=True DEFAULT=
+--   COLUMN haftoff varchar NULLABLE=True DEFAULT=
+--   COLUMN alloff varchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_SetupOther
+--   COLUMN No int NULLABLE=False DEFAULT=
+--   COLUMN Value1 int NULLABLE=True DEFAULT=
+--   COLUMN Value2 int NULLABLE=True DEFAULT=
+--   COLUMN Value3 int NULLABLE=True DEFAULT=
+--   COLUMN Value4 int NULLABLE=True DEFAULT=
+--   COLUMN Value5 int NULLABLE=True DEFAULT=
+--   COLUMN Value6 int NULLABLE=True DEFAULT=
+--   COLUMN Value7 int NULLABLE=True DEFAULT=
+--   COLUMN Value8 int NULLABLE=True DEFAULT=
+--   COLUMN Value9 int NULLABLE=True DEFAULT=
+--   COLUMN Value10 int NULLABLE=True DEFAULT=
+--   COLUMN Value11 int NULLABLE=True DEFAULT=
+--   COLUMN Value12 int NULLABLE=True DEFAULT=
+--   COLUMN Value13 int NULLABLE=True DEFAULT=
+--   COLUMN Value14 int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_setupPages
+--   COLUMN Id int NULLABLE=False DEFAULT=
+--   COLUMN IsPage int NULLABLE=True DEFAULT=
+--   COLUMN hidetime int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Times
+--   COLUMN WorkingNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN WorkingDay int NULLABLE=False DEFAULT=
+--   COLUMN TimeType int NULLABLE=False DEFAULT=
+--   COLUMN CheckTime char NULLABLE=False DEFAULT=
+--   COLUMN Provider int NULLABLE=False DEFAULT=
+--   COLUMN Latitude float NULLABLE=False DEFAULT=
+--   COLUMN Longitude float NULLABLE=False DEFAULT=
+--   COLUMN Remark nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IpServer varchar NULLABLE=True DEFAULT=
+--   COLUMN TimeCheckLong float NULLABLE=True DEFAULT=
+--   COLUMN TimeOffset float NULLABLE=True DEFAULT=((9))
+--   COLUMN Distance varchar NULLABLE=True DEFAULT=
+--   COLUMN LatCompany float NULLABLE=True DEFAULT=
+--   COLUMN LngCompany float NULLABLE=True DEFAULT=
+--   COLUMN BeaconInfo nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NameCompany nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PostId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN PostName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DeptName nvarchar NULLABLE=True DEFAULT=
+--   COLUMN LocationNo int NULLABLE=True DEFAULT=
+--   COLUMN GroupId int NULLABLE=True DEFAULT=
+--   COLUMN LunchStart char NULLABLE=True DEFAULT=
+--   COLUMN LunchEnd char NULLABLE=True DEFAULT=
+--   COLUMN StarWorking char NULLABLE=True DEFAULT=
+--   COLUMN EndWorking char NULLABLE=True DEFAULT=
+--   COLUMN IsAddLunch bit NULLABLE=True DEFAULT=
+--   COLUMN BIn1 char NULLABLE=True DEFAULT=
+--   COLUMN BOut1 char NULLABLE=True DEFAULT=
+--   COLUMN BIn2 char NULLABLE=True DEFAULT=
+--   COLUMN BOut2 char NULLABLE=True DEFAULT=
+--   COLUMN IsB1 bit NULLABLE=True DEFAULT=
+--   COLUMN IsB2 bit NULLABLE=True DEFAULT=
+--   COLUMN TimeWorking int NULLABLE=True DEFAULT=
+--   COLUMN WorkingDayC int NULLABLE=True DEFAULT=
+--   COLUMN CheckTimeC int NULLABLE=True DEFAULT=
+--   COLUMN CheckTimeFull datetime NULLABLE=True DEFAULT=
+--   COLUMN TimeWorking2 int NULLABLE=True DEFAULT=
+--   COLUMN address nvarchar NULLABLE=True DEFAULT=
+--   COLUMN status int NULLABLE=True DEFAULT=
+--   COLUMN Dateupdate datetime NULLABLE=True DEFAULT=
+--   COLUMN DateDelete datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckTimeFullO datetime NULLABLE=True DEFAULT=
+--   COLUMN Userdeleted int NULLABLE=True DEFAULT=
+--   COLUMN bno int NULLABLE=True DEFAULT=
+--   COLUMN bname nvarchar NULLABLE=True DEFAULT=
+--   COLUMN TimeWorkingf int NULLABLE=True DEFAULT=
+--   COLUMN TimeWorkingf2 int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_Times_v2
+--   COLUMN WorkingNo int NULLABLE=False DEFAULT=
+--   COLUMN WorkingDayOfCompany int NULLABLE=True DEFAULT=
+--   COLUMN CheckDateTimeOffset datetimeoffset NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTime_WeekDays
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Sun int NULLABLE=False DEFAULT=
+--   COLUMN Mon int NULLABLE=False DEFAULT=
+--   COLUMN Tue int NULLABLE=False DEFAULT=
+--   COLUMN Wen int NULLABLE=False DEFAULT=
+--   COLUMN Thur int NULLABLE=False DEFAULT=
+--   COLUMN Fri int NULLABLE=False DEFAULT=
+--   COLUMN Sat int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeHoliday
+--   COLUMN HolidayNo int NULLABLE=False DEFAULT=
+--   COLUMN HolidayDate date NULLABLE=False DEFAULT=
+--   COLUMN HolidayName nvarchar NULLABLE=False DEFAULT=
+--   COLUMN IsRepeat bit NULLABLE=False DEFAULT=
+--   COLUMN IsLunar bit NULLABLE=False DEFAULT=
+--   COLUMN IsHoliday bit NULLABLE=False DEFAULT=
+--   COLUMN DayType char NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeV2_HOLIDAYS
+--   COLUMN hNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN TOT_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN USE_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN JAN_HOLIDAYS float NULLABLE=True DEFAULT=
+--   COLUMN WORK_YEAR int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeV2_Times
+--   COLUMN V2No int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN UseriD varchar NULLABLE=False DEFAULT=
+--   COLUMN WORKDAY int NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN CheckIn datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckOut datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckIne datetime NULLABLE=True DEFAULT=
+--   COLUMN CheckOute datetime NULLABLE=True DEFAULT=
+--   COLUMN TypeNo int NULLABLE=True DEFAULT=
+--   COLUMN TYPENAME nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeV2_Types
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN TypeName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeV3_Permisions
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN IsUserFull bit NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkingTimeV3_Vacations
+--   COLUMN VacationId int NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Vacations float NULLABLE=True DEFAULT=
+--   COLUMN Overtime float NULLABLE=True DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=True DEFAULT=
+--   COLUMN EndDate datetime NULLABLE=True DEFAULT=
+--   COLUMN Note nvarchar NULLABLE=True DEFAULT=
+--   COLUMN status int NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkJournalDivisions
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkJournals
+--   COLUMN JournalNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN WorkNo int NULLABLE=False DEFAULT=
+--   COLUMN CreationDate date NULLABLE=False DEFAULT=
+--   COLUMN DivisionNo int NULLABLE=False DEFAULT=
+--   COLUMN WorkTime int NULLABLE=False DEFAULT=
+--   COLUMN CompletionRate int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkProjectFiles
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN Name varchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.Works
+--   COLUMN WorkNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN HistoryNo int NULLABLE=False DEFAULT=
+--   COLUMN CompletionRate int NULLABLE=False DEFAULT=
+--   COLUMN FinalDate date NULLABLE=True DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkSettings
+--   COLUMN SettingNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN SettingValue nvarchar NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkToDo_FilesOfToDo
+--   COLUMN FileNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Length int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkToDo_Groups
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=False DEFAULT=
+--   COLUMN ParentNo int NULLABLE=False DEFAULT=
+--   COLUMN RepNo int NULLABLE=False DEFAULT=
+--   COLUMN EndDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN Description nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+--   COLUMN StartDate datetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkToDo_Journals
+--   COLUMN JournalNo bigint NULLABLE=False DEFAULT=
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN WriteDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN ProgressRate int NULLABLE=False DEFAULT=
+--   COLUMN WorkTime int NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkToDo_ToDoList
+--   COLUMN DataNo bigint NULLABLE=False DEFAULT=
+--   COLUMN ToDoNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN Subject nvarchar NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN FileCount int NULLABLE=False DEFAULT=
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN GroupNo int NULLABLE=False DEFAULT=
+--   COLUMN RepNo int NULLABLE=False DEFAULT=
+--   COLUMN StartDate smalldatetime NULLABLE=True DEFAULT=
+--   COLUMN EndDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN ActualityEndDate smalldatetime NULLABLE=True DEFAULT=
+--   COLUMN ProgressRate int NULLABLE=False DEFAULT=
+--   COLUMN Priority int NULLABLE=False DEFAULT=
+--   COLUMN State int NULLABLE=False DEFAULT=
+--   COLUMN StateModDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN Passed bit NULLABLE=False DEFAULT=
+--   COLUMN LatestJournalDate smalldatetime NULLABLE=True DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkToDo_ToDoTypes
+--   COLUMN TypeNo int NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate smalldatetime NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=False DEFAULT=
+--   COLUMN SortNo int NULLABLE=False DEFAULT=
+--   COLUMN Enabled bit NULLABLE=False DEFAULT=
+-- OBJECT USER_TABLE public/dbo.WorkUserSettings
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegUserNo int NULLABLE=False DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=False DEFAULT=
+--   COLUMN PermissionLevel int NULLABLE=False DEFAULT=
+--   COLUMN IsDisplay bit NULLABLE=False DEFAULT=
+-- OBJECT VIEW public/dbo.EDMSMainList
+--   COLUMN ID int NULLABLE=False DEFAULT=
+--   COLUMN Title nvarchar NULLABLE=True DEFAULT=
+--   COLUMN WriterID nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RegDate datetime NULLABLE=True DEFAULT=
+--   COLUMN State char NULLABLE=True DEFAULT=
+--   COLUMN CheckoutId nvarchar NULLABLE=True DEFAULT=
+--   COLUMN DepartID varchar NULLABLE=True DEFAULT=
+--   COLUMN Version nvarchar NULLABLE=True DEFAULT=
+--   COLUMN AuthorityLevel int NULLABLE=True DEFAULT=
+--   COLUMN DocLevel varchar NULLABLE=True DEFAULT=
+--   COLUMN EADocFlag int NULLABLE=True DEFAULT=
+--   COLUMN ModDate datetime NULLABLE=True DEFAULT=
+--   COLUMN updatedate datetime NULLABLE=True DEFAULT=
+--   COLUMN GroupCode varchar NULLABLE=True DEFAULT=
+--   COLUMN Serial nvarchar NULLABLE=True DEFAULT=
+--   COLUMN KeyWord nvarchar NULLABLE=True DEFAULT=
+--   COLUMN Hit int NULLABLE=False DEFAULT=
+--   COLUMN EAAuth int NULLABLE=False DEFAULT=
+--   COLUMN Summary ntext NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Note_LAttachments
+--   COLUMN AttachmentNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN FileUrl nvarchar NULLABLE=True DEFAULT=
+--   COLUMN NoteNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN TypeFile varchar NULLABLE=True DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=True DEFAULT=
+--   COLUMN DateChanged datetime NULLABLE=True DEFAULT=
+--   COLUMN FileURI nvarchar NULLABLE=True DEFAULT=
+--   COLUMN RealPath nvarchar NULLABLE=True DEFAULT=
+--   COLUMN IsRepresentative bit NULLABLE=False DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateCreated float NULLABLE=True DEFAULT=
+--   COLUMN FileSize nvarchar NULLABLE=True DEFAULT=
+--   COLUMN FileName nvarchar NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Note_LComments
+--   COLUMN CommentNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN NoteNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=False DEFAULT=
+--   COLUMN ModUserNo int NULLABLE=False DEFAULT=
+--   COLUMN DateChanged datetime NULLABLE=False DEFAULT=
+--   COLUMN Content nvarchar NULLABLE=False DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateCreated float NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateChanged float NULLABLE=True DEFAULT=
+--   COLUMN ReadUserList nvarchar NULLABLE=True DEFAULT=
+--   COLUMN ParentNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN ContentHTML nvarchar NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Note_LGroups
+--   COLUMN GroupNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN OrderPostion int NULLABLE=True DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=True DEFAULT=
+--   COLUMN DateChanged datetime NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Show int NULLABLE=True DEFAULT=
+--   COLUMN Icon varchar NULLABLE=True DEFAULT=
+--   COLUMN IsDefault int NULLABLE=False DEFAULT=
+-- OBJECT VIEW public/dbo.Note_LNotes
+--   COLUMN NoteNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN Name nvarchar NULLABLE=True DEFAULT=
+--   COLUMN GroupNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN Description ntext NULLABLE=True DEFAULT=
+--   COLUMN Latitude float NULLABLE=True DEFAULT=
+--   COLUMN Longitude float NULLABLE=True DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=True DEFAULT=
+--   COLUMN DateChanged datetime NULLABLE=True DEFAULT=
+--   COLUMN Show int NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateCreated float NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateChanged float NULLABLE=True DEFAULT=
+--   COLUMN IsFavorite int NULLABLE=True DEFAULT=
+--   COLUMN DateRead datetime NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateRead float NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Note_LSharers
+--   COLUMN ShareNo uniqueidentifier NULLABLE=False DEFAULT=
+--   COLUMN UserNo int NULLABLE=True DEFAULT=
+--   COLUMN NoteNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN DateCreated datetime NULLABLE=True DEFAULT=
+--   COLUMN DateChanged datetime NULLABLE=True DEFAULT=
+--   COLUMN UserShare int NULLABLE=True DEFAULT=
+--   COLUMN GroupNo uniqueidentifier NULLABLE=True DEFAULT=
+--   COLUMN IsRead int NULLABLE=True DEFAULT=
+--   COLUMN DateRead datetime NULLABLE=True DEFAULT=
+--   COLUMN IsReads int NULLABLE=True DEFAULT=
+--   COLUMN IsFavorite int NULLABLE=True DEFAULT=
+--   COLUMN ShareType int NULLABLE=True DEFAULT=
+--   COLUMN TimeZoneOffsetOfDateRead float NULLABLE=True DEFAULT=
+--   COLUMN CompanyNo int NULLABLE=True DEFAULT=
+--   COLUMN ShareCompanyNo int NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Vacation_Sum
+--   COLUMN UsernoI int NULLABLE=True DEFAULT=
+--   COLUMN Addition1 float NULLABLE=True DEFAULT=
+--   COLUMN Addition2 float NULLABLE=True DEFAULT=
+--   COLUMN TimeDis float NULLABLE=True DEFAULT=
+--   COLUMN Years int NULLABLE=True DEFAULT=
+--   COLUMN UseVacationCnt float NULLABLE=True DEFAULT=
+-- OBJECT VIEW public/dbo.Vacation_SumRequest
+--   COLUMN Used float NULLABLE=True DEFAULT=
+--   COLUMN UserNo int NULLABLE=False DEFAULT=
+--   COLUMN Used1 float NULLABLE=True DEFAULT=
+--   COLUMN Used2 float NULLABLE=True DEFAULT=
+--   COLUMN years int NULLABLE=True DEFAULT=
