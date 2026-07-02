@@ -342,8 +342,6 @@ public partial class Form1 : Form
                     throw new InvalidOperationException("Đường dẫn output không hợp lệ.");
 
                 var fullPath = Path.GetFullPath(outputPath);
-                if (!Path.IsPathRooted(fullPath))
-                    throw new InvalidOperationException("Đường dẫn output phải là đường dẫn tuyệt đối.");
 
                 Directory.CreateDirectory(fullPath);
                 Process.Start(new ProcessStartInfo(fullPath) { UseShellExecute = true });

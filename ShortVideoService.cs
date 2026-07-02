@@ -83,6 +83,7 @@ public static partial class ShortVideoService
             sb.AppendLine($"duration {secondsPerImage.ToString(CultureInfo.InvariantCulture)}");
         }
 
+        // FFmpeg concat demuxer needs the final file repeated so the last frame duration is honored.
         if (escaped.Count > 0)
             sb.AppendLine($"file '{escaped[^1].Replace("'", "'\\''")}'");
 
