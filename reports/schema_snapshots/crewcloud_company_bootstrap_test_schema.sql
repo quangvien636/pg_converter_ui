@@ -1,5 +1,5 @@
 -- PostgreSQL reference schema snapshot
--- Generated 2026-07-02T15:59:15.7374684+07:00
+-- Generated 2026-07-02T16:31:02.5822626+07:00
 -- Metadata export; read-only source access.
 
 -- OBJECT ROUTINE public/dbo.abcd

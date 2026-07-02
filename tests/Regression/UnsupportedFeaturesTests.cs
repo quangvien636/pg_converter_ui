@@ -121,6 +121,7 @@ namespace RegressionTests
             var obj = new DbObject("testxmlnodes", ObjectType.Procedure, mssql, false, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
+            Assert.That(pg, Does.Contain("CREATE TEMP TABLE tb2 AS"));
             Assert.That(pg, Does.Contain("NULL::integer AS Id"));
             Assert.That(pg, Does.Contain("NULL::text AS Title"));
             Assert.That(pg, Does.Not.Contain(".nodes("));

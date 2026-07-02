@@ -1,5 +1,5 @@
 -- MSSQL source schema snapshot
--- Generated 2026-07-02T15:59:15.6891904+07:00
+-- Generated 2026-07-02T16:31:02.5382719+07:00
 -- Metadata export; read-only source access.
 
 -- OBJECT DEFAULT_CONSTRAINT public/dbo.DF__BIZ_MSG__COVER_F__134F1084

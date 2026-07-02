@@ -642,10 +642,24 @@ public static class BodyConverter
         // SQL Server xml.nodes(...).value(...) has no direct PostgreSQL equivalent.
         // Emit an empty, typed relation so surrounding temp-table DDL remains
         // compilable while making the incomplete semantic mapping explicit.
+        body = SafeReplace(body, "XmlNodesValueIntoTemp",
+            @"(?ims)SELECT\s+(?<projection>(?:(?!\bINTO\s+#).)*?\.value\s*\(.*?ContentJson.*?)\s+INTO\s+#(?<target>\w+)\s+FROM\s+@?\w+\.nodes\s*\([^\n;]*?\)\s*AS\s+\w+\s*\(\w+\)",
+            m => "-- TODO: map SQL Server xml.nodes/value expressions to PostgreSQL XMLTABLE\n" +
+                 $"CREATE TEMP TABLE {m.Groups["target"].Value} ON COMMIT DROP AS " +
+                 "SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE",
+            RegexOptions.IgnoreCase);
         body = SafeReplace(body, "XmlNodesValue",
-            @"(?ims)SELECT\s+.*?\.value\s*\(.*?\)\s+AS\s+ContentJson\s+FROM\s+@?\w+\.nodes\s*\([^\n;]*?\)\s*AS\s+\w+\s*\(\w+\)",
-            "-- TODO: map SQL Server xml.nodes/value expressions to PostgreSQL XMLTABLE\n" +
-            "SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE",
+            @"(?ims)SELECT\s+(?<projection>.*?\.value\s*\(.*?\)\s+AS\s+ContentJson)\s+(?:INTO\s+#(?<target>\w+)\s+)?FROM\s+@?\w+\.nodes\s*\([^\n;]*?\)\s*AS\s+\w+\s*\(\w+\)",
+            m => {
+                var stub = "SELECT NULL::integer AS Id, NULL::text AS Title, NULL::text AS ContentJson WHERE FALSE";
+                var target = m.Groups["target"].Success
+                    ? m.Groups["target"].Value
+                    : Regex.Match(m.Groups["projection"].Value,
+                        @"\bINTO\s+#(\w+)", RegexOptions.IgnoreCase).Groups[1].Value;
+                if (target.Length > 0)
+                    stub = $"CREATE TEMP TABLE {target} ON COMMIT DROP AS {stub}";
+                return "-- TODO: map SQL Server xml.nodes/value expressions to PostgreSQL XMLTABLE\n" + stub;
+            },
             RegexOptions.IgnoreCase);
 
         // INSERT @tbl \n EXEC sp_executesql @sql, N'@p type', @p=@val

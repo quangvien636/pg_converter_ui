@@ -1,5 +1,5 @@
 -- PostgreSQL runtime before schema snapshot
--- Generated 2026-07-02T15:59:15.7896936+07:00
+-- Generated 2026-07-02T16:31:02.6186222+07:00
 -- Metadata export; read-only source access.
 
 -- OBJECT ROUTINE public/dbo.approval_deleteattachment
@@ -438,7 +438,7 @@ AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 RETURN QUERY
-select max(SortNo) from Board_Folders where FolderNo= board_board_maxsortno_select.folderno;
+select max(SortNo) FROM Board_Folders bf where bf.FolderNo= board_board_maxsortno_select.folderno;
 END;
 $function$
 
@@ -540,7 +540,7 @@ BEGIN
 
 RETURN QUERY
 SELECT Count (*)
-  FROM Board_Boards Where FolderNo=board_countboardinfolder.folderno and Enabled = TRUE;
+  FROM Board_Boards bb Where bb.FolderNo=board_countboardinfolder.folderno and Enabled = TRUE;
 END;
 $function$
 
@@ -555,7 +555,7 @@ BEGIN
 
 RETURN QUERY
 SELECT Count (*)
-  FROM Board_Contents Where BoardNo=board_countcontentinboard.boardno and Enabled = TRUE;
+  FROM Board_Contents bc Where bc.BoardNo=board_countcontentinboard.boardno and Enabled = TRUE;
 END;
 $function$
 
@@ -1013,7 +1013,7 @@ AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 RETURN QUERY
-select max(SortNo) from Board_Folders where ParentNo= board_folder_maxsortno_select.parentno;
+select max(SortNo) FROM Board_Folders bf where bf.ParentNo= board_folder_maxsortno_select.parentno;
 END;
 $function$
 
@@ -6257,7 +6257,7 @@ SELECT COUNT(*) INTO num FROM Board_Contents C
 INNER JOIN Board_Boards B ON B.BoardNo=C.BoardNo
 Where B.ViewMode=76 And C.BadNo =board_getteamname.teamno AND C.DesignNo=board_getteamname.companyno AND YEAR(C.RegDate) =YEAR(NOW()) AND C.Enabled = TRUE;
 RETURN QUERY
-SELECT CompanyNo || '-' || CAST(YEAR(NOW()) AS nvarchar) +'-' || TeamNo || '-' || CAST(REPLICATE('0',5-LEN(RTRIM(Num+1))) + RTRIM(Num+1) AS nvarchar);
+SELECT CompanyNo || '-' || CAST(YEAR(NOW()) AS nvarchar) +'-' || TeamNo || '-' || CAST(REPLICATE('0',5-LENGTH(RTRIM(Num+1))) + RTRIM(Num+1) AS nvarchar);
 END;
 $function$
 
@@ -11556,8 +11556,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	select count(*) as countgroup from ContactsGroup
-    where RegUserNo=contacts_countgroupuser.reguserno and UseYn='Y';
+	select count(*) as countgroup FROM ContactsGroup cg where cg.RegUserNo=contacts_countgroupuser.reguserno and UseYn='Y';
 END;
 $function$
 
@@ -11823,7 +11822,6 @@ AS $function$
 DECLARE
     temphistoryno integer;
     chkhistoryno character varying;
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 
@@ -11831,7 +11829,7 @@ BEGIN
 
 	HistoryNoList := contacts_deletehistory.historynolist || ',';
 	ChkHistoryNo := REPLACE(HistoryNoList,',','');
-	IF LEN(ChkHistoryNo) > 0 THEN
+	IF LENGTH(ChkHistoryNo) > 0 THEN
 
 		WHILE STRPOS(HistoryNoList, ',') > 0 LOOP
 			TempHistoryNo := SUBSTRING(HistoryNoList,0,STRPOS(HistoryNoList, ','));
@@ -11844,7 +11842,7 @@ BEGIN
 			DELETE FROM ContactsGroupUserHistory WHERE HistoryNo = TempHistoryNo;
 			DELETE FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
-			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(HistoryNoList, ',')+1,LEN(HistoryNoList));
+			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(HistoryNoList, ',')+1,LENGTH(HistoryNoList));
 		END LOOP;
 
 		IF 0 <> 0 THEN
@@ -14254,7 +14252,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsAddress WHERE RegUserNo=contacts_getalladdress.reguserno
+	SELECT * FROM ContactsAddress ca WHERE ca.RegUserNo=contacts_getalladdress.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14269,7 +14267,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsCompany WHERE RegUserNo=contacts_getallcompany.reguserno
+	SELECT * FROM ContactsCompany cc WHERE cc.RegUserNo=contacts_getallcompany.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14308,7 +14306,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsDays WHERE RegUserNo=contacts_getalldays.reguserno
+	SELECT * FROM ContactsDays cd WHERE cd.RegUserNo=contacts_getalldays.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14323,7 +14321,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsEmail WHERE RegUserNo=contacts_getallemail.reguserno
+	SELECT * FROM ContactsEmail ce WHERE ce.RegUserNo=contacts_getallemail.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14418,7 +14416,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsGroupUser WHERE RegUserNo=contacts_getallgroupuser.reguserno
+	SELECT * FROM ContactsGroupUser cgu WHERE cgu.RegUserNo=contacts_getallgroupuser.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14433,7 +14431,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsHomepage WHERE RegUserNo=contacts_getallhomepage.reguserno
+	SELECT * FROM ContactsHomepage ch WHERE ch.RegUserNo=contacts_getallhomepage.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14463,7 +14461,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_getallnumber.reguserno
+	SELECT * FROM ContactsNumber cn WHERE cn.RegUserNo=contacts_getallnumber.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14478,7 +14476,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsSns WHERE RegUserNo=contacts_getallsns.reguserno
+	SELECT * FROM ContactsSns cs WHERE cs.RegUserNo=contacts_getallsns.reguserno
 	ORDER BY Seq ASC;
 END;
 $function$
@@ -14493,7 +14491,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsUser WHERE RegUserNo=contacts_getalluser.reguserno;
+	SELECT * FROM ContactsUser cu WHERE cu.RegUserNo=contacts_getalluser.reguserno;
 END;
 $function$
 
@@ -14533,7 +14531,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT * FROM ContactsUser WHERE RegUserNo=contacts_getallusernotrequite.reguserno;
+	SELECT * FROM ContactsUser cu WHERE cu.RegUserNo=contacts_getallusernotrequite.reguserno;
 END;
 $function$
 
@@ -14576,7 +14574,7 @@ AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 RETURN QUERY
-SELECT IsDefault FROM ContactsGroup WHERE RegUserNo = contacts_getcheckgroup.reguserno AND GroupNo = contacts_getcheckgroup.seq;
+SELECT IsDefault FROM ContactsGroup cg WHERE cg.RegUserNo = contacts_getcheckgroup.reguserno AND GroupNo = contacts_getcheckgroup.seq;
 END;
 $function$
 
@@ -14762,10 +14760,10 @@ BEGIN
 
 	IF PGroupNo = -1 THEN
 		RETURN QUERY
-		SELECT * FROM ContactsGroup WHERE RegUserNo=contacts_getcontactsgroup.reguserno ORDER BY ParentGNo,Sort;
+		SELECT * FROM ContactsGroup cg WHERE cg.RegUserNo=contacts_getcontactsgroup.reguserno ORDER BY ParentGNo,Sort;
 	ELSE
 		RETURN QUERY
-		SELECT * FROM ContactsGroup WHERE RegUserNo=contacts_getcontactsgroup.reguserno AND ParentGNo=contacts_getcontactsgroup.pgroupno ORDER BY Sort;
+		SELECT * FROM ContactsGroup cg WHERE cg.RegUserNo=contacts_getcontactsgroup.reguserno AND ParentGNo=contacts_getcontactsgroup.pgroupno ORDER BY Sort;
 	END IF;
 END;
 $function$
@@ -17727,9 +17725,8 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT LocationNo,RegUserNo,Name,Latitude,Longitude,Description,ContactUserId
-	FROM Contacts_Locations
-	WHERE RegUserNo=contacts_getlocationonecontact.reguserno AND ContactUserId=contacts_getlocationonecontact.contactuserid;
+	SELECT cl.LocationNo, cl.RegUserNo, cl.Name, cl.Latitude, cl.Longitude, cl.Description, cl.ContactUserId
+	FROM Contacts_Locations cl WHERE cl.RegUserNo=contacts_getlocationonecontact.reguserno AND cl.ContactUserId=contacts_getlocationonecontact.contactuserid;
 END;
 $function$
 
@@ -17847,7 +17844,7 @@ BEGIN
 				UserSeq
 			);
 
-			UserSeqList := SUBSTRING(UserSeqList,STRPOS(UserSeqList, ',')+1,LEN(UserSeqList));
+			UserSeqList := SUBSTRING(UserSeqList,STRPOS(UserSeqList, ',')+1,LENGTH(UserSeqList));
 		END LOOP;
 
 		RETURN QUERY
@@ -17927,7 +17924,7 @@ BEGIN
 				UserSeq
 			);
 
-			UserSeqList := SUBSTRING(UserSeqList,STRPOS(UserSeqList, ',')+1,LEN(UserSeqList));
+			UserSeqList := SUBSTRING(UserSeqList,STRPOS(UserSeqList, ',')+1,LENGTH(UserSeqList));
 		END LOOP;
 
 		RETURN QUERY
@@ -18042,7 +18039,7 @@ BEGIN
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LENGTH(GroupList));
 		END LOOP;
 
 		RETURN QUERY
@@ -18122,7 +18119,7 @@ BEGIN
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LENGTH(GroupList));
 		END LOOP;
 
 		RETURN QUERY
@@ -18163,7 +18160,7 @@ CREATE TEMP TABLE tabGroup (GroupNo INT) ON COMMIT DROP;
 				GroupNo
 			);
 
-			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LEN(GroupList));
+			GroupList := SUBSTRING(GroupList,STRPOS(GroupList, ',')+1,LENGTH(GroupList));
 		END LOOP;
 IF IsAdmin = TRUE THEN
 		RETURN QUERY
@@ -18768,8 +18765,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT COUNT(*) AS CNT FROM ContactsUser
-	WHERE UseYn = '' AND RegUserNo = contacts_gettrashcount.reguserno;
+	SELECT COUNT(*) AS CNT FROM ContactsUser cu WHERE UseYn = '' AND cu.RegUserNo = contacts_gettrashcount.reguserno;
 END;
 $function$
 
@@ -21391,7 +21387,7 @@ AS $function$
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 	RETURN QUERY
-	SELECT ParentGNo FROM ContactsGroup WHERE RegUserNo = contacts_parentgroupno.reguserno and GroupNo = contacts_parentgroupno.groupno;
+	SELECT ParentGNo FROM ContactsGroup cg WHERE cg.RegUserNo = contacts_parentgroupno.reguserno and cg.GroupNo = contacts_parentgroupno.groupno;
 END;
 $function$
 
@@ -21548,12 +21544,12 @@ BEGIN
 		-- 전화번호
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfo := REPLACE(TelInfo,',','');
-		IF LEN(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_saveaddressinfo.telinfo || '$';
 			-- Row 분리
@@ -21579,7 +21575,7 @@ BEGIN
 						TelTypeName := SUBSTRING(TempTel,0,STRPOS(TempTel, ','));
 					END IF;
 					TelCnt := TelCnt + 1;
-					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LEN(TempTel));
+					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LENGTH(TempTel));
 				END LOOP;
 				TelValue := TempTel;
 				-- 임시테이블에 저장;
@@ -21597,7 +21593,7 @@ BEGIN
 					TelTypeName,
 					TelValue
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -21623,7 +21619,7 @@ BEGIN
 
 
 		ChkEmailInfo := REPLACE(EmailInfo,',','');
-		IF LEN(ChkEmailInfo) > 0 THEN
+		IF LENGTH(ChkEmailInfo) > 0 THEN
 			EmailInfo := contacts_saveaddressinfo.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -21635,7 +21631,7 @@ BEGIN
 						EmailIsDefault := SUBSTRING(TempEmail,0,STRPOS(TempEmail, ','));
 					END IF;
 					EmailCnt := EmailCnt + 1;
-					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LEN(TempEmail));
+					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LENGTH(TempEmail));
 				END LOOP;
 				EmailValue := TempEmail;
 				INSERT INTO tabEmail
@@ -21648,7 +21644,7 @@ BEGIN
 					EmailIsDefault,
 					EmailValue
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -21671,7 +21667,7 @@ BEGIN
 
 
 		ChkCompanyInfo := REPLACE(CompanyInfo,',','');
-		IF LEN(ChkCompanyInfo) > 0 THEN
+		IF LENGTH(ChkCompanyInfo) > 0 THEN
 			CompanyInfo := contacts_saveaddressinfo.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -21687,7 +21683,7 @@ BEGIN
 						Depart := SUBSTRING(TempCompany,0,STRPOS(TempCompany, ','));
 					END IF;
 					CompanyCnt := CompanyCnt + 1;
-					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LEN(TempCompany));
+					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LENGTH(TempCompany));
 				END LOOP;
 				Position := TempCompany;
 				INSERT INTO tabCompany
@@ -21704,7 +21700,7 @@ BEGIN
 					Depart,
 					Position
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -21724,12 +21720,12 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
 
 
 
 		ChkAddrInfo := REPLACE(AddressInfo,',','');
-		IF LEN(ChkAddrInfo) > 0 THEN
+		IF LENGTH(ChkAddrInfo) > 0 THEN
 			AddressInfo := contacts_saveaddressinfo.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -21749,7 +21745,7 @@ BEGIN
 						AddrZipCode2 := SUBSTRING(TempAddr,0,STRPOS(TempAddr, ','));
 					END IF;
 					AddrCnt := AddrCnt + 1;
-					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, ',')+1,LEN(TempAddr));
+					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, ',')+1,LENGTH(TempAddr));
 				END LOOP;
 				Address := TempAddr;
 				INSERT INTO tabAddr
@@ -21770,7 +21766,7 @@ BEGIN
 					AddrZipCode2,
 					Address
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -21793,12 +21789,12 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfo := REPLACE(HomepageInfo,',','');
-		IF LEN(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_saveaddressinfo.homepageinfo || '$';
 			-- Row 분리
@@ -21816,7 +21812,7 @@ BEGIN
 						HomeTypeName := SUBSTRING(TempHome,0,STRPOS(TempHome, ','));
 					END IF;
 					HomeCnt := HomeCnt + 1;
-					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LEN(TempHome));
+					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LENGTH(TempHome));
 				END LOOP;
 				HomeValue := TempHome;
 				-- 임시테이블에 저장;
@@ -21834,7 +21830,7 @@ BEGIN
 					HomeTypeName,
 					HomeValue
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -21856,12 +21852,12 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfo := REPLACE(SnsInfo,',','');
-		IF LEN(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_saveaddressinfo.snsinfo || '$';
 			-- Row 분리
@@ -21879,7 +21875,7 @@ BEGIN
 						SnsTypeName := SUBSTRING(TempSns,0,STRPOS(TempSns, ','));
 					END IF;
 					SnsCnt := SnsCnt + 1;
-					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LEN(TempSns));
+					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LENGTH(TempSns));
 				END LOOP;
 				SnsValue := TempSns;
 				-- 임시테이블에 저장;
@@ -21897,7 +21893,7 @@ BEGIN
 					SnsTypeName,
 					SnsValue
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -21923,7 +21919,7 @@ BEGIN
 
 
 		ChkGroupInfo := REPLACE(GroupInfo,',','');
-		IF LEN(ChkGroupInfo) > 0 THEN
+		IF LENGTH(ChkGroupInfo) > 0 THEN
 			DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_saveaddressinfo.seq;
 			-- 정보가 존재하면 끝에 , 추가;
 			GroupInfo := contacts_saveaddressinfo.groupinfo || ',';
@@ -21941,7 +21937,7 @@ BEGIN
 				);
 
 				GroupCnt := GroupCnt + 1;
-				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo));
+				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo));
 			END LOOP;
 
 			INSERT INTO ContactsGroupUser
@@ -21982,14 +21978,14 @@ BEGIN
 			ModDate = NOW()
 		WHERE Seq = contacts_saveaddressinfo.seq;
 
-		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfoUp := REPLACE(TelInfo,',','');
 		DELETE FROM ContactsNumber WHERE RegUserNo = contacts_saveaddressinfo.userno AND UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_saveaddressinfo.telinfo || '$';
 			-- Row 분리
@@ -22007,7 +22003,7 @@ BEGIN
 						TelTypeNameUp := SUBSTRING(TempTelUp,0,STRPOS(TempTelUp, ','));
 					END IF;
 					TelCntUp := TelCntUp + 1;
-					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LEN(TempTelUp));
+					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LENGTH(TempTelUp));
 				END LOOP;
 				TelValueUp := TempTelUp;
 				-- 임시테이블에 저장;
@@ -22025,7 +22021,7 @@ BEGIN
 					TelTypeNameUp,
 					TelValueUp
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -22052,7 +22048,7 @@ BEGIN
 		ChkEmailInfoUp := REPLACE(EmailInfo,',','');
 		DELETE FROM ContactsEmail WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkEmailInfoUp) > 0 THEN
+		IF LENGTH(ChkEmailInfoUp) > 0 THEN
 			EmailInfo := contacts_saveaddressinfo.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -22064,7 +22060,7 @@ BEGIN
 						EmailIsDefaultUp := SUBSTRING(TempEmailUp,0,STRPOS(TempEmailUp, ','));
 					END IF;
 					EmailCntUp := EmailCntUp + 1;
-					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LEN(TempEmailUp));
+					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LENGTH(TempEmailUp));
 				END LOOP;
 				EmailValueUp := TempEmailUp;
 				INSERT INTO tabEmailUp
@@ -22077,7 +22073,7 @@ BEGIN
 					EmailIsDefaultUp,
 					EmailValueUp
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -22101,7 +22097,7 @@ BEGIN
 		ChkCompanyInfoUp := REPLACE(CompanyInfo,',','');
 		DELETE FROM ContactsCompany WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkCompanyInfoUp) > 0 THEN
+		IF LENGTH(ChkCompanyInfoUp) > 0 THEN
 			CompanyInfo := contacts_saveaddressinfo.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -22117,7 +22113,7 @@ BEGIN
 						DepartUp := SUBSTRING(TempCompanyUp,0,STRPOS(TempCompanyUp, ','));
 					END IF;
 					CompanyCntUp := CompanyCntUp + 1;
-					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LEN(TempCompanyUp));
+					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LENGTH(TempCompanyUp));
 				END LOOP;
 				PositionUp := TempCompanyUp;
 				INSERT INTO tabCompanyUp
@@ -22134,7 +22130,7 @@ BEGIN
 					DepartUp,
 					PositionUp
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -22152,14 +22148,14 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500)) ON COMMIT DROP;
 
 
 
 		ChkAddrInfoUp := REPLACE(AddressInfo,',','');
 		DELETE FROM ContactsAddress WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkAddrInfoUp) > 0 THEN
+		IF LENGTH(ChkAddrInfoUp) > 0 THEN
 			AddressInfo := contacts_saveaddressinfo.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -22179,7 +22175,7 @@ BEGIN
 						AddrZipCode2Up := SUBSTRING(TempAddrUp,0,STRPOS(TempAddrUp, ','));
 					END IF;
 					AddrCntUp := AddrCntUp + 1;
-					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, ',')+1,LEN(TempAddrUp));
+					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, ',')+1,LENGTH(TempAddrUp));
 				END LOOP;
 				AddressUp := TempAddrUp;
 				INSERT INTO tabAddrUp
@@ -22200,7 +22196,7 @@ BEGIN
 					AddrZipCode2Up,
 					AddressUp
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -22222,14 +22218,14 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfoUp := REPLACE(HomepageInfo,',','');
 		DELETE FROM ContactsHomepage WHERE RegUserNo = contacts_saveaddressinfo.userno And UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_saveaddressinfo.homepageinfo || '$';
 			-- Row 분리
@@ -22247,7 +22243,7 @@ BEGIN
 						HomeTypeNameUp := SUBSTRING(TempHomeUp,0,STRPOS(TempHomeUp, ','));
 					END IF;
 					HomeCntUp := HomeCntUp + 1;
-					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LEN(TempHomeUp));
+					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LENGTH(TempHomeUp));
 				END LOOP;
 				HomeValueUp := TempHomeUp;
 				-- 임시테이블에 저장;
@@ -22265,7 +22261,7 @@ BEGIN
 					HomeTypeNameUp,
 					HomeValueUp
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -22285,14 +22281,14 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfoUp := REPLACE(SnsInfo,',','');
 		DELETE FROM ContactsSns WHERE RegUserNo = contacts_saveaddressinfo.userno AND UserSeq = contacts_saveaddressinfo.seq;
 
-		IF LEN(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_saveaddressinfo.snsinfo || '$';
 			-- Row 분리
@@ -22310,7 +22306,7 @@ BEGIN
 						SnsTypeNameUp := SUBSTRING(TempSnsUp,0,STRPOS(TempSnsUp, ','));
 					END IF;
 					SnsCntUp := SnsCntUp + 1;
-					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LEN(TempSnsUp));
+					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LENGTH(TempSnsUp));
 				END LOOP;
 				SnsValueUp := TempSnsUp;
 				-- 임시테이블에 저장;
@@ -22328,7 +22324,7 @@ BEGIN
 					SnsTypeNameUp,
 					SnsValueUp
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -22353,7 +22349,7 @@ BEGIN
 
 
 		ChkGroupInfoUp := REPLACE(GroupInfo,',','');
-		IF LEN(ChkGroupInfoUp) > 0 THEN
+		IF LENGTH(ChkGroupInfoUp) > 0 THEN
 			DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_saveaddressinfo.seq;
 			-- 정보가 존재하면 끝에 , 추가;
 			GroupInfo := contacts_saveaddressinfo.groupinfo || ',';
@@ -22371,7 +22367,7 @@ BEGIN
 				);
 
 				GroupCntUp := GroupCntUp + 1;
-				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo));
+				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo));
 			END LOOP;
 
 			INSERT INTO ContactsGroupUser
@@ -22542,12 +22538,12 @@ BEGIN
 		-- 전화번호
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfo := REPLACE(TelInfo,',','');
-		IF LEN(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_saveaddressinfo_web.telinfo || '$';
 			-- Row 분리
@@ -22573,7 +22569,7 @@ BEGIN
 						TelTypeName := SUBSTRING(TempTel,0,STRPOS(TempTel, ','));
 					END IF;
 					TelCnt := TelCnt + 1;
-					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LEN(TempTel));
+					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LENGTH(TempTel));
 				END LOOP;
 				TelValue := TempTel;
 				-- 임시테이블에 저장;
@@ -22591,7 +22587,7 @@ BEGIN
 					TelTypeName,
 					TelValue
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -22617,7 +22613,7 @@ BEGIN
 
 
 		ChkEmailInfo := REPLACE(EmailInfo,',','');
-		IF LEN(ChkEmailInfo) > 0 THEN
+		IF LENGTH(ChkEmailInfo) > 0 THEN
 			EmailInfo := contacts_saveaddressinfo_web.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -22629,7 +22625,7 @@ BEGIN
 						EmailIsDefault := SUBSTRING(TempEmail,0,STRPOS(TempEmail, ','));
 					END IF;
 					EmailCnt := EmailCnt + 1;
-					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LEN(TempEmail));
+					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LENGTH(TempEmail));
 				END LOOP;
 				EmailValue := TempEmail;
 				INSERT INTO tabEmail
@@ -22642,7 +22638,7 @@ BEGIN
 					EmailIsDefault,
 					EmailValue
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -22665,7 +22661,7 @@ BEGIN
 
 
 		ChkCompanyInfo := REPLACE(CompanyInfo,',','');
-		IF LEN(ChkCompanyInfo) > 0 THEN
+		IF LENGTH(ChkCompanyInfo) > 0 THEN
 			CompanyInfo := contacts_saveaddressinfo_web.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -22681,7 +22677,7 @@ BEGIN
 						Depart := SUBSTRING(TempCompany,0,STRPOS(TempCompany, ','));
 					END IF;
 					CompanyCnt := CompanyCnt + 1;
-					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LEN(TempCompany));
+					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LENGTH(TempCompany));
 				END LOOP;
 				Position := TempCompany;
 				INSERT INTO tabCompany
@@ -22698,7 +22694,7 @@ BEGIN
 					Depart,
 					Position
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -22718,12 +22714,12 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
 
 
 
 		ChkAddrInfo := REPLACE(AddressInfo,'#','');
-		IF LEN(ChkAddrInfo) > 0 THEN
+		IF LENGTH(ChkAddrInfo) > 0 THEN
 			AddressInfo := contacts_saveaddressinfo_web.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -22750,7 +22746,7 @@ BEGIN
 						Longitude1 := SUBSTRING(TempAddr,0,STRPOS(TempAddr, '#'));
 					END IF;
 					AddrCnt := AddrCnt + 1;
-					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, '#')+1,LEN(TempAddr));
+					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, '#')+1,LENGTH(TempAddr));
 				END LOOP;
 				--SET Address = TempAddr;
 
@@ -22776,7 +22772,7 @@ BEGIN
 					Latitude1,
 					Longitude1
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -22802,12 +22798,12 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfo := REPLACE(HomepageInfo,',','');
-		IF LEN(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_saveaddressinfo_web.homepageinfo || '$';
 			-- Row 분리
@@ -22825,7 +22821,7 @@ BEGIN
 						HomeTypeName := SUBSTRING(TempHome,0,STRPOS(TempHome, ','));
 					END IF;
 					HomeCnt := HomeCnt + 1;
-					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LEN(TempHome));
+					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LENGTH(TempHome));
 				END LOOP;
 				HomeValue := TempHome;
 				-- 임시테이블에 저장;
@@ -22843,7 +22839,7 @@ BEGIN
 					HomeTypeName,
 					HomeValue
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -22865,12 +22861,12 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfo := REPLACE(SnsInfo,',','');
-		IF LEN(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_saveaddressinfo_web.snsinfo || '$';
 			-- Row 분리
@@ -22888,7 +22884,7 @@ BEGIN
 						SnsTypeName := SUBSTRING(TempSns,0,STRPOS(TempSns, ','));
 					END IF;
 					SnsCnt := SnsCnt + 1;
-					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LEN(TempSns));
+					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LENGTH(TempSns));
 				END LOOP;
 				SnsValue := TempSns;
 				-- 임시테이블에 저장;
@@ -22906,7 +22902,7 @@ BEGIN
 					SnsTypeName,
 					SnsValue
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -22932,7 +22928,7 @@ BEGIN
 
 
 		ChkGroupInfo := REPLACE(GroupInfo,',','');
-		IF LEN(ChkGroupInfo) > 0 THEN
+		IF LENGTH(ChkGroupInfo) > 0 THEN
 			DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_saveaddressinfo_web.seq;
 			-- 정보가 존재하면 끝에 , 추가;
 			GroupInfo := contacts_saveaddressinfo_web.groupinfo || ',';
@@ -22953,7 +22949,7 @@ BEGIN
 				--END;
 
 				GroupCnt := GroupCnt + 1;
-				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo));
+				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo));
 			END LOOP;
 
 			INSERT INTO ContactsGroupUser
@@ -22995,14 +22991,14 @@ BEGIN
 		WHERE Seq = contacts_saveaddressinfo_web.seq;
 
 
-		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfoUp := REPLACE(TelInfo,',','');
 		DELETE FROM ContactsNumber WHERE  UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_saveaddressinfo_web.telinfo || '$';
 			-- Row 분리
@@ -23020,7 +23016,7 @@ BEGIN
 						TelTypeNameUp := SUBSTRING(TempTelUp,0,STRPOS(TempTelUp, ','));
 					END IF;
 					TelCntUp := TelCntUp + 1;
-					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LEN(TempTelUp));
+					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LENGTH(TempTelUp));
 				END LOOP;
 				TelValueUp := TempTelUp;
 				-- 임시테이블에 저장;
@@ -23038,7 +23034,7 @@ BEGIN
 					TelTypeNameUp,
 					TelValueUp
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -23065,7 +23061,7 @@ BEGIN
 		ChkEmailInfoUp := REPLACE(EmailInfo,',','');
 		DELETE FROM ContactsEmail WHERE  UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkEmailInfoUp) > 0 THEN
+		IF LENGTH(ChkEmailInfoUp) > 0 THEN
 			EmailInfo := contacts_saveaddressinfo_web.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -23077,7 +23073,7 @@ BEGIN
 						EmailIsDefaultUp := SUBSTRING(TempEmailUp,0,STRPOS(TempEmailUp, ','));
 					END IF;
 					EmailCntUp := EmailCntUp + 1;
-					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LEN(TempEmailUp));
+					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LENGTH(TempEmailUp));
 				END LOOP;
 				EmailValueUp := TempEmailUp;
 				INSERT INTO tabEmailUp
@@ -23090,7 +23086,7 @@ BEGIN
 					EmailIsDefaultUp,
 					EmailValueUp
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -23114,7 +23110,7 @@ BEGIN
 		ChkCompanyInfoUp := REPLACE(CompanyInfo,',','');
 		DELETE FROM ContactsCompany WHERE  UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkCompanyInfoUp) > 0 THEN
+		IF LENGTH(ChkCompanyInfoUp) > 0 THEN
 			CompanyInfo := contacts_saveaddressinfo_web.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -23130,7 +23126,7 @@ BEGIN
 						DepartUp := SUBSTRING(TempCompanyUp,0,STRPOS(TempCompanyUp, ','));
 					END IF;
 					CompanyCntUp := CompanyCntUp + 1;
-					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LEN(TempCompanyUp));
+					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LENGTH(TempCompanyUp));
 				END LOOP;
 				PositionUp := TempCompanyUp;
 				INSERT INTO tabCompanyUp
@@ -23147,7 +23143,7 @@ BEGIN
 					DepartUp,
 					PositionUp
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -23165,14 +23161,14 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
 
 
 
 		ChkAddrInfoUp := REPLACE(AddressInfo,'#','');
 		DELETE FROM ContactsAddress WHERE  UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkAddrInfoUp) > 0 THEN
+		IF LENGTH(ChkAddrInfoUp) > 0 THEN
 			AddressInfo := contacts_saveaddressinfo_web.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -23198,7 +23194,7 @@ BEGIN
 						Longitude2 := SUBSTRING(TempAddrUp,0,STRPOS(TempAddrUp, '#'));
 					END IF;
 					AddrCntUp := AddrCntUp + 1;
-					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, '#')+1,LEN(TempAddrUp));
+					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, '#')+1,LENGTH(TempAddrUp));
 				END LOOP;
 				--SET AddressUp = TempAddrUp;
 
@@ -23224,7 +23220,7 @@ BEGIN
 					Latitude2,
 					Longitude2
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -23248,14 +23244,14 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfoUp := REPLACE(HomepageInfo,',','');
 		DELETE FROM ContactsHomepage WHERE UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_saveaddressinfo_web.homepageinfo || '$';
 			-- Row 분리
@@ -23273,7 +23269,7 @@ BEGIN
 						HomeTypeNameUp := SUBSTRING(TempHomeUp,0,STRPOS(TempHomeUp, ','));
 					END IF;
 					HomeCntUp := HomeCntUp + 1;
-					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LEN(TempHomeUp));
+					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LENGTH(TempHomeUp));
 				END LOOP;
 				HomeValueUp := TempHomeUp;
 				-- 임시테이블에 저장;
@@ -23291,7 +23287,7 @@ BEGIN
 					HomeTypeNameUp,
 					HomeValueUp
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -23311,14 +23307,14 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfoUp := REPLACE(SnsInfo,',','');
 		DELETE FROM ContactsSns WHERE UserSeq = contacts_saveaddressinfo_web.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_saveaddressinfo_web.snsinfo || '$';
 			-- Row 분리
@@ -23336,7 +23332,7 @@ BEGIN
 						SnsTypeNameUp := SUBSTRING(TempSnsUp,0,STRPOS(TempSnsUp, ','));
 					END IF;
 					SnsCntUp := SnsCntUp + 1;
-					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LEN(TempSnsUp));
+					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LENGTH(TempSnsUp));
 				END LOOP;
 				SnsValueUp := TempSnsUp;
 				-- 임시테이블에 저장;
@@ -23354,7 +23350,7 @@ BEGIN
 					SnsTypeNameUp,
 					SnsValueUp
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -23379,7 +23375,7 @@ BEGIN
 
 
 		ChkGroupInfoUp := REPLACE(GroupInfo,',','');
-		IF LEN(ChkGroupInfoUp) > 0 THEN
+		IF LENGTH(ChkGroupInfoUp) > 0 THEN
 			DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_saveaddressinfo_web.seq;
 			-- 정보가 존재하면 끝에 , 추가;
 			GroupInfo := contacts_saveaddressinfo_web.groupinfo || ',';
@@ -23401,7 +23397,7 @@ BEGIN
 				END IF;
 
 				GroupCntUp := GroupCntUp + 1;
-				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo));
+				GroupInfo := SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo));
 			END LOOP;
 
 			INSERT INTO ContactsGroupUser
@@ -23480,7 +23476,7 @@ BEGIN
 	TempMainSeqList := contacts_savearrange.mainseqlist || ',';
 	CheckMainSeqList := REPLACE(TempMainSeqList,',','');
 	-- 정리할 주소록이 있는지 검사
-	IF LEN(CheckMainSeqList) > 0 THEN
+	IF LENGTH(CheckMainSeqList) > 0 THEN
 
 		-- 정리할 주소록 분할 처리
 		WHILE STRPOS(TempMainSeqList, ',') > 0 LOOP
@@ -23496,7 +23492,7 @@ BEGIN
 
 			TempNameList := contacts_savearrange.namelist || '$';
 			CheckNameList := REPLACE(REPLACE(TempNameList,',',''),'$',',');
-			IF LEN(CheckNameList) > 0 THEN
+			IF LENGTH(CheckNameList) > 0 THEN
 				WHILE STRPOS(TempNameList, '$') > 0 LOOP
 
 					TempNameOneList := SUBSTRING(TempNameList,0,STRPOS(TempNameList, '$'));
@@ -23510,7 +23506,7 @@ BEGIN
 							TempNameUserSeq := TempNameOne;
 						END IF;
 						TempNameCnt := TempNameCnt + 1;
-						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(TempNameOneList, ',')+1,LEN(TempNameOneList));
+						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(TempNameOneList, ',')+1,LENGTH(TempNameOneList));
 					END LOOP;
 
 					IF TempMainSeqNo = TempNameMainSeq THEN
@@ -23524,7 +23520,7 @@ BEGIN
 
 					END IF;
 
-					TempNameList := SUBSTRING(TempNameList,STRPOS(TempNameList, '$')+1,LEN(TempNameList));
+					TempNameList := SUBSTRING(TempNameList,STRPOS(TempNameList, '$')+1,LENGTH(TempNameList));
 				END LOOP;
 			END IF;
 			-- 이메일;
@@ -23542,7 +23538,7 @@ BEGIN
 			-- // ========================
 			-- // 이메일 데이터 체크
 			-- // ========================
-			IF LEN(CheckEmailList) > 0 THEN
+			IF LENGTH(CheckEmailList) > 0 THEN
 				WHILE STRPOS(TempEmailList, '$') > 0 LOOP
 					RAISE NOTICE '%', '이메일 루프';
 					TempEmailOneList := SUBSTRING(TempEmailList,0,STRPOS(TempEmailList, '$'));
@@ -23560,7 +23556,7 @@ BEGIN
 							TempEmailYN := TempEmailOne;
 						END IF;
 						TempEmailCnt := TempEmailCnt +1;
-						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(TempEmailOneList, ',')+1,LEN(TempEmailOneList));
+						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(TempEmailOneList, ',')+1,LENGTH(TempEmailOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -23605,7 +23601,7 @@ BEGIN
 						END IF;
 					END IF;
 
-					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LEN(TempEmailList));
+					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LENGTH(TempEmailList));
 				END LOOP;
 			END IF;
 
@@ -23624,7 +23620,7 @@ BEGIN
 			-- // ========================
 			-- // 전화번호 데이터 체크
 			-- // ========================
-			IF LEN(CheckNumberList) > 0 THEN
+			IF LENGTH(CheckNumberList) > 0 THEN
 				WHILE STRPOS(TempNumberList, '$') > 0 LOOP
 					TempNumberOneList := SUBSTRING(TempNumberList,0,STRPOS(TempNumberList, '$'));
 					TempNumberOneList := TempNumberOneList || ',';
@@ -23641,7 +23637,7 @@ BEGIN
 							TempNumberYN := TempNumberOne;
 						END IF;
 						TempNumberCnt := TempNumberCnt + 1;
-						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(TempNumberOneList, ',')+1,LEN(TempNumberOneList));
+						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(TempNumberOneList, ',')+1,LENGTH(TempNumberOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -23687,11 +23683,11 @@ BEGIN
 						END IF;
 					END IF;
 
-					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LEN(TempNumberList));
+					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LENGTH(TempNumberList));
 				END LOOP;
 			END IF;
 			-- 처리되면 전부 삭제
-			IF LEN(TempDelUserSeqList) > 0 THEN
+			IF LENGTH(TempDelUserSeqList) > 0 THEN
 
 				WHILE STRPOS(TempDelUserSeqList, ',') > 0 LOOP
 					TempDelUserSeqNo := SUBSTRING(TempDelUserSeqList,0,STRPOS(TempDelUserSeqList, ','));
@@ -23705,11 +23701,11 @@ BEGIN
 					DELETE FROM ContactsSns WHERE UserSeq = TempDelUserSeqNo;
 					DELETE FROM ContactsUser WHERE Seq = TempDelUserSeqNo;
 
-					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(TempDelUserSeqList, ',')+1,LEN(TempDelUserSeqList));
+					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(TempDelUserSeqList, ',')+1,LENGTH(TempDelUserSeqList));
 				END LOOP;
 			END IF;
 			-- 다음 정리> 기준 주소록번호;
-			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(TempMainSeqList, ',')+1,LEN(TempMainSeqList));
+			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(TempMainSeqList, ',')+1,LENGTH(TempMainSeqList));
 		END LOOP;
 
 
@@ -23777,7 +23773,7 @@ BEGIN
 	TempMainSeqList := contacts_savearrangelike.mainseqlist || ',';
 	CheckMainSeqList := REPLACE(TempMainSeqList,',','');
 	-- 정리할 주소록이 있는지 검사
-	IF LEN(CheckMainSeqList) > 0 THEN
+	IF LENGTH(CheckMainSeqList) > 0 THEN
 
 		-- 정리할 주소록 분할 처리
 		WHILE STRPOS(TempMainSeqList, ',') > 0 LOOP
@@ -23793,7 +23789,7 @@ BEGIN
 
 			TempNameList := contacts_savearrangelike.namelist || '$';
 			CheckNameList := REPLACE(REPLACE(TempNameList,',',''),'$',',');
-			IF LEN(CheckNameList) > 0 THEN
+			IF LENGTH(CheckNameList) > 0 THEN
 				WHILE STRPOS(TempNameList, '$') > 0 LOOP
 
 					TempNameOneList := SUBSTRING(TempNameList,0,STRPOS(TempNameList, '$'));
@@ -23807,7 +23803,7 @@ BEGIN
 							TempNameUserSeq := TempNameOne;
 						END IF;
 						TempNameCnt := TempNameCnt + 1;
-						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(TempNameOneList, ',')+1,LEN(TempNameOneList));
+						TempNameOneList := SUBSTRING(TempNameOneList,STRPOS(TempNameOneList, ',')+1,LENGTH(TempNameOneList));
 					END LOOP;
 
 					IF TempMainSeqNo = TempNameMainSeq THEN
@@ -23821,7 +23817,7 @@ BEGIN
 
 					END IF;
 
-					TempNameList := SUBSTRING(TempNameList,STRPOS(TempNameList, '$')+1,LEN(TempNameList));
+					TempNameList := SUBSTRING(TempNameList,STRPOS(TempNameList, '$')+1,LENGTH(TempNameList));
 				END LOOP;
 			END IF;
 			-- 이메일;
@@ -23839,7 +23835,7 @@ BEGIN
 			-- // ========================
 			-- // 이메일 데이터 체크
 			-- // ========================
-			IF LEN(CheckEmailList) > 0 THEN
+			IF LENGTH(CheckEmailList) > 0 THEN
 				WHILE STRPOS(TempEmailList, '$') > 0 LOOP
 					RAISE NOTICE '%', '이메일 루프';
 					TempEmailOneList := SUBSTRING(TempEmailList,0,STRPOS(TempEmailList, '$'));
@@ -23857,7 +23853,7 @@ BEGIN
 							TempEmailYN := TempEmailOne;
 						END IF;
 						TempEmailCnt := TempEmailCnt +1;
-						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(TempEmailOneList, ',')+1,LEN(TempEmailOneList));
+						TempEmailOneList := SUBSTRING(TempEmailOneList,STRPOS(TempEmailOneList, ',')+1,LENGTH(TempEmailOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -23902,7 +23898,7 @@ BEGIN
 						END IF;
 					END IF;
 
-					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LEN(TempEmailList));
+					TempEmailList := SUBSTRING(TempEmailList,STRPOS(TempEmailList, '$')+1,LENGTH(TempEmailList));
 				END LOOP;
 			END IF;
 
@@ -23921,7 +23917,7 @@ BEGIN
 			-- // ========================
 			-- // 전화번호 데이터 체크
 			-- // ========================
-			IF LEN(CheckNumberList) > 0 THEN
+			IF LENGTH(CheckNumberList) > 0 THEN
 				WHILE STRPOS(TempNumberList, '$') > 0 LOOP
 					TempNumberOneList := SUBSTRING(TempNumberList,0,STRPOS(TempNumberList, '$'));
 					TempNumberOneList := TempNumberOneList || ',';
@@ -23938,7 +23934,7 @@ BEGIN
 							TempNumberYN := TempNumberOne;
 						END IF;
 						TempNumberCnt := TempNumberCnt + 1;
-						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(TempNumberOneList, ',')+1,LEN(TempNumberOneList));
+						TempNumberOneList := SUBSTRING(TempNumberOneList,STRPOS(TempNumberOneList, ',')+1,LENGTH(TempNumberOneList));
 					END LOOP;
 					-- ========================
 					-- MainSeq가 같은 것만 처리
@@ -23984,11 +23980,11 @@ BEGIN
 						END IF;
 					END IF;
 
-					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LEN(TempNumberList));
+					TempNumberList := SUBSTRING(TempNumberList,STRPOS(TempNumberList, '$')+1,LENGTH(TempNumberList));
 				END LOOP;
 			END IF;
 			-- 처리되면 전부 삭제
-			IF LEN(TempDelUserSeqList) > 0 THEN
+			IF LENGTH(TempDelUserSeqList) > 0 THEN
 
 				WHILE STRPOS(TempDelUserSeqList, ',') > 0 LOOP
 					TempDelUserSeqNo := SUBSTRING(TempDelUserSeqList,0,STRPOS(TempDelUserSeqList, ','));
@@ -24002,11 +23998,11 @@ BEGIN
 					DELETE FROM ContactsSns WHERE UserSeq = TempDelUserSeqNo;
 					DELETE FROM ContactsUser WHERE Seq = TempDelUserSeqNo;
 
-					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(TempDelUserSeqList, ',')+1,LEN(TempDelUserSeqList));
+					TempDelUserSeqList := SUBSTRING(TempDelUserSeqList,STRPOS(TempDelUserSeqList, ',')+1,LENGTH(TempDelUserSeqList));
 				END LOOP;
 			END IF;
 			-- 다음 정리> 기준 주소록번호;
-			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(TempMainSeqList, ',')+1,LEN(TempMainSeqList));
+			TempMainSeqList := SUBSTRING(TempMainSeqList,STRPOS(TempMainSeqList, ',')+1,LENGTH(TempMainSeqList));
 		END LOOP;
 
 
@@ -24096,7 +24092,7 @@ BEGIN
 		);
 
 		-- 회사정보가 있는 경우만
-		IF LEN(Company) > 0 OR LEN(Depart) > 0 OR LEN(Position) > 0 THEN
+		IF LENGTH(Company) > 0 OR LENGTH(Depart) > 0 OR LENGTH(Position) > 0 THEN
 			INSERT INTO ContactsCompany
 			(
 				RegUserNo,
@@ -24121,7 +24117,7 @@ BEGIN
 			);
 		END IF;
 		-- 이메일1
-		IF LEN(EMail1) > 0 THEN
+		IF LENGTH(EMail1) > 0 THEN
 			INSERT INTO ContactsEmail
 			(
 				RegUserNo,
@@ -24142,7 +24138,7 @@ BEGIN
 			);
 		END IF;
 		-- 이메일2
-		IF LEN(EMail2) > 0 THEN
+		IF LENGTH(EMail2) > 0 THEN
 			INSERT INTO ContactsEmail
 			(
 				RegUserNo,
@@ -24163,7 +24159,7 @@ BEGIN
 			);
 		END IF;
 		-- 이메일3
-		IF LEN(EMail3) > 0 THEN
+		IF LENGTH(EMail3) > 0 THEN
 			INSERT INTO ContactsEmail
 			(
 				RegUserNo,
@@ -24184,7 +24180,7 @@ BEGIN
 			);
 		END IF;
 		-- 홈페이지
-		IF LEN(WebPage) > 0 THEN
+		IF LENGTH(WebPage) > 0 THEN
 			INSERT INTO ContactsHomepage
 			(
 				RegUserNo,
@@ -24209,7 +24205,7 @@ BEGIN
 			);
 		END IF;
 		-- 메신저
-		IF LEN(Massenger) > 0 THEN
+		IF LENGTH(Massenger) > 0 THEN
 			INSERT INTO ContactsSns
 			(
 				RegUserNo,
@@ -24234,7 +24230,7 @@ BEGIN
 			);
 		END IF;
 		-- 휴대폰
-		IF LEN(MobilePhone) > 0 THEN
+		IF LENGTH(MobilePhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24259,7 +24255,7 @@ BEGIN
 			);
 		END IF;
 		-- 집전화
-		IF LEN(HomePhone) > 0 THEN
+		IF LENGTH(HomePhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24284,7 +24280,7 @@ BEGIN
 			);
 		END IF;
 		-- 집팩스
-		IF LEN(HomeFax) > 0 THEN
+		IF LENGTH(HomeFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24309,7 +24305,7 @@ BEGIN
 			);
 		END IF;
 		-- 회사전화
-		IF LEN(WorkPhone) > 0 THEN
+		IF LENGTH(WorkPhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24334,7 +24330,7 @@ BEGIN
 			);
 		END IF;
 		-- 회사팩스
-		IF LEN(WorkFax) > 0 THEN
+		IF LENGTH(WorkFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24359,7 +24355,7 @@ BEGIN
 			);
 		END IF;
 		-- 기타전화
-		IF LEN(OtherPhone) > 0 THEN
+		IF LENGTH(OtherPhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24384,7 +24380,7 @@ BEGIN
 			);
 		END IF;
 		-- 기타팩스
-		IF LEN(OtherFax) > 0 THEN
+		IF LENGTH(OtherFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24409,7 +24405,7 @@ BEGIN
 			);
 		END IF;
 		--집주소
-		IF LEN(HomePost) > 0 OR LEN(HomeAddress) > 0 THEN
+		IF LENGTH(HomePost) > 0 OR LENGTH(HomeAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -24438,7 +24434,7 @@ BEGIN
 			);
 		END IF;
 		--회사주소
-		IF LEN(WorkPost) > 0 OR LEN(WorkAddress) > 0 THEN
+		IF LENGTH(WorkPost) > 0 OR LENGTH(WorkAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -24467,7 +24463,7 @@ BEGIN
 			);
 		END IF;
 		--기타주소
-		IF LEN(OtherPost) > 0 OR LEN(OtherAddress) > 0 THEN
+		IF LENGTH(OtherPost) > 0 OR LENGTH(OtherAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -24519,7 +24515,7 @@ BEGIN
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno;
 
 		-- 회사정보가 있는 경우만
-		IF LEN(Company) > 0 OR LEN(Depart) > 0 OR LEN(Position) > 0 THEN
+		IF LENGTH(Company) > 0 OR LENGTH(Depart) > 0 OR LENGTH(Position) > 0 THEN
 
 
 			SELECT COUNT(Company) INTO companycount FROM ContactsCompany
@@ -24568,7 +24564,7 @@ BEGIN
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
 		AND UserSeq = ContactNo;
 		-- 이메일1
-		IF LEN(EMail1) > 0 THEN
+		IF LENGTH(EMail1) > 0 THEN
 
 			INSERT INTO ContactsEmail
 			(
@@ -24591,7 +24587,7 @@ BEGIN
 
 		END IF;
 		-- 이메일2
-		IF LEN(EMail2) > 0 THEN
+		IF LENGTH(EMail2) > 0 THEN
 			INSERT INTO ContactsEmail
 			(
 				RegUserNo,
@@ -24612,7 +24608,7 @@ BEGIN
 			);
 		END IF;
 		-- 이메일3
-		IF LEN(EMail3) > 0 THEN
+		IF LENGTH(EMail3) > 0 THEN
 			INSERT INTO ContactsEmail
 			(
 				RegUserNo,
@@ -24638,7 +24634,7 @@ BEGIN
 		AND UserSeq = ContactNo
 		AND Type = 0;
 		-- 홈페이지
-		IF LEN(WebPage) > 0 THEN
+		IF LENGTH(WebPage) > 0 THEN
 			INSERT INTO ContactsHomepage
 			(
 				RegUserNo,
@@ -24668,7 +24664,7 @@ BEGIN
 		AND UserSeq = ContactNo
 		AND Type = 8;
 		-- 메신저
-		IF LEN(Massenger) > 0 THEN
+		IF LENGTH(Massenger) > 0 THEN
 			INSERT INTO ContactsSns
 			(
 				RegUserNo,
@@ -24697,7 +24693,7 @@ BEGIN
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
 		AND UserSeq = ContactNo;
 		-- 휴대폰
-		IF LEN(MobilePhone) > 0 THEN
+		IF LENGTH(MobilePhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24722,7 +24718,7 @@ BEGIN
 			);
 		END IF;
 		-- 집전화
-		IF LEN(HomePhone) > 0 THEN
+		IF LENGTH(HomePhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24747,7 +24743,7 @@ BEGIN
 			);
 		END IF;
 		-- 집팩스
-		IF LEN(HomeFax) > 0 THEN
+		IF LENGTH(HomeFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24772,7 +24768,7 @@ BEGIN
 			);
 		END IF;
 		-- 회사전화
-		IF LEN(WorkPhone) > 0 THEN
+		IF LENGTH(WorkPhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24797,7 +24793,7 @@ BEGIN
 			);
 		END IF;
 		-- 회사팩스
-		IF LEN(WorkFax) > 0 THEN
+		IF LENGTH(WorkFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24822,7 +24818,7 @@ BEGIN
 			);
 		END IF;
 		-- 기타전화
-		IF LEN(OtherPhone) > 0 THEN
+		IF LENGTH(OtherPhone) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24847,7 +24843,7 @@ BEGIN
 			);
 		END IF;
 		-- 기타팩스
-		IF LEN(OtherFax) > 0 THEN
+		IF LENGTH(OtherFax) > 0 THEN
 			INSERT INTO ContactsNumber
 			(
 				RegUserNo,
@@ -24876,7 +24872,7 @@ BEGIN
 		WHERE RegUserNo = contacts_savecontactsforoutlook.userno
 		AND UserSeq = ContactNo;
 		--집주소
-		IF LEN(HomePost) > 0 OR LEN(HomeAddress) > 0 THEN
+		IF LENGTH(HomePost) > 0 OR LENGTH(HomeAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -24905,7 +24901,7 @@ BEGIN
 			);
 		END IF;
 		--회사주소
-		IF LEN(WorkPost) > 0 OR LEN(WorkAddress) > 0 THEN
+		IF LENGTH(WorkPost) > 0 OR LENGTH(WorkAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -24934,7 +24930,7 @@ BEGIN
 			);
 		END IF;
 		--기타주소
-		IF LEN(OtherPost) > 0 OR LEN(OtherAddress) > 0 THEN
+		IF LENGTH(OtherPost) > 0 OR LENGTH(OtherAddress) > 0 THEN
 			INSERT INTO ContactsAddress
 			(
 				RegUserNo,
@@ -25215,7 +25211,7 @@ BEGIN
 
 	HistoryNoList := contacts_saverestore.historynolist || ',';
 	ChkHistoryNo := REPLACE(HistoryNoList,',','');
-	IF LEN(ChkHistoryNo) > 0 THEN
+	IF LENGTH(ChkHistoryNo) > 0 THEN
 
 		WHILE STRPOS(HistoryNoList, ',') > 0 LOOP
 			TempHistoryNo := SUBSTRING(HistoryNoList,0,STRPOS(HistoryNoList, ','));
@@ -25549,7 +25545,7 @@ BEGIN
 			DELETE FROM ContactsGroupUserHistory WHERE HistoryNo = TempHistoryNo;
 			DELETE FROM ContactsUserHistory WHERE HistoryNo = TempHistoryNo;
 
-			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(HistoryNoList, ',')+1,LEN(HistoryNoList));
+			HistoryNoList := SUBSTRING(HistoryNoList,STRPOS(HistoryNoList, ',')+1,LENGTH(HistoryNoList));
 		END LOOP;
 		IF 0 <> 0 THEN
 
@@ -25761,11 +25757,10 @@ CREATE OR REPLACE FUNCTION public.contacts_setaddress(reguserno integer, userseq
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 	IF Address IS NOT NULL THEN
-		IF LEN(Address) > 0 THEN
+		IF LENGTH(Address) > 0 THEN
 			INSERT INTO ContactsAddress(RegUserNo,UserSeq,Type,TypeName,ZipCode1,ZipCode2,Address,IsDefault)
 			VALUES(RegUserNo,UserSeq,Type,TypeName,ZipCode1,ZipCode2,Address,IsDefault);
 		END IF;
@@ -25881,7 +25876,7 @@ BEGIN
 	WHILE STRPOS(GroupNo, ',') > 0 LOOP
 		INSERT INTO tab(GroupNo,UserSeq,RegUserNo)
 		VALUES (SUBSTRING(GroupNo,0,STRPOS(GroupNo, ',')),RTN,RegUserNo);
-		GroupNo := SUBSTRING(GroupNo,STRPOS(GroupNo, ',')+1,LEN(GroupNo));
+		GroupNo := SUBSTRING(GroupNo,STRPOS(GroupNo, ',')+1,LENGTH(GroupNo));
 	END LOOP;
 
 	INSERT INTO tab VALUES (GroupNo,RTN,RegUserNo);
@@ -25913,11 +25908,10 @@ CREATE OR REPLACE FUNCTION public.contacts_setemail(reguserno integer, userseq i
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 	IF Value IS NOT NULL THEN
-		IF LEN(Value) > 0 THEN
+		IF LENGTH(Value) > 0 THEN
 			INSERT INTO ContactsEmail(RegUserNo,UserSeq,Value,IsDefault)
 			VALUES(RegUserNo,UserSeq,Value,IsDefault);
 		END IF;
@@ -25945,12 +25939,11 @@ CREATE OR REPLACE FUNCTION public.contacts_setnumber(reguserno integer, userseq 
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 
 	IF Value IS NOT NULL THEN
-		IF LEN(Value) > 0 THEN
+		IF LENGTH(Value) > 0 THEN
 			INSERT INTO ContactsNumber(RegUserNo,UserSeq,Type,TypeName,Value,IsDefault)
 			VALUES(RegUserNo,UserSeq,Type,TypeName,Value,IsDefault);
 		END IF;
@@ -26065,7 +26058,6 @@ CREATE OR REPLACE FUNCTION public.contacts_updatecontactsuser(reguserno integer,
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
--- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
 	DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_updatecontactsuser.userseq;
@@ -26077,7 +26069,7 @@ BEGIN
 	WHILE STRPOS(GroupNo, ',') > 0 LOOP
 		INSERT INTO tab(GroupNo,ContactsUser,RegUserNo)
 		VALUES (SUBSTRING(GroupNo,0,STRPOS(GroupNo, ',')),UserSeq,RegUserNo);
-		GroupNo := SUBSTRING(GroupNo,STRPOS(GroupNo, ',')+1,LEN(GroupNo));
+		GroupNo := SUBSTRING(GroupNo,STRPOS(GroupNo, ',')+1,LENGTH(GroupNo));
 	END LOOP;
 
 	INSERT INTO tab VALUES (GroupNo,UserSeq,RegUserNo);
@@ -26517,12 +26509,12 @@ BEGIN
 		-- 전화번호
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumber (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfo := REPLACE(TelInfo,',','');
-		IF LEN(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_updateuserinfo.telinfo || '$';
 			-- Row 분리
@@ -26548,7 +26540,7 @@ BEGIN
 						TelTypeName := SUBSTRING(TempTel,0,STRPOS(TempTel, ','));
 					END IF;
 					TelCnt := TelCnt + 1;
-					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LEN(TempTel));
+					TempTel := SUBSTRING(TempTel,STRPOS(TempTel, ',')+1,LENGTH(TempTel));
 				END LOOP;
 				TelValue := TempTel;
 				-- 임시테이블에 저장;
@@ -26566,7 +26558,7 @@ BEGIN
 					TelTypeName,
 					TelValue
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -26592,7 +26584,7 @@ BEGIN
 
 
 		ChkEmailInfo := REPLACE(EmailInfo,',','');
-		IF LEN(ChkEmailInfo) > 0 THEN
+		IF LENGTH(ChkEmailInfo) > 0 THEN
 			EmailInfo := contacts_updateuserinfo.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -26604,7 +26596,7 @@ BEGIN
 						EmailIsDefault := SUBSTRING(TempEmail,0,STRPOS(TempEmail, ','));
 					END IF;
 					EmailCnt := EmailCnt + 1;
-					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LEN(TempEmail));
+					TempEmail := SUBSTRING(TempEmail,STRPOS(TempEmail, ',')+1,LENGTH(TempEmail));
 				END LOOP;
 				EmailValue := TempEmail;
 				INSERT INTO tabEmail
@@ -26617,7 +26609,7 @@ BEGIN
 					EmailIsDefault,
 					EmailValue
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -26640,7 +26632,7 @@ BEGIN
 
 
 		ChkCompanyInfo := REPLACE(CompanyInfo,',','');
-		IF LEN(ChkCompanyInfo) > 0 THEN
+		IF LENGTH(ChkCompanyInfo) > 0 THEN
 			CompanyInfo := contacts_updateuserinfo.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -26656,7 +26648,7 @@ BEGIN
 						Depart := SUBSTRING(TempCompany,0,STRPOS(TempCompany, ','));
 					END IF;
 					CompanyCnt := CompanyCnt + 1;
-					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LEN(TempCompany));
+					TempCompany := SUBSTRING(TempCompany,STRPOS(TempCompany, ',')+1,LENGTH(TempCompany));
 				END LOOP;
 				Position := TempCompany;
 				INSERT INTO tabCompany
@@ -26673,7 +26665,7 @@ BEGIN
 					Depart,
 					Position
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -26693,12 +26685,12 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddr (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
 
 
 
 		ChkAddrInfo := REPLACE(AddressInfo,'#','');
-		IF LEN(ChkAddrInfo) > 0 THEN
+		IF LENGTH(ChkAddrInfo) > 0 THEN
 			AddressInfo := contacts_updateuserinfo.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -26725,7 +26717,7 @@ BEGIN
 						Longitude1 := SUBSTRING(TempAddr,0,STRPOS(TempAddr, '#'));
 					END IF;
 					AddrCnt := AddrCnt + 1;
-					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, '#')+1,LEN(TempAddr));
+					TempAddr := SUBSTRING(TempAddr,STRPOS(TempAddr, '#')+1,LENGTH(TempAddr));
 				END LOOP;
 				--SET Address = TempAddr;
 
@@ -26751,7 +26743,7 @@ BEGIN
 					Latitude1,
 					Longitude1
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -26777,12 +26769,12 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHome (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfo := REPLACE(HomepageInfo,',','');
-		IF LEN(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_updateuserinfo.homepageinfo || '$';
 			-- Row 분리
@@ -26800,7 +26792,7 @@ BEGIN
 						HomeTypeName := SUBSTRING(TempHome,0,STRPOS(TempHome, ','));
 					END IF;
 					HomeCnt := HomeCnt + 1;
-					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LEN(TempHome));
+					TempHome := SUBSTRING(TempHome,STRPOS(TempHome, ',')+1,LENGTH(TempHome));
 				END LOOP;
 				HomeValue := TempHome;
 				-- 임시테이블에 저장;
@@ -26818,7 +26810,7 @@ BEGIN
 					HomeTypeName,
 					HomeValue
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -26840,12 +26832,12 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSns (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfo := REPLACE(SnsInfo,',','');
-		IF LEN(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfo) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_updateuserinfo.snsinfo || '$';
 			-- Row 분리
@@ -26863,7 +26855,7 @@ BEGIN
 						SnsTypeName := SUBSTRING(TempSns,0,STRPOS(TempSns, ','));
 					END IF;
 					SnsCnt := SnsCnt + 1;
-					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LEN(TempSns));
+					TempSns := SUBSTRING(TempSns,STRPOS(TempSns, ',')+1,LENGTH(TempSns));
 				END LOOP;
 				SnsValue := TempSns;
 				-- 임시테이블에 저장;
@@ -26881,7 +26873,7 @@ BEGIN
 					SnsTypeName,
 					SnsValue
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -26908,7 +26900,7 @@ BEGIN
 
 		--SET ChkGroupInfo = REPLACE(GroupInfo,',','')
 
-		--IF LEN(ChkGroupInfo) > 0
+		--IF LENGTH(ChkGroupInfo) > 0
 		--BEGIN
 		--	DELETE FROM ContactsGroupUser WHERE UserSeq = Seq
 		--	-- 정보가 존재하면 끝에 , 추가
@@ -26935,7 +26927,7 @@ BEGIN
 		--		--END
 
 		--		SET GroupCnt = GroupCnt + 1
-		--		SET GroupInfo = SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo))
+		--		SET GroupInfo = SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo))
 		--	END
 
 		--	INSERT INTO ContactsGroupUser
@@ -26979,14 +26971,14 @@ BEGIN
 		WHERE Seq = contacts_updateuserinfo.seq;
 
 
-		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabNumberUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkTelInfoUp := REPLACE(TelInfo,',','');
 		DELETE FROM ContactsNumber WHERE  UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkTelInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 전화정보가 존재하면 끝에 $ 추가;
 			TelInfo := contacts_updateuserinfo.telinfo || '$';
 			-- Row 분리
@@ -27004,7 +26996,7 @@ BEGIN
 						TelTypeNameUp := SUBSTRING(TempTelUp,0,STRPOS(TempTelUp, ','));
 					END IF;
 					TelCntUp := TelCntUp + 1;
-					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LEN(TempTelUp));
+					TempTelUp := SUBSTRING(TempTelUp,STRPOS(TempTelUp, ',')+1,LENGTH(TempTelUp));
 				END LOOP;
 				TelValueUp := TempTelUp;
 				-- 임시테이블에 저장;
@@ -27022,7 +27014,7 @@ BEGIN
 					TelTypeNameUp,
 					TelValueUp
 				);
-				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LEN(TelInfo));
+				TelInfo := SUBSTRING(TelInfo,STRPOS(TelInfo, '$')+1,LENGTH(TelInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsNumber
@@ -27049,7 +27041,7 @@ BEGIN
 		ChkEmailInfoUp := REPLACE(EmailInfo,',','');
 		DELETE FROM ContactsEmail WHERE  UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkEmailInfoUp) > 0 THEN
+		IF LENGTH(ChkEmailInfoUp) > 0 THEN
 			EmailInfo := contacts_updateuserinfo.emailinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(EmailInfo, '$') > 0 LOOP
@@ -27061,7 +27053,7 @@ BEGIN
 						EmailIsDefaultUp := SUBSTRING(TempEmailUp,0,STRPOS(TempEmailUp, ','));
 					END IF;
 					EmailCntUp := EmailCntUp + 1;
-					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LEN(TempEmailUp));
+					TempEmailUp := SUBSTRING(TempEmailUp,STRPOS(TempEmailUp, ',')+1,LENGTH(TempEmailUp));
 				END LOOP;
 				EmailValueUp := TempEmailUp;
 				INSERT INTO tabEmailUp
@@ -27074,7 +27066,7 @@ BEGIN
 					EmailIsDefaultUp,
 					EmailValueUp
 				);
-				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LEN(EmailInfo));
+				EmailInfo := SUBSTRING(EmailInfo,STRPOS(EmailInfo, '$')+1,LENGTH(EmailInfo));
 			END LOOP;
 			INSERT INTO ContactsEmail
 			(
@@ -27098,7 +27090,7 @@ BEGIN
 		ChkCompanyInfoUp := REPLACE(CompanyInfo,',','');
 		DELETE FROM ContactsCompany WHERE  UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkCompanyInfoUp) > 0 THEN
+		IF LENGTH(ChkCompanyInfoUp) > 0 THEN
 			CompanyInfo := contacts_updateuserinfo.companyinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(CompanyInfo, '$') > 0 LOOP
@@ -27114,7 +27106,7 @@ BEGIN
 						DepartUp := SUBSTRING(TempCompanyUp,0,STRPOS(TempCompanyUp, ','));
 					END IF;
 					CompanyCntUp := CompanyCntUp + 1;
-					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LEN(TempCompanyUp));
+					TempCompanyUp := SUBSTRING(TempCompanyUp,STRPOS(TempCompanyUp, ',')+1,LENGTH(TempCompanyUp));
 				END LOOP;
 				PositionUp := TempCompanyUp;
 				INSERT INTO tabCompanyUp
@@ -27131,7 +27123,7 @@ BEGIN
 					DepartUp,
 					PositionUp
 				);
-				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LEN(CompanyInfo));
+				CompanyInfo := SUBSTRING(CompanyInfo,STRPOS(CompanyInfo, '$')+1,LENGTH(CompanyInfo));
 			END LOOP;
 			INSERT INTO ContactsCompany
 			(
@@ -27149,14 +27141,14 @@ BEGIN
 		-- ============================================
 		-- 주소
 		-- ============================================
-		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
+		CREATE TEMP TABLE tabAddrUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), ZipCode1 varchar(5), ZipCode2 varchar(5), Address varchar(500),Latitude float,Longitude float) ON COMMIT DROP;
 
 
 
 		ChkAddrInfoUp := REPLACE(AddressInfo,'#','');
 		DELETE FROM ContactsAddress WHERE  UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkAddrInfoUp) > 0 THEN
+		IF LENGTH(ChkAddrInfoUp) > 0 THEN
 			AddressInfo := contacts_updateuserinfo.addressinfo || '$';
 			-- Row 분리
 			WHILE STRPOS(AddressInfo, '$') > 0 LOOP
@@ -27182,7 +27174,7 @@ BEGIN
 						Longitude2 := SUBSTRING(TempAddrUp,0,STRPOS(TempAddrUp, '#'));
 					END IF;
 					AddrCntUp := AddrCntUp + 1;
-					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, '#')+1,LEN(TempAddrUp));
+					TempAddrUp := SUBSTRING(TempAddrUp,STRPOS(TempAddrUp, '#')+1,LENGTH(TempAddrUp));
 				END LOOP;
 				--SET AddressUp = TempAddrUp;
 
@@ -27208,7 +27200,7 @@ BEGIN
 					Latitude2,
 					Longitude2
 				);
-				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LEN(AddressInfo));
+				AddressInfo := SUBSTRING(AddressInfo,STRPOS(AddressInfo, '$')+1,LENGTH(AddressInfo));
 			END LOOP;
 			INSERT INTO ContactsAddress
 			(
@@ -27232,14 +27224,14 @@ BEGIN
 		-- 홈페이지
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabHomeUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkHomeInfoUp := REPLACE(HomepageInfo,',','');
 		DELETE FROM ContactsHomepage WHERE UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkHomeInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			HomepageInfo := contacts_updateuserinfo.homepageinfo || '$';
 			-- Row 분리
@@ -27257,7 +27249,7 @@ BEGIN
 						HomeTypeNameUp := SUBSTRING(TempHomeUp,0,STRPOS(TempHomeUp, ','));
 					END IF;
 					HomeCntUp := HomeCntUp + 1;
-					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LEN(TempHomeUp));
+					TempHomeUp := SUBSTRING(TempHomeUp,STRPOS(TempHomeUp, ',')+1,LENGTH(TempHomeUp));
 				END LOOP;
 				HomeValueUp := TempHomeUp;
 				-- 임시테이블에 저장;
@@ -27275,7 +27267,7 @@ BEGIN
 					HomeTypeNameUp,
 					HomeValueUp
 				);
-				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LEN(HomepageInfo));
+				HomepageInfo := SUBSTRING(HomepageInfo,STRPOS(HomepageInfo, '$')+1,LENGTH(HomepageInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsHomepage
@@ -27295,14 +27287,14 @@ BEGIN
 		-- 메신저 SNS
 		-- ============================================
 		-- 임시테이블 생성
-		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type TINYINT, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
+		CREATE TEMP TABLE tabSnsUp (IsDefault CHAR(1), Type smallint, TypeName varchar(50), Value varchar(50)) ON COMMIT DROP;
 		-- 체크데이터 생성;
 
 
 		ChkSnsInfoUp := REPLACE(SnsInfo,',','');
 		DELETE FROM ContactsSns WHERE UserSeq = contacts_updateuserinfo.seq; -- and RegUserNo = UserNo
 
-		IF LEN(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
+		IF LENGTH(ChkSnsInfoUp) > 0 THEN -- 값이 존재하는지 체크
 			-- 정보가 존재하면 끝에 $ 추가;
 			SnsInfo := contacts_updateuserinfo.snsinfo || '$';
 			-- Row 분리
@@ -27320,7 +27312,7 @@ BEGIN
 						SnsTypeNameUp := SUBSTRING(TempSnsUp,0,STRPOS(TempSnsUp, ','));
 					END IF;
 					SnsCntUp := SnsCntUp + 1;
-					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LEN(TempSnsUp));
+					TempSnsUp := SUBSTRING(TempSnsUp,STRPOS(TempSnsUp, ',')+1,LENGTH(TempSnsUp));
 				END LOOP;
 				SnsValueUp := TempSnsUp;
 				-- 임시테이블에 저장;
@@ -27338,7 +27330,7 @@ BEGIN
 					SnsTypeNameUp,
 					SnsValueUp
 				);
-				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LEN(SnsInfo));
+				SnsInfo := SUBSTRING(SnsInfo,STRPOS(SnsInfo, '$')+1,LENGTH(SnsInfo));
 			END LOOP;
 			-- 최종 저장;
 			INSERT INTO ContactsSns
@@ -27364,7 +27356,7 @@ BEGIN
 
 		--SET ChkGroupInfoUp = REPLACE(GroupInfo,',','')
 
-		--IF LEN(ChkGroupInfoUp) > 0
+		--IF LENGTH(ChkGroupInfoUp) > 0
 		--BEGIN
 		--	DELETE FROM ContactsGroupUser WHERE UserSeq = Seq
 		--	-- 정보가 존재하면 끝에 , 추가
@@ -27393,7 +27385,7 @@ BEGIN
 		--		END
 
 		--		SET GroupCntUp = GroupCntUp + 1
-		--		SET GroupInfo = SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LEN(GroupInfo))
+		--		SET GroupInfo = SUBSTRING(GroupInfo,STRPOS(GroupInfo, ',')+1,LENGTH(GroupInfo))
 		--	END
 
 		--	INSERT INTO ContactsGroupUser

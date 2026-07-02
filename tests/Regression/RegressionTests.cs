@@ -63,7 +63,7 @@ namespace RegressionTests
             var obj = new DbObject("testposition", ObjectType.Procedure, mssql, false, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("\"position\" integer"));
+            Assert.That(pg, Does.Contain("_position integer"));
         }
 
         // ─── 6. Unconverted Cursors ──────────────────────────────────────────
@@ -156,6 +156,28 @@ namespace RegressionTests
             Assert.That(pg, Does.Not.Match(@"SET\s+\w+\.\w+\s*="));
         }
 
+        [Test]
+        public void TestUpdateAliasFromJoinUsesRealTarget()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestUpdateJoin
+                AS
+                BEGIN
+                    UPDATE BW SET BW.Sort = T.Sort
+                    FROM Board_Widget BW
+                    INNER JOIN WidgetTemp T ON T.No = BW.No
+                    WHERE BW.Enabled = 1
+                END
+                """;
+            var obj = new DbObject("testupdatejoin", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("UPDATE Board_Widget AS BW"));
+            Assert.That(pg, Does.Contain("FROM WidgetTemp T WHERE"));
+            Assert.That(pg, Does.Contain("T.No = BW.No"));
+            Assert.That(pg, Does.Not.Match(@"\bUPDATE\s+BW\b"));
+        }
+
         // ─── 13. Duplicate param/var declaration filtered ─────────────────────
         [Test]
         public void TestDuplicateParamVarDeclarationFiltered()
@@ -166,8 +188,8 @@ namespace RegressionTests
             string pg = Converter.Convert(obj, "postgres");
 
             // There must be no DECLARE section that declares userno again (parameter already covers it)
-            Assert.That(pg, Does.Not.Match(@"(?m)^DECLARE\s*\n.*\buserno\s+integer"));
-            Assert.That(pg, Does.Contain("IN userno integer"));
+            Assert.That(pg, Does.Not.Match(@"(?m)^DECLARE\s*\n.*_userno\s+integer"));
+            Assert.That(pg, Does.Contain("IN _userno integer"));
         }
 
         // ─── 14. Non-duplicate DECLARE var is kept ───────────────────────────
@@ -179,8 +201,8 @@ namespace RegressionTests
             var obj = new DbObject("testnodupe", ObjectType.Procedure, mssql, false, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("tempresult integer"));
-            Assert.That(pg, Does.Contain("IN userno integer"));
+            Assert.That(pg, Does.Contain("_tempresult integer"));
+            Assert.That(pg, Does.Contain("IN _userno integer"));
         }
 
         [Test]
@@ -190,7 +212,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestDefault", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("userno integer DEFAULT NULL"));
+            Assert.That(pg, Does.Contain("_userno integer DEFAULT NULL"));
             Assert.That(pg, Does.Not.Contain("integer DEFAULT ''"));
         }
 
@@ -201,7 +223,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestOutput", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("IN seq integer"));
+            Assert.That(pg, Does.Contain("IN _seq integer"));
             Assert.That(pg, Does.Not.Contain("INOUT seq integer"));
             Assert.That(pg, Does.Contain("OUTPUT parameter treated as input"));
         }
@@ -248,7 +270,7 @@ namespace RegressionTests
             var obj = new DbObject("Contact_TestTop", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("SELECT Sort INTO sort FROM Contact_ShareGroup"));
+            Assert.That(pg, Does.Contain("SELECT Sort INTO _sort FROM Contact_ShareGroup"));
             Assert.That(pg, Does.Not.Contain("LIMIT 1\nWHERE"));
             Assert.That(pg, Does.Not.Contain("TOP 1"));
         }
@@ -268,7 +290,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestConcat", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("query := COALESCE(query, '')"));
+            Assert.That(pg, Does.Contain("_query := COALESCE(_query, '')"));
             Assert.That(pg, Does.Not.Contain("SET query +="));
         }
 
@@ -286,7 +308,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestExec", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("PERFORM contacts_insertgroup(userNo, 'Temporary group', 0);"));
+            Assert.That(pg, Does.Contain("PERFORM contacts_insertgroup(_userNo, 'Temporary group', 0);"));
             Assert.That(pg, Does.Not.Match(@"\bEXEC\s+Contacts_InsertGroup"));
         }
 
@@ -306,7 +328,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_DeleteHistory", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("IN historynolist character varying"));
+            Assert.That(pg, Does.Contain("IN _historynolist character varying"));
         }
 
         [Test]
@@ -358,7 +380,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestResults", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Match(@"UserNo\s*=\s*contacts_testresults\.userno;\s*\n\s*RETURN QUERY"));
+            Assert.That(pg, Does.Match(@"UserNo\s*=\s*contacts_testresults\._userno;\s*\n\s*RETURN QUERY"));
         }
 
         [Test]
@@ -374,7 +396,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestSchemaExec", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("PERFORM contacts_savehistory(userNo, 'DEL');"));
+            Assert.That(pg, Does.Contain("PERFORM contacts_savehistory(_userNo, 'DEL');"));
             Assert.That(pg, Does.Not.Contain("EXEC public."));
         }
 
@@ -418,10 +440,10 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestCharIndex", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("STRPOS(Items, ',')"));
-            Assert.That(pg, Does.Not.Contain("STRPOS(',Items, ')"));
-            Assert.That(pg, Does.Contain("LENGTH(Items)"));
-            Assert.That(pg, Does.Not.Contain("LEN(Items)"));
+            Assert.That(pg, Does.Contain("STRPOS(_Items, ',')"));
+            Assert.That(pg, Does.Not.Contain("STRPOS(',_Items, ')"));
+            Assert.That(pg, Does.Contain("LENGTH(_Items)"));
+            Assert.That(pg, Does.Not.Contain("LEN(_Items)"));
         }
 
         [Test]
@@ -620,7 +642,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestContinuation", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("|| filter ||"));
+            Assert.That(pg, Does.Contain("|| _filter ||"));
             Assert.That(pg, Does.Not.Match(@"(?m)^\s*\+\s*filter"));
         }
 
@@ -639,7 +661,7 @@ namespace RegressionTests
             var obj = new DbObject("Contacts_TestDynamic", ObjectType.Procedure, mssql, true, "OK");
             string pg = Converter.Convert(obj, "postgres");
 
-            Assert.That(pg, Does.Contain("EXECUTE query;"));
+            Assert.That(pg, Does.Contain("EXECUTE _query;"));
             Assert.That(pg, Does.Contain("TODO: rewrite named sp_executesql bindings"));
             Assert.That(pg, Does.Not.Match(@"(?m)^\s*P_EndId\s*="));
         }
@@ -765,6 +787,157 @@ namespace RegressionTests
             // and exactly one "END IF;" for the outer block at the very end.
             var matches = System.Text.RegularExpressions.Regex.Matches(pg, @"\bEND\s+IF\s*;");
             Assert.That(matches.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void TestBooleanComparisons()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestBools @Enabled BIT
+                AS
+                BEGIN
+                    DECLARE @IsLock BIT
+                    SELECT 1 WHERE @Enabled = 1 AND @IsLock = 0 AND @Enabled <> 1
+                END
+                """;
+            var obj = new DbObject("TestBools", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("_Enabled = TRUE"));
+            Assert.That(pg, Does.Contain("_IsLock = FALSE"));
+            Assert.That(pg, Does.Contain("_Enabled <> TRUE"));
+        }
+
+        [Test]
+        public void TestBooleanCoalesceWithQualifiedColumn()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestBooleanCoalesce
+                AS
+                BEGIN
+                    SELECT ISNULL(b.IsOpen, 1) FROM Board_HistoryFolder b
+                END
+                """;
+            var obj = new DbObject("TestBooleanCoalesce", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("COALESCE(b.IsOpen, TRUE)"));
+        }
+
+        [Test]
+        public void TestBooleanLiteralInInsertValues()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestBooleanInsert
+                AS
+                BEGIN
+                    INSERT INTO Board_Contents (BoardNo, Enabled, IsAlarm, SortNo)
+                    VALUES (1, 1, 0, 0)
+                END
+                """;
+            var obj = new DbObject("TestBooleanInsert", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("VALUES (1, TRUE, FALSE, 0)"));
+        }
+
+        [TestCase("SELECT Items FROM dbo.fn_split_array(@UserNos, @Delimiter)",
+            "SELECT unnest(string_to_array(_UserNos, _Delimiter))::integer")]
+        [TestCase("SELECT * FROM SplitString(@Ids, ',')",
+            "SELECT unnest(string_to_array(_Ids, ','))::integer")]
+        [TestCase("SELECT * FROM fnStringtoListInt(@Ids)",
+            "SELECT unnest(string_to_array(_Ids, ','))::integer")]
+        public void TestIntegerStringSplitHelpers(string statement, string expected)
+        {
+            string mssql = $"""
+                CREATE PROCEDURE dbo.TestSplit @UserNos varchar(max), @Delimiter varchar(5), @Ids varchar(max)
+                AS
+                BEGIN
+                    DELETE FROM Items WHERE Id IN ({statement})
+                END
+                """;
+            var obj = new DbObject("TestSplit", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain(expected));
+        }
+
+        [Test]
+        public void TestDateExtractionFunctions()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestDates
+                AS
+                BEGIN
+                    SELECT YEAR(GETDATE()), MONTH(GETDATE()), DAY(GETDATE())
+                END
+                """;
+            var obj = new DbObject("TestDates", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("EXTRACT(YEAR FROM NOW())"));
+            Assert.That(pg, Does.Contain("EXTRACT(MONTH FROM NOW())"));
+            Assert.That(pg, Does.Contain("EXTRACT(DAY FROM NOW())"));
+        }
+
+        [Test]
+        public void TestInsertValuesFollowedByResultSelectReturnsRows()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestInsertThenResult @GroupNo int
+                AS
+                BEGIN
+                    INSERT INTO ContactsGroupUser(GroupNo) VALUES(@GroupNo)
+                    SELECT Seq FROM ContactsGroupUser WHERE GroupNo = @GroupNo
+                END
+                """;
+            var obj = new DbObject("TestInsertThenResult", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("RETURNS SETOF record"));
+            Assert.That(pg, Does.Contain("RETURN QUERY"));
+            Assert.That(pg, Does.Contain("SELECT Seq FROM ContactsGroupUser"));
+        }
+
+        [Test]
+        public void TestStandaloneConvertedScalarSelectIsAResult()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestScalarResult
+                AS
+                BEGIN
+                    UPDATE Items SET Enabled = 1
+                    SELECT CAST(1 AS BIT)
+                END
+                """;
+            var obj = new DbObject("TestScalarResult", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("RETURNS SETOF record"));
+            Assert.That(pg, Does.Contain("RETURN QUERY"));
+            Assert.That(pg, Does.Contain("SELECT TRUE"));
+        }
+
+        [Test]
+        public void TestTableValuedReturnVariableWithTrailingComment()
+        {
+            string mssql = """
+                CREATE FUNCTION dbo.TestTableReturn(@UserNo int)
+                RETURNS @Rows TABLE (ItemNo int)
+                AS
+                BEGIN
+                    INSERT INTO @Rows
+                    SELECT ItemNo FROM Items WHERE UserNo = @UserNo;
+                    -- old diagnostic SELECT intentionally disabled
+                    RETURN
+                END
+                """;
+            var obj = new DbObject("TestTableReturn", ObjectType.Function, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("RETURNS TABLE("));
+            Assert.That(pg, Does.Contain("RETURN QUERY SELECT ItemNo"));
+            Assert.That(pg, Does.Not.Contain("INSERT INTO _Rows"));
         }
     }
 }

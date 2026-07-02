@@ -55,7 +55,7 @@ public static class Converter
 
     static string ConvertProcedure(DbObject obj, string owner)
     {
-        var block  = obj.RawBlock;
+        var block  = RenameVariables(obj.RawBlock);
         var pgName = obj.Name.ToLower();
 
         var hdr = Regex.Match(block,
@@ -111,7 +111,7 @@ public static class Converter
             }, RegexOptions.IgnoreCase);
         bodyNoDecl = Regex.Replace(bodyNoDecl,
             @"(?:\[dbo\]|dbo)\.(?:\[(\w+)\]|(\w+))",
-            m => $"public.\"{(m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value)}\"",
+            m => $"public.\"{(m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value).ToLowerInvariant()}\"",
             RegexOptions.IgnoreCase);
 
         string convertedBody;
@@ -126,7 +126,10 @@ public static class Converter
         }
         convertedBody = EnsureLastSemicolon(convertedBody);
 
-        bool hasResultSelect = HasResultReturningSelect(rawBody);
+        bool hasResultSelect = HasResultReturningSelect(rawBody)
+            || Regex.IsMatch(convertedBody,
+                @"(?m)^[ \t]*SELECT\s+(?:TRUE|FALSE|NULL|_?[A-Za-z]\w*)\s*;?[ \t]*$",
+                RegexOptions.IgnoreCase);
         string returnType = hasResultSelect ? "SETOF record" : "void";
         string? returnTodo = hasResultSelect
             ? "-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually"
@@ -229,7 +232,7 @@ public static class Converter
     static string ConvertFunction(DbObject obj, string owner,
         Dictionary<string, List<ColumnInfo>>? tableCatalog = null)
     {
-        var block  = obj.RawBlock;
+        var block  = RenameVariables(obj.RawBlock);
         var pgName = obj.Name.ToLower();
 
         var hdr = Regex.Match(block,
@@ -296,7 +299,7 @@ public static class Converter
             }, RegexOptions.IgnoreCase);
         bodyNoDecl = Regex.Replace(bodyNoDecl,
             @"(?:\[dbo\]|dbo)\.(?:\[(\w+)\]|(\w+))",
-            m => $"public.\"{(m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value)}\"",
+            m => $"public.\"{(m.Groups[1].Success ? m.Groups[1].Value : m.Groups[2].Value).ToLowerInvariant()}\"",
             RegexOptions.IgnoreCase);
 
         string convertedBody;
@@ -316,7 +319,7 @@ public static class Converter
             convertedBody = Regex.Replace(convertedBody, @"(?<=\S)\s*\+\s*(?=\S)", " || ");
         if (isTableValued && tableResultVariable != null)
             convertedBody = Regex.Replace(convertedBody,
-                $@"\bINSERT\s+INTO\s+{Regex.Escape(tableResultVariable)}\s+(SELECT[\s\S]+?);\s*RETURN\s*;",
+                $@"\bINSERT\s+INTO\s+{Regex.Escape(tableResultVariable)}\s+(SELECT[\s\S]+?);(?:(?:[ \t]*--[^\r\n]*)|\s)*RETURN\s*;",
                 "RETURN QUERY $1;", RegexOptions.IgnoreCase);
 
         // For void functions: strip RETURN <number>;
@@ -535,7 +538,11 @@ public static class Converter
             "", RegexOptions.IgnoreCase);
         b = Regex.Replace(b, @"\bINSERT\b[^\r\n]*\bSELECT\b",
             "", RegexOptions.IgnoreCase);
-        b = Regex.Replace(b, @"\bINSERT\b[^\r\n]*\r?\n\s*SELECT\b",
+        // Only consume the following SELECT when it is the source of a
+        // multiline INSERT. An INSERT ... VALUES statement followed by a
+        // result SELECT is two statements; swallowing both incorrectly makes
+        // the procedure void and leaves a destinationless SELECT at runtime.
+        b = Regex.Replace(b, @"\bINSERT\b(?:(?!\bVALUES\b)[^\r\n])*\r?\n\s*SELECT\b",
             "", RegexOptions.IgnoreCase);
         b = Regex.Replace(b, @"\bFOR\s+SELECT\b",
             "", RegexOptions.IgnoreCase);
@@ -738,7 +745,7 @@ public static class Converter
             var n = m.Groups[1].Value;
             return QuoteIfReserved(n);
         });
-        colDefs = Regex.Replace(colDefs, @"\bdbo\.(\w+)\b", m => $"public.\"{m.Groups[1].Value}\"", RegexOptions.IgnoreCase);
+        colDefs = Regex.Replace(colDefs, @"\bdbo\.(\w+)\b", m => $"public.\"{m.Groups[1].Value.ToLowerInvariant()}\"", RegexOptions.IgnoreCase);
 
         // IDENTITY
         colDefs = Regex.Replace(colDefs,
@@ -1033,6 +1040,26 @@ $$;";
             def = def[1..^1].Trim();
         if (string.IsNullOrWhiteSpace(def) || def.Equals("NULL", StringComparison.OrdinalIgnoreCase))
             return null;
+
+        // 1. Check for uniqueidentifier convert pattern
+        if (def.Contains("convert", StringComparison.OrdinalIgnoreCase) &&
+            def.Contains("uniqueidentifier", StringComparison.OrdinalIgnoreCase))
+        {
+            return "'00000000-0000-0000-0000-000000000000'::uuid";
+        }
+
+        // 2. Handle empty string defaults for incompatible PG types
+        if (def == "''" || def == "N''")
+        {
+            var normType = pgType.ToLowerInvariant();
+            if (normType.Contains("int") || normType == "numeric" || normType == "double precision" || normType == "real" || normType == "money")
+                return "0";
+            if (normType == "date")
+                return "'1900-01-01'::date";
+            if (normType.Contains("timestamp"))
+                return "'1900-01-01'::timestamp";
+        }
+
         if (Regex.IsMatch(def, @"^\bGETDATE\s*\(\s*\)$", RegexOptions.IgnoreCase)) return "now()";
         if (Regex.IsMatch(def, @"^\bSYSDATETIME\s*\(\s*\)$|\bGETUTCDATE\s*\(\s*\)$", RegexOptions.IgnoreCase)) return "now()";
         if (Regex.IsMatch(def, @"^\bNEWID\s*\(\s*\)$", RegexOptions.IgnoreCase)) return null; // needs uuid-ossp, skip
@@ -1128,6 +1155,20 @@ $$;";
                     : $"{kw} {tbl}";
             }, RegexOptions.IgnoreCase);
 
+        // T-SQL permits UPDATE <alias> ... FROM <target> <alias> JOIN <source>.
+        // PostgreSQL requires the real target after UPDATE and must not repeat it
+        // in FROM. Move the JOIN predicate into WHERE while preserving the alias.
+        body = Regex.Replace(body,
+            @"\bUPDATE\s+(?<alias>\w+)\s+SET\s+(?<set>[\s\S]*?)\s+FROM\s+(?<target>\w+)\s+(?:AS\s+)?\k<alias>\s+INNER\s+JOIN\s+(?<source>\w+)\s+(?:AS\s+)?(?<sourceAlias>\w+)\s+ON\s+(?<join>[\s\S]*?)(?:\s+WHERE\s+(?<where>[\s\S]*?))?(?=;|\r?\n\s*(?:END\b|UPDATE\b|INSERT\b|DELETE\b|RETURN\b)|$)",
+            m => {
+                var where = m.Groups["where"].Success
+                    ? $"({m.Groups["join"].Value.Trim()}) AND ({m.Groups["where"].Value.Trim()})"
+                    : m.Groups["join"].Value.Trim();
+                return $"UPDATE {m.Groups["target"].Value} AS {m.Groups["alias"].Value} " +
+                       $"SET {m.Groups["set"].Value.Trim()} FROM {m.Groups["source"].Value} " +
+                       $"{m.Groups["sourceAlias"].Value} WHERE {where}";
+            }, RegexOptions.IgnoreCase);
+
         // Strip table alias prefix from UPDATE SET left-hand sides.
         // T-SQL allows UPDATE t SET t.col = val; PostgreSQL only accepts SET col = val.
         // First assignment (after SET keyword):
@@ -1149,27 +1190,40 @@ $$;";
         // Contacts_SaveAddressInfo_Web and Contacts_UpdateUserInfo.
         body = Regex.Replace(body, @"\bTINYINT\b", "smallint", RegexOptions.IgnoreCase);
 
-        // Boolean column = 1/0
+        // Boolean column comparison and operator mappings
         body = Regex.Replace(body,
-            @"\b(Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock)\s*=\s*1\b",
+            @"\b(_?(?:Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock))\s*([=!]=?|<>)\s*(1|0)\b",
+            m => $"{m.Groups[1].Value} {m.Groups[2].Value} {(m.Groups[3].Value == "1" ? "TRUE" : "FALSE")}",
+            RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"\bCOALESCE\s*\(\s*((?:\w+\.)?_?(?:Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock))\s*,\s*(1|0)\s*\)",
+            m => $"COALESCE({m.Groups[1].Value}, {(m.Groups[2].Value == "1" ? "TRUE" : "FALSE")})",
+            RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"\b(_?(?:Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock))\s*>\s*0\b",
             "$1 = TRUE", RegexOptions.IgnoreCase);
-        body = Regex.Replace(body,
-            @"\b(Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock)\s*=\s*0\b",
-            "$1 = FALSE", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"=\s*'TRUE'",  "= TRUE",  RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"=\s*'FALSE'", "= FALSE", RegexOptions.IgnoreCase);
+
+        // Date extraction functions: YEAR(x) -> EXTRACT(YEAR FROM x), etc.
+        body = Regex.Replace(body, @"\bYEAR\s*\(\s*([^()]+(?:\([^()]*\)[^()]*)*)\s*\)", "EXTRACT(YEAR FROM $1)", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"\bMONTH\s*\(\s*([^()]+(?:\([^()]*\)[^()]*)*)\s*\)", "EXTRACT(MONTH FROM $1)", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body, @"\bDAY\s*\(\s*([^()]+(?:\([^()]*\)[^()]*)*)\s*\)", "EXTRACT(DAY FROM $1)", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CAST\s*\(\s*1\s+AS\s+BIT\s*\)", "TRUE",  RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CAST\s*\(\s*0\s+AS\s+BIT\s*\)", "FALSE", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CONVERT\s*\(\s*BIT\s*,\s*1\s*\)", "TRUE",  RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"CONVERT\s*\(\s*BIT\s*,\s*0\s*\)", "FALSE", RegexOptions.IgnoreCase);
+        body = ConvertBooleanInsertLiterals(body);
 
         // CAST/CONVERT
         body = Regex.Replace(body, @"CAST\s*\(\s*'([^']+)'\s+AS\s+DATETIME\s*\)", "'$1'::timestamp", RegexOptions.IgnoreCase);
-        if (fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
-            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
-            body = Regex.Replace(body,
-                @"CONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*\d+\s*\))?\s*,\s*([^)]+)\)",
-                "CAST($1 AS text)", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"CONVERT\s*\(\s*N?(?:VAR)?CHAR\s*(?:\(\s*(?:\d+|MAX)\s*\))?\s*,\s*([^()]+(?:\([^()]*\)[^()]*)*)\)",
+            "CAST($1 AS text)", RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"CONVERT\s*\(\s*(INT|INTEGER|BIGINT|SMALLINT|TINYINT)\s*,\s*([^()]+(?:\([^()]*\)[^()]*)*)\)",
+            m => $"CAST({m.Groups[2].Value} AS {(m.Groups[1].Value.Equals("TINYINT", StringComparison.OrdinalIgnoreCase) ? "smallint" : m.Groups[1].Value.ToLowerInvariant())})",
+            RegexOptions.IgnoreCase);
         body = Regex.Replace(body,
             @"(\bCAST\s*\([^)]*?\s+AS\s+)N?(?:VAR)?CHAR\s*\(\s*(?:MAX|\d+)\s*\)(\s*\))",
             "$1text$2", RegexOptions.IgnoreCase);
@@ -1246,12 +1300,10 @@ $$;";
         // String concat
         body = Regex.Replace(body, @"'([^']*)'\s*\+\s*(\w+)", "'$1' || $2");
         body = Regex.Replace(body, @"(\w+)\s*\+\s*'([^']*)'", "$1 || '$2'");
-        if (fnName.StartsWith("contact_", StringComparison.OrdinalIgnoreCase) ||
-            fnName.StartsWith("contacts_", StringComparison.OrdinalIgnoreCase))
-        {
-            body = Regex.Replace(body, @"\+\s*(?='(?:[^']|'')*')", "|| ");
-            body = Regex.Replace(body, @"('(?:[^']|'')*')\s*\+", "$1 ||");
-        }
+        body = Regex.Replace(body, @"\+\s*(?='(?:[^']|'')*')", "|| ");
+        body = Regex.Replace(body, @"('(?:[^']|'')*')\s*\+", "$1 ||");
+        body = Regex.Replace(body, @"(CAST\s*\([^()]+(?:\([^()]*\)[^()]*)*\s+AS\s+(?:text|character\s+varying\d*|varchar\d*)\))\s*\+\s*", "$1 || ");
+        body = Regex.Replace(body, @"\+\s*(CAST\s*\([^()]+(?:\([^()]*\)[^()]*)*\s+AS\s+(?:text|character\s+varying\d*|varchar\d*)\))", "|| $1");
 
         // ParseJson
         body = Regex.Replace(body,
@@ -1264,7 +1316,20 @@ $$;";
         // LIKE → ILIKE
         body = Regex.Replace(body, @"\bLIKE\b", "ILIKE", RegexOptions.IgnoreCase);
 
-        // fn_split_array
+        // Common SQL Server string-splitting helpers used as integer rowsets.
+        body = Regex.Replace(body,
+            @"SELECT\s+(?:Items|\*)\s+FROM\s+(?:public\.""|(?:\[?dbo\]?\.)?)?fn_split_array""?\s*\(\s*([^,()]+)\s*,\s*([^()]+)\)",
+            "SELECT unnest(string_to_array($1, $2))::integer",
+            RegexOptions.IgnoreCase);
+        body = Regex.Replace(body,
+            @"SELECT\s+\*\s+FROM\s+(?:public\.""|(?:\[?dbo\]?\.)?)?(?:SplitString|fnStringtoListInt|Contacts_StringtoListInt)""?\s*\(\s*([^,()]+)\s*(?:,\s*([^()]+))?\)",
+            m => {
+                var delimiter = m.Groups[2].Success ? m.Groups[2].Value.Trim() : "','";
+                return $"SELECT unnest(string_to_array({m.Groups[1].Value.Trim()}, {delimiter}))::integer";
+            },
+            RegexOptions.IgnoreCase);
+
+        // fn_split_array with the common literal delimiter in scalar-array contexts.
         body = Regex.Replace(body,
             @"(?:dbo\.)?fn_split_array\s*\(\s*(\w+)\s*,\s*','\s*\)",
             "string_to_array($1, ',')::integer[]", RegexOptions.IgnoreCase);
@@ -1279,6 +1344,39 @@ $$;";
         }
 
         return body;
+    }
+
+    static string ConvertBooleanInsertLiterals(string body)
+    {
+        return Regex.Replace(body,
+            @"(\bINSERT\s+INTO\s+(?:[\w.""\[\]]+\.)?[\w""\[\]]+\s*\()([^()]+)(\)\s*VALUES\s*\()([^()]+)(\))",
+            m => {
+                var columns = m.Groups[2].Value.Split(',');
+                var values = m.Groups[4].Value.Split(',');
+                if (columns.Length != values.Length)
+                    return m.Value;
+
+                for (var i = 0; i < columns.Length; i++)
+                {
+                    var column = columns[i].Trim().Trim('[', ']', '"');
+                    if (!Regex.IsMatch(column,
+                            @"^(?:Is\w+|Enabled|IsActive|IsUse|IsDel|IsLock)$",
+                            RegexOptions.IgnoreCase))
+                        continue;
+
+                    var value = values[i].Trim();
+                    if (value == "1" || value == "0")
+                    {
+                        var leadingWhitespace = values[i][..(values[i].Length - values[i].TrimStart().Length)];
+                        var trailingWhitespace = values[i][values[i].TrimEnd().Length..];
+                        values[i] = leadingWhitespace + (value == "1" ? "TRUE" : "FALSE") + trailingWhitespace;
+                    }
+                }
+
+                return m.Groups[1].Value + m.Groups[2].Value + m.Groups[3].Value
+                    + string.Join(",", values) + m.Groups[5].Value;
+            },
+            RegexOptions.IgnoreCase);
     }
 
     static string QualifyConfirmedSingleTableAggregate(string body, string fnName)
@@ -1707,8 +1805,8 @@ $$;";
             colDefs.Add($"    {quotedName} {pgType}{nullable}{defaultClause}");
         }
 
-        // Single-column PK: append PRIMARY KEY inline (if not already a serial)
-        if (pkCols.Count == 1 && !pkCols[0].IsIdentity)
+        // Single-column PK: append PRIMARY KEY inline
+        if (pkCols.Count == 1)
         {
             var pkQuoted = QuoteIfReserved(pkCols[0].Name);
             var idx = colDefs.FindIndex(c => {
@@ -1822,5 +1920,25 @@ $$;";
             body = sb.ToString();
         }
         return body;
+    }
+
+    static string RenameVariables(string block)
+    {
+        var tokenRx = new Regex(@"'(?:[^']|'')*'|--[^\n]*|/\*[\s\S]*?\*/", RegexOptions.IgnoreCase);
+        var varRx = new Regex(@"(?<!@)@([a-zA-Z0-9_]+)");
+
+        var sb = new StringBuilder();
+        int pos = 0;
+        foreach (Match tok in tokenRx.Matches(block))
+        {
+            sb.Append(varRx.Replace(block[pos..tok.Index], "@_$1"));
+            sb.Append(tok.Value);
+            pos = tok.Index + tok.Length;
+        }
+        if (pos < block.Length)
+        {
+            sb.Append(varRx.Replace(block[pos..], "@_$1"));
+        }
+        return sb.ToString();
     }
 }

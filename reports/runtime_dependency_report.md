@@ -79,7 +79,6 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_countcontentinboard` | TEMPORARY RUNTIME FIX | bc.BoardNo qualified; CREATE OR REPLACE is rolled back. |
 | `board_folder_maxsortno_select` | TEMPORARY RUNTIME FIX | bf.ParentNo qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_countgroupuser` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
-| `contacts_deletehistory` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
 | `contacts_getalladdress` | TEMPORARY RUNTIME FIX | ca columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_getallcompany` | TEMPORARY RUNTIME FIX | cc columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_getalldays` | TEMPORARY RUNTIME FIX | cd columns qualified; CREATE OR REPLACE is rolled back. |
@@ -95,15 +94,8 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getlocationonecontact` | TEMPORARY RUNTIME FIX | cl columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_gettrashcount` | TEMPORARY RUNTIME FIX | cu columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_parentgroupno` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
-| `contacts_saveaddressinfo_web` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
-| `contacts_savearrange` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_savearrangelike` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_saverestore` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_setaddress` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_setemail` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_setnumber` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
-| `contacts_updateuserinfo` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
 | `board_board_maxsortno_select` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_checkpermissionbycontentno` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_countboardinfolder` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_countcontentinboard` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_countfolderinfolder` | INFERRED RECORD SHAPE | column_1 bigint |
@@ -111,16 +103,19 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getallowbyitem` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 integer, column_6 integer, column_7 integer, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `board_getallowbyitemtype` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 integer, column_6 integer, column_7 integer, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `board_getallowbyuser` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 integer, column_6 integer, column_7 integer, column_8 timestamp without time zone, column_9 timestamp without time zone |
+| `board_getandroiddeviceofallusers` | INFERRED RECORD SHAPE | column_1 character varying(2000), column_2 character varying(100), column_3 character varying(1000), column_4 integer |
 | `board_getapprovaldoc` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(200), column_3 character varying(200), column_4 character varying(1000), column_5 character varying(1000), column_6 character varying(1000), column_7 character varying(1000), column_8 character varying(260), column_9 text |
 | `board_getapprovalfiles` | INFERRED RECORD SHAPE | column_1 character varying(260), column_2 text |
 | `board_getboard` | INFERRED RECORD SHAPE | column_1 integer, column_2 timestamp without time zone, column_3 character varying(4000), column_4 character varying(1000), column_5 integer, column_6 integer, column_7 integer, column_8 boolean, column_9 boolean, column_10 boolean, column_11 boolean, column_12 integer, column_13 integer, column_14 boolean, column_15 integer |
 | `board_getcommentsetting` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_getcompanylist` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100) |
 | `board_getconfig` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(50), column_3 character varying(500), column_4 integer, column_5 timestamp without time zone |
 | `board_getcontentsetting` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer |
 | `board_getfile` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(260), column_3 integer, column_4 text |
 | `board_getfiles` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(260), column_3 integer, column_4 text, column_5 integer |
 | `board_getfolderbyfolderno` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 timestamp without time zone, column_4 character varying(4000), column_5 integer, column_6 integer, column_7 boolean, column_8 character varying(500), column_9 integer |
 | `board_getheads` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 timestamp without time zone, column_5 character varying(100), column_6 integer, column_7 boolean |
+| `board_getiosdeviceofallusers` | INFERRED RECORD SHAPE | column_1 character varying(2000), column_2 character varying(100), column_3 character varying(1000), column_4 integer |
 | `board_getlistconverturlfile` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 character varying(260), column_4 integer, column_5 text, column_6 integer |
 | `board_getmaxsortoftree` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_getrecommendcount` | INFERRED RECORD SHAPE | column_1 bigint |
@@ -131,19 +126,24 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getreplyfilebycontentno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 character varying(260), column_4 integer, column_5 text |
 | `board_getreplyfilebyreplyfileno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 character varying(260), column_4 integer, column_5 text |
 | `board_getreplyfilebyreplyno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(260), column_3 integer, column_4 text |
+| `board_getsharers` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100), column_3 character, column_4 integer, column_5 character varying(100) |
 | `board_getstatusapprovalpermission` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_getteamlist` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100) |
 | `board_getusersetting` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer |
+| `board_getviewedlogs` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 bigint, column_4 integer, column_5 character varying(100), column_6 integer, column_7 character varying, column_8 integer, column_9 character varying, column_10 timestamp without time zone, column_11 character varying(100), column_12 character varying(200), column_13 boolean, column_14 character varying(500) |
 | `board_insertdepartallowaccess` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_insertusersetting` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_setshare` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_updateallowaccess` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_updatefile` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_updatenoticepermission` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_updaterecommendpublic` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_usercollection_select` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 character varying(100), column_4 character varying(100), column_5 integer, column_6 text, column_7 character varying(100), column_8 character varying(100) |
 | `contacts_checkexitgroupandcontact` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_checknumber` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countgroupcountchild` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countgroupuser` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countuserpublicwithoutgroup` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_countusersharewithoutgroup` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_deleteallgroupbyuserseq` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_deletepublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_deletesharegroup` | INFERRED RECORD SHAPE | column_1 integer |
@@ -194,10 +194,12 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getuser_groupinfo` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 character |
 | `contacts_getuser_homepage` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(500), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getuser_number` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
+| `contacts_getuser_phoneinfo` | INFERRED RECORD SHAPE | column_1 character varying(100) |
 | `contacts_getuser_sns` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(500), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getuser_touserno` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100), column_3 character varying(100), column_4 integer, column_5 character varying(500), column_6 timestamp without time zone, column_7 character varying(500), column_8 timestamp without time zone, column_9 timestamp without time zone, column_10 character varying(50), column_11 character varying(1), column_12 timestamp without time zone, column_13 integer, column_14 character varying(20) |
 | `contacts_getusergroupbyuserno` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint, column_10 character |
 | `contacts_insertbackupinfo` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_insertlistgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_insertpublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_insertsharegroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_listgroupcontent` | INFERRED RECORD SHAPE | column_1 character varying(250) |
@@ -206,42 +208,35 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_saveaddressinfo_web` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_seqtoname` | INFERRED RECORD SHAPE | column_1 text |
 | `contacts_setshare` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updatecontactgroupuser` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_updatepublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updatepublicgroupuser` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_updatesharegroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updatesharegroupuser` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_updateuserinfo` | INFERRED RECORD SHAPE | column_1 integer |
 
 ## Unresolved runtime dependencies
 
 | Procedure | SQLSTATE | Dependency evidence | Classification | Next action |
 |---|---|---|---|---|
-| `board_authority_select` | `42P01` | relation "organization_departments" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
+| `board_authority_select` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_checkallowbyitem` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_checkpermission` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_checkpermissionbycontentno` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_deletecurrentmanager` | `42883` | function public.fn_split_array(character varying, character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_deletedepartallowaccess` | `42883` | function splitstring(character varying, unknown) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_deletenotificationservice` | `42P01` | relation "center_notificationservice" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getallboardcontents` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getallboardcontentsbyboardlist` | `42883` | function nvarchar(integer) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_getallboardwidget` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getandroiddeviceofallusers` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getandroiddeviceofusersbydepartment` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboardbyuserno` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboardcommunitywidget` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboardcontent` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboardcontentinfo` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getboardcontents` | `42883` | function nvarchar(integer) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getboardcontents_bk20181227` | `42883` | function nvarchar(integer) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_getboards` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboards_bk` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getboards_improved` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getcompanylist` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getcurrentmanagerlist` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getdepartallowaccess` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getdepartandpositionname` | `42P01` | relation "organization_departments" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
+| `board_getdepartandpositionname` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getfolderbyuserno` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getfolders` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getiosdeviceofallusers` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getiosdeviceofusersbydepartment` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getlistboardcontent` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getlistboardcontent_bk` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
@@ -250,9 +245,9 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getlistboardcontentsearch` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getlistboardcontenttoexcel` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getlistcommentsetting` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getlistnoticepermission` | `42P01` | relation "organization_users" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `board_getlistuserpermission` | `42P01` | relation "organization_users" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `board_getlistuserpermissiontoexcel` | `42P01` | relation "organization_users" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
+| `board_getlistnoticepermission` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_getlistuserpermission` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_getlistuserpermissiontoexcel` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getmultiwidget` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getnewboardcontent` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getnewboardwidget` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
@@ -261,32 +256,31 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getreplies` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getreplybycontent` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getsettingcommunitywidget` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getsharers` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getsubmenus` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getteamlist` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getteamname` | `42883` | function year(timestamp without time zone) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
+| `board_getteamname` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_gettreeboard` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_gettreesubmenu` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_gettreesubmenu_v2` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_gettreesubmenu_v2_json` | `42P01` | relation "organization_belongtodepartment" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
+| `board_gettreesubmenu_v2_json` | `42883` | function parsejson(character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_gettreesubmenutest` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_getviewedlogs` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_getuserbyshare` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getwidgetcarousel` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_insertandroiddevice` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_insertcurrentmanager` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_insertfile` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_insertnotificationservice` | `42P01` | relation "center_notificationservice" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
+| `board_insertiosdevice` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_insertrecommendedlog` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_insertreply` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_insertreplyfile` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_insertviewedlog` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_setshare` | `42883` | operator does not exist: character varying = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_treeboard` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_updateboard` | `42P01` | missing FROM-clause entry for table "board_boards" | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `board_updatepermissionsbyparent` | `42P01` | relation "organization_departments" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `board_usercollection_select` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `board_web_search` | `42883` | function nvarchar(integer) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `contacts_changegroup` | `42883` | function fnstringtolistint(character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `contacts_changepublicgroup` | `42883` | function fnstringtolistint(character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `contacts_changesharegroup` | `42883` | function fnstringtolistint(character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
+| `board_updateconfig` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `board_updatespectype` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `contact_checkinsertgroupdefault` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `contact_getgroupdefaultbyuserno` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_checkgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_countusersharewithoutgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_deletedepartallowaccess` | `42883` | function splitstring(character varying, unknown) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
+| `contacts_checknumber` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_finduser` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getaddressinfo` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getaddressnotupdatecount` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
@@ -314,21 +308,20 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getuser` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuser_department` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuser_noname` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_getuser_phoneinfo` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuser_share` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `contacts_getuser_togroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `contacts_getuser_togroupmobile` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuser_ungroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuserbypublicgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuserbysharegroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuserdata` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuserdatahistory` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getuserdetail` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
+| `contacts_getusergroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getusergroupbylanguage` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getusergroupmobi` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getusernumber` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_insertlistgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_insertuserforexcel` | `42883` | function contacts_insertlistgroupcontact(integer, character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `contacts_moveallcontact` | `42P01` | relation "g" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `contacts_restorecontactlist` | `42883` | function contacts_stringtolistint(character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `contacts_searchmobi` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_setcontactsrestore` | `42883` | operator does not exist: integer = character varying | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `contacts_setshare` | `42883` | operator does not exist: character varying = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |

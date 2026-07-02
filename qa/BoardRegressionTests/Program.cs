@@ -62,7 +62,7 @@ var selectAssignment = ConvertBoard("Board_DownBoardByUser_Regression", """
     FROM TempUpdate T
     SELECT @UpNo
     """);
-MustContain(selectAssignment, "SELECT T.SortNo, T.IsBoard INTO upno, isboard", "TOP SELECT assignment");
+MustContain(selectAssignment, "SELECT T.SortNo, T.IsBoard INTO _upno, _isboard", "TOP SELECT assignment");
 MustNotContain(selectAssignment, "TOP 1", "TOP SELECT assignment");
 MustNotContain(selectAssignment, "UpNo =", "TOP SELECT assignment");
 
@@ -143,11 +143,11 @@ var stringAccumulation = ConvertBoard("Board_Web_Search_Accumulation_Regression"
 MustNotContain(stringAccumulation, "SET Query +=", "string accumulation");
 MustNotContain(stringAccumulation, "SET Where +=", "multiline string accumulation");
 MustContain(stringAccumulation,
-    "query := COALESCE(query, '') || COALESCE(('SELECT * FROM Board_Contents '), '');",
+    "_query := COALESCE(_query, '') || COALESCE(('SELECT * FROM Board_Contents '), '');",
     "NULL-safe string accumulation");
-MustContain(stringAccumulation, "where := COALESCE(where, '') || COALESCE((",
+MustContain(stringAccumulation, "_where := COALESCE(_where, '') || COALESCE((",
     "multiline NULL-safe accumulation");
-MustContain(stringAccumulation, " || searchtext || ", "dynamic concat operator");
+MustContain(stringAccumulation, " || _searchtext || ", "dynamic concat operator");
 
 var tempLifecycle = ConvertBoard("Board_DownWidget_Temp_Regression", """
     DECLARE @SortTemp INT
@@ -175,7 +175,7 @@ var tableVariable = ConvertBoard("Board_Authority_Select_Temp_Regression", """
     SELECT DepartNo FROM @Departments
     """);
 MustContain(tableVariable,
-    "CREATE TEMP TABLE Departments (DepartNo INT, Enabled boolean) ON COMMIT DROP;",
+    "CREATE TEMP TABLE _Departments (DepartNo INT, Enabled boolean) ON COMMIT DROP;",
     "table variable materialization");
 MustNotContain(tableVariable, "@Departments", "table variable references");
 
@@ -187,10 +187,10 @@ var statementBoundaries = ConvertBoard("Board_InsertAndroidDevice_Boundary_Regre
     SELECT @DeviceNo
     """);
 MustContain(statementBoundaries,
-    "DELETE FROM Board_AndroidDevices WHERE UserNo = UserNo;",
+    "DELETE FROM Board_AndroidDevices WHERE UserNo = _UserNo;",
     "DML boundary before INSERT");
 MustNotContain(statementBoundaries, "\n    ;", "orphan semicolon");
-MustContain(statementBoundaries, "VALUES (UserNo);", "DML boundary before assignment");
+MustContain(statementBoundaries, "VALUES (_UserNo);", "DML boundary before assignment");
 
 var controlBoundaries = ConvertBoard("Board_UpdateNoticePermission_Boundary_Regression", """
     DELETE FROM Board_NoticePermission
@@ -201,9 +201,9 @@ var controlBoundaries = ConvertBoard("Board_UpdateNoticePermission_Boundary_Regr
         VALUES (@UserNo, @AllowValue)
     END
     """);
-MustContain(controlBoundaries, "WHERE UserNo = UserNo;",
+MustContain(controlBoundaries, "WHERE UserNo = _UserNo;",
     "boundary before IF");
-MustContain(controlBoundaries, "VALUES (UserNo, AllowValue);", "boundary before END IF");
+MustContain(controlBoundaries, "VALUES (_UserNo, _AllowValue);", "boundary before END IF");
 
 var sqlCaseBoundary = ConvertBoard("Board_GetBoards_Case_Boundary_Regression", """
     SELECT CASE
@@ -229,9 +229,9 @@ var scalarConvertAssignment = ConvertBoard("Board_SetFolders_Scalar_Regression",
     SELECT @LevelRand = LevelRand + CONVERT(nvarchar(20), FolderNo) + ',' FROM Board_Folders WHERE FolderNo = @ParentNo
     """);
 MustContain(scalarConvertAssignment,
-    "SELECT LevelRand + CONVERT(nvarchar(20), FolderNo) + ',' INTO levelrand FROM Board_Folders",
+    "SELECT LevelRand || CAST(FolderNo AS text) || ',' INTO _levelrand FROM Board_Folders",
     "balanced scalar assignment");
-MustNotContain(scalarConvertAssignment, "levelrand := (", "malformed scalar assignment");
+MustNotContain(scalarConvertAssignment, "_levelrand := (", "malformed scalar assignment");
 
 var consecutiveScalarSelects = ConvertBoard("Board_DownBoardByUser_Scalar_Regression", """
     DECLARE @CurrentNo INT, @ParentNo INT, @UpNo INT
@@ -239,7 +239,7 @@ var consecutiveScalarSelects = ConvertBoard("Board_DownBoardByUser_Scalar_Regres
     SELECT @UpNo = T.SortNo FROM (SELECT SortNo FROM Board_Boards) T
     """);
 MustContain(consecutiveScalarSelects,
-    "SELECT SortNo, FolderNo INTO currentno, parentno FROM Board_Boards;",
+    "SELECT SortNo, FolderNo INTO _currentno, _parentno FROM Board_Boards;",
     "consecutive scalar boundary");
 MustNotContain(consecutiveScalarSelects, "SELECT  INTO  FROM", "empty scalar SELECT");
 
@@ -251,7 +251,7 @@ var multilineScalarSelect = ConvertBoard("Board_UpdateConfig_Scalar_Regression",
     SELECT @Temp
     """);
 MustContain(multilineScalarSelect,
-    "SELECT ConfigNo INTO temp FROM Board_Config",
+    "SELECT ConfigNo INTO _temp FROM Board_Config",
     "multiline scalar SELECT");
 MustNotContain(multilineScalarSelect, "SELECT  INTO  FROM", "multiline empty SELECT");
 

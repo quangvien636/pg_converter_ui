@@ -182,11 +182,9 @@ và test thủ công bằng UI/kết nối MSSQL/generate script.
 
 ## Các lỗi/rủi ro hiện tại
 
-1. Credentials đang hard-code trong UI:
-   - `txtServer.Text = "221.148.141.4,14233"`
-   - `txtUser.Text = "dazone"`
-   - `txtPass.Text = "crewcloud12!@"`
-   Đây là rủi ro bảo mật nghiêm trọng nếu project được chia sẻ/commit/publish.
+1. Credentials từng được hard-code trong UI đã được thay bằng các biến môi
+   trường `PG_CONVERTER_MSSQL_SERVER`, `PG_CONVERTER_MSSQL_USER` và
+   `PG_CONVERTER_MSSQL_PASSWORD`. Không đưa giá trị thật vào source hoặc báo cáo.
 
 2. Text tiếng Việt/emoji trong source đang bị mojibake ở nhiều nơi (`Lá»—i`, `Káº¿t ná»‘i`, ký tự icon bị hỏng). Build vẫn qua, nhưng UI/log/message sẽ hiển thị sai nếu nội dung đã bị lưu sai encoding.
 
@@ -210,3 +208,41 @@ và test thủ công bằng UI/kết nối MSSQL/generate script.
 10. `ObjectType.Function` đang đại diện cả function và stored procedure, tên hơi lệch domain.
 
 11. App target `net10.0-windows`, cần môi trường .NET 10/Windows Desktop tương ứng. Nếu máy khác chưa có runtime phù hợp thì nên dùng publish self-contained.
+
+12. `QualifyParams` (Converter.cs, ~dòng 1717) chỉ qualify tham số khi nó
+    đứng NGAY SAU một operator so sánh (`=`, `<>`, `<=`, ...), tức chỉ xử
+    lý tham số ở vế phải. Tham số đứng ở vế trái của phép so sánh
+    (`@IsAlarm=0` trong MSSQL, rất phổ biến) không được qualify, và khi
+    tên tham số trùng (không phân biệt hoa/thường) với một cột thật của
+    bảng trong cùng câu SQL (`Board_Contents.IsAlarm`, `Board_AllowAccess.UserNo`),
+    PostgreSQL báo `42702 column reference "x" is ambiguous`. Việc qualify
+    vế phải không giúp gì vì tham số vẫn còn "visible" dưới tên gốc trong
+    scope PL/pgSQL bất kể qualify bao nhiêu chỗ khác.
+    Đã tái hiện trực tiếp bằng cách feed nguyên văn MSSQL source của
+    `Board_GetAllBoardContents` (từ bản export MSSQL cục bộ)
+    qua `Converter.Convert` — xem harness tại
+    `qa\BoardGetAllBoardContentsConvert\Program.cs`. Output vẫn còn
+    `WHERE ItemType=2 AND UserNo=board_getallboardcontents.userno` (cột
+    `UserNo` bên trái không được qualify) và `IsAlarm = FALSE ... AND
+    IsAlarm = TRUE` (tham số `isalarm` ở vế trái, không qualify).
+    Đây chính là lỗi runtime `42702 ambiguous "userno"` / `42702 ambiguous
+    "isalarm"` đã phải sửa tay trực tiếp trên DB production ngày
+    2026-07-01 cho hàm `board_getallboardcontents`.
+    Hướng sửa khả thi: thay vì chỉ qualify vế phải, generate một local
+    variable `l_<param>` cho MỌI tham số ở đầu function (`DECLARE l_x
+    type; BEGIN l_x := x;`) và thay toàn bộ occurrence của tham số (cả
+    hai vế) bằng `l_<param>` — cách này đã dùng thủ công cho
+    `board_downboardbyuser`/`board_upboardbyuser` và cho bản fix mới của
+    `board_getallboardcontents`.
+
+13. Converter không có mapping cho hàm scalar tuỳ biến phía MSSQL không
+    tồn tại sẵn trong PostgreSQL, ví dụ `ParseJson(col)` (custom
+    function trong DB nguồn, dùng để tách 1 field JSON theo key qua
+    bảng kết quả `(StringValue, Name)`). Converter giữ nguyên lời gọi
+    `ParseJson(...)` trong output PG → `42883 function parsejson(...)
+    does not exist` khi chạy thật. Cùng logic thực tế thường nên dịch
+    sang toán tử JSON gốc của PG: `col::json->>key`. Xem cùng harness ở
+    mục 12; output vẫn chứa `ParseJson(B.Name)` y nguyên không có TODO
+    cảnh báo nào được sinh ra cho dòng này (không có warning nào cho
+    unresolved function call kiểu này), nên rủi ro bị bỏ sót cao nếu chỉ
+    nhìn qua danh sách TODO ở đầu file.
