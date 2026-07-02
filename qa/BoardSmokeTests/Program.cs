@@ -1,8 +1,11 @@
 using Npgsql;
 
-const string connectionString =
-    "Host=221.148.141.4;Port=5432;Database=pg_converter_runtime_test;" +
-    "Username=postgres;Password=crewcloud@core1@3$5^;Timeout=30;Command Timeout=10";
+var connectionString = Environment.GetEnvironmentVariable("PG_RUNTIME_CONNECTION");
+if (string.IsNullOrWhiteSpace(connectionString))
+    throw new InvalidOperationException("Set PG_RUNTIME_CONNECTION; credentials must not be stored in source.");
+var settings = new NpgsqlConnectionStringBuilder(connectionString);
+if (!string.Equals(settings.Database, "pg_converter_runtime_test", StringComparison.Ordinal))
+    throw new InvalidOperationException("Refusing to run outside pg_converter_runtime_test.");
 
 var candidates = new List<(string Name, string Arguments, string Result)>();
 await using (var connection = new NpgsqlConnection(connectionString))

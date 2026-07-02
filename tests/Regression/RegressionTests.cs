@@ -420,6 +420,8 @@ namespace RegressionTests
 
             Assert.That(pg, Does.Contain("STRPOS(Items, ',')"));
             Assert.That(pg, Does.Not.Contain("STRPOS(',Items, ')"));
+            Assert.That(pg, Does.Contain("LENGTH(Items)"));
+            Assert.That(pg, Does.Not.Contain("LEN(Items)"));
         }
 
         [Test]

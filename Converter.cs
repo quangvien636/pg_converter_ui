@@ -1089,6 +1089,10 @@ $$;";
 
         // Function mappings
         body = Regex.Replace(body, @"\bISNULL\s*\(", "COALESCE(", RegexOptions.IgnoreCase);
+        // Confirmed by runtime validation on Contacts_DeleteHistory,
+        // Contacts_SetAddress, Contacts_SetEmail and Contacts_SetNumber:
+        // PostgreSQL has length(), not SQL Server's LEN().
+        body = Regex.Replace(body, @"\bLEN\s*\(", "LENGTH(", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bGETDATE\s*\(\s*\)", "NOW()", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bSCOPE_IDENTITY\s*\(\s*\)", "lastval()", RegexOptions.IgnoreCase);
         // @@ROWCOUNT → _rowcount

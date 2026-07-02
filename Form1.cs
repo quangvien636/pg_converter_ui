@@ -68,7 +68,8 @@ public partial class Form1 : Form
 
         // Row 1 — Server / Database
         grpConn.Controls.Add(MkLabel("Server:", 8, 24));
-        txtServer = MkTextBox(65, 21, 210); txtServer.Text = "221.148.141.4,14233";
+        txtServer = MkTextBox(65, 21, 210);
+        txtServer.Text = Environment.GetEnvironmentVariable("PG_CONVERTER_MSSQL_SERVER") ?? "";
         grpConn.Controls.Add(txtServer);
 
         grpConn.Controls.Add(MkLabel("Database:", 290, 24));
@@ -82,12 +83,16 @@ public partial class Form1 : Form
         grpConn.Controls.Add(radSql);
 
         grpConn.Controls.Add(MkLabel("User:", 230, 54));
-        txtUser = MkTextBox(268, 51, 130); txtUser.Text = "dazone"; txtUser.Enabled = true;
+        txtUser = MkTextBox(268, 51, 130);
+        txtUser.Text = Environment.GetEnvironmentVariable("PG_CONVERTER_MSSQL_USER") ?? "";
+        txtUser.Enabled = true;
         grpConn.Controls.Add(txtUser);
 
         grpConn.Controls.Add(MkLabel("Pass:", 412, 54));
         txtPass = MkTextBox(448, 51, 130);
-        txtPass.PasswordChar = '●'; txtPass.Text = "crewcloud12!@"; txtPass.Enabled = true;
+        txtPass.PasswordChar = '●';
+        txtPass.Text = Environment.GetEnvironmentVariable("PG_CONVERTER_MSSQL_PASSWORD") ?? "";
+        txtPass.Enabled = true;
         grpConn.Controls.Add(txtPass);
 
         radSql.CheckedChanged += (s, e) =>

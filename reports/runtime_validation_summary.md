@@ -1,0 +1,14 @@
+# Runtime validation summary
+
+Generated: 2026-07-02 14:29:06 +07:00  
+Target: `pg_converter_runtime_test`  
+Method: catalog discovery; typed dummy inputs; execution inside a rolled-back transaction.
+
+| Status | Count |
+|---|---:|
+| Runtime PASS | 24 |
+| Runtime FAIL | 144 |
+| Blocked | 183 |
+| Total discovered | 351 |
+
+A PASS proves that the recorded invocation executed. It does not by itself prove business equivalence.
