@@ -19,6 +19,8 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_delcontactsuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_deletecontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_deletehistory` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_deletepublicgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_deletesharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_downpublicgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_downsharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_finall` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -43,6 +45,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_insertlistgroupcontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_listgroupcontent` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_saveaddressinfo_web` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_savearrange` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_savearrangelike` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_savelocation` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -57,6 +60,9 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_setsns` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updategroupparent` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updatelistgroupcontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_updatepublicgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_updatesharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_updateuserinfo` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updateuserstate` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_uppublicgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_upsharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

@@ -74,13 +74,15 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `00454_dbo_Table_PhotoBoardFile.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
 | `00455_dbo_Table_PhotoBoardLog.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
 | `00480_dbo_Table_ScheduleContentsContacts.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
-| `contacts_deletehistory` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_savearrange` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_savearrangelike` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_saverestore` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_setaddress` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_setemail` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
-| `contacts_setnumber` | TEMPORARY RUNTIME FIX | LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back. |
+| `contacts_deletehistory` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_saveaddressinfo_web` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
+| `contacts_savearrange` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_savearrangelike` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_saverestore` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_setaddress` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_setemail` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_setnumber` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_updateuserinfo` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
 | `board_board_maxsortno_select` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_countboardinfolder` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_countcontentinboard` | INFERRED RECORD SHAPE | column_1 bigint |
@@ -114,11 +116,17 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_insertdepartallowaccess` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_insertusersetting` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_setshare` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_updatefile` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_updatenoticepermission` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_updaterecommendpublic` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_checkexitgroupandcontact` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_checknumber` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countgroupcountchild` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countgroupuser` | INFERRED RECORD SHAPE | column_1 bigint |
 | `contacts_countuserpublicwithoutgroup` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_deleteallgroupbyuserseq` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_deletepublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_deletesharegroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_getalladdress` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(5), column_7 character varying(5), column_8 character varying(500), column_9 character, column_10 timestamp without time zone, column_11 timestamp without time zone, column_12 double precision, column_13 double precision |
 | `contacts_getallcompany` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 character varying(50), column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getalldays` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 character, column_9 timestamp without time zone, column_10 timestamp without time zone |
@@ -174,8 +182,13 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_insertsharegroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_listgroupcontent` | INFERRED RECORD SHAPE | column_1 character varying(250) |
 | `contacts_parentgroupno` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_saveaddressinfo` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_saveaddressinfo_web` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_seqtoname` | INFERRED RECORD SHAPE | column_1 text |
 | `contacts_setshare` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updatepublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updatesharegroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_updateuserinfo` | INFERRED RECORD SHAPE | column_1 integer |
 
 ## Unresolved runtime dependencies
 
@@ -254,8 +267,6 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_checkgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_countusersharewithoutgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_deletedepartallowaccess` | `42883` | function splitstring(character varying, unknown) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `contacts_deletepublicgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_deletesharegroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_finduser` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getaddressinfo` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `contacts_getaddressnotupdatecount` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
@@ -302,5 +313,3 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_setcontactsrestore` | `42883` | operator does not exist: integer = character varying | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `contacts_setshare` | `42883` | operator does not exist: character varying = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `contacts_updateandroiddevice_notificationoptions` | `42P01` | relation "_androiddevices" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `contacts_updatepublicgroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
-| `contacts_updatesharegroup` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |

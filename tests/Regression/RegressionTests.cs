@@ -436,6 +436,23 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestTinyIntInsideTempTableBody()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestTinyInt
+                AS
+                BEGIN
+                    CREATE TABLE #Items (Type TINYINT)
+                END
+                """;
+            var obj = new DbObject("Contacts_TestTinyInt", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("Type smallint"));
+            Assert.That(pg, Does.Not.Contain("TINYINT"));
+        }
+
+        [Test]
         public void TestBeginWithCommentIsSuppressedAfterElse()
         {
             string mssql = """

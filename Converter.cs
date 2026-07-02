@@ -1145,6 +1145,9 @@ $$;";
         // VARCHAR(MAX) → text
         body = Regex.Replace(body, @"\bAS\s+N?(?:VARCHAR|CHAR|NCHAR)\s*\(\s*MAX\s*\)", "AS text", RegexOptions.IgnoreCase);
         body = Regex.Replace(body, @"\bN?(?:VARCHAR|CHAR|NCHAR)\s*\(\s*MAX\s*\)", "text", RegexOptions.IgnoreCase);
+        // Confirmed at runtime in temp-table DDL generated for
+        // Contacts_SaveAddressInfo_Web and Contacts_UpdateUserInfo.
+        body = Regex.Replace(body, @"\bTINYINT\b", "smallint", RegexOptions.IgnoreCase);
 
         // Boolean column = 1/0
         body = Regex.Replace(body,

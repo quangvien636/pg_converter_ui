@@ -117,25 +117,41 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         "contacts_deletehistory",
         "contacts_savearrange",
         "contacts_savearrangelike",
+        "contacts_saveaddressinfo_web",
         "contacts_saverestore",
         "contacts_setaddress",
         "contacts_setemail",
-        "contacts_setnumber"
+        "contacts_setnumber",
+        "contacts_updateuserinfo"
+    };
+    var confirmedTinyIntFailures = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "contacts_saveaddressinfo_web",
+        "contacts_updateuserinfo"
     };
     var updated = new List<FunctionInfo>(functions.Count);
     var results = new List<DependencyResult>();
     foreach (var function in functions)
     {
-        if (!confirmedLenFailures.Contains(function.Name)
-            || !Regex.IsMatch(function.Definition, @"\bLEN\s*\(", RegexOptions.IgnoreCase))
+        var replaceLen = confirmedLenFailures.Contains(function.Name)
+            && Regex.IsMatch(function.Definition, @"\bLEN\s*\(", RegexOptions.IgnoreCase);
+        var replaceTinyInt = confirmedTinyIntFailures.Contains(function.Name)
+            && Regex.IsMatch(function.Definition, @"\bTINYINT\b", RegexOptions.IgnoreCase);
+        if (!replaceLen && !replaceTinyInt)
         {
             updated.Add(function);
             continue;
         }
 
-        var definition = Regex.Replace(
-            function.Definition, @"\bLEN\s*\(", "LENGTH(",
-            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(2));
+        var definition = function.Definition;
+        if (replaceLen)
+            definition = Regex.Replace(
+                definition, @"\bLEN\s*\(", "LENGTH(",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(2));
+        if (replaceTinyInt)
+            definition = Regex.Replace(
+                definition, @"\bTINYINT\b", "smallint",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(2));
         await using var command = connection.CreateCommand();
         command.Transaction = transaction;
         command.CommandText = definition;
@@ -144,7 +160,7 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         updated.Add(function with { Definition = definition });
         results.Add(new DependencyResult(
             function.Name, "TEMPORARY RUNTIME FIX",
-            "LEN() replaced by LENGTH() from confirmed SQLSTATE 42883; CREATE OR REPLACE is rolled back."));
+            $"{(replaceLen ? "LEN()→LENGTH(); " : "")}{(replaceTinyInt ? "TINYINT→smallint; " : "")}CREATE OR REPLACE is rolled back."));
     }
     return (updated, results);
 }
@@ -262,6 +278,7 @@ static string ReplaceQualifiedParameters(
     FunctionInfo function,
     IReadOnlyDictionary<uint, string> typeNames)
 {
+    var hasFromClause = Regex.IsMatch(query, @"\bFROM\b", RegexOptions.IgnoreCase);
     foreach (var parameter in function.GetInputParameters())
     {
         var dummy = DummyValue(typeNames.GetValueOrDefault(parameter.TypeOid, "text"));
@@ -271,6 +288,13 @@ static string ReplaceQualifiedParameters(
             $"({dummy})",
             RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
             TimeSpan.FromSeconds(2));
+        if (!hasFromClause)
+            query = Regex.Replace(
+                query,
+                $@"\b{Regex.Escape(parameter.Name)}\b",
+                $"({dummy})",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                TimeSpan.FromSeconds(2));
     }
     return query;
 }
