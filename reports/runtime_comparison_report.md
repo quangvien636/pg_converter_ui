@@ -4,7 +4,11 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 
 | Procedure | PostgreSQL execution | SQL Server reference | Behaviour verdict |
 |---|---|---|---|
+| `board_board_maxsortno_select` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_countboardinfolder` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_countcontentinboard` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_countfolderinfolder` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_folder_maxsortno_select` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcommentsetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getlistconverturlfile` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreplyfilebycontentno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |

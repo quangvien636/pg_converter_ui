@@ -101,34 +101,6 @@ $function$
 ```
 </details>
 
-## `board_board_maxsortno_select`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."board_board_maxsortno_select"(0::integer) AS result("column_1" integer);`
-- SQLSTATE: `42702`
-- Error: column reference "folderno" is ambiguous
-- Stack context: PL/pgSQL function board_board_maxsortno_select(integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_board_maxsortno_select(folderno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-RETURN QUERY
-select max(SortNo) from Board_Folders where FolderNo= board_board_maxsortno_select.folderno;
-END;
-$function$
-
-```
-</details>
-
 ## `board_convertboard`
 
 - Input: `0::integer, 0::integer`
@@ -149,66 +121,6 @@ CREATE OR REPLACE FUNCTION public.board_convertboard(boardno integer, viewmode i
 AS $function$
 BEGIN
 UPDATE Board_Boards SET ViewMode = board_convertboard.viewmode WHERE BoardNo= board_convertboard.boardno;
-END;
-$function$
-
-```
-</details>
-
-## `board_countboardinfolder`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."board_countboardinfolder"(0::integer) AS result("column_1" bigint);`
-- SQLSTATE: `42702`
-- Error: column reference "folderno" is ambiguous
-- Stack context: PL/pgSQL function board_countboardinfolder(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_countboardinfolder(folderno integer DEFAULT 96)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-RETURN QUERY
-SELECT Count (*)
-  FROM Board_Boards Where FolderNo=board_countboardinfolder.folderno and Enabled = TRUE;
-END;
-$function$
-
-```
-</details>
-
-## `board_countcontentinboard`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."board_countcontentinboard"(0::integer) AS result("column_1" bigint);`
-- SQLSTATE: `42702`
-- Error: column reference "boardno" is ambiguous
-- Stack context: PL/pgSQL function board_countcontentinboard(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_countcontentinboard(boardno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-RETURN QUERY
-SELECT Count (*)
-  FROM Board_Contents Where BoardNo=board_countcontentinboard.boardno and Enabled = TRUE;
 END;
 $function$
 
@@ -909,34 +821,6 @@ BEGIN
 	UPDATE BW SET Sort=(SELECT /* /* TOP 1 */ */ T.Sort FROM WidgetTemp T WHERE BW.No <>T.No),ModUserNo= board_downwidget.userno,ModDate=NOW()
 	FROM Board_NewBoardWidget BW
 	INNER JOIN WidgetTemp T ON T.No=BW.No;
-END;
-$function$
-
-```
-</details>
-
-## `board_folder_maxsortno_select`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."board_folder_maxsortno_select"(0::integer) AS result("column_1" integer);`
-- SQLSTATE: `42702`
-- Error: column reference "parentno" is ambiguous
-- Stack context: PL/pgSQL function board_folder_maxsortno_select(integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_folder_maxsortno_select(parentno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-RETURN QUERY
-select max(SortNo) from Board_Folders where ParentNo= board_folder_maxsortno_select.parentno;
 END;
 $function$
 

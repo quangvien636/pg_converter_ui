@@ -129,6 +129,14 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         "contacts_saveaddressinfo_web",
         "contacts_updateuserinfo"
     };
+    var confirmedAggregateAmbiguities = new Dictionary<string, (string Table, string Alias, string Column)>(
+        StringComparer.OrdinalIgnoreCase)
+    {
+        ["board_board_maxsortno_select"] = ("Board_Folders", "bf", "FolderNo"),
+        ["board_countboardinfolder"] = ("Board_Boards", "bb", "FolderNo"),
+        ["board_countcontentinboard"] = ("Board_Contents", "bc", "BoardNo"),
+        ["board_folder_maxsortno_select"] = ("Board_Folders", "bf", "ParentNo")
+    };
     var updated = new List<FunctionInfo>(functions.Count);
     var results = new List<DependencyResult>();
     foreach (var function in functions)
@@ -137,7 +145,8 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
             && Regex.IsMatch(function.Definition, @"\bLEN\s*\(", RegexOptions.IgnoreCase);
         var replaceTinyInt = confirmedTinyIntFailures.Contains(function.Name)
             && Regex.IsMatch(function.Definition, @"\bTINYINT\b", RegexOptions.IgnoreCase);
-        if (!replaceLen && !replaceTinyInt)
+        var qualifyAggregate = confirmedAggregateAmbiguities.TryGetValue(function.Name, out var aggregate);
+        if (!replaceLen && !replaceTinyInt && !qualifyAggregate)
         {
             updated.Add(function);
             continue;
@@ -152,6 +161,21 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
             definition = Regex.Replace(
                 definition, @"\bTINYINT\b", "smallint",
                 RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(2));
+        if (qualifyAggregate)
+        {
+            definition = Regex.Replace(
+                definition,
+                $@"\bFROM\s+{Regex.Escape(aggregate.Table)}\s+(?=WHERE\b)",
+                $"FROM {aggregate.Table} {aggregate.Alias} ",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                TimeSpan.FromSeconds(2));
+            definition = Regex.Replace(
+                definition,
+                $@"(?<!\.)\b{Regex.Escape(aggregate.Column)}\b(?=\s*=)",
+                $"{aggregate.Alias}.{aggregate.Column}",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                TimeSpan.FromSeconds(2));
+        }
         await using var command = connection.CreateCommand();
         command.Transaction = transaction;
         command.CommandText = definition;
@@ -160,7 +184,7 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         updated.Add(function with { Definition = definition });
         results.Add(new DependencyResult(
             function.Name, "TEMPORARY RUNTIME FIX",
-            $"{(replaceLen ? "LEN()→LENGTH(); " : "")}{(replaceTinyInt ? "TINYINT→smallint; " : "")}CREATE OR REPLACE is rolled back."));
+            $"{(replaceLen ? "LEN()→LENGTH(); " : "")}{(replaceTinyInt ? "TINYINT→smallint; " : "")}{(qualifyAggregate ? $"{aggregate.Alias}.{aggregate.Column} qualified; " : "")}CREATE OR REPLACE is rolled back."));
     }
     return (updated, results);
 }

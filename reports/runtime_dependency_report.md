@@ -74,6 +74,10 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `00454_dbo_Table_PhotoBoardFile.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
 | `00455_dbo_Table_PhotoBoardLog.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
 | `00480_dbo_Table_ScheduleContentsContacts.sql` | TEMPORARY | Created inside outer transaction; final ROLLBACK removes it. |
+| `board_board_maxsortno_select` | TEMPORARY RUNTIME FIX | bf.FolderNo qualified; CREATE OR REPLACE is rolled back. |
+| `board_countboardinfolder` | TEMPORARY RUNTIME FIX | bb.FolderNo qualified; CREATE OR REPLACE is rolled back. |
+| `board_countcontentinboard` | TEMPORARY RUNTIME FIX | bc.BoardNo qualified; CREATE OR REPLACE is rolled back. |
+| `board_folder_maxsortno_select` | TEMPORARY RUNTIME FIX | bf.ParentNo qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_deletehistory` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
 | `contacts_saveaddressinfo_web` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
 | `contacts_savearrange` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |

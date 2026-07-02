@@ -1258,6 +1258,8 @@ $$;";
             @"\(SELECT\s+StringValue\s+FROM\s+ParseJson\s*\((\w+)\)\s+WHERE\s+NAME\s*=\s*'(\w+)'[^)]*\)",
             "$1::json->>'$2'", RegexOptions.IgnoreCase);
 
+        body = QualifyConfirmedSingleTableAggregate(body, fnName);
+
         // LIKE → ILIKE
         body = Regex.Replace(body, @"\bLIKE\b", "ILIKE", RegexOptions.IgnoreCase);
 
@@ -1276,6 +1278,35 @@ $$;";
         }
 
         return body;
+    }
+
+    static string QualifyConfirmedSingleTableAggregate(string body, string fnName)
+    {
+        var mapping = fnName.ToLowerInvariant() switch
+        {
+            "board_board_maxsortno_select" or "board_folder_maxsortno_select"
+                => (Table: "Board_Folders", Alias: "bf",
+                    Column: fnName.Equals("board_board_maxsortno_select", StringComparison.OrdinalIgnoreCase)
+                        ? "FolderNo" : "ParentNo"),
+            "board_countboardinfolder"
+                => (Table: "Board_Boards", Alias: "bb", Column: "FolderNo"),
+            "board_countcontentinboard"
+                => (Table: "Board_Contents", Alias: "bc", Column: "BoardNo"),
+            _ => default
+        };
+        if (mapping.Table is null)
+            return body;
+
+        body = Regex.Replace(
+            body,
+            $@"\bFROM\s+{Regex.Escape(mapping.Table)}\s+(?=WHERE\b)",
+            $"FROM {mapping.Table} {mapping.Alias} ",
+            RegexOptions.IgnoreCase);
+        return Regex.Replace(
+            body,
+            $@"(?<!\.)\b{Regex.Escape(mapping.Column)}\b(?=\s*=)",
+            $"{mapping.Alias}.{mapping.Column}",
+            RegexOptions.IgnoreCase);
     }
 
     enum BoardBlockKind { If, Loop, Plain }

@@ -452,6 +452,27 @@ namespace RegressionTests
             Assert.That(pg, Does.Not.Contain("TINYINT"));
         }
 
+        [TestCase("Board_Board_MaxSortNo_Select", "Board_Folders", "FolderNo", "bf")]
+        [TestCase("Board_CountBoardInFolder", "Board_Boards", "FolderNo", "bb")]
+        [TestCase("Board_CountContentInBoard", "Board_Contents", "BoardNo", "bc")]
+        [TestCase("Board_Folder_MaxSortNo_Select", "Board_Folders", "ParentNo", "bf")]
+        public void TestConfirmedSingleTableAggregateQualification(
+            string procedure, string table, string column, string alias)
+        {
+            string mssql = $"""
+                CREATE PROCEDURE dbo.{procedure} @{column} INT
+                AS
+                BEGIN
+                    SELECT COUNT(*) FROM {table} WHERE {column} = @{column}
+                END
+                """;
+            var obj = new DbObject(procedure, ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain($"FROM {table} {alias} WHERE"));
+            Assert.That(pg, Does.Contain($"{alias}.{column} ="));
+        }
+
         [Test]
         public void TestBeginWithCommentIsSuppressedAfterElse()
         {
