@@ -1,4 +1,5 @@
 using System.Text;
+using System.Diagnostics;
 
 namespace pg_converter_ui;
 
@@ -29,6 +30,25 @@ public partial class Form1 : Form
     private Label       lblCount  = null!;
     private Label       lblStatus = null!;
 
+    // Short video controls
+    private TextBox txtFfmpeg = null!;
+    private TextBox txtVideoImages = null!;
+    private TextBox txtVideoAudio = null!;
+    private TextBox txtVideoLogo = null!;
+    private TextBox txtVideoWatermark = null!;
+    private TextBox txtVideoOutput = null!;
+    private NumericUpDown nudImageDuration = null!;
+    private NumericUpDown nudMaxDuration = null!;
+    private ComboBox cmbVideoPreset = null!;
+    private CheckBox chkAutoVideo = null!;
+    private Button btnCreateVideo = null!;
+    private Button btnVideoPreview = null!;
+    private Button btnOpenVideoFolder = null!;
+    private ProgressBar prgVideo = null!;
+    private Label lblVideoStatus = null!;
+    private PictureBox picVideoPreview = null!;
+    private string? _lastVideoFile;
+
     public Form1()
     {
         InitializeComponent();
@@ -47,12 +67,13 @@ public partial class Form1 : Form
         var tbl = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            RowCount = 3, ColumnCount = 1,
+            RowCount = 4, ColumnCount = 1,
             Padding = new Padding(8),
             BackColor = Color.Transparent
         };
         tbl.RowStyles.Add(new RowStyle(SizeType.Absolute, 155)); // connection panel
         tbl.RowStyles.Add(new RowStyle(SizeType.Absolute, 250)); // results
+        tbl.RowStyles.Add(new RowStyle(SizeType.Absolute, 230)); // short video
         tbl.RowStyles.Add(new RowStyle(SizeType.Percent,  100)); // output
         tbl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         Controls.Add(tbl);
@@ -204,7 +225,158 @@ public partial class Form1 : Form
         grpRes.Controls.Add(panResBtns);
         tbl.Controls.Add(grpRes, 0, 1);
 
-        // ── ROW 2: Output ──────────────────────────────────────────────────
+        // ── ROW 2: Short video ──────────────────────────────────────────────
+        var grpVideo = new GroupBox
+        {
+            Text = "Auto Create Short Video",
+            Dock = DockStyle.Fill,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Bold)
+        };
+
+        grpVideo.Controls.Add(MkLabel("FFmpeg:", 10, 29));
+        txtFfmpeg = MkTextBox(75, 26, 250);
+        txtFfmpeg.Text = "ffmpeg";
+        grpVideo.Controls.Add(txtFfmpeg);
+
+        grpVideo.Controls.Add(MkLabel("Images:", 340, 29));
+        txtVideoImages = MkTextBox(397, 26, 380);
+        txtVideoImages.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "short_video_images");
+        grpVideo.Controls.Add(txtVideoImages);
+        var btnBrowseImages = MkButton("...", 786, 25, 36);
+        btnBrowseImages.Click += (_, _) => BrowseVideoFolder(txtVideoImages, "Chọn thư mục ảnh nguồn");
+        grpVideo.Controls.Add(btnBrowseImages);
+
+        grpVideo.Controls.Add(MkLabel("Audio:", 10, 64));
+        txtVideoAudio = MkTextBox(75, 61, 250);
+        grpVideo.Controls.Add(txtVideoAudio);
+        var btnBrowseAudio = MkButton("...", 334, 60, 36);
+        btnBrowseAudio.Click += (_, _) => BrowseVideoFile(txtVideoAudio, "Chọn file nhạc nền", "Audio files|*.mp3;*.wav;*.m4a|All files|*.*");
+        grpVideo.Controls.Add(btnBrowseAudio);
+
+        grpVideo.Controls.Add(MkLabel("Logo:", 385, 64));
+        txtVideoLogo = MkTextBox(430, 61, 347);
+        grpVideo.Controls.Add(txtVideoLogo);
+        var btnBrowseLogo = MkButton("...", 786, 60, 36);
+        btnBrowseLogo.Click += (_, _) => BrowseVideoFile(txtVideoLogo, "Chọn file logo", "Image files|*.png;*.jpg;*.jpeg;*.bmp;*.webp|All files|*.*");
+        grpVideo.Controls.Add(btnBrowseLogo);
+
+        grpVideo.Controls.Add(MkLabel("Watermark:", 10, 99));
+        txtVideoWatermark = MkTextBox(96, 96, 274);
+        txtVideoWatermark.Text = "MSSQL to PostgreSQL";
+        grpVideo.Controls.Add(txtVideoWatermark);
+
+        grpVideo.Controls.Add(MkLabel("Output:", 385, 99));
+        txtVideoOutput = MkTextBox(430, 96, 347);
+        txtVideoOutput.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "pg_converter_ui", "short_videos");
+        grpVideo.Controls.Add(txtVideoOutput);
+        var btnBrowseOutput = MkButton("...", 786, 95, 36);
+        btnBrowseOutput.Click += (_, _) => BrowseVideoFolder(txtVideoOutput, "Chọn thư mục output video");
+        grpVideo.Controls.Add(btnBrowseOutput);
+
+        grpVideo.Controls.Add(MkLabel("Sec/image:", 10, 134));
+        nudImageDuration = new NumericUpDown
+        {
+            Location = new Point(78, 131),
+            Width = 55,
+            Minimum = 1,
+            Maximum = 10,
+            Value = 2
+        };
+        grpVideo.Controls.Add(nudImageDuration);
+
+        grpVideo.Controls.Add(MkLabel("Max sec:", 145, 134));
+        nudMaxDuration = new NumericUpDown
+        {
+            Location = new Point(205, 131),
+            Width = 60,
+            Minimum = 5,
+            Maximum = 300,
+            Value = 30
+        };
+        grpVideo.Controls.Add(nudMaxDuration);
+
+        grpVideo.Controls.Add(MkLabel("Preset:", 278, 134));
+        cmbVideoPreset = new ComboBox
+        {
+            Location = new Point(332, 131),
+            Width = 90,
+            DropDownStyle = ComboBoxStyle.DropDownList
+        };
+        cmbVideoPreset.Items.AddRange(new object[] { "veryfast", "fast", "medium", "slow" });
+        cmbVideoPreset.SelectedItem = "medium";
+        grpVideo.Controls.Add(cmbVideoPreset);
+
+        chkAutoVideo = MkCheck("Auto tạo sau khi Generate Script", 435, 133, false);
+        grpVideo.Controls.Add(chkAutoVideo);
+
+        btnCreateVideo = new Button
+        {
+            Text = "🎬 Create Short Video",
+            Location = new Point(10, 165),
+            Width = 170,
+            Height = 30,
+            BackColor = Color.FromArgb(16, 124, 16),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 9.2f, FontStyle.Bold)
+        };
+        btnCreateVideo.FlatAppearance.BorderSize = 0;
+        btnCreateVideo.Click += async (_, _) => await CreateShortVideoAsync(autoTriggered: false);
+        grpVideo.Controls.Add(btnCreateVideo);
+
+        btnVideoPreview = MkButton("🖼 Preview", 190, 166, 92);
+        btnVideoPreview.Click += async (_, _) => await RefreshVideoPreviewAsync();
+        grpVideo.Controls.Add(btnVideoPreview);
+
+        btnOpenVideoFolder = MkButton("📂 Output", 286, 166, 90);
+        btnOpenVideoFolder.Click += (_, _) =>
+        {
+            try
+            {
+                Directory.CreateDirectory(txtVideoOutput.Text.Trim());
+                Process.Start(new ProcessStartInfo(txtVideoOutput.Text.Trim()) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không mở được thư mục output:\\n{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        };
+        grpVideo.Controls.Add(btnOpenVideoFolder);
+
+        prgVideo = new ProgressBar
+        {
+            Location = new Point(385, 167),
+            Width = 280,
+            Height = 22,
+            Minimum = 0,
+            Maximum = 100
+        };
+        grpVideo.Controls.Add(prgVideo);
+
+        lblVideoStatus = new Label
+        {
+            Location = new Point(675, 171),
+            Width = 145,
+            Height = 22,
+            AutoEllipsis = true,
+            ForeColor = Color.Gray,
+            Font = new Font("Segoe UI", 8.8f)
+        };
+        grpVideo.Controls.Add(lblVideoStatus);
+
+        picVideoPreview = new PictureBox
+        {
+            Location = new Point(829, 22),
+            Size = new Size(200, 174),
+            BorderStyle = BorderStyle.FixedSingle,
+            SizeMode = PictureBoxSizeMode.Zoom,
+            BackColor = Color.Black
+        };
+        grpVideo.Controls.Add(picVideoPreview);
+
+        tbl.Controls.Add(grpVideo, 0, 2);
+
+        // ── ROW 3: Output ──────────────────────────────────────────────────
         var grpOut = new GroupBox
         {
             Text = "PostgreSQL Output",
@@ -242,7 +414,7 @@ public partial class Form1 : Form
 
         grpOut.Controls.Add(rtOutput);
         grpOut.Controls.Add(panOutBtns);
-        tbl.Controls.Add(grpOut, 0, 2);
+        tbl.Controls.Add(grpOut, 0, 3);
     }
 
     // ── Event handlers ─────────────────────────────────────────────────────
@@ -438,6 +610,8 @@ public partial class Form1 : Form
                 statusCol = Color.Green;
             }
             SetStatus(statusMsg, statusCol, 0);
+            if (chkAutoVideo.Checked)
+                _ = CreateShortVideoAsync(autoTriggered: true);
         }
         catch (Exception ex)
         {
@@ -544,6 +718,149 @@ public partial class Form1 : Form
             rtb.SelectionLength = 0;
             rtb.ResumeLayout();
         }
+    }
+
+    ShortVideoRequest BuildVideoRequest()
+    {
+        var outputFolder = txtVideoOutput.Text.Trim();
+        if (string.IsNullOrWhiteSpace(outputFolder))
+            outputFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "pg_converter_ui", "short_videos");
+
+        return new ShortVideoRequest(
+            txtFfmpeg.Text.Trim(),
+            txtVideoImages.Text.Trim(),
+            string.IsNullOrWhiteSpace(txtVideoAudio.Text) ? null : txtVideoAudio.Text.Trim(),
+            string.IsNullOrWhiteSpace(txtVideoLogo.Text) ? null : txtVideoLogo.Text.Trim(),
+            string.IsNullOrWhiteSpace(txtVideoWatermark.Text) ? null : txtVideoWatermark.Text.Trim(),
+            outputFolder,
+            (int)nudImageDuration.Value,
+            (int)nudMaxDuration.Value,
+            cmbVideoPreset.SelectedItem?.ToString() ?? "medium",
+            chkAutoVideo.Checked);
+    }
+
+    async Task CreateShortVideoAsync(bool autoTriggered)
+    {
+        try
+        {
+            var request = BuildVideoRequest();
+            if (!ShortVideoService.TryCreatePlan(request, out var plan, out var error))
+            {
+                lblVideoStatus.ForeColor = Color.OrangeRed;
+                lblVideoStatus.Text = "Không đủ dữ liệu";
+                if (!autoTriggered)
+                    MessageBox.Show(error, "Không thể tạo video", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            btnCreateVideo.Enabled = false;
+            btnVideoPreview.Enabled = false;
+            prgVideo.Value = 0;
+            lblVideoStatus.ForeColor = Color.DodgerBlue;
+            lblVideoStatus.Text = "Đang render...";
+            Logger.Section("Short video render");
+            Logger.Info($"Video plan: images={plan.ImageFiles.Count}, audio={plan.HasAudio}, logo={plan.HasLogo}, target={plan.TargetDuration.TotalSeconds:0}s");
+
+            await ShortVideoService.WriteConcatListAsync(plan, (int)nudImageDuration.Value);
+            var result = await ShortVideoService.RenderAsync(plan, p =>
+            {
+                if (IsDisposed) return;
+                BeginInvoke(() =>
+                {
+                    prgVideo.Value = p;
+                    lblVideoStatus.Text = $"Đang render... {p}%";
+                });
+            });
+
+            Logger.Info(result.LogText);
+            if (!result.Success || !File.Exists(result.OutputFile))
+            {
+                lblVideoStatus.ForeColor = Color.OrangeRed;
+                lblVideoStatus.Text = "Render lỗi";
+                if (!autoTriggered)
+                    MessageBox.Show(result.ErrorMessage ?? "Tạo video thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _lastVideoFile = result.OutputFile;
+            lblVideoStatus.ForeColor = Color.Green;
+            lblVideoStatus.Text = "✓ Video đã tạo";
+            prgVideo.Value = 100;
+            SetStatus($"✓ Video: {Path.GetFileName(result.OutputFile)}", Color.Green, 5000);
+            await RefreshVideoPreviewAsync(result.OutputFile, result.PreviewImageFile, request.FfmpegPath);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("CreateShortVideoAsync", ex);
+            lblVideoStatus.ForeColor = Color.OrangeRed;
+            lblVideoStatus.Text = "Render lỗi";
+            if (!autoTriggered)
+                MessageBox.Show($"Tạo video thất bại:\n{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            btnCreateVideo.Enabled = true;
+            btnVideoPreview.Enabled = true;
+        }
+    }
+
+    async Task RefreshVideoPreviewAsync(string? videoPath = null, string? previewPath = null, string? ffmpegPath = null)
+    {
+        var resolvedVideo = videoPath ?? _lastVideoFile;
+        if (string.IsNullOrWhiteSpace(resolvedVideo) || !File.Exists(resolvedVideo))
+        {
+            MessageBox.Show("Chưa có video nào để preview.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        var resolvedPreview = previewPath
+            ?? Path.Combine(txtVideoOutput.Text.Trim(), $"{Path.GetFileNameWithoutExtension(resolvedVideo)}_preview.jpg");
+        var ffmpeg = string.IsNullOrWhiteSpace(ffmpegPath) ? txtFfmpeg.Text.Trim() : ffmpegPath;
+
+        var ok = await ShortVideoService.GeneratePreviewAsync(ffmpeg, resolvedVideo, resolvedPreview);
+        if (!ok || !File.Exists(resolvedPreview))
+        {
+            lblVideoStatus.ForeColor = Color.OrangeRed;
+            lblVideoStatus.Text = "Preview lỗi";
+            return;
+        }
+
+        picVideoPreview.Image?.Dispose();
+        using var fs = new FileStream(resolvedPreview, FileMode.Open, FileAccess.Read);
+        using var img = Image.FromStream(fs);
+        picVideoPreview.Image = new Bitmap(img);
+        lblVideoStatus.ForeColor = Color.Green;
+        lblVideoStatus.Text = "✓ Preview ready";
+    }
+
+    static void BrowseVideoFolder(TextBox target, string title)
+    {
+        using var dlg = new FolderBrowserDialog
+        {
+            Description = title,
+            UseDescriptionForTitle = true
+        };
+        if (!string.IsNullOrWhiteSpace(target.Text) && Directory.Exists(target.Text))
+            dlg.InitialDirectory = target.Text;
+        if (dlg.ShowDialog() == DialogResult.OK)
+            target.Text = dlg.SelectedPath;
+    }
+
+    static void BrowseVideoFile(TextBox target, string title, string filter)
+    {
+        using var dlg = new OpenFileDialog
+        {
+            Title = title,
+            Filter = filter
+        };
+        if (!string.IsNullOrWhiteSpace(target.Text) && File.Exists(target.Text))
+        {
+            dlg.InitialDirectory = Path.GetDirectoryName(target.Text);
+            dlg.FileName = Path.GetFileName(target.Text);
+        }
+
+        if (dlg.ShowDialog() == DialogResult.OK)
+            target.Text = dlg.FileName;
     }
 
     // ── UI helpers ─────────────────────────────────────────────────────────
