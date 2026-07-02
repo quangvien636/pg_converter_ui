@@ -341,8 +341,12 @@ public partial class Form1 : Form
                 if (string.IsNullOrWhiteSpace(outputPath) || outputPath.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
                     throw new InvalidOperationException("Đường dẫn output không hợp lệ.");
 
-                Directory.CreateDirectory(outputPath);
-                Process.Start(new ProcessStartInfo(outputPath) { UseShellExecute = true });
+                var fullPath = Path.GetFullPath(outputPath);
+                if (!Path.IsPathRooted(fullPath))
+                    throw new InvalidOperationException("Đường dẫn output phải là đường dẫn tuyệt đối.");
+
+                Directory.CreateDirectory(fullPath);
+                Process.Start(new ProcessStartInfo(fullPath) { UseShellExecute = true });
             }
             catch (Exception ex)
             {
@@ -834,7 +838,10 @@ public partial class Form1 : Form
         }
 
         picVideoPreview.Image?.Dispose();
-        picVideoPreview.Image = new Bitmap(resolvedPreview);
+        var imageBytes = await File.ReadAllBytesAsync(resolvedPreview);
+        using var ms = new MemoryStream(imageBytes);
+        using var img = Image.FromStream(ms);
+        picVideoPreview.Image = new Bitmap(img);
         lblVideoStatus.ForeColor = Color.Green;
         lblVideoStatus.Text = "✓ Preview ready";
     }

@@ -8,7 +8,7 @@ namespace pg_converter_ui;
 public static partial class ShortVideoService
 {
     static readonly string[] _imageExtensions = [".jpg", ".jpeg", ".png", ".bmp", ".webp"];
-    const string PreviewSeekTime = "00:00:00.500";
+    const string PreviewThumbnailSeekTime = "00:00:00.500";
 
     public static bool TryCreatePlan(ShortVideoRequest request, out ShortVideoPlan plan, out string error)
     {
@@ -151,7 +151,7 @@ public static partial class ShortVideoService
 
         info.ArgumentList.Add("-y");
         info.ArgumentList.Add("-ss");
-        info.ArgumentList.Add(PreviewSeekTime);
+        info.ArgumentList.Add(PreviewThumbnailSeekTime);
         info.ArgumentList.Add("-i");
         info.ArgumentList.Add(outputVideo);
         info.ArgumentList.Add("-vframes");
@@ -229,6 +229,7 @@ public static partial class ShortVideoService
             }
             else
             {
+                // Explicit no-op pass-through so both branches consistently output [vout].
                 complex.Append(";[logoed]null[vout]");
             }
 
