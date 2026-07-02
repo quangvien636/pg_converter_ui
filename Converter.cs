@@ -1259,6 +1259,7 @@ $$;";
             "$1::json->>'$2'", RegexOptions.IgnoreCase);
 
         body = QualifyConfirmedSingleTableAggregate(body, fnName);
+        body = QualifyConfirmedContactGetterColumns(body, fnName);
 
         // LIKE → ILIKE
         body = Regex.Replace(body, @"\bLIKE\b", "ILIKE", RegexOptions.IgnoreCase);
@@ -1307,6 +1308,51 @@ $$;";
             $@"(?<!\.)\b{Regex.Escape(mapping.Column)}\b(?=\s*=)",
             $"{mapping.Alias}.{mapping.Column}",
             RegexOptions.IgnoreCase);
+    }
+
+    static string QualifyConfirmedContactGetterColumns(string body, string fnName)
+    {
+        var mapping = fnName.ToLowerInvariant() switch
+        {
+            "contacts_getcheckgroup" => ("ContactsGroup", "cg", new[] { "RegUserNo" }),
+            "contacts_parentgroupno" => ("ContactsGroup", "cg", new[] { "RegUserNo", "GroupNo" }),
+            "contacts_getallusernotrequite" or "contacts_getalluser" or "contacts_gettrashcount"
+                => ("ContactsUser", "cu", new[] { "RegUserNo" }),
+            "contacts_getallhomepage" => ("ContactsHomepage", "ch", new[] { "RegUserNo" }),
+            "contacts_getallemail" => ("ContactsEmail", "ce", new[] { "RegUserNo" }),
+            "contacts_getallgroupuser" => ("ContactsGroupUser", "cgu", new[] { "RegUserNo" }),
+            "contacts_getallcompany" => ("ContactsCompany", "cc", new[] { "RegUserNo" }),
+            "contacts_getalldays" => ("ContactsDays", "cd", new[] { "RegUserNo" }),
+            "contacts_getallnumber" => ("ContactsNumber", "cn", new[] { "RegUserNo" }),
+            "contacts_getallsns" => ("ContactsSns", "cs", new[] { "RegUserNo" }),
+            "contacts_countgroupuser" or "contacts_getcontactsgroup"
+                => ("ContactsGroup", "cg", new[] { "RegUserNo" }),
+            "contacts_getalladdress" => ("ContactsAddress", "ca", new[] { "RegUserNo" }),
+            "contacts_getlocationonecontact"
+                => ("Contacts_Locations", "cl", new[] { "RegUserNo", "ContactUserId" }),
+            _ => default
+        };
+        if (mapping.Item1 is null)
+            return body;
+
+        body = Regex.Replace(
+            body,
+            $@"\bFROM\s+{Regex.Escape(mapping.Item1)}\s+(?=WHERE\b)",
+            $"FROM {mapping.Item1} {mapping.Item2} ",
+            RegexOptions.IgnoreCase);
+        foreach (var column in mapping.Item3)
+            body = Regex.Replace(
+                body,
+                $@"(?<!\.)\b{Regex.Escape(column)}\b(?=\s*=)",
+                $"{mapping.Item2}.{column}",
+                RegexOptions.IgnoreCase);
+        if (fnName.Equals("contacts_getlocationonecontact", StringComparison.OrdinalIgnoreCase))
+            body = Regex.Replace(
+                body,
+                @"\bSELECT\s+LocationNo\s*,\s*RegUserNo\s*,\s*Name\s*,\s*Latitude\s*,\s*Longitude\s*,\s*Description\s*,\s*ContactUserId\b",
+                "SELECT cl.LocationNo, cl.RegUserNo, cl.Name, cl.Latitude, cl.Longitude, cl.Description, cl.ContactUserId",
+                RegexOptions.IgnoreCase);
+        return body;
     }
 
     enum BoardBlockKind { If, Loop, Plain }

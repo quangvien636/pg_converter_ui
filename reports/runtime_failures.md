@@ -6771,36 +6771,6 @@ $function$
 ```
 </details>
 
-## `contacts_countgroupuser`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_countgroupuser"(0::integer) AS result("column_1" bigint);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_countgroupuser(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_countgroupuser(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	select count(*) as countgroup from ContactsGroup
-    where RegUserNo=contacts_countgroupuser.reguserno and UseYn='Y';
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_delallcontactstrash`
 
 - Input: `0::integer`
@@ -7080,126 +7050,6 @@ $function$
 ```
 </details>
 
-## `contacts_getalladdress`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getalladdress"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" smallint, "column_5" character varying(50), "column_6" character varying(5), "column_7" character varying(5), "column_8" character varying(500), "column_9" character, "column_10" timestamp without time zone, "column_11" timestamp without time zone, "column_12" double precision, "column_13" double precision);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getalladdress(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getalladdress(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsAddress WHERE RegUserNo=contacts_getalladdress.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallcompany`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallcompany"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" character varying(50), "column_5" character varying(50), "column_6" character varying(50), "column_7" character, "column_8" timestamp without time zone, "column_9" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallcompany(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallcompany(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsCompany WHERE RegUserNo=contacts_getallcompany.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getalldays`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getalldays"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" smallint, "column_5" character varying(50), "column_6" character varying(50), "column_7" character, "column_8" character, "column_9" timestamp without time zone, "column_10" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getalldays(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getalldays(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsDays WHERE RegUserNo=contacts_getalldays.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallemail`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallemail"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" character varying(50), "column_5" character, "column_6" timestamp without time zone, "column_7" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallemail(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallemail(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsEmail WHERE RegUserNo=contacts_getallemail.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getallgroups`
 
 - Input: `0::integer`
@@ -7278,66 +7128,6 @@ $function$
 ```
 </details>
 
-## `contacts_getallgroupuser`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallgroupuser"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" integer, "column_5" timestamp without time zone, "column_6" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallgroupuser(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallgroupuser(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsGroupUser WHERE RegUserNo=contacts_getallgroupuser.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallhomepage`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallhomepage"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" smallint, "column_5" character varying(50), "column_6" character varying(500), "column_7" character, "column_8" timestamp without time zone, "column_9" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallhomepage(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallhomepage(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsHomepage WHERE RegUserNo=contacts_getallhomepage.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getalllistgroupcontact`
 
 - Input: `0::integer`
@@ -7362,124 +7152,6 @@ BEGIN
 	RETURN QUERY
 	SELECT * FROM Contacts_ListGroupContact
 	WHERE ListGroup_Id=contacts_getalllistgroupcontact.listgroup_id;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallnumber`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallnumber"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" smallint, "column_5" character varying(50), "column_6" character varying(50), "column_7" character, "column_8" timestamp without time zone, "column_9" timestamp without time zone, "column_10" integer);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallnumber(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallnumber(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_getallnumber.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallsns`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallsns"(0::integer) AS result("column_1" integer, "column_2" integer, "column_3" integer, "column_4" smallint, "column_5" character varying(50), "column_6" character varying(500), "column_7" character, "column_8" timestamp without time zone, "column_9" timestamp without time zone);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallsns(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallsns(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsSns WHERE RegUserNo=contacts_getallsns.reguserno
-	ORDER BY Seq ASC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getalluser`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getalluser"(0::integer) AS result("column_1" integer, "column_2" character varying(100), "column_3" character varying(100), "column_4" integer, "column_5" character varying(500), "column_6" timestamp without time zone, "column_7" character varying(500), "column_8" timestamp without time zone, "column_9" timestamp without time zone, "column_10" character varying(50), "column_11" character varying(1), "column_12" timestamp without time zone, "column_13" integer, "column_14" character varying(20), "column_15" integer, "column_16" character varying(250));`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getalluser(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getalluser(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsUser WHERE RegUserNo=contacts_getalluser.reguserno;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getallusernotrequite`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallusernotrequite"(0::integer) AS result("column_1" integer, "column_2" character varying(100), "column_3" character varying(100), "column_4" integer, "column_5" character varying(500), "column_6" timestamp without time zone, "column_7" character varying(500), "column_8" timestamp without time zone, "column_9" timestamp without time zone, "column_10" character varying(50), "column_11" character varying(1), "column_12" timestamp without time zone, "column_13" integer, "column_14" character varying(20), "column_15" integer, "column_16" character varying(250));`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getallusernotrequite(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallusernotrequite(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT * FROM ContactsUser WHERE RegUserNo=contacts_getallusernotrequite.reguserno;
 END;
 $function$
 
@@ -7540,34 +7212,6 @@ BEGIN
 	RETURN QUERY
 	SELECT BackupNo, UserNo, ContactCnt, GroupCnt, Memo, RegDate, Path, TYPE
 	FROM ContactsBackup WHERE BackupNo=contacts_getbackupinfoonce.backupno;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getcheckgroup`
-
-- Input: `0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getcheckgroup"(0::integer, 0::integer) AS result("column_1" character);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getcheckgroup(integer,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getcheckgroup(seq integer, reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-RETURN QUERY
-SELECT IsDefault FROM ContactsGroup WHERE RegUserNo = contacts_getcheckgroup.reguserno AND GroupNo = contacts_getcheckgroup.seq;
 END;
 $function$
 
@@ -7672,40 +7316,6 @@ Name BETWEEN P_TS AND P_TE) PagingTable'), '');
 		EXECUTE PagingQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
 	ELSE
 		EXECUTE CountQry; -- TODO: rewrite named sp_executesql bindings as PostgreSQL USING parameters;
-	END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getcontactsgroup`
-
-- Input: `0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getcontactsgroup"(0::integer, 0::integer) AS result("column_1" integer, "column_2" text, "column_3" integer, "column_4" timestamp without time zone, "column_5" character varying(500), "column_6" integer, "column_7" integer, "column_8" character, "column_9" character);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getcontactsgroup(integer,integer) line 9 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getcontactsgroup(reguserno integer, pgroupno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	IF PGroupNo = -1 THEN
-		RETURN QUERY
-		SELECT * FROM ContactsGroup WHERE RegUserNo=contacts_getcontactsgroup.reguserno ORDER BY ParentGNo,Sort;
-	ELSE
-		RETURN QUERY
-		SELECT * FROM ContactsGroup WHERE RegUserNo=contacts_getcontactsgroup.reguserno AND ParentGNo=contacts_getcontactsgroup.pgroupno ORDER BY Sort;
 	END IF;
 END;
 $function$
@@ -7896,37 +7506,6 @@ BEGIN
 	,(SELECT COUNT(*) FROM ContactsGroupUser C WHERE C.GroupNo = ContactsGroup.GroupNo) AS UserCount
 	FROM ContactsGroup
 	WHERE GroupNo = contacts_getgroupinfo.groupno;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getlocationonecontact`
-
-- Input: `0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getlocationonecontact"(0::integer, 0::integer) AS result("column_1" integer, "column_2" integer, "column_3" character varying(100), "column_4" double precision, "column_5" double precision, "column_6" character varying(500), "column_7" integer);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getlocationonecontact(integer,integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getlocationonecontact(reguserno integer, contactuserid integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT LocationNo,RegUserNo,Name,Latitude,Longitude,Description,ContactUserId
-	FROM Contacts_Locations
-	WHERE RegUserNo=contacts_getlocationonecontact.reguserno AND ContactUserId=contacts_getlocationonecontact.contactuserid;
 END;
 $function$
 
@@ -8768,36 +8347,6 @@ RETURN QUERY
 SELECT *FROM
 (SELECT ROW_NUMBER() OVER(ORDER BY RegDate ASC) ROWNUM, GroupNo, GroupName
  FROM ContactsGroup WHERE RegUserNo = contacts_gettopcategory.reguserno and ParentGNo = 0) a;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_gettrashcount`
-
-- Input: `0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_gettrashcount"(0::integer) AS result("column_1" bigint);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_gettrashcount(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_gettrashcount(reguserno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	RETURN QUERY
-	SELECT COUNT(*) AS CNT FROM ContactsUser
-	WHERE UseYn = '' AND RegUserNo = contacts_gettrashcount.reguserno;
 END;
 $function$
 
@@ -10252,34 +9801,6 @@ BEGIN
     IF 0 <> 0 THEN
 
 		END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_parentgroupno`
-
-- Input: `0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_parentgroupno"(0::integer, 0::integer) AS result("column_1" integer);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_parentgroupno(integer,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_parentgroupno(reguserno integer, groupno integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-	RETURN QUERY
-	SELECT ParentGNo FROM ContactsGroup WHERE RegUserNo = contacts_parentgroupno.reguserno and GroupNo = contacts_parentgroupno.groupno;
 END;
 $function$
 

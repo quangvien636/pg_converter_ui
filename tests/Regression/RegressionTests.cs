@@ -473,6 +473,47 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain($"{alias}.{column} ="));
         }
 
+        [TestCase("Contacts_GetAllUser", "ContactsUser", "cu")]
+        [TestCase("Contacts_GetAllEmail", "ContactsEmail", "ce")]
+        [TestCase("Contacts_CountGroupUser", "ContactsGroup", "cg")]
+        [TestCase("Contacts_GetAllAddress", "ContactsAddress", "ca")]
+        public void TestConfirmedContactGetterQualification(
+            string procedure, string table, string alias)
+        {
+            string mssql = $"""
+                CREATE PROCEDURE dbo.{procedure} @RegUserNo INT
+                AS
+                BEGIN
+                    SELECT * FROM {table} WHERE RegUserNo = @RegUserNo
+                END
+                """;
+            var obj = new DbObject(procedure, ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain($"FROM {table} {alias} WHERE"));
+            Assert.That(pg, Does.Contain($"{alias}.RegUserNo ="));
+        }
+
+        [Test]
+        public void TestContactLocationProjectionQualification()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_GetLocationOneContact
+                    @RegUserNo INT, @ContactUserId INT
+                AS
+                BEGIN
+                    SELECT LocationNo, RegUserNo, Name, Latitude, Longitude, Description, ContactUserId
+                    FROM Contacts_Locations
+                    WHERE RegUserNo = @RegUserNo AND ContactUserId = @ContactUserId
+                END
+                """;
+            var obj = new DbObject("Contacts_GetLocationOneContact", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("SELECT cl.LocationNo, cl.RegUserNo"));
+            Assert.That(pg, Does.Contain("cl.ContactUserId"));
+        }
+
         [Test]
         public void TestBeginWithCommentIsSuppressedAfterElse()
         {

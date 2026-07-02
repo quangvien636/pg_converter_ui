@@ -137,6 +137,26 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         ["board_countcontentinboard"] = ("Board_Contents", "bc", "BoardNo"),
         ["board_folder_maxsortno_select"] = ("Board_Folders", "bf", "ParentNo")
     };
+    var confirmedContactGetterAmbiguities =
+        new Dictionary<string, (string Table, string Alias, string[] Columns)>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["contacts_getcheckgroup"] = ("ContactsGroup", "cg", ["RegUserNo"]),
+            ["contacts_parentgroupno"] = ("ContactsGroup", "cg", ["RegUserNo", "GroupNo"]),
+            ["contacts_getallusernotrequite"] = ("ContactsUser", "cu", ["RegUserNo"]),
+            ["contacts_getalluser"] = ("ContactsUser", "cu", ["RegUserNo"]),
+            ["contacts_gettrashcount"] = ("ContactsUser", "cu", ["RegUserNo"]),
+            ["contacts_getallhomepage"] = ("ContactsHomepage", "ch", ["RegUserNo"]),
+            ["contacts_getallemail"] = ("ContactsEmail", "ce", ["RegUserNo"]),
+            ["contacts_getallgroupuser"] = ("ContactsGroupUser", "cgu", ["RegUserNo"]),
+            ["contacts_getallcompany"] = ("ContactsCompany", "cc", ["RegUserNo"]),
+            ["contacts_getalldays"] = ("ContactsDays", "cd", ["RegUserNo"]),
+            ["contacts_getallnumber"] = ("ContactsNumber", "cn", ["RegUserNo"]),
+            ["contacts_getallsns"] = ("ContactsSns", "cs", ["RegUserNo"]),
+            ["contacts_countgroupuser"] = ("ContactsGroup", "cg", ["RegUserNo"]),
+            ["contacts_getcontactsgroup"] = ("ContactsGroup", "cg", ["RegUserNo"]),
+            ["contacts_getalladdress"] = ("ContactsAddress", "ca", ["RegUserNo"]),
+            ["contacts_getlocationonecontact"] = ("Contacts_Locations", "cl", ["RegUserNo", "ContactUserId"])
+        };
     var updated = new List<FunctionInfo>(functions.Count);
     var results = new List<DependencyResult>();
     foreach (var function in functions)
@@ -146,7 +166,8 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         var replaceTinyInt = confirmedTinyIntFailures.Contains(function.Name)
             && Regex.IsMatch(function.Definition, @"\bTINYINT\b", RegexOptions.IgnoreCase);
         var qualifyAggregate = confirmedAggregateAmbiguities.TryGetValue(function.Name, out var aggregate);
-        if (!replaceLen && !replaceTinyInt && !qualifyAggregate)
+        var qualifyContactGetter = confirmedContactGetterAmbiguities.TryGetValue(function.Name, out var getter);
+        if (!replaceLen && !replaceTinyInt && !qualifyAggregate && !qualifyContactGetter)
         {
             updated.Add(function);
             continue;
@@ -176,6 +197,29 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
                 RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
                 TimeSpan.FromSeconds(2));
         }
+        if (qualifyContactGetter)
+        {
+            definition = Regex.Replace(
+                definition,
+                $@"\bFROM\s+{Regex.Escape(getter.Table)}\s+(?=WHERE\b)",
+                $"FROM {getter.Table} {getter.Alias} ",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                TimeSpan.FromSeconds(2));
+            foreach (var column in getter.Columns)
+                definition = Regex.Replace(
+                    definition,
+                    $@"(?<!\.)\b{Regex.Escape(column)}\b(?=\s*=)",
+                    $"{getter.Alias}.{column}",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                    TimeSpan.FromSeconds(2));
+            if (function.Name.Equals("contacts_getlocationonecontact", StringComparison.OrdinalIgnoreCase))
+                definition = Regex.Replace(
+                    definition,
+                    @"\bSELECT\s+LocationNo\s*,\s*RegUserNo\s*,\s*Name\s*,\s*Latitude\s*,\s*Longitude\s*,\s*Description\s*,\s*ContactUserId\b",
+                    "SELECT cl.LocationNo, cl.RegUserNo, cl.Name, cl.Latitude, cl.Longitude, cl.Description, cl.ContactUserId",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                    TimeSpan.FromSeconds(2));
+        }
         await using var command = connection.CreateCommand();
         command.Transaction = transaction;
         command.CommandText = definition;
@@ -184,7 +228,7 @@ static async Task<(List<FunctionInfo> Functions, IReadOnlyList<DependencyResult>
         updated.Add(function with { Definition = definition });
         results.Add(new DependencyResult(
             function.Name, "TEMPORARY RUNTIME FIX",
-            $"{(replaceLen ? "LEN()→LENGTH(); " : "")}{(replaceTinyInt ? "TINYINT→smallint; " : "")}{(qualifyAggregate ? $"{aggregate.Alias}.{aggregate.Column} qualified; " : "")}CREATE OR REPLACE is rolled back."));
+            $"{(replaceLen ? "LEN()→LENGTH(); " : "")}{(replaceTinyInt ? "TINYINT→smallint; " : "")}{(qualifyAggregate ? $"{aggregate.Alias}.{aggregate.Column} qualified; " : "")}{(qualifyContactGetter ? $"{getter.Alias} columns qualified; " : "")}CREATE OR REPLACE is rolled back."));
     }
     return (updated, results);
 }

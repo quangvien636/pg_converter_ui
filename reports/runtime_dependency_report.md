@@ -78,7 +78,23 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_countboardinfolder` | TEMPORARY RUNTIME FIX | bb.FolderNo qualified; CREATE OR REPLACE is rolled back. |
 | `board_countcontentinboard` | TEMPORARY RUNTIME FIX | bc.BoardNo qualified; CREATE OR REPLACE is rolled back. |
 | `board_folder_maxsortno_select` | TEMPORARY RUNTIME FIX | bf.ParentNo qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_countgroupuser` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_deletehistory` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
+| `contacts_getalladdress` | TEMPORARY RUNTIME FIX | ca columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallcompany` | TEMPORARY RUNTIME FIX | cc columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getalldays` | TEMPORARY RUNTIME FIX | cd columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallemail` | TEMPORARY RUNTIME FIX | ce columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallgroupuser` | TEMPORARY RUNTIME FIX | cgu columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallhomepage` | TEMPORARY RUNTIME FIX | ch columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallnumber` | TEMPORARY RUNTIME FIX | cn columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallsns` | TEMPORARY RUNTIME FIX | cs columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getalluser` | TEMPORARY RUNTIME FIX | cu columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getallusernotrequite` | TEMPORARY RUNTIME FIX | cu columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getcheckgroup` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getcontactsgroup` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_getlocationonecontact` | TEMPORARY RUNTIME FIX | cl columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_gettrashcount` | TEMPORARY RUNTIME FIX | cu columns qualified; CREATE OR REPLACE is rolled back. |
+| `contacts_parentgroupno` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_saveaddressinfo_web` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); TINYINT→smallint; CREATE OR REPLACE is rolled back. |
 | `contacts_savearrange` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |
 | `contacts_savearrangelike` | TEMPORARY RUNTIME FIX | LEN()→LENGTH(); CREATE OR REPLACE is rolled back. |

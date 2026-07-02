@@ -4,10 +4,10 @@
 
 | Metric | Before (`2458028`) | After | Delta |
 |---|---:|---:|---:|
-| Runtime PASS | 62 | 66 | +4 |
-| Runtime FAIL | 200 | 196 | -4 |
+| Runtime PASS | 62 | 82 | +20 |
+| Runtime FAIL | 200 | 180 | -20 |
 | Runtime BLOCKED | 89 | 89 | 0 |
-| SQLSTATE `42702` | 160 | 156 | -4 |
+| SQLSTATE `42702` | 160 | 140 | -20 |
 
 Every invocation ran on `pg_converter_runtime_test` under the runner's outer
 transaction and final `ROLLBACK`. Runtime PASS establishes execution only, not
@@ -58,6 +58,34 @@ This preserves the comparison, filter, aggregate, and outward result shape.
 - `board_countboardinfolder`
 - `board_countcontentinboard`
 - `board_folder_maxsortno_select`
+- `contacts_countgroupuser`
+- `contacts_getalladdress`
+- `contacts_getallcompany`
+- `contacts_getalldays`
+- `contacts_getallemail`
+- `contacts_getallgroupuser`
+- `contacts_getallhomepage`
+- `contacts_getallnumber`
+- `contacts_getallsns`
+- `contacts_getalluser`
+- `contacts_getallusernotrequite`
+- `contacts_getcheckgroup`
+- `contacts_getcontactsgroup`
+- `contacts_getlocationonecontact`
+- `contacts_gettrashcount`
+- `contacts_parentgroupno`
+
+## Contact getter batch
+
+Sixteen confirmed getters read one Contact table and compared a bare source
+column such as `RegUserNo` with an already qualified function parameter. Each
+mapping adds a procedure-specific table alias and qualifies only the colliding
+source columns.
+
+`contacts_getlocationonecontact` exposed the output/source subtype after its
+WHERE clause was fixed: `RegUserNo` and `ContactUserId` also appeared bare in
+the SELECT projection. Its known projection is qualified with the same alias;
+outward column names and order are unchanged.
 
 ## Implementation scope
 
@@ -72,7 +100,7 @@ Four regression cases cover the exact generated aliases and qualified columns.
 
 | SQLSTATE | Count |
 |---|---:|
-| `42702` | 156 |
+| `42702` | 140 |
 | `42883` | 16 |
 | `42P01` | 12 |
 | `22P02` | 5 |
