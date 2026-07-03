@@ -439,6 +439,72 @@ public static class Converter
         return body;
     }
 
+    // SQL Server infers a recursive CTE automatically; PostgreSQL requires the WITH
+    // clause to say WITH RECURSIVE explicitly whenever any CTE in it references its
+    // own name. Detect that by walking each comma-separated "name AS (...)" entry
+    // (using FindClosingParenthesis for correct nesting) and checking whether the
+    // CTE's own body references its own name. Gaps between WITH/name/AS/( and
+    // between entries may contain the heavily-commented headers this source uses;
+    // SkipGap consumes whitespace and "-- line comment" runs with a plain linear
+    // scan rather than a backtracking regex, since a regex-based gap followed by a
+    // literal that ultimately fails to match (the final SELECT after the last CTE
+    // is full of "... AS ..." false starts) is a catastrophic-backtracking trap on
+    // a large, heavily-commented body.
+    static readonly Regex CteWordRegex = new(@"\G(\w+)");
+    static readonly Regex CteAsRegex = new(@"\GAS\b", RegexOptions.IgnoreCase);
+
+    static string AddRecursiveToSelfReferencingCte(string body)
+    {
+        var matches = Regex.Matches(body, @"\bWITH\b(?!\s+RECURSIVE\b)", RegexOptions.IgnoreCase)
+            .Cast<Match>().ToList();
+        for (var i = matches.Count - 1; i >= 0; i--)
+        {
+            var pos = matches[i].Index + matches[i].Length;
+            var isRecursive = false;
+            while (true)
+            {
+                pos = SkipCommentsAndWhitespace(body, pos);
+                var nameMatch = CteWordRegex.Match(body, pos);
+                if (!nameMatch.Success) break;
+                var cteName = nameMatch.Groups[1].Value;
+                pos = SkipCommentsAndWhitespace(body, pos + nameMatch.Length);
+                var asMatch = CteAsRegex.Match(body, pos);
+                if (!asMatch.Success) break;
+                pos = SkipCommentsAndWhitespace(body, pos + asMatch.Length);
+                if (pos >= body.Length || body[pos] != '(') break;
+
+                var close = FindClosingParenthesis(body, pos);
+                if (close < 0) break;
+                var cteBody = body[(pos + 1)..close];
+                if (Regex.IsMatch(cteBody, $@"\b(?:FROM|JOIN)\s+{Regex.Escape(cteName)}\b", RegexOptions.IgnoreCase))
+                    isRecursive = true;
+
+                pos = SkipCommentsAndWhitespace(body, close + 1);
+                if (pos >= body.Length || body[pos] != ',') break;
+                pos++;
+            }
+            if (isRecursive)
+                body = body[..matches[i].Index] + "WITH RECURSIVE" + body[(matches[i].Index + matches[i].Length)..];
+        }
+        return body;
+    }
+
+    static int SkipCommentsAndWhitespace(string body, int pos)
+    {
+        while (pos < body.Length)
+        {
+            if (char.IsWhiteSpace(body[pos])) { pos++; continue; }
+            if (pos + 1 < body.Length && body[pos] == '-' && body[pos + 1] == '-')
+            {
+                pos += 2;
+                while (pos < body.Length && body[pos] != '\r' && body[pos] != '\n') pos++;
+                continue;
+            }
+            break;
+        }
+        return pos;
+    }
+
     // SQL Server's bit columns are commonly compared against the integer literals 0/1
     // (@Flag = 1). Once converted to a PostgreSQL boolean parameter that literal
     // comparison has no operator (boolean = integer). We know our own generated
@@ -1449,6 +1515,9 @@ $$;";
             }, RegexOptions.IgnoreCase);
         // Fix ;WITH CTE
         body = Regex.Replace(body, @"(?m)^(\s*);(WITH\b)", "$1$2", RegexOptions.IgnoreCase);
+        // SQL Server auto-detects a self-referencing CTE; PostgreSQL requires the
+        // WITH clause to say so explicitly.
+        body = AddRecursiveToSelfReferencingCte(body);
         // Remove remaining DECLARE lines
         body = Regex.Replace(body, @"(?m)^[ \t]*DECLARE\s+@?\w+[^\r\n]*\r?$", "", RegexOptions.IgnoreCase);
         // Remove @ from variable references
@@ -1583,19 +1652,6 @@ $$;";
             @"\bOUTPUT\s+inserted\.(\w+)\b",
             "RETURNING $1",
             RegexOptions.IgnoreCase);
-
-        // WITH cte AS (... UNION ALL ... FROM cte ...) → WITH RECURSIVE
-        body = Regex.Replace(body,
-            @"\bWITH\s+(\w+)\s+AS\s*\(",
-            m => {
-                var cteName = m.Groups[1].Value;
-                // Find the CTE body to check for self-reference (scan ahead in body)
-                var afterParen = body.Substring(body.IndexOf(m.Value, StringComparison.OrdinalIgnoreCase)
-                    + m.Value.Length);
-                if (Regex.IsMatch(afterParen, $@"\bFROM\s+{Regex.Escape(cteName)}\b", RegexOptions.IgnoreCase))
-                    return $"WITH RECURSIVE {cteName} AS (";
-                return m.Value;
-            }, RegexOptions.IgnoreCase);
 
         // DML fixes
         body = Regex.Replace(body, @"\bDELETE\s+(?!FROM\b)(@?\w+)", "DELETE FROM $1", RegexOptions.IgnoreCase);

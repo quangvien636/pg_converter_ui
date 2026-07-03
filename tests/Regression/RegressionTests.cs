@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using pg_converter_ui;
 
@@ -1130,6 +1131,102 @@ namespace RegressionTests
             string pg = Converter.Convert(obj, "postgres");
 
             Assert.That(pg, Does.Not.Contain("::text"));
+        }
+
+        // ─── Self-referencing CTE needs WITH RECURSIVE ────────────────────────────
+
+        [Test]
+        public void TestSelfReferencingCteGetsRecursiveKeyword()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestRecursiveCte
+                    @UserNo INT
+                AS
+                BEGIN
+                    SELECT * FROM (
+                        WITH
+                        USER_DEPART AS (
+                            SELECT DepartNo, ParentNo FROM Organization_Departments WHERE DepartNo = @UserNo
+                            UNION ALL
+                            SELECT OD.DepartNo, OD.ParentNo FROM Organization_Departments OD
+                            INNER JOIN USER_DEPART UD ON OD.DepartNo = UD.ParentNo
+                        )
+                        SELECT DepartNo FROM USER_DEPART
+                    ) T
+                END
+                """;
+            var obj = new DbObject("testrecursivecte", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("WITH RECURSIVE"));
+        }
+
+        [Test]
+        public void TestNonRecursiveCteKeepsPlainWith()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestPlainCte
+                AS
+                BEGIN
+                    SELECT * FROM (
+                        WITH
+                        ACTIVE_BOARDS AS (
+                            SELECT BoardNo FROM Board_Boards WHERE Enabled = 1
+                        )
+                        SELECT BoardNo FROM ACTIVE_BOARDS
+                    ) T
+                END
+                """;
+            var obj = new DbObject("testplaincte", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Contain("RECURSIVE"));
+        }
+
+        [Test]
+        public void TestSelfReferencingCteWithCommentHeadersGetsRecursiveKeyword()
+        {
+            // Real source procedures separate WITH from the CTE name, and each CTE
+            // from the next, with multi-line "-- comment" headers rather than plain
+            // whitespace; the detector must see through those to find the self-join.
+            string mssql = """
+                CREATE PROCEDURE dbo.TestRecursiveCteWithComments
+                    @UserNo INT
+                AS
+                BEGIN
+                    SELECT * FROM (
+                        WITH
+
+                        -- ------------------------------------------------
+                        -- Departments reachable from the user, walking up
+                        -- the hierarchy to the root.
+                        -- ------------------------------------------------
+                        USER_DEPART AS (
+                            SELECT DepartNo, ParentNo FROM Organization_Departments WHERE DepartNo = @UserNo
+                            UNION ALL
+                            SELECT OD.DepartNo, OD.ParentNo FROM Organization_Departments OD
+                            INNER JOIN USER_DEPART UD ON OD.DepartNo = UD.ParentNo
+                        ),
+
+                        -- ------------------------------------------------
+                        -- Boards the user is allowed to see directly.
+                        -- ------------------------------------------------
+                        PERM_BOARD AS (
+                            SELECT ItemNo AS BoardNo FROM Board_AllowAccess WHERE UserNo = @UserNo
+                        )
+
+                        SELECT DepartNo FROM USER_DEPART
+                        UNION
+                        SELECT BoardNo FROM PERM_BOARD
+                    ) T
+                END
+                """;
+            var obj = new DbObject("testrecursivectewithcomments", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("WITH RECURSIVE"));
+            // Only one RECURSIVE keyword for the whole WITH clause, not one per CTE.
+            Assert.That(Regex.Matches(pg, "RECURSIVE").Count, Is.EqualTo(1));
         }
     }
 }
