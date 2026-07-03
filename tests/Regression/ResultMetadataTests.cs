@@ -113,6 +113,52 @@ public class ResultMetadataTests
     }
 
     [Test]
+    public void ProcedureQuotesReservedWordColumnNameFromMetadata()
+    {
+        string mssql = "CREATE PROCEDURE dbo.Contacts_GetOutList\r\nAS\r\nBEGIN\r\n    SELECT LastName, Position FROM Contacts_Users\r\nEND";
+        var obj = new DbObject("contacts_getoutlist", ObjectType.Procedure, mssql, false, "OK");
+
+        var catalog = ResultMetadataCatalog.BuildLookup(
+        [
+            new("contacts_getoutlist", "dbo", "Contacts_GetOutList", "SQL_STORED_PROCEDURE",
+                "Success", null,
+                [
+                    new(1, "LastName", "nvarchar(50)", true, "character varying(50)"),
+                    new(2, "Position", "nvarchar(50)", true, "character varying(50)")
+                ])
+        ]);
+
+        string pg = Converter.Convert(obj, "postgres", null, catalog);
+
+        Assert.That(pg, Does.Contain("RETURNS TABLE("));
+        Assert.That(pg, Does.Contain("\"position\" character varying(50)"));
+    }
+
+    [Test]
+    public void ProcedureFallsBackToSetofRecordWhenMetadataHasDuplicateColumnNames()
+    {
+        string mssql = "CREATE PROCEDURE dbo.Board_GetBoardContent\r\nAS\r\nBEGIN\r\n    SELECT IsNotice, IsNotice FROM Board_Contents\r\nEND";
+        var obj = new DbObject("board_getboardcontent", ObjectType.Procedure, mssql, false, "OK");
+
+        // SQL Server allows a result set to repeat a column name; PostgreSQL's
+        // RETURNS TABLE requires unique column names, so this must not be guessed.
+        var catalog = ResultMetadataCatalog.BuildLookup(
+        [
+            new("board_getboardcontent", "dbo", "Board_GetBoardContent", "SQL_STORED_PROCEDURE",
+                "Success", null,
+                [
+                    new(1, "IsNotice", "bit", false, "boolean"),
+                    new(2, "IsNotice", "bit", false, "boolean")
+                ])
+        ]);
+
+        string pg = Converter.Convert(obj, "postgres", null, catalog);
+
+        Assert.That(pg, Does.Contain("SETOF record"));
+        Assert.That(pg, Does.Contain("replace SETOF record"));
+    }
+
+    [Test]
     public void ProcedureIgnoresMetadataCatalogWithNoMatchingRoutine()
     {
         string mssql = "CREATE PROCEDURE dbo.Board_NoMetadataMatch\r\nAS\r\nBEGIN\r\n    SELECT BoardNo FROM Board_Contents\r\nEND";

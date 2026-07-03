@@ -764,11 +764,14 @@ public static class Converter
         if (!resultMetadataCatalog.TryGetValue(pgName, out var routine)) return null;
 
         var colDefs = new List<string>();
+        var seenNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var col in routine.Columns.OrderBy(c => c.Ordinal))
         {
             if (string.IsNullOrWhiteSpace(col.Name) || col.PostgreSqlType == null)
                 return null; // incomplete metadata — do not guess, leave SETOF record
-            colDefs.Add($"{col.Name.ToLower()} {col.PostgreSqlType}");
+            if (!seenNames.Add(col.Name))
+                return null; // duplicate result column name — RETURNS TABLE requires unique columns
+            colDefs.Add($"{QuoteIfReserved(col.Name.ToLower())} {col.PostgreSqlType}");
         }
         return colDefs.Count > 0 ? string.Join(",\n    ", colDefs) : null;
     }
