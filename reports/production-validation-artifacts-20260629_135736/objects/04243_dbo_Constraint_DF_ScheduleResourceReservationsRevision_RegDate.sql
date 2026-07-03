@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleResourceReservationsRevision.DF_ScheduleResourceReservationsRevision_RegDate
--- -- Source table: [dbo].[ScheduleResourceReservationsRevision]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

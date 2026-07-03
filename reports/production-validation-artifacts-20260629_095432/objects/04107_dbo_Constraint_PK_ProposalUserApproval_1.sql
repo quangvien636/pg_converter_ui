@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ProposalUserApproval.PK_ProposalUserApproval_1
--- RAW:
--- Source table: [dbo].[ProposalUserApproval]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

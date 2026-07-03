@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleUserGoogleTokens.UC_UNo
--- RAW:
--- Source table: [dbo].[ScheduleUserGoogleTokens]
--- Constraint type: UNIQUE_CONSTRAINT

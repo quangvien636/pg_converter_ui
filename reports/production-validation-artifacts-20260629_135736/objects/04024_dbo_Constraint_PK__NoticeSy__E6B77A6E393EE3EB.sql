@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticeSyn_AuthoGroup.PK__NoticeSy__E6B77A6E393EE3EB
--- -- Source table: [dbo].[NoticeSyn_AuthoGroup]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

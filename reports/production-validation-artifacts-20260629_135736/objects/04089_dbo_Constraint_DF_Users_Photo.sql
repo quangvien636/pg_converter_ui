@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Organization_Users.DF_Users_Photo
--- -- Source table: [dbo].[Organization_Users]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

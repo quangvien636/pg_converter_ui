@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_UserByGroup.PK__Board_Us__AE84E1672F1D4F78
--- -- Source table: [dbo].[Board_UserByGroup]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

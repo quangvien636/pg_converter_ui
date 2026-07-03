@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleCalendarDefaultSharers.DF_ScheduleCalendarDefaultSharers_PositionNo
--- -- Source table: [dbo].[ScheduleCalendarDefaultSharers]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

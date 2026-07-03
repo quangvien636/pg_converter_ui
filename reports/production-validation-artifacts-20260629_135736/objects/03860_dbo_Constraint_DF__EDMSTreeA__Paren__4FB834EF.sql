@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSTreeAuthority.DF__EDMSTreeA__Paren__4FB834EF
--- -- Source table: [dbo].[EDMSTreeAuthority]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

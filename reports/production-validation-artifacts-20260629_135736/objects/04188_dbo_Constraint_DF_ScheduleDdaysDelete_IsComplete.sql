@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleDdaysDelete.DF_ScheduleDdaysDelete_IsComplete
--- -- Source table: [dbo].[ScheduleDdaysDelete]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('N')

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPForm.DF__EAPPForm__IsHotN__00590A45
--- -- Source table: [dbo].[EAPPForm]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('0')

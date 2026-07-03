@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_AlarmSetting.PK__WorkingT__3214EC0767BAA709
--- -- Source table: [dbo].[WorkingTime_AlarmSetting]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

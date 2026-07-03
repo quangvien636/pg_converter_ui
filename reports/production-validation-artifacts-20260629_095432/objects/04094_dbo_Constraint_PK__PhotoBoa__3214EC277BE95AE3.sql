@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.PhotoBoard.PK__PhotoBoa__3214EC277BE95AE3
--- RAW:
--- Source table: [dbo].[PhotoBoard]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

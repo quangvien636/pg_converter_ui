@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_Replies.PK_Board_Replys
--- -- Source table: [dbo].[Board_Replies]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

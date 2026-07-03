@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleDdayGroups.PK_ScheduleDdayGroups
--- -- Source table: [dbo].[ScheduleDdayGroups]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

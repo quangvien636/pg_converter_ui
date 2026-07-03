@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_ViewedLog.PK_Dake_ViewedLog
--- -- Source table: [dbo].[DMake_ViewedLog]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

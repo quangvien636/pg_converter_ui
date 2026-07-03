@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Note_Attachment.PK_Note_AttachmentNo
--- -- Source table: [dbo].[Note_Attachment]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Organization_Users.DF__Users__Extension__210D9095
--- -- Source table: [dbo].[Organization_Users]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

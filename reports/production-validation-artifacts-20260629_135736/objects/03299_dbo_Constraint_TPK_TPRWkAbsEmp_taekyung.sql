@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo._TPRWkAbsEmp_taekyung.TPK_TPRWkAbsEmp_taekyung
--- -- Source table: [dbo].[_TPRWkAbsEmp_taekyung]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

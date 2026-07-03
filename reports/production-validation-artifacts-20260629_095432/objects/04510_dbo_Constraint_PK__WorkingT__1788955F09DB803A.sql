@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WorkingTimeV3_Permisions.PK__WorkingT__1788955F09DB803A
--- RAW:
--- Source table: [dbo].[WorkingTimeV3_Permisions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

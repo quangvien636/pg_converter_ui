@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPReceiveSendMail.DF__EAPPRecei__SendS__07FA2C0D
--- -- Source table: [dbo].[EAPPReceiveSendMail]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('0')

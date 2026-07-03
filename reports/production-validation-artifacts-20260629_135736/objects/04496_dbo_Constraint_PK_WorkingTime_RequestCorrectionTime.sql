@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_RequestCorrectionTime.PK_WorkingTime_RequestCorrectionTime
--- -- Source table: [dbo].[WorkingTime_RequestCorrectionTime]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

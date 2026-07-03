@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_AllowDevices.DF_WorkingTime_AllowDevices_RegDate
--- -- Source table: [dbo].[WorkingTime_AllowDevices]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPRefDoc_Temp.PK__EAPPRefD__3214EC2753E7ED2F
--- RAW:
--- Source table: [dbo].[EAPPRefDoc_Temp]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

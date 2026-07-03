@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SourceControl_DatabaseHistory.DF_SourceControl_DatabaseHistory_IsLastVersion
--- -- Source table: [dbo].[SourceControl_DatabaseHistory]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EDMSReceive.PK_EDMSReceive
--- RAW:
--- Source table: [dbo].[EDMSReceive]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SurveyPollEtcComments.PK_SurveyPollEtcComments
--- RAW:
--- Source table: [dbo].[SurveyPollEtcComments]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

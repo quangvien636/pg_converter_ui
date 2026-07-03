@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.hfconvdata.pk_hfconvdata
--- RAW:
--- Source table: [dbo].[hfconvdata]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

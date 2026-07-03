@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.BIZ_MSG.DF__BIZ_MSG__USE_TIM__171FA168
--- -- Source table: [dbo].[BIZ_MSG]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

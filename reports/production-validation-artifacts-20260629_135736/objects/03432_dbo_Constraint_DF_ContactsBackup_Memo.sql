@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ContactsBackup.DF_ContactsBackup_Memo
--- -- Source table: [dbo].[ContactsBackup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

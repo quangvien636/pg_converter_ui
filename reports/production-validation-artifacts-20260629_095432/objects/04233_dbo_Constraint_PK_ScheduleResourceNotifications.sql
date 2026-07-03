@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleResourceNotifications.PK_ScheduleResourceNotifications
--- RAW:
--- Source table: [dbo].[ScheduleResourceNotifications]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

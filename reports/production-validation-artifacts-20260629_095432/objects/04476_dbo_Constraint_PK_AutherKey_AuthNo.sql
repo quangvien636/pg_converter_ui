@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_AutherKey.PK_AutherKey_AuthNo
--- RAW:
--- Source table: [dbo].[WorkingTime_AutherKey]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

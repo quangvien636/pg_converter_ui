@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPErpSubData.DF__EAPPErpSu__SlipA__75DB7BD2
--- -- Source table: [dbo].[EAPPErpSubData]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

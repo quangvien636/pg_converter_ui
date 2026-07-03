@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.HNEWReference.PK_HNEWReference
--- RAW:
--- Source table: [dbo].[HNEWReference]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

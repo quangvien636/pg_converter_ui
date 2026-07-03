@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Mail_SharedAccounts.DF__Mail_Shar__Depar__4CDC939B
--- -- Source table: [dbo].[Mail_SharedAccounts]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Mail_MailThreads.PK_Mail_MailThreads
--- RAW:
--- Source table: [dbo].[Mail_MailThreads]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleGoogleAppConfigs.UQ__Schedule__A89A7DB27792B2CD
--- RAW:
--- Source table: [dbo].[ScheduleGoogleAppConfigs]
--- Constraint type: UNIQUE_CONSTRAINT

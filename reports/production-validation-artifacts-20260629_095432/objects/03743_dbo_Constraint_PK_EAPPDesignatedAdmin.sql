@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDesignatedAdmin.PK_EAPPDesignatedAdmin
--- RAW:
--- Source table: [dbo].[EAPPDesignatedAdmin]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

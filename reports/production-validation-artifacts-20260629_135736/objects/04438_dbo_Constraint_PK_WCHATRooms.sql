@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WCHATRooms.PK_WCHATRooms
--- -- Source table: [dbo].[WCHATRooms]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

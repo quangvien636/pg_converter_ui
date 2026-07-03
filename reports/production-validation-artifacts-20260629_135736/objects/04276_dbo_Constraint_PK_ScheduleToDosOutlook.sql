@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleToDosOutlook.PK_ScheduleToDosOutlook
--- -- Source table: [dbo].[ScheduleToDosOutlook]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

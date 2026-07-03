@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.TimeLine_Main.PK_TimeLine_Main
--- -- Source table: [dbo].[TimeLine_Main]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

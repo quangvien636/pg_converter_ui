@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPCostMaster.PK__EAPPCost__3214EC2766CE426C
--- RAW:
--- Source table: [dbo].[EAPPCostMaster]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

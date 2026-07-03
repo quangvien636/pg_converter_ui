@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Drive_Files.PK_Drive_Files
--- -- Source table: [dbo].[Drive_Files]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

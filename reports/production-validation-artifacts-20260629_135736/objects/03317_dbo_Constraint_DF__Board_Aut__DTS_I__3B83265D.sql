@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_AuthoGroup.DF__Board_Aut__DTS_I__3B83265D
--- -- Source table: [dbo].[Board_AuthoGroup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ContactsHomepage.DF_ContactsHomepage_ModDate
--- -- Source table: [dbo].[ContactsHomepage]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

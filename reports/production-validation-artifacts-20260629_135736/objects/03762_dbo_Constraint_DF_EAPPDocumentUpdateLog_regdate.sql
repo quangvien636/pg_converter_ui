@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPDocumentUpdateLog.DF_EAPPDocumentUpdateLog_regdate
--- -- Source table: [dbo].[EAPPDocumentUpdateLog]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

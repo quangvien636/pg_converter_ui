@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo._TCOMCalendarHoliday.TPK_TCOMCalendarHoliday
--- -- Source table: [dbo].[_TCOMCalendarHoliday]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

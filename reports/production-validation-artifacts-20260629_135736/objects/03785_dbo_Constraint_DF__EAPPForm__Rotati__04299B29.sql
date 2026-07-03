@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPForm.DF__EAPPForm__Rotati__04299B29
--- -- Source table: [dbo].[EAPPForm]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((10))

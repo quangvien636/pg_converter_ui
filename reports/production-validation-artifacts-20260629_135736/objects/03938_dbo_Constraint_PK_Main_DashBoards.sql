@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Main_DashBoards.PK_Main_DashBoards
--- -- Source table: [dbo].[Main_DashBoards]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

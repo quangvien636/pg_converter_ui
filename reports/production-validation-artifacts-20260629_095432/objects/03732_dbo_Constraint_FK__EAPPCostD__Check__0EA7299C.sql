@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPCostDetail.FK__EAPPCostD__Check__0EA7299C
--- RAW:
--- Source table: [dbo].[EAPPCostDetail]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPPathDetail.PK_EAPPLineDetail
--- RAW:
--- Source table: [dbo].[EAPPPathDetail]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

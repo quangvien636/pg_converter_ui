@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WFAXSend.PK__WFAXSend
--- RAW:
--- Source table: [dbo].[WFAXSend]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DDay_Managers.PK_DDay_Managers
--- -- Source table: [dbo].[DDay_Managers]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

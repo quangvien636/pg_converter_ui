@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SnsAttachs.PK_SnsAttachs
--- -- Source table: [dbo].[SnsAttachs]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

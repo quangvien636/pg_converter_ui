@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Leave_Options.PK_Leave_Options
--- RAW:
--- Source table: [dbo].[Leave_Options]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPErpUpdate.PK__EAPPErpU__BC3F5A5913A0E8E3
--- -- Source table: [dbo].[EAPPErpUpdate]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

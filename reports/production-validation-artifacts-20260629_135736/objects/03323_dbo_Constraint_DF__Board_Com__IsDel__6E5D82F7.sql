@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_CommentSetting.DF__Board_Com__IsDel__6E5D82F7
--- -- Source table: [dbo].[Board_CommentSetting]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('FALSE')

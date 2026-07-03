@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SurveyPollEtcComments.DF_SurveyPollEtcComments_RegDate
--- -- Source table: [dbo].[SurveyPollEtcComments]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

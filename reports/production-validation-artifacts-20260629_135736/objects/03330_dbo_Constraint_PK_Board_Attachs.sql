@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_Files.PK_Board_Attachs
--- -- Source table: [dbo].[Board_Files]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

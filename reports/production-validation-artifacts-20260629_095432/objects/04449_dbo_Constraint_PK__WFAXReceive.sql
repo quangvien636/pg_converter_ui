@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WFAXReceive.PK__WFAXReceive
--- RAW:
--- Source table: [dbo].[WFAXReceive]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

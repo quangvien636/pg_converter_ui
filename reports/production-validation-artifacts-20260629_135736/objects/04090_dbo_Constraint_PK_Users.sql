@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Organization_Users.PK_Users
--- -- Source table: [dbo].[Organization_Users]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

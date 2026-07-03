@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.QuickLink.DF_QuickLink_IsActive
--- -- Source table: [dbo].[QuickLink]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

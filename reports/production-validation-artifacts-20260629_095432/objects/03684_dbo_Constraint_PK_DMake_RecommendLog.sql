@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DMake_RecommendLog.PK_DMake_RecommendLog
--- RAW:
--- Source table: [dbo].[DMake_RecommendLog]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

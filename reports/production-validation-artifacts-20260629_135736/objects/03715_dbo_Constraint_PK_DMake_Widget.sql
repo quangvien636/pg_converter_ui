@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Widget.PK_DMake_Widget
--- -- Source table: [dbo].[DMake_Widget]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

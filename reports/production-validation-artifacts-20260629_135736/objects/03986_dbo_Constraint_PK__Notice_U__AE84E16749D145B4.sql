@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Notice_UserByGroup.PK__Notice_U__AE84E16749D145B4
--- -- Source table: [dbo].[Notice_UserByGroup]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

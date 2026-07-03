@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleCalendarSetup.DF_ScheduleCalendarSetup_DivisionUseYN
--- -- Source table: [dbo].[ScheduleCalendarSetup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('Y')

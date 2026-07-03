@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleUserGoogleTokens.DF__ScheduleU__LastU__115284D0
--- -- Source table: [dbo].[ScheduleUserGoogleTokens]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

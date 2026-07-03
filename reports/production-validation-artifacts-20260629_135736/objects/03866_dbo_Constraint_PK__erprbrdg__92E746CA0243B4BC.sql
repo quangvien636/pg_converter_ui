@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.erprbrdgmapping.PK__erprbrdg__92E746CA0243B4BC
--- -- Source table: [dbo].[erprbrdgmapping]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

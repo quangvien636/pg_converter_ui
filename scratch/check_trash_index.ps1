@@ -1,6 +1,0 @@
-$c = [System.IO.File]::ReadAllText('E:\pg_converter_ui\reports\contact_failing_sql\Contacts_GetContactsTrashList.sql')
-Write-Output ("Length: " + $c.Length)
-Write-Output ("Chars around 57068:")
-$start = [Math]::Max(0, 57068 - 30)
-$len = [Math]::Min($c.Length - $start, 60)
-Write-Output $c.Substring($start, $len)

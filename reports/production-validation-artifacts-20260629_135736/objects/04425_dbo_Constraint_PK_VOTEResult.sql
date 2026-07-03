@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.VOTEResult.PK_VOTEResult
--- -- Source table: [dbo].[VOTEResult]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

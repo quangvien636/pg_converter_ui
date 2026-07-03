@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WFAXBox.PK__WFAXBox__CCC9521C78BB15D9
--- RAW:
--- Source table: [dbo].[WFAXBox]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

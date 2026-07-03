@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.VOTEAuthority.DF__VOTEAutho__Depar__46EEB01B
--- -- Source table: [dbo].[VOTEAuthority]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

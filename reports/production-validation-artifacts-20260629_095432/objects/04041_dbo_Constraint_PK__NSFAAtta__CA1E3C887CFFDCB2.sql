@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NSFAAttached.PK__NSFAAtta__CA1E3C887CFFDCB2
--- RAW:
--- Source table: [dbo].[NSFAAttached]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Files.DF_DMake_Files_ContentNo
--- -- Source table: [dbo].[DMake_Files]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

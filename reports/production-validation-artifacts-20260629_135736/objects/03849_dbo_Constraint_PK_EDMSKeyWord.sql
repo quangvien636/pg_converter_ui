@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSKeyWord.PK_EDMSKeyWord
--- -- Source table: [dbo].[EDMSKeyWord]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

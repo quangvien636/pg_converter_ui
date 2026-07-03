@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.hfsmsdata.df_hfsmsdata_intfiles
--- -- Source table: [dbo].[hfsmsdata]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

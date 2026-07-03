@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Notice_UserPermission.PK__Notice_U__A90F88B2423E3E40
--- RAW:
--- Source table: [dbo].[Notice_UserPermission]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

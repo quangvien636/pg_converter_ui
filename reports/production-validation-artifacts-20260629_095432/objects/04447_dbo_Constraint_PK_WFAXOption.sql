@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WFAXOption.PK_WFAXOption
--- RAW:
--- Source table: [dbo].[WFAXOption]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

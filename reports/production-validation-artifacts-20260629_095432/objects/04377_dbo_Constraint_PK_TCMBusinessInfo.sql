@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.TCMBusinessInfo.PK_TCMBusinessInfo
--- RAW:
--- Source table: [dbo].[TCMBusinessInfo]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

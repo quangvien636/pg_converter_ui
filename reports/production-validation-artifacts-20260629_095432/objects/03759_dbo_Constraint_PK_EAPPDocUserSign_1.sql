@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDocUserSign.PK_EAPPDocUserSign_1
--- RAW:
--- Source table: [dbo].[EAPPDocUserSign]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

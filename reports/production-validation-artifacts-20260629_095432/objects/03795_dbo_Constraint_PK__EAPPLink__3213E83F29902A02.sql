@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPLinkScript.PK__EAPPLink__3213E83F29902A02
--- RAW:
--- Source table: [dbo].[EAPPLinkScript]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

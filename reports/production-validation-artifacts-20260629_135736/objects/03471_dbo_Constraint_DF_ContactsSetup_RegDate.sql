@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ContactsSetup.DF_ContactsSetup_RegDate
--- -- Source table: [dbo].[ContactsSetup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

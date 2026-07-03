@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.TCMCommonCode.PK_TCMCommonCode
--- RAW:
--- Source table: [dbo].[TCMCommonCode]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

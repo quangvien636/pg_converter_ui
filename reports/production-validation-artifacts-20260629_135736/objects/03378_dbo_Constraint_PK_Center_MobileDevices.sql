@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_MobileDevices.PK_Center_MobileDevices
--- -- Source table: [dbo].[Center_MobileDevices]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

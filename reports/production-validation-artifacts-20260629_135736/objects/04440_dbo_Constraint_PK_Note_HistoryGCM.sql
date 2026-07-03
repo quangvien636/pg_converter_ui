@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WebService_HistoryGCM.PK_Note_HistoryGCM
--- -- Source table: [dbo].[WebService_HistoryGCM]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

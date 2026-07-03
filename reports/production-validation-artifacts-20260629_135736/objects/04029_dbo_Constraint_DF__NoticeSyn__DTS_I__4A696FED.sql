@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticeSyn_Menu.DF__NoticeSyn__DTS_I__4A696FED
--- -- Source table: [dbo].[NoticeSyn_Menu]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

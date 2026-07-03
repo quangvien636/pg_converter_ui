@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DMake_InitForm.PK_DMake_InitForm
--- RAW:
--- Source table: [dbo].[DMake_InitForm]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

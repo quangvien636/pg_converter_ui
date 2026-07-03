@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SnsAttachs.PK_SnsAttachs
--- RAW:
--- Source table: [dbo].[SnsAttachs]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

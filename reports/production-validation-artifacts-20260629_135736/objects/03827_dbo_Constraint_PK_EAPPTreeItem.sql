@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPTreeItem.PK_EAPPTreeItem
--- -- Source table: [dbo].[EAPPTreeItem]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

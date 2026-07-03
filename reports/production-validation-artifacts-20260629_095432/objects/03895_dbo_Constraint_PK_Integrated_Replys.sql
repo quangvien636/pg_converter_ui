@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Integrated_Replies.PK_Integrated_Replys
--- RAW:
--- Source table: [dbo].[Integrated_Replies]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

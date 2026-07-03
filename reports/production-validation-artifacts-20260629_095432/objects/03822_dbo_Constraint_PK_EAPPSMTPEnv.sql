@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPSMTPEnv.PK_EAPPSMTPEnv
--- RAW:
--- Source table: [dbo].[EAPPSMTPEnv]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

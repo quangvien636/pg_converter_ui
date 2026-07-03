@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSTreeAuthority.PK_EDMSTreeAuthority
--- -- Source table: [dbo].[EDMSTreeAuthority]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

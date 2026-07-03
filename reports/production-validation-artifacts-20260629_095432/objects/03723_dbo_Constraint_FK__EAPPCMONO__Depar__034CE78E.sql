@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPCMONOrgan.FK__EAPPCMONO__Depar__034CE78E
--- RAW:
--- Source table: [dbo].[EAPPCMONOrgan]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

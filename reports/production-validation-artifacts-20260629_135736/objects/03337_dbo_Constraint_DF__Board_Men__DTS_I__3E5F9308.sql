@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_Menu.DF__Board_Men__DTS_I__3E5F9308
--- -- Source table: [dbo].[Board_Menu]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

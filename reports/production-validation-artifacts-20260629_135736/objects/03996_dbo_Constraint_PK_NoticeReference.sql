@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticeReference.PK_NoticeReference
--- -- Source table: [dbo].[NoticeReference]
--- -- Constraint type: UNIQUE_CONSTRAINT
---

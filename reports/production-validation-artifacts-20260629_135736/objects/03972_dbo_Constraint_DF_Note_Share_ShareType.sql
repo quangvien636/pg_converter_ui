@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Note_Share.DF_Note_Share_ShareType
--- -- Source table: [dbo].[Note_Share]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((2))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleDdaysTag.PK_ScheduleDdaysTag
--- -- Source table: [dbo].[ScheduleDdaysTag]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

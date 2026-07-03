@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.TCMContractInfo.DF_TCMContractInfo_RegDate
--- -- Source table: [dbo].[TCMContractInfo]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPCPDraftLink.PK__EAPPCPDr__3213E83F6A9ED350
--- RAW:
--- Source table: [dbo].[EAPPCPDraftLink]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

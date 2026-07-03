@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Note_Attachment.DF_Note_Attachment_AttachTimeZone
--- -- Source table: [dbo].[Note_Attachment]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

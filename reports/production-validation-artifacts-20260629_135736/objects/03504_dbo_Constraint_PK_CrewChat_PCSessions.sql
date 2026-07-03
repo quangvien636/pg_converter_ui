@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.CrewChat_PCSessions.PK_CrewChat_PCSessions
--- -- Source table: [dbo].[CrewChat_PCSessions]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

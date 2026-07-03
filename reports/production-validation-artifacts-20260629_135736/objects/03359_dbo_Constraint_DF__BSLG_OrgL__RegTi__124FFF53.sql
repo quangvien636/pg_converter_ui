@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.BSLG_OrgLogMonth.DF__BSLG_OrgL__RegTi__124FFF53
--- -- Source table: [dbo].[BSLG_OrgLogMonth]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

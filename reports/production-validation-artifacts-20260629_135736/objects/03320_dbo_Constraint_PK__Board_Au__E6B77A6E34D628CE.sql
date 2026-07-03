@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_AuthoGroup.PK__Board_Au__E6B77A6E34D628CE
--- -- Source table: [dbo].[Board_AuthoGroup]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

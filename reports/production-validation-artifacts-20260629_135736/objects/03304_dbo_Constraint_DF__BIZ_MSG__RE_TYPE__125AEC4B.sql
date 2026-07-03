@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.BIZ_MSG.DF__BIZ_MSG__RE_TYPE__125AEC4B
--- -- Source table: [dbo].[BIZ_MSG]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('N')

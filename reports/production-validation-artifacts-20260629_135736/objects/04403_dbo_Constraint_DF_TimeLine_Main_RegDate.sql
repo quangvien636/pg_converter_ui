@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.TimeLine_Main.DF_TimeLine_Main_RegDate
--- -- Source table: [dbo].[TimeLine_Main]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

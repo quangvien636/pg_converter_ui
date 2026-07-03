@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTimeV3_Vacations.PK__WorkingT__E420DFE41CEE54AE
--- -- Source table: [dbo].[WorkingTimeV3_Vacations]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

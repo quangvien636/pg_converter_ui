@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPPostMessage.PK_EAPPPostMessage
--- RAW:
--- Source table: [dbo].[EAPPPostMessage]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

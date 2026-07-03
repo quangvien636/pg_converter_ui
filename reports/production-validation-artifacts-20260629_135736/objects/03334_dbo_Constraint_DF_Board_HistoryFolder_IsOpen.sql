@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_HistoryFolder.DF_Board_HistoryFolder_IsOpen
--- -- Source table: [dbo].[Board_HistoryFolder]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

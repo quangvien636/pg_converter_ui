@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleGoogleAppConfigs.DF__ScheduleG__Creat__797AFB3F
--- -- Source table: [dbo].[ScheduleGoogleAppConfigs]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

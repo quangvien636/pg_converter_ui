@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Mail_MailReceivedStatistics.PK_Mail_MailReceivedStatistics
--- RAW:
--- Source table: [dbo].[Mail_MailReceivedStatistics]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

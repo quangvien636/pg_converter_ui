@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SurveyDetail.PK_SurveyDetail_1
--- -- Source table: [dbo].[SurveyDetail]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

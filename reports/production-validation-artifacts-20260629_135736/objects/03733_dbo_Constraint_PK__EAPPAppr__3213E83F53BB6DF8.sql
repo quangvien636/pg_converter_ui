@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPApprovalExtend.PK__EAPPAppr__3213E83F53BB6DF8
--- -- Source table: [dbo].[EAPPApprovalExtend]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

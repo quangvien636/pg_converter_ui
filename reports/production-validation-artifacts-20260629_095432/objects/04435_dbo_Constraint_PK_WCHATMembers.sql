@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WCHATMembers.PK_WCHATMembers
--- RAW:
--- Source table: [dbo].[WCHATMembers]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

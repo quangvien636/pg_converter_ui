@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.VOTEMaster.DF__VOTEMaste__RegDa__0F88A141
--- -- Source table: [dbo].[VOTEMaster]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

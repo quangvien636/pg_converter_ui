@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPMigrationDataKey.PK__EAPPMigr__3213E83F31314BCA
--- RAW:
--- Source table: [dbo].[EAPPMigrationDataKey]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

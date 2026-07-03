@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Notice_UserByGroup.DF__Notice_Us__DTS_I__5172677C
--- -- Source table: [dbo].[Notice_UserByGroup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

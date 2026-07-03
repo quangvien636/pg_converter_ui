@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Note_GroupNoteUser.PK_Note_GroupNoteUser
--- -- Source table: [dbo].[Note_GroupNoteUser]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSDocSubInfo.PK__EDMSDocS__3213E83F6BE7FD44
--- -- Source table: [dbo].[EDMSDocSubInfo]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

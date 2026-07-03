@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Commute_Times.PK_Commute_Times
--- RAW:
--- Source table: [dbo].[Commute_Times]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

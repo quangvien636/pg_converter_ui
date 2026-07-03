@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPDocumentSubData.PK__EAPPDocu__3213E83F7F99F036
--- -- Source table: [dbo].[EAPPDocumentSubData]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

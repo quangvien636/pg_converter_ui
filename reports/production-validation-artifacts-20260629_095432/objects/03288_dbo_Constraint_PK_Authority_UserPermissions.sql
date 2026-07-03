@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Authority_SitePermissions.PK_Authority_UserPermissions
--- RAW:
--- Source table: [dbo].[Authority_SitePermissions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

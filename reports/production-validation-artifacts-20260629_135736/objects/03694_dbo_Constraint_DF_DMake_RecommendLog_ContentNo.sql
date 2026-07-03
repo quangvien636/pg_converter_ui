@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_RecommendLog.DF_DMake_RecommendLog_ContentNo
--- -- Source table: [dbo].[DMake_RecommendLog]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

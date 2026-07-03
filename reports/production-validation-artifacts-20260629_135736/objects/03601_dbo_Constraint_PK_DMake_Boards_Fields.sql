@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Boards_Fields.PK_DMake_Boards_Fields
--- -- Source table: [dbo].[DMake_Boards_Fields]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

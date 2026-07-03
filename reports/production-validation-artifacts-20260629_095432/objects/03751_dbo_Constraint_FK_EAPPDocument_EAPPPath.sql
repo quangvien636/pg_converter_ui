@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDocument.FK_EAPPDocument_EAPPPath
--- RAW:
--- Source table: [dbo].[EAPPDocument]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

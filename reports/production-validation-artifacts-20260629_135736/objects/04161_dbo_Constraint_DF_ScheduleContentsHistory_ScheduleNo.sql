@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleContentsHistory.DF_ScheduleContentsHistory_ScheduleNo
--- -- Source table: [dbo].[ScheduleContentsHistory]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

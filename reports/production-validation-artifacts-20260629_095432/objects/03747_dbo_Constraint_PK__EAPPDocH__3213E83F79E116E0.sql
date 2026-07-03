@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDocHistory.PK__EAPPDocH__3213E83F79E116E0
--- RAW:
--- Source table: [dbo].[EAPPDocHistory]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

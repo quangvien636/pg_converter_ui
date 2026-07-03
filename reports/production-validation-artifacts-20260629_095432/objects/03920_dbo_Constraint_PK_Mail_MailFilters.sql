@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Mail_MailFilters.PK_Mail_MailFilters
--- RAW:
--- Source table: [dbo].[Mail_MailFilters]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Mail_Mails.PK_Mail_Mails
--- -- Source table: [dbo].[Mail_Mails]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

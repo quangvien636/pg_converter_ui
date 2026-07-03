@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPSearchPeriod.PK__EAPPSear__CBA1B2575662D079
--- -- Source table: [dbo].[EAPPSearchPeriod]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

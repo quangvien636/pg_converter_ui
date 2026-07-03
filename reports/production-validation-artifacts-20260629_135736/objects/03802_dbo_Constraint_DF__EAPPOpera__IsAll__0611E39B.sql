@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPOperation.DF__EAPPOpera__IsAll__0611E39B
--- -- Source table: [dbo].[EAPPOperation]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

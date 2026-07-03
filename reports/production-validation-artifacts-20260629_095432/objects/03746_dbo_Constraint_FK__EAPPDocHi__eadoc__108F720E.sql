@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDocHistory.FK__EAPPDocHi__eadoc__108F720E
--- RAW:
--- Source table: [dbo].[EAPPDocHistory]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

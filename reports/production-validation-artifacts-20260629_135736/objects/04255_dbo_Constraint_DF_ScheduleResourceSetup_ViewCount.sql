@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleResourceSetup.DF_ScheduleResourceSetup_ViewCount
--- -- Source table: [dbo].[ScheduleResourceSetup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

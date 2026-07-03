@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ProposalCommonCode.PK_ProposalCommonCode
--- -- Source table: [dbo].[ProposalCommonCode]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

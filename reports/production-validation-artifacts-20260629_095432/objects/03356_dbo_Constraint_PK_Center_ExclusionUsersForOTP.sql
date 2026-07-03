@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Center_ExclusionUsersForOTP.PK_Center_ExclusionUsersForOTP
--- RAW:
--- Source table: [dbo].[Center_ExclusionUsersForOTP]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

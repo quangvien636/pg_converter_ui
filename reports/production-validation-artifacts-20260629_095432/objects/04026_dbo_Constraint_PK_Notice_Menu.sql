@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NoticeSyn_Divisions.PK_Notice_Menu
--- RAW:
--- Source table: [dbo].[NoticeSyn_Divisions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

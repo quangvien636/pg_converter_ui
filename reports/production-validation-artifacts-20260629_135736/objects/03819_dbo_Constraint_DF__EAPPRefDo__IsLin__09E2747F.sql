@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPRefDoc.DF__EAPPRefDo__IsLin__09E2747F
--- -- Source table: [dbo].[EAPPRefDoc]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

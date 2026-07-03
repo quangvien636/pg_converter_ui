@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_AccessLogs.DF_AccessLog_AccDate
--- -- Source table: [dbo].[Center_AccessLogs]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

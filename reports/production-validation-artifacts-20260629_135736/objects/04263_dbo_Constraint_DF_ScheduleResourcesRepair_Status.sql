@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleResourcesRepair.DF_ScheduleResourcesRepair_Status
--- -- Source table: [dbo].[ScheduleResourcesRepair]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('R')

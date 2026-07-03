@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPCertificate.PK_EAPPCertificate
--- -- Source table: [dbo].[EAPPCertificate]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

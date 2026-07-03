@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.BSLG_WLog.PK_BSLGWLog
--- RAW:
--- Source table: [dbo].[BSLG_WLog]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

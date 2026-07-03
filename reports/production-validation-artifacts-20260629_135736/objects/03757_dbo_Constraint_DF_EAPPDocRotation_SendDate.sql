@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPDocRotation.DF_EAPPDocRotation_SendDate
--- -- Source table: [dbo].[EAPPDocRotation]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

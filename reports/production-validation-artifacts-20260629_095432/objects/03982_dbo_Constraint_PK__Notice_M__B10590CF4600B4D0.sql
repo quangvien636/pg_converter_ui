@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Notice_Menu.PK__Notice_M__B10590CF4600B4D0
--- RAW:
--- Source table: [dbo].[Notice_Menu]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

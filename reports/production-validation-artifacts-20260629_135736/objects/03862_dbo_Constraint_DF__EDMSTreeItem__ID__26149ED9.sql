@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSTreeItem.DF__EDMSTreeItem__ID__26149ED9
--- -- Source table: [dbo].[EDMSTreeItem]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('-1')

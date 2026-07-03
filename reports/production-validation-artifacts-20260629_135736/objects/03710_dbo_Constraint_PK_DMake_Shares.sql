@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Shares.PK_DMake_Shares
--- -- Source table: [dbo].[DMake_Shares]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

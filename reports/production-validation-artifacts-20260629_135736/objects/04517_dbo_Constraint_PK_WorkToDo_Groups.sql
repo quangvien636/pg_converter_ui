@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkToDo_Groups.PK_WorkToDo_Groups
--- -- Source table: [dbo].[WorkToDo_Groups]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

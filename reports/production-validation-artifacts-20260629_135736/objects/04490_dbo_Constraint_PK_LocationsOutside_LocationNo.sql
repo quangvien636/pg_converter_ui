@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_LocationsOutside.PK_LocationsOutside_LocationNo
--- -- Source table: [dbo].[WorkingTime_LocationsOutside]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

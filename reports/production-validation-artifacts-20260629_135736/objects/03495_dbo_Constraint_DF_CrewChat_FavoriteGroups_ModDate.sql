@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.CrewChat_FavoriteGroups.DF_CrewChat_FavoriteGroups_ModDate
--- -- Source table: [dbo].[CrewChat_FavoriteGroups]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

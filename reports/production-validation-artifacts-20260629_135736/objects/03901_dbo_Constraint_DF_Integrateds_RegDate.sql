@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Integrateds.DF_Integrateds_RegDate
--- -- Source table: [dbo].[Integrateds]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

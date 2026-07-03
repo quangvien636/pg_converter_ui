@@ -17,5 +17,31 @@ publish/
 # Test runner temp
 *.tmp
 
-# Generated SQL Server result metadata may contain private schema details.
+# -----------------------------------------------------------------
+# Security: never track credentials or generated customer artifacts
+# -----------------------------------------------------------------
+
+# Scratch / development / one-off scripts (may contain connection strings)
+scratch/
+
+# Log files (runtime output, psql logs, deploy logs)
+*.log
+
+# Production validation artifact dumps (contain customer schema objects)
+reports/production-validation-artifacts-*/
+
+# Runtime execution log subdirectory
+reports/runtime-logs/
+
+# Schema snapshots (customer DDL / table definitions)
+reports/schema_snapshots/
+
+# Generated SQL Server result metadata (private column names and types)
 reports/generated/sqlserver_result_metadata*.json
+
+# Environment / local-override files
+*.env
+*.env.local
+*.local
+*.keyfile
+*.keyfiles

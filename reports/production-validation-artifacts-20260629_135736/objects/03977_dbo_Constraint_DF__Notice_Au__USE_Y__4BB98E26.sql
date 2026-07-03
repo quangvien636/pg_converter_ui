@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Notice_AuthoGroup.DF__Notice_Au__USE_Y__4BB98E26
--- -- Source table: [dbo].[Notice_AuthoGroup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('Y')

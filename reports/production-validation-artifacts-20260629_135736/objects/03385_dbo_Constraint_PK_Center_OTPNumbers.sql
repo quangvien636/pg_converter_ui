@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_OTPNumbers.PK_Center_OTPNumbers
--- -- Source table: [dbo].[Center_OTPNumbers]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

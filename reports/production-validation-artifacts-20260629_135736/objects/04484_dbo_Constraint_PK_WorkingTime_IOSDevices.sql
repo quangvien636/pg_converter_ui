@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_IOSDevices.PK_WorkingTime_IOSDevices
--- -- Source table: [dbo].[WorkingTime_IOSDevices]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

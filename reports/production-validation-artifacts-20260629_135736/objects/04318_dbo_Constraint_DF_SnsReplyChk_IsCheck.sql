@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SnsReplyChk.DF_SnsReplyChk_IsCheck
--- -- Source table: [dbo].[SnsReplyChk]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

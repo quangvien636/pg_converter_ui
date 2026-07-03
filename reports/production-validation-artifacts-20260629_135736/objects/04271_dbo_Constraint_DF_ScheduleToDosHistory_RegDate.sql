@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleToDosHistory.DF_ScheduleToDosHistory_RegDate
--- -- Source table: [dbo].[ScheduleToDosHistory]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

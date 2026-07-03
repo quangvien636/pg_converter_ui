@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPOpinionFile.DF__EAPPOpini__regda__070607D4
--- -- Source table: [dbo].[EAPPOpinionFile]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

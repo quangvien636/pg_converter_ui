@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Organization_BelongToDepartment.PK_Organization_BelongToDepartment
--- -- Source table: [dbo].[Organization_BelongToDepartment]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

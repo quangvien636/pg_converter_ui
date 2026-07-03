@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Drive_Folders.PK_Drive_Folders
--- RAW:
--- Source table: [dbo].[Drive_Folders]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

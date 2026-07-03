@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPCostCheck.DF__EAPPCostC__Depar__6C521198
--- -- Source table: [dbo].[EAPPCostCheck]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

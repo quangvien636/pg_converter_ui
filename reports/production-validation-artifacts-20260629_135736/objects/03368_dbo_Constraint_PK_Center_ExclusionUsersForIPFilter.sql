@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_ExclusionUsersForIPFilter.PK_Center_ExclusionUsersForIPFilter
--- -- Source table: [dbo].[Center_ExclusionUsersForIPFilter]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

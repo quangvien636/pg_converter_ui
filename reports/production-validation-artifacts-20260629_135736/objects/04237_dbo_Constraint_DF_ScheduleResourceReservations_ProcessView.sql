@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleResourceReservations.DF_ScheduleResourceReservations_ProcessView
--- -- Source table: [dbo].[ScheduleResourceReservations]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPP_IOSDevices.PK_EAPP_IOSDevices
--- -- Source table: [dbo].[EAPP_IOSDevices]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

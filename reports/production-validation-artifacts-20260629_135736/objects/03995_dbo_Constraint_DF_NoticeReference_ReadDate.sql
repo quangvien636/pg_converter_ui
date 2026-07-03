@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticeReference.DF_NoticeReference_ReadDate
--- -- Source table: [dbo].[NoticeReference]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

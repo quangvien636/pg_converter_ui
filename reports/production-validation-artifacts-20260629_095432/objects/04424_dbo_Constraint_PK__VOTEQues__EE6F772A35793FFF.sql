@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.VOTEQuestionnaire.PK__VOTEQues__EE6F772A35793FFF
--- RAW:
--- Source table: [dbo].[VOTEQuestionnaire]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

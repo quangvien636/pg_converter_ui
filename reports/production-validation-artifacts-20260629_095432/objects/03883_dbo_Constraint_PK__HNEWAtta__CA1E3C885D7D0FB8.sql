@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.HNEWAttached.PK__HNEWAtta__CA1E3C885D7D0FB8
--- RAW:
--- Source table: [dbo].[HNEWAttached]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

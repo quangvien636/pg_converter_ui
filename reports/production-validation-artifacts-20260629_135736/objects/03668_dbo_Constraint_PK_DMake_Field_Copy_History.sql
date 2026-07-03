@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Field_Copy_History.PK_DMake_Field_Copy_History
--- -- Source table: [dbo].[DMake_Field_Copy_History]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

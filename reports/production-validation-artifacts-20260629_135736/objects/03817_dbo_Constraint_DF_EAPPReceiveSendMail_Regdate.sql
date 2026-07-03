@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPReceiveSendMail.DF_EAPPReceiveSendMail_Regdate
--- -- Source table: [dbo].[EAPPReceiveSendMail]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

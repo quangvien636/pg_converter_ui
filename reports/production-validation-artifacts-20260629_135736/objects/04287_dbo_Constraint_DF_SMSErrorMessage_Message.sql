@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SMSErrorMessage.DF_SMSErrorMessage_Message
--- -- Source table: [dbo].[SMSErrorMessage]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

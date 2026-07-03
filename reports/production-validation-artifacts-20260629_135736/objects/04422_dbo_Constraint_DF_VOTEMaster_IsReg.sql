@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.VOTEMaster.DF_VOTEMaster_IsReg
--- -- Source table: [dbo].[VOTEMaster]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

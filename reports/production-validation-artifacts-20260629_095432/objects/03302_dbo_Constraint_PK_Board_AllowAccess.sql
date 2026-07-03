@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Board_AllowAccess.PK_Board_AllowAccess
--- RAW:
--- Source table: [dbo].[Board_AllowAccess]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

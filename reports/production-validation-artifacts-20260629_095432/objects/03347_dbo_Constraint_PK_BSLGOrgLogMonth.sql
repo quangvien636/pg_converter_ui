@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.BSLG_OrgLogMonth.PK_BSLGOrgLogMonth
--- RAW:
--- Source table: [dbo].[BSLG_OrgLogMonth]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

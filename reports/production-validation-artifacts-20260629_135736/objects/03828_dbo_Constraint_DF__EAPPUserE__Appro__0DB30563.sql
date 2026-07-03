@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPUserEnv.DF__EAPPUserE__Appro__0DB30563
--- -- Source table: [dbo].[EAPPUserEnv]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('0')

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPForm.DF_CODE
--- -- Source table: [dbo].[EAPPForm]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

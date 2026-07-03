@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPATTEApprovalLog.PK__EAPPATTE__3213E83F578BFEDC
--- RAW:
--- Source table: [dbo].[EAPPATTEApprovalLog]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ProposalCommonClass.DF_ProposalCommonClass_RegDate
--- -- Source table: [dbo].[ProposalCommonClass]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Notice_AuthoGroup.PK__Notice_A__E6B77A6E423023EC
--- RAW:
--- Source table: [dbo].[Notice_AuthoGroup]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

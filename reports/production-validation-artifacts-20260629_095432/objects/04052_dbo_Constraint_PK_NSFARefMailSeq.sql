@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NSFARefMail.PK_NSFARefMailSeq
--- RAW:
--- Source table: [dbo].[NSFARefMail]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

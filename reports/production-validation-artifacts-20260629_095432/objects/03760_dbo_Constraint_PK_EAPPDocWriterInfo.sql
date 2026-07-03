@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPDocWriterInfo.PK_EAPPDocWriterInfo
--- RAW:
--- Source table: [dbo].[EAPPDocWriterInfo]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

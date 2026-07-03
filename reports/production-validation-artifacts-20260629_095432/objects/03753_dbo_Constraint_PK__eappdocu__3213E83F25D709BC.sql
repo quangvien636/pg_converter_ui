@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.eappdocument_hiddencontent.PK__eappdocu__3213E83F25D709BC
--- RAW:
--- Source table: [dbo].[eappdocument_hiddencontent]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.hfreceivedata.pk_hfreceivedata
--- -- Source table: [dbo].[hfreceivedata]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

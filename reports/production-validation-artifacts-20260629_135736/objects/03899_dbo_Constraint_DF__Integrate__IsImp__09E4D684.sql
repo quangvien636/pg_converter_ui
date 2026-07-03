@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Integrateds.DF__Integrate__IsImp__09E4D684
--- -- Source table: [dbo].[Integrateds]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('False')

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPDocUserSerial.PK__EAPPDocU__3214EC07082F3637
--- -- Source table: [dbo].[EAPPDocUserSerial]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

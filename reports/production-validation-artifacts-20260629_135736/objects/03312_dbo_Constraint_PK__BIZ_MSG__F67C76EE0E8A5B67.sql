@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.BIZ_MSG.PK__BIZ_MSG__F67C76EE0E8A5B67
--- -- Source table: [dbo].[BIZ_MSG]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

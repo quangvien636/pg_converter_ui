@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SourceControl_ProjectHistory.PK_SourceControl_ProjectHistory
--- RAW:
--- Source table: [dbo].[SourceControl_ProjectHistory]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

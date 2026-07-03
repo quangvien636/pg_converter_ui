@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.TCMUserOptions.DF_TCMUserOptions_IsAllUserSearch
--- -- Source table: [dbo].[TCMUserOptions]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (N'N')

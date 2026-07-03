@@ -1,2 +1,0 @@
--- Could not parse index: <Name of Missing Index, sysname,>
--- RAW: CREATE NONCLUSTERED INDEX [<Name of Missing Index, sysname,>] ON [dbo].[CrewChat_RoomUsers] (UserNo, Closed) INCLUDE (RoomNo, StartMessageNo)

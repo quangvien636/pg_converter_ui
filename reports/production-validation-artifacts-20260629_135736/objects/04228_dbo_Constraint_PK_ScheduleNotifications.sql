@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleNotifications.PK_ScheduleNotifications
--- -- Source table: [dbo].[ScheduleNotifications]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

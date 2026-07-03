@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_ViewedLog.DF_Dake_ViewedLog_ViewedDate
--- -- Source table: [dbo].[DMake_ViewedLog]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

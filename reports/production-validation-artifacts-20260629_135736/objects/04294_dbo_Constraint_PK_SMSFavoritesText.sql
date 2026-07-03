@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SMSFavoritesText.PK_SMSFavoritesText
--- -- Source table: [dbo].[SMSFavoritesText]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

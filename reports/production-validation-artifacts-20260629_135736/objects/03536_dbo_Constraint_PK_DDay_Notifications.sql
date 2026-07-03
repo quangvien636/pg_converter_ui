@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DDay_Notifications.PK_DDay_Notifications
--- -- Source table: [dbo].[DDay_Notifications]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

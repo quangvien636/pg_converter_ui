@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.TCMOptions.PK_TCMOptions
--- RAW:
--- Source table: [dbo].[TCMOptions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

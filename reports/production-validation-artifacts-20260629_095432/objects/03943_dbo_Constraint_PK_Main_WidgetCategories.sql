@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Main_WidgetCategories.PK_Main_WidgetCategories
--- RAW:
--- Source table: [dbo].[Main_WidgetCategories]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

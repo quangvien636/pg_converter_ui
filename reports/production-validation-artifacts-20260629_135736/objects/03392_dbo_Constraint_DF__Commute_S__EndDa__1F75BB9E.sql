@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Commute_Schedule.DF__Commute_S__EndDa__1F75BB9E
--- -- Source table: [dbo].[Commute_Schedule]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (N'')

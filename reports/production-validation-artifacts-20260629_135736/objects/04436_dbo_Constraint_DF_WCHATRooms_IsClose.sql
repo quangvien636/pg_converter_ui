@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WCHATRooms.DF_WCHATRooms_IsClose
--- -- Source table: [dbo].[WCHATRooms]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleViewCalendars.PK_ScheduleUserSettings
--- RAW:
--- Source table: [dbo].[ScheduleViewCalendars]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.hfsenddata.pk_hfsenddata
--- RAW:
--- Source table: [dbo].[hfsenddata]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

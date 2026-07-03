@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.BoardOptions.PK_BoardOptions
--- -- Source table: [dbo].[BoardOptions]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

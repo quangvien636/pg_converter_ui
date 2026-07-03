@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Note_Share.PK_Note_Share
--- RAW:
--- Source table: [dbo].[Note_Share]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

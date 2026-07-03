@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Notices.DF__Notices__isdelet__0A5AA327
--- -- Source table: [dbo].[Notices]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

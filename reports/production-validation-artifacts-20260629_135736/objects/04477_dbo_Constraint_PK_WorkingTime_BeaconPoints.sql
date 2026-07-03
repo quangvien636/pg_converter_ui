@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_BeaconPoints.PK_WorkingTime_BeaconPoints
--- -- Source table: [dbo].[WorkingTime_BeaconPoints]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

@@ -11,11 +11,10 @@ Runtime validation after the approved Runtime Error ID-021/022 fix only.
 ## Test Environment
 
 - Test date: `2026-06-29`
-- Server test host: `221.148.141.4`
+- Server test host: `<redacted>`
 - Port: `5432`
-- Database: `pg_converter_runtime_test`
-- User: `postgres`
-- Connection string: `Host=221.148.141.4;Port=5432;User Id=postgres;Password=***;Database=pg_converter_runtime_test`
+- Database: `<redacted>`
+- User: `<redacted>`
 - `psql` path: `C:\Program Files (x86)\pgAdmin III\1.22\psql.exe`
 - `psql` version: `psql (PostgreSQL) 9.5.5`
 - PostgreSQL server/database version: `PostgreSQL 9.3.17, compiled by Visual C++ build 1600, 64-bit`

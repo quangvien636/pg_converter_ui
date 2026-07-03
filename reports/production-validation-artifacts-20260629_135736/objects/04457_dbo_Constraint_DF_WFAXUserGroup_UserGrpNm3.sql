@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WFAXUserGroup.DF_WFAXUserGroup_UserGrpNm3
--- -- Source table: [dbo].[WFAXUserGroup]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

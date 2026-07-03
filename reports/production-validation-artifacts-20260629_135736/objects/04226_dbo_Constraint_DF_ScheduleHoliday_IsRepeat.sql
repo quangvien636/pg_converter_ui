@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleHoliday.DF_ScheduleHoliday_IsRepeat
--- -- Source table: [dbo].[ScheduleHoliday]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

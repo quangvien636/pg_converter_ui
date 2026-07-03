@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ProposalCommonClass.PK_ProposalCommonClass
--- RAW:
--- Source table: [dbo].[ProposalCommonClass]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SnsGroups.PK_SnsGroups
--- RAW:
--- Source table: [dbo].[SnsGroups]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

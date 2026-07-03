@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleAlarmSetting.PK_ScheduleAlarmSetting
--- RAW:
--- Source table: [dbo].[ScheduleAlarmSetting]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

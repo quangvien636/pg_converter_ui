@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.hfsenddata.df_hfsenddata_intstate
--- -- Source table: [dbo].[hfsenddata]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleCycles.PK__Schedule__076400732AF18FEB
--- RAW:
--- Source table: [dbo].[ScheduleCycles]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_PCSessions.PK_Center_PCSessions
--- -- Source table: [dbo].[Center_PCSessions]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

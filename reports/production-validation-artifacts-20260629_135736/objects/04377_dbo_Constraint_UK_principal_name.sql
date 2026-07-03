@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.sysdiagrams.UK_principal_name
--- -- Source table: [dbo].[sysdiagrams]
--- -- Constraint type: UNIQUE_CONSTRAINT
---

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Center_Configuration.PK_Center_Configuration
--- RAW:
--- Source table: [dbo].[Center_Configuration]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

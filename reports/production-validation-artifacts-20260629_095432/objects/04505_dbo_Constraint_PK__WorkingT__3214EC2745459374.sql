@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_WeekDays.PK__WorkingT__3214EC2745459374
--- RAW:
--- Source table: [dbo].[WorkingTime_WeekDays]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

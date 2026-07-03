@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DDay_CountOfAppBadge.PK_DDay_CountOfAppBadge
--- RAW:
--- Source table: [dbo].[DDay_CountOfAppBadge]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

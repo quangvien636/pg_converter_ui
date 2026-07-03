@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NoticeSyn_UserByGroup.PK__NoticeSy__AE84E167520A91B5
--- RAW:
--- Source table: [dbo].[NoticeSyn_UserByGroup]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

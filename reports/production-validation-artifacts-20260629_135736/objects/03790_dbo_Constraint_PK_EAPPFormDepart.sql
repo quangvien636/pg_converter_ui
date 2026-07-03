@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPFormDepart.PK_EAPPFormDepart
--- -- Source table: [dbo].[EAPPFormDepart]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

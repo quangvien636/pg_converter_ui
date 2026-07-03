@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_Boards.DF__Board_Boa__SpecT__13A34AE8
--- -- Source table: [dbo].[Board_Boards]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

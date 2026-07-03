@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WFAXBoxJoint.PK__WFAXBoxJ__CCC9521C7C8BA6BD
--- -- Source table: [dbo].[WFAXBoxJoint]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SourceControl_Project.PK_SourceControl_Project
--- -- Source table: [dbo].[SourceControl_Project]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

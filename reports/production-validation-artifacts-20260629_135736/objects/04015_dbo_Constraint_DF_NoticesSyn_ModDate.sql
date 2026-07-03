@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticesSyn.DF_NoticesSyn_ModDate
--- -- Source table: [dbo].[NoticesSyn]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Vacation_Setups.PK__Vacation__3214EC072D24BC77
--- -- Source table: [dbo].[Vacation_Setups]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

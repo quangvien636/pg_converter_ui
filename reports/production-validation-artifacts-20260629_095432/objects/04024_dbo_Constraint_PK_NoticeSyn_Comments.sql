@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NoticeSyn_Comments.PK_NoticeSyn_Comments
--- RAW:
--- Source table: [dbo].[NoticeSyn_Comments]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

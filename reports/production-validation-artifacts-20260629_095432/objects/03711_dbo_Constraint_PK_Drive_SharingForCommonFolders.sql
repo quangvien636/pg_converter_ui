@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Drive_SharingForCommonFolders.PK_Drive_SharingForCommonFolders
--- RAW:
--- Source table: [dbo].[Drive_SharingForCommonFolders]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

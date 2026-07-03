@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SMSFavoritesText.DF_SMSFavoritesText_FavType
--- -- Source table: [dbo].[SMSFavoritesText]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (N'U')

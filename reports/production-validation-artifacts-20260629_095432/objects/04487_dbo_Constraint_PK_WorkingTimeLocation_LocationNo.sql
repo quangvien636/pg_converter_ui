@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WorkingTime_Locations.PK_WorkingTimeLocation_LocationNo
--- RAW:
--- Source table: [dbo].[WorkingTime_Locations]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

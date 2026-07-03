@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ProposalCommonCode.DF_ProposalCommonCode_UseYn
--- -- Source table: [dbo].[ProposalCommonCode]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (N'Y')

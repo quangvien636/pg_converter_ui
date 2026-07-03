@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SurveyPoll.PK_SurveyPoll_1
--- RAW:
--- Source table: [dbo].[SurveyPoll]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

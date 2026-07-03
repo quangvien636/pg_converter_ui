@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SourceControl_Project.DF_SourceControl_Project_CreateDate
--- -- Source table: [dbo].[SourceControl_Project]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

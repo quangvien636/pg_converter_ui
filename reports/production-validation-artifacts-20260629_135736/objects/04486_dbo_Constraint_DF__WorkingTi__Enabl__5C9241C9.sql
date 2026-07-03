@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_Locations.DF__WorkingTi__Enabl__5C9241C9
--- -- Source table: [dbo].[WorkingTime_Locations]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

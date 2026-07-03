@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ContactsHomepage.PK_ContactsHomepage
--- RAW:
--- Source table: [dbo].[ContactsHomepage]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

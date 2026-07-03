@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Boards.DF_DMake_Boards_IsNotRightClick
--- -- Source table: [dbo].[DMake_Boards]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

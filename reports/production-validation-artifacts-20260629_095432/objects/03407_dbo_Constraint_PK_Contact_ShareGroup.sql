@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Contact_ShareGroup.PK_Contact_ShareGroup
--- RAW:
--- Source table: [dbo].[Contact_ShareGroup]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

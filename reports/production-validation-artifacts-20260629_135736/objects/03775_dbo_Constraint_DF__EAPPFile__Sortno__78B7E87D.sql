@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPFile.DF__EAPPFile__Sortno__78B7E87D
--- -- Source table: [dbo].[EAPPFile]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

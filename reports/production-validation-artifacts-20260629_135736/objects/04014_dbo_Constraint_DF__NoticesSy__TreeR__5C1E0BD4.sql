@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NoticesSyn.DF__NoticesSy__TreeR__5C1E0BD4
--- -- Source table: [dbo].[NoticesSyn]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

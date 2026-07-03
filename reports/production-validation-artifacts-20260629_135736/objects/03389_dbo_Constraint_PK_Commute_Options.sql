@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Commute_Options.PK_Commute_Options
--- -- Source table: [dbo].[Commute_Options]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

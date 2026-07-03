@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Board_AllowAccess.DF_Board_AllowAccess_RegDate
--- -- Source table: [dbo].[Board_AllowAccess]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

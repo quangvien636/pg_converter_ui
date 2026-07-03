@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Folders.DF_DMake_Folders_Enabled
--- -- Source table: [dbo].[DMake_Folders]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((1))

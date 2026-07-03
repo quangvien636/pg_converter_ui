@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DDay_CoveredDays.PK_DDay_CoveredDays
--- RAW:
--- Source table: [dbo].[DDay_CoveredDays]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

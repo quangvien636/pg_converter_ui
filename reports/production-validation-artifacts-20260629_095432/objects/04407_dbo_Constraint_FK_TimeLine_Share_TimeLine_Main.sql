@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.TimeLine_Share.FK_TimeLine_Share_TimeLine_Main
--- RAW:
--- Source table: [dbo].[TimeLine_Share]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPHistory.PK_EAPPHistory
--- -- Source table: [dbo].[EAPPHistory]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

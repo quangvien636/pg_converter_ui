@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Organization_CommonGroups.PK_Organization_CommonGroups
--- RAW:
--- Source table: [dbo].[Organization_CommonGroups]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

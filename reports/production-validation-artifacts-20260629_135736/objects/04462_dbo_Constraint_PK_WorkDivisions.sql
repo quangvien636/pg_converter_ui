@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkDivisions.PK_WorkDivisions
--- -- Source table: [dbo].[WorkDivisions]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

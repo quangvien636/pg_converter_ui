@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.TCMUserOptions.PK_TCMUserOptions
--- RAW:
--- Source table: [dbo].[TCMUserOptions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

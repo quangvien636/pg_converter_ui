@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.ScheduleDdays.DF_ScheduleDdays_RepeatMonth
--- -- Source table: [dbo].[ScheduleDdays]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((0))

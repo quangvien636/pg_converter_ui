@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.NSFARefMailAttached.PK_NSFARefMailAttachedSeq
--- -- Source table: [dbo].[NSFARefMailAttached]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

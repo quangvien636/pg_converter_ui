@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SnsIssues.DF_SnsIssues_RegDate
--- -- Source table: [dbo].[SnsIssues]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

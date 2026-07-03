@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EDMSComent.PK_EDMSComent
--- RAW:
--- Source table: [dbo].[EDMSComent]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

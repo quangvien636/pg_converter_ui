@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleDdaysRepeat.PK_ScheduleDdayRepeat
--- RAW:
--- Source table: [dbo].[ScheduleDdaysRepeat]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

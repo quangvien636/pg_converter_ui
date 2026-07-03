@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Mail_AndroidDevices.PK_Mail_AndroidDevices
--- RAW:
--- Source table: [dbo].[Mail_AndroidDevices]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

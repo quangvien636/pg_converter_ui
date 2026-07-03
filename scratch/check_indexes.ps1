@@ -1,5 +1,0 @@
-$c = [System.IO.File]::ReadAllText('E:\pg_converter_ui\reports\contact_failing_sql\Contacts_SaveAddressInfo.sql')
-Write-Output ("Length: " + $c.Length)
-Write-Output ("Index of CREATE TEMP TABLE tabGroupUp: " + $c.IndexOf("CREATE TEMP TABLE tabGroupUp"))
-Write-Output ("Index of ChkGroupInfoUp :=: " + $c.IndexOf("ChkGroupInfoUp :="))
-Write-Output ("Index of IF LEN: " + $c.IndexOf("IF LEN(ChkGroupInfoUp)"))

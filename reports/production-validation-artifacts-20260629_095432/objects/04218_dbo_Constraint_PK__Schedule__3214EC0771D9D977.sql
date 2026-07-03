@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.ScheduleGoogleAppConfigs.PK__Schedule__3214EC0771D9D977
--- RAW:
--- Source table: [dbo].[ScheduleGoogleAppConfigs]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

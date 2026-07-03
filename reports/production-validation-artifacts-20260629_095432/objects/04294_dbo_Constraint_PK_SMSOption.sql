@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.SMSOption.PK_SMSOption
--- RAW:
--- Source table: [dbo].[SMSOption]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

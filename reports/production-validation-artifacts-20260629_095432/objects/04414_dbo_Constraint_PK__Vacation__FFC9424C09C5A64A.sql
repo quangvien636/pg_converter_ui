@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Vacation_Vacations.PK__Vacation__FFC9424C09C5A64A
--- RAW:
--- Source table: [dbo].[Vacation_Vacations]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

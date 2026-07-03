@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Integrated_Comments.PK_Integrated_Comments
--- RAW:
--- Source table: [dbo].[Integrated_Comments]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

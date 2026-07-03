@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo._TPRWkYyEmpDays.PK_TPRWkYyEmpDays
--- -- Source table: [dbo].[_TPRWkYyEmpDays]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

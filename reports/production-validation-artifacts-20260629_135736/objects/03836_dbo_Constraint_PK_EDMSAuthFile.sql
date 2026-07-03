@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSAuthFile.PK_EDMSAuthFile
--- -- Source table: [dbo].[EDMSAuthFile]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DDay_ExcludedSharers.PK_DDay_ExcludedSharers
--- RAW:
--- Source table: [dbo].[DDay_ExcludedSharers]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

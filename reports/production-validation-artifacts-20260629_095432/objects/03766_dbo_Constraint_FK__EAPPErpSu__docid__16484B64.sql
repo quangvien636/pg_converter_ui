@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EAPPErpSubData.FK__EAPPErpSu__docid__16484B64
--- RAW:
--- Source table: [dbo].[EAPPErpSubData]
--- Constraint type: FOREIGN_KEY_CONSTRAINT

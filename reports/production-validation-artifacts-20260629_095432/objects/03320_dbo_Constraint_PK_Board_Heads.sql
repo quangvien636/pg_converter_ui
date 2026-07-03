@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Board_Heads.PK_Board_Heads
--- RAW:
--- Source table: [dbo].[Board_Heads]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

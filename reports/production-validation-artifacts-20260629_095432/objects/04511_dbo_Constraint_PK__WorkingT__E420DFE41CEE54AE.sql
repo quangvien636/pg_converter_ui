@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.WorkingTimeV3_Vacations.PK__WorkingT__E420DFE41CEE54AE
--- RAW:
--- Source table: [dbo].[WorkingTimeV3_Vacations]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

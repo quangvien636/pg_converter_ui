@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.QuickLink.PK_QuickLink
--- RAW:
--- Source table: [dbo].[QuickLink]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

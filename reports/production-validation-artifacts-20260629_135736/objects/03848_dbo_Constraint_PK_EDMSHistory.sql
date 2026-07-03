@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EDMSHistory.PK_EDMSHistory
--- -- Source table: [dbo].[EDMSHistory]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

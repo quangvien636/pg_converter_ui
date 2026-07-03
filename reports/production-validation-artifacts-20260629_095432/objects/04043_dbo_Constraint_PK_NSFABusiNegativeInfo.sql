@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.NSFABusiNegativeInfo.PK_NSFABusiNegativeInfo
--- RAW:
--- Source table: [dbo].[NSFABusiNegativeInfo]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

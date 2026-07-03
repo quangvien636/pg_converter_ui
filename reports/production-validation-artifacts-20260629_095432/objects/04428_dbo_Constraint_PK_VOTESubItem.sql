@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.VOTESubItem.PK_VOTESubItem
--- RAW:
--- Source table: [dbo].[VOTESubItem]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

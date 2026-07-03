@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WorkingTime_Times.DF_WorkingTime_Times_TimeOffset
--- -- Source table: [dbo].[WorkingTime_Times]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ((9))

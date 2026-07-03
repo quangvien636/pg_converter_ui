@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.SnsMessages.PK_SnsMessages
--- -- Source table: [dbo].[SnsMessages]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

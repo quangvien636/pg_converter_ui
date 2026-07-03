@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Integrated_Replies.DF_Integrated_Replys_RegDate
--- -- Source table: [dbo].[Integrated_Replies]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

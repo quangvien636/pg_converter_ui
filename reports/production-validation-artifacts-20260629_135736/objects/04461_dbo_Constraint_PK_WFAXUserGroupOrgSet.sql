@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.WFAXUserGroupOrgSet.PK_WFAXUserGroupOrgSet
--- -- Source table: [dbo].[WFAXUserGroupOrgSet]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

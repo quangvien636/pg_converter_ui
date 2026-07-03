@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.EABuptleOption.PK_EABuptleOption
--- RAW:
--- Source table: [dbo].[EABuptleOption]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

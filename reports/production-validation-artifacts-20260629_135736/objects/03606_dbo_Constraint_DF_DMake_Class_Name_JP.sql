@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.DMake_Class.DF_DMake_Class_Name_JP
--- -- Source table: [dbo].[DMake_Class]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('')

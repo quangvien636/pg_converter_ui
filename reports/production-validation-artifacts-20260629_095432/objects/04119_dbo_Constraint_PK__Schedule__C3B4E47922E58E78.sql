@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Schedule_Comments.PK__Schedule__C3B4E47922E58E78
--- RAW:
--- Source table: [dbo].[Schedule_Comments]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

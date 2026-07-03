@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Center_QuickFunctions.PK_Center_QuickFunctions
--- RAW:
--- Source table: [dbo].[Center_QuickFunctions]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

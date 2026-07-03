@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.Mail_MailTags.PK_Mail_MailTags
--- RAW:
--- Source table: [dbo].[Mail_MailTags]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

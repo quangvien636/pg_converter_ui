@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.RegularWorkGroupsCSCSync.PK_ReqularWorkGroupsCSCSync
--- -- Source table: [dbo].[RegularWorkGroupsCSCSync]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

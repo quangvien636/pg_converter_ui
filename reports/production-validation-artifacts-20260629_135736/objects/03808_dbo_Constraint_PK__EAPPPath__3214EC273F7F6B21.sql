@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPPathGroup.PK__EAPPPath__3214EC273F7F6B21
--- -- Source table: [dbo].[EAPPPathGroup]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---

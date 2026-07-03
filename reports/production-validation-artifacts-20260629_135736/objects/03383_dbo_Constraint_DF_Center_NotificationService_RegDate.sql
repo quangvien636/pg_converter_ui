@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.Center_NotificationService.DF_Center_NotificationService_RegDate
--- -- Source table: [dbo].[Center_NotificationService]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- (getdate())

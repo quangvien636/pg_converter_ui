@@ -1,2 +1,0 @@
--- Could not parse index: NonClusteredIndex-20160329-174704
--- RAW: CREATE NONCLUSTERED INDEX [NonClusteredIndex-20160329-174704] ON [dbo].[Mail_Mails] (MailNo, UserNo, BoxNo, AccNo, IsDelete, RegDate, ReadDate, ReserveDate)

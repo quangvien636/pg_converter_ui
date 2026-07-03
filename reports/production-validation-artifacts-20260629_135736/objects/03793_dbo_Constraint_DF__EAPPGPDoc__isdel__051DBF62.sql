@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.EAPPGPDocPack.DF__EAPPGPDoc__isdel__051DBF62
--- -- Source table: [dbo].[EAPPGPDocPack]
--- -- Constraint type: DEFAULT_CONSTRAINT
--- ('0')

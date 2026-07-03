@@ -1,4 +1,0 @@
--- TODO: constraint conversion is not implemented yet: dbo.DMake_Files.PK_DMake_Files
--- RAW:
--- Source table: [dbo].[DMake_Files]
--- Constraint type: PRIMARY_KEY_CONSTRAINT

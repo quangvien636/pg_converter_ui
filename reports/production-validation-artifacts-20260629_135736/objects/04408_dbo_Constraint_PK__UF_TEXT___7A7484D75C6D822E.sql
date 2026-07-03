@@ -1,4 +1,0 @@
--- TODO: constraint conversion not implemented for: dbo.UF_TEXT_SPLIT.PK__UF_TEXT___7A7484D75C6D822E
--- -- Source table: [dbo].[UF_TEXT_SPLIT]
--- -- Constraint type: PRIMARY_KEY_CONSTRAINT
---
