@@ -4,11 +4,11 @@
 
 - Input: `0::integer`
 - Generated SQL: `SELECT * FROM "public"."board_authority_select"(0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "userno" is ambiguous
-- Stack context: PL/pgSQL function board_authority_select(integer) line 20 at SQL statement
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function board_authority_select(integer) line 53 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -18,6 +18,7 @@ CREATE OR REPLACE FUNCTION public.board_authority_select(_user_no integer)
  RETURNS TABLE(id integer, userno integer, name character varying, moduserno integer, menutitle character varying, authority character varying, departmentid integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _rowindex integer;
     _maxindex integer;
@@ -104,11 +105,11 @@ $function$
 
 - Input: `0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false, 0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getallboardcontents"(0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false, 0::integer, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getallboardcontents(integer,integer,boolean,integer,integer,character varying,integer,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean,integer,character varying) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getallboardcontents(integer,integer,boolean,integer,integer,character varying,integer,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean,integer,character varying) line 6 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -118,6 +119,7 @@ CREATE OR REPLACE FUNCTION public.board_getallboardcontents(_userno integer DEFA
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, fileurl text, isfile boolean, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, viewedcount integer, regdatetostring character, rootid bigint, titleeffect integer, isdelete boolean, isreaded boolean, total integer, replycount integer, boardtype integer, regdate timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
@@ -629,7 +631,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getallboardwidget"(''::character varying, 0::integer, false);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getallboardwidget(character varying,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getallboardwidget(character varying,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -641,6 +643,7 @@ CREATE OR REPLACE FUNCTION public.board_getallboardwidget(_langcode character va
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -671,11 +674,11 @@ $function$
 
 - Input: `''::character varying, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getandroiddeviceofusersbydepartment"(''::character varying, ''::character varying, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "deviceid" is ambiguous
-- Stack context: PL/pgSQL function board_getandroiddeviceofusersbydepartment(character varying,character varying,character varying) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function fn_getchilddepartnobydepartno(character varying, character varying) does not exist
+- Stack context: PL/pgSQL function board_getandroiddeviceofusersbydepartment(character varying,character varying,character varying) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -685,6 +688,7 @@ CREATE OR REPLACE FUNCTION public.board_getandroiddeviceofusersbydepartment(_lis
  RETURNS TABLE(deviceid character varying, osversion character varying, notificationoptions character varying, timezoneoffset integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -715,11 +719,11 @@ $function$
 
 - Input: `0::integer, false, 0::integer, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getboardbyuserno"(0::integer, false, 0::integer, 0::integer, false);`
-- SQLSTATE: `42702`
-- Error: column reference "viewmode" is ambiguous
-- Stack context: PL/pgSQL function board_getboardbyuserno(integer,boolean,integer,integer,boolean) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: ~ boolean
+- Stack context: PL/pgSQL function board_getboardbyuserno(integer,boolean,integer,integer,boolean) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -729,6 +733,7 @@ CREATE OR REPLACE FUNCTION public.board_getboardbyuserno(_userno integer DEFAULT
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -771,7 +776,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getboardcommunitywidget"(''::character varying, 0::integer, false);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getboardcommunitywidget(character varying,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getboardcommunitywidget(character varying,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -783,6 +788,7 @@ CREATE OR REPLACE FUNCTION public.board_getboardcommunitywidget(_langcode charac
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -815,7 +821,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getboardcontentinfo"(0::bigint, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getboardcontentinfo(bigint,character varying) line 16 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getboardcontentinfo(bigint,character varying) line 17 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -827,6 +833,7 @@ CREATE OR REPLACE FUNCTION public.board_getboardcontentinfo(_contentno bigint DE
  RETURNS TABLE(boardno integer, moduserno integer, boardname text, modusername character varying, modpositionno integer, modpositionname character varying, moddepartno integer, moddepartname character varying, regdate timestamp without time zone, moddate timestamp without time zone, title character varying, titleeffect integer, groupno bigint, depth integer, orderno integer, headno integer, isnotice boolean, content text, isfile boolean, filecount integer, replycount integer, recommendedcount integer, viewedcount integer, startdate timestamp without time zone, enddate timestamp without time zone, headname character varying, isrecommended boolean, reguserno integer, regusername character varying, regpositionno integer, regpositionname character varying, regdepartno integer, regdepartname character varying, isalarm boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 --DECLARE ShareDepart AS text;
@@ -2182,7 +2189,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getboards"(0::integer, false, 0::integer, 0::integer, false);`
 - SQLSTATE: `42P01`
 - Error: relation "user_depart" does not exist
-- Stack context: PL/pgSQL function board_getboards(integer,boolean,integer,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getboards(integer,boolean,integer,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing relation dependency
 - Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
@@ -2194,6 +2201,7 @@ CREATE OR REPLACE FUNCTION public.board_getboards(_userno integer DEFAULT 70, _i
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -2369,11 +2377,11 @@ $function$
 
 - Input: `0::integer, false, 0::integer, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getboards_bk"(0::integer, false, 0::integer, 0::integer, false);`
-- SQLSTATE: `42702`
-- Error: column reference "boardno" is ambiguous
-- Stack context: PL/pgSQL function board_getboards_bk(integer,boolean,integer,integer,boolean) line 34 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function public.organization_getdepartmentsbyuser(integer) does not exist
+- Stack context: PL/pgSQL function board_getboards_bk(integer,boolean,integer,integer,boolean) line 35 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2383,6 +2391,7 @@ CREATE OR REPLACE FUNCTION public.board_getboards_bk(_userno integer DEFAULT 70,
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -2452,7 +2461,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getboards_improved"(0::integer, false, 0::integer, 0::integer, false);`
 - SQLSTATE: `42P01`
 - Error: relation "user_depart" does not exist
-- Stack context: PL/pgSQL function board_getboards_improved(integer,boolean,integer,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getboards_improved(integer,boolean,integer,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing relation dependency
 - Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
@@ -2464,6 +2473,7 @@ CREATE OR REPLACE FUNCTION public.board_getboards_improved(_userno integer DEFAU
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -2641,7 +2651,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getcurrentmanagerlist"();`
 - SQLSTATE: `42883`
 - Error: function public.uf_departmentname(integer) does not exist
-- Stack context: PL/pgSQL function board_getcurrentmanagerlist() line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getcurrentmanagerlist() line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -2653,6 +2663,7 @@ CREATE OR REPLACE FUNCTION public.board_getcurrentmanagerlist()
  RETURNS TABLE(id integer, userno integer, username character varying, groupname character varying, department character varying, departmentid integer, date timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -2690,7 +2701,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getfolderbyuserno"(0::integer, false, false);`
 - SQLSTATE: `42P01`
 - Error: relation "folder" does not exist
-- Stack context: PL/pgSQL function board_getfolderbyuserno(integer,boolean,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getfolderbyuserno(integer,boolean,boolean) line 6 at RETURN QUERY
 - Root cause: Missing relation dependency
 - Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
@@ -2702,6 +2713,7 @@ CREATE OR REPLACE FUNCTION public.board_getfolderbyuserno(_userno integer DEFAUL
  RETURNS TABLE(folderno integer, moduserno integer, moddate timestamp without time zone, name character varying, parentno integer, sortno integer, enabled boolean, levelrand character varying, spectype integer, isopen boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -2753,11 +2765,11 @@ $function$
 
 - Input: `false, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."board_getfolders"(false, 0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "folderno" is ambiguous
-- Stack context: PL/pgSQL function board_getfolders(boolean,integer) line 7 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: ~ boolean
+- Stack context: PL/pgSQL function board_getfolders(boolean,integer) line 8 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2767,6 +2779,7 @@ CREATE OR REPLACE FUNCTION public.board_getfolders(_isdisabled boolean DEFAULT f
  RETURNS TABLE(folderno integer, moduserno integer, moddate timestamp without time zone, name character varying, parentno integer, sortno integer, enabled boolean, levelrand character varying, spectype integer, isopen boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -2803,11 +2816,11 @@ $function$
 
 - Input: `''::character varying, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getiosdeviceofusersbydepartment"(''::character varying, ''::character varying, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "deviceid" is ambiguous
-- Stack context: PL/pgSQL function board_getiosdeviceofusersbydepartment(character varying,character varying,character varying) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function fn_getchilddepartnobydepartno(character varying, character varying) does not exist
+- Stack context: PL/pgSQL function board_getiosdeviceofusersbydepartment(character varying,character varying,character varying) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2817,6 +2830,7 @@ CREATE OR REPLACE FUNCTION public.board_getiosdeviceofusersbydepartment(_listdep
  RETURNS TABLE(deviceid character varying, osversion character varying, notificationoptions character varying, timezoneoffset integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -2847,11 +2861,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getlistboardcontent(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 8 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getlistboardcontent(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 9 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2861,6 +2875,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontent(_userno integer DEFA
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, fileurl text, filename character varying, thumbnailfileurl text, isfile boolean, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, viewedcount integer, regdatetostring character varying, rootid bigint, titleeffect integer, isdelete boolean, isreaded boolean, total integer, replycount integer, boardtype integer, regdate timestamp without time zone, moddate timestamp without time zone, isnotice boolean, type character varying, errortype character varying, persontype character varying, visitdate timestamp without time zone, visitcompletedate timestamp without time zone, constructionname character varying, daydateview integer, applyto character varying, mailrecipientno text, mailrecipientname text, important boolean, designno character varying, private boolean, reguserno integer, purpose character varying, recommendedcount integer, isrecommendpublic boolean, rownumber bigint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -3049,11 +3064,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_bk"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getlistboardcontent_bk(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getlistboardcontent_bk(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 6 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3063,6 +3078,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontent_bk(_userno integer D
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, fileurl text, filename character varying, thumbnailfileurl text, isfile boolean, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, viewedcount integer, regdatetostring character varying, rootid bigint, titleeffect integer, isdelete boolean, isreaded boolean, total bigint, replycount integer, boardtype integer, regdate timestamp without time zone, moddate timestamp without time zone, isnotice boolean, rownumber bigint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 IF _BoardNo=0 THEN
@@ -3428,11 +3444,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_search"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getlistboardcontent_search(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean) line 7 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getlistboardcontent_search(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean) line 8 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3442,6 +3458,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontent_search(_userno integ
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, content text, fileurl text, isfile boolean, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, viewedcount integer, regdatetostring character varying, rootid bigint, titleeffect integer, isdelete boolean, isreaded boolean, total bigint, replycount integer, boardtype integer, regdate timestamp without time zone, type character varying, errortype character varying, persontype character varying, visitdate timestamp without time zone, visitcompletedate timestamp without time zone, constructionname character varying, daydateview integer, applyto character varying, rownumber bigint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _query character varying;
 BEGIN
@@ -3614,11 +3631,11 @@ $function$
 
 - Input: `0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentbyfolder"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getlistboardcontentbyfolder(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getlistboardcontentbyfolder(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3628,6 +3645,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontentbyfolder(_userno inte
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, fileurl text, isfile boolean, viewedcount integer, regdatetostring text, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, rootid bigint, isdelete boolean, isreaded boolean, titleeffect integer, total integer, replycount integer, boardtype integer, regdate timestamp without time zone, moddate timestamp without time zone, type character varying, errortype character varying, persontype character varying, visitdate timestamp without time zone, visitcompletedate timestamp without time zone, constructionname character varying, daydateview integer, applyto character varying, mailrecipientno text, mailrecipientname text, important boolean, designno character varying, private boolean, isnotice boolean, reguserno integer, purpose character varying, rownumber bigint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -3818,11 +3836,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentsearch"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getlistboardcontentsearch(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 7 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_getlistboardcontentsearch(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 8 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3832,6 +3850,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontentsearch(_userno intege
  RETURNS TABLE(boardno integer, contentno bigint, title character varying, content text, fileurl text, isfile boolean, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, viewedcount integer, regdatetostring character varying, rootid bigint, titleeffect integer, isdelete boolean, isreaded boolean, total bigint, replycount integer, boardtype integer, regdate timestamp without time zone, type character varying, errortype character varying, persontype character varying, visitdate timestamp without time zone, visitcompletedate timestamp without time zone, constructionname character varying, daydateview integer, applyto character varying, rownumber bigint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _query character varying;
 BEGIN
@@ -4007,7 +4026,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontenttoexcel"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getlistboardcontenttoexcel(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getlistboardcontenttoexcel(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4019,6 +4038,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistboardcontenttoexcel(_userno integ
  RETURNS TABLE(rownumber bigint, title character varying, content text, boardname text, regusername character varying, regpositionname character varying, regdepartname character varying, regdate timestamp without time zone, moddate timestamp without time zone, viewedcount integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -4145,7 +4165,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getlistcommentsetting"(''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getlistcommentsetting(character varying) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getlistcommentsetting(character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4157,6 +4177,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistcommentsetting(_langcode characte
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -4179,11 +4200,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistnoticepermission"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "userid" is ambiguous
-- Stack context: PL/pgSQL function board_getlistnoticepermission(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying) line 7 at assignment
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function board_getlistnoticepermission(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying) line 9 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4193,6 +4214,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistnoticepermission(_itemno integer 
  RETURNS TABLE(total integer, name character varying, userid character varying, userno integer, departno integer, positionno integer, departname character varying, positionname character varying, isadmin boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _total bigint;
 BEGIN
@@ -4248,11 +4270,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getlistuserpermission"(0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false);`
-- SQLSTATE: `42702`
-- Error: column reference "userid" is ambiguous
-- Stack context: PL/pgSQL function board_getlistuserpermission(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 12 at assignment
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42P01`
+- Error: relation "rootdeparts" does not exist
+- Stack context: PL/pgSQL function board_getlistuserpermission(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 14 at RETURN QUERY
+- Root cause: Missing relation dependency
+- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4262,6 +4284,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistuserpermission(_itemno integer DE
  RETURNS TABLE(total integer, name character varying, userid character varying, userno integer, departno integer, positionno integer, departname character varying, positionname character varying, isadmin boolean, isread boolean, iswrite boolean, disableadmin boolean, disableread boolean, disablewrite boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _total bigint;
 BEGIN
@@ -4413,11 +4436,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getlistuserpermissiontoexcel"(0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false);`
-- SQLSTATE: `42702`
-- Error: column reference "userid" is ambiguous
-- Stack context: PL/pgSQL function board_getlistuserpermissiontoexcel(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 12 at assignment
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42P01`
+- Error: relation "rootdeparts" does not exist
+- Stack context: PL/pgSQL function board_getlistuserpermissiontoexcel(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 14 at RETURN QUERY
+- Root cause: Missing relation dependency
+- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4427,6 +4450,7 @@ CREATE OR REPLACE FUNCTION public.board_getlistuserpermissiontoexcel(_itemno int
  RETURNS TABLE(userid character varying, username character varying, admin boolean, write boolean, read boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _total bigint;
 BEGIN
@@ -4500,7 +4524,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getmultiwidget"(''::character varying, 0::integer, false);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getmultiwidget(character varying,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getmultiwidget(character varying,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4512,6 +4536,7 @@ CREATE OR REPLACE FUNCTION public.board_getmultiwidget(_langcode character varyi
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -4544,7 +4569,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getnewboardwidget"(''::character varying, 0::integer);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getnewboardwidget(character varying,integer) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getnewboardwidget(character varying,integer) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4556,6 +4581,7 @@ CREATE OR REPLACE FUNCTION public.board_getnewboardwidget(_langcode character va
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -4580,7 +4606,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getprenextcontent"(0::integer, 0::integer, ''::character varying, 0::integer, false);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getprenextcontent(integer,integer,character varying,integer,boolean) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getprenextcontent(integer,integer,character varying,integer,boolean) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4592,6 +4618,7 @@ CREATE OR REPLACE FUNCTION public.board_getprenextcontent(_contentno integer DEF
  RETURNS TABLE(contentno bigint, title character varying, modusername character varying, boardname text, regdatetostring text, type boolean, private boolean, viewmode integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -4842,11 +4869,11 @@ $function$
 
 - Input: `0::bigint, ''::character varying, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."board_getreplybycontent"(0::bigint, ''::character varying, 0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "replyno" is ambiguous
-- Stack context: PL/pgSQL function board_getreplybycontent(bigint,character varying,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function board_getreplybycontent(bigint,character varying,integer) line 5 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4856,6 +4883,7 @@ CREATE OR REPLACE FUNCTION public.board_getreplybycontent(_contentno bigint DEFA
  RETURNS TABLE(replyno bigint, moduserno integer, modusername character varying, modpositionno integer, modpositionname character varying, moddepartno integer, moddepartname character varying, regdate timestamp without time zone, moddate timestamp without time zone, groupno bigint, depth integer, orderno integer, content text, userphoto boolean, photo character varying, isdelete boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -4923,7 +4951,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getsettingcommunitywidget"(''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getsettingcommunitywidget(character varying) line 6 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getsettingcommunitywidget(character varying) line 7 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4935,6 +4963,7 @@ CREATE OR REPLACE FUNCTION public.board_getsettingcommunitywidget(_langcode char
  RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -4960,7 +4989,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_getsubmenus"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_getsubmenus(integer,boolean,character varying) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_getsubmenus(integer,boolean,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -4972,6 +5001,7 @@ CREATE OR REPLACE FUNCTION public.board_getsubmenus(_userno integer DEFAULT 222,
  RETURNS TABLE(id character varying, parent character varying, text text, icon character varying, li_attr character varying, data text, state character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -5053,7 +5083,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_gettreeboard"(false, ''::character varying, 0::integer, false);`
 - SQLSTATE: `42P01`
 - Error: relation "folder" does not exist
-- Stack context: PL/pgSQL function board_gettreeboard(boolean,character varying,integer,boolean) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_gettreeboard(boolean,character varying,integer,boolean) line 6 at RETURN QUERY
 - Root cause: Missing relation dependency
 - Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
@@ -5065,6 +5095,7 @@ CREATE OR REPLACE FUNCTION public.board_gettreeboard(_isdisabled boolean DEFAULT
  RETURNS TABLE(no integer, name text, parentno integer, isboard boolean, roottree integer, index integer, islastroot boolean, viewmode integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -5139,7 +5170,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_gettreesubmenu(integer,boolean,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function board_gettreesubmenu(integer,boolean,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -5151,6 +5182,7 @@ CREATE OR REPLACE FUNCTION public.board_gettreesubmenu(_userno integer DEFAULT 2
  RETURNS TABLE(name text, no integer, moduserno integer, moddate timestamp without time zone, jsonname character varying, parentno integer, sortno integer, isfolder boolean, isopen boolean, countcontent integer, viewmode integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 RETURN QUERY
@@ -5355,7 +5387,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu_v2"(0::integer, false, ''::character varying, 0::integer, 0::integer);`
 - SQLSTATE: `42883`
 - Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_gettreesubmenu_v2(integer,boolean,character varying,integer,integer) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_gettreesubmenu_v2(integer,boolean,character varying,integer,integer) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -5367,6 +5399,7 @@ CREATE OR REPLACE FUNCTION public.board_gettreesubmenu_v2(_userno integer DEFAUL
  RETURNS TABLE(name text, no integer, moduserno integer, moddate timestamp without time zone, jsonname character varying, parentno integer, sortno integer, isfolder boolean, isopen boolean, countcontent integer, viewmode integer, isselected boolean)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -5619,11 +5652,11 @@ $function$
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenutest"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "isopen" is ambiguous
-- Stack context: PL/pgSQL function board_gettreesubmenutest(integer,boolean,character varying) line 7 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(character varying) does not exist
+- Stack context: PL/pgSQL function board_gettreesubmenutest(integer,boolean,character varying) line 8 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -5633,6 +5666,7 @@ CREATE OR REPLACE FUNCTION public.board_gettreesubmenutest(_userno integer DEFAU
  RETURNS TABLE(name text, no integer, moduserno integer, moddate timestamp without time zone, jsonname character varying, parentno integer, sortno integer, isfolder boolean, isopen boolean, countcontent integer, viewmode integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -5728,76 +5762,6 @@ BEGIN
         F.ViewMode
     FROM TREESUB F
     ORDER BY F.ParentNo ASC, F.SortNo DESC;
-END;
-$function$
-
-```
-</details>
-
-## `board_getwidgetcarousel`
-
-- Input: `0::integer, 0::integer, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getwidgetcarousel"(0::integer, 0::integer, 0::integer, false);`
-- SQLSTATE: `42702`
-- Error: column reference "contentno" is ambiguous
-- Stack context: PL/pgSQL function board_getwidgetcarousel(integer,integer,integer,boolean) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getwidgetcarousel(_userno integer DEFAULT 70, _curentpage integer DEFAULT 1, _pagesize integer DEFAULT 10, _isadmin boolean DEFAULT true)
- RETURNS TABLE(boardno integer, contentno bigint, title character varying, fileurl text, thumbnailfileurl text)
- LANGUAGE plpgsql
-AS $function$
-BEGIN
-
-RETURN QUERY
-WITH PERMISSION AS (
-	Select ItemNo ,AllowValue,AllowAccessNo
-	FROM Board_AllowAccess
-	WHERE ItemType=2 AND UserNo=board_getwidgetcarousel._userno
-),DEPARTPERMISSION AS (
-	Select ItemNo ,AllowValue,AllowAccessNo
-	FROM Board_DepartAllowAccess BD
-	INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
-	WHERE BD.ItemType=2 AND OB.UserNo=board_getwidgetcarousel._userno AND OB.IsDefault= TRUE
-),
-SHARE AS(
-	SELECT U.UserNo ,BS.ContentNo
-	FROM Board_Sharers BS
-	INNER JOIN (
-		SELECT U.UserNo,OP.DepartNo
-		FROM Organization_Users U
-		INNER JOIN Organization_BelongToDepartment OP ON OP.UserNo=U.UserNo
-		WHERE U.UserNo=board_getwidgetcarousel._userno AND U.Enabled = TRUE
-		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
-),
-TMP AS (
-	SELECT BC.BoardNo,BC.ContentNo,BC.Title,BC.RegDate,
-	ROW_NUMBER() OVER(PARTITION BY BC.Enabled  ORDER BY  BC.RootId  DESC) AS RowNumber
-	FROM BOARD_CONTENTS BC
-	INNER JOIN Board_NewBoardWidget W ON BC.BoardNo= W.BoardNo AND W.Type=1 AND W.IsDelete = FALSE
-	LEFT JOIN Board_Boards B ON B.BoardNo=BC.BoardNo
-	LEFT JOIN PERMISSION P ON P.ItemNo=BC.BoardNo
-	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=BC.BoardNo
-	LEFT JOIN SHARE S ON S.ContentNo=BC.ContentNo
-	WHERE B.ViewMode=1
-	AND BC.Enabled = TRUE
-	AND ( _IsAdmin = TRUE OR BC.RegUserNo=board_getwidgetcarousel._userno  OR P.AllowValue=7 OR  D.AllowValue=7 OR ((P.AllowAccessNo IS NOT NULL OR D.AllowAccessNo IS NOT NULL)AND B.SpecType=0 AND (BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL)) OR ((BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL) AND  B.SpecType=1)
-)
-)
-SELECT T.BoardNo,
-T.ContentNo ,
-T.Title,
-F.Url AS FileUrl,
-REPLACE(REPLACE(F.Url, '/Attach/', '/Thumbnail/'),'/File/','/Thumbnail/') AS ThumbnailFileUrl
-FROM TMP T
-LEFT JOIN (SELECT ContentNo,Url,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
-WHERE   T.RowNumber>(_CurentPage-1)*_PageSize AND T.RowNumber<=board_getwidgetcarousel._curentpage*_PageSize
-ORDER BY T.RowNumber;
 END;
 $function$
 
@@ -6133,7 +6097,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."board_treeboard"();`
 - SQLSTATE: `42P19`
 - Error: recursive reference to query "folder" must not appear within its non-recursive term
-- Stack context: PL/pgSQL function board_treeboard() line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function board_treeboard() line 6 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -6145,6 +6109,7 @@ CREATE OR REPLACE FUNCTION public.board_treeboard()
  RETURNS TABLE(no integer, name character varying, parentno integer, isboard integer, roottree integer, index integer, lastroot integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -6265,11 +6230,11 @@ $function$
 
 - Input: `0::integer, 0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_checkgroup"(0::integer, 0::integer, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "groupno" is ambiguous
-- Stack context: PL/pgSQL function contacts_checkgroup(integer,integer,character varying) line 6 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: integer = character varying
+- Stack context: PL/pgSQL function contacts_checkgroup(integer,integer,character varying) line 7 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -6279,6 +6244,7 @@ CREATE OR REPLACE FUNCTION public.contacts_checkgroup(_reguserno integer, _type 
  RETURNS TABLE(groupno integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	-- 그룹번호로 체크
@@ -6308,7 +6274,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_checknumber"(0::integer, ''::character varying, 0::integer);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_checknumber(integer,character varying,integer) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_checknumber(integer,character varying,integer) line 5 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -6320,6 +6286,7 @@ CREATE OR REPLACE FUNCTION public.contacts_checknumber(_reguserno integer, _valu
  RETURNS TABLE(cnt integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 IF _Type = 0 THEN
 	RETURN QUERY
@@ -6350,11 +6317,11 @@ $function$
 
 - Input: `0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_finduser"(0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_finduser(integer,integer,character varying,integer,integer,character varying,character varying) line 85 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function public.uf_regularextext(character varying) does not exist
+- Stack context: PL/pgSQL function contacts_finduser(integer,integer,character varying,integer,integer,character varying,character varying) line 86 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -6364,6 +6331,7 @@ CREATE OR REPLACE FUNCTION public.contacts_finduser(_userno integer, _serchtype 
  RETURNS TABLE(totalcnt integer, rownum integer, company character varying, depart character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	-- 이름검색
@@ -7484,11 +7452,11 @@ $function$
 
 - Input: `0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_getaddressinfo"(0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "seq" is ambiguous
-- Stack context: PL/pgSQL function contacts_getaddressinfo(integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function contacts_getaddressinfo(integer) line 7 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -7498,6 +7466,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getaddressinfo(_seq integer DEFAULT 7
  RETURNS TABLE(seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, viewcount integer, grouplist character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -7534,11 +7503,11 @@ $function$
 
 - Input: `0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_getaddressnotupdatecount"(0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "seq" is ambiguous
-- Stack context: PL/pgSQL function contacts_getaddressnotupdatecount(integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function contacts_getaddressnotupdatecount(integer) line 7 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -7548,6 +7517,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getaddressnotupdatecount(_seq integer
  RETURNS TABLE(seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, viewcount integer, grouplist character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -7578,7 +7548,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getallcontactslist"(0::integer);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: text = integer
-- Stack context: PL/pgSQL function contacts_getallcontactslist(integer) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getallcontactslist(integer) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -7590,6 +7560,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getallcontactslist(_userno integer)
  RETURNS TABLE(seq integer, firstname character varying, lastname character varying, value character varying, "position" character varying, company character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -7616,7 +7587,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getallgroup"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getallgroup(integer,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getallgroup(integer,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -7628,6 +7599,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getallgroup(_reguserno integer DEFAUL
  RETURNS TABLE(groupno integer, groupname text, rootgroupno integer, reguserno integer, regdate timestamp without time zone, memo character varying, parentgno integer, sort integer, isdefault character, usercount integer, name text)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -7660,11 +7632,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_getalluser_distinct"(0::integer, 0::integer, 0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "seq" is ambiguous
-- Stack context: PL/pgSQL function contacts_getalluser_distinct(integer,integer,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: character varying + character varying
+- Stack context: PL/pgSQL function contacts_getalluser_distinct(integer,integer,integer) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -7674,6 +7646,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getalluser_distinct(_reguserno intege
  RETURNS TABLE(rownum bigint, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, callname character varying, viewcount integer, fullname character varying, counts integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -7702,7 +7675,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getcontactgroup"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getcontactgroup(integer,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getcontactgroup(integer,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -7714,6 +7687,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getcontactgroup(_userno integer DEFAU
  RETURNS TABLE(id integer, jsonname text, parentno integer, sharenumber integer, name text)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -7964,7 +7938,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getcontactstrashlist"(0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, ''::character varying, ''::character varying, 0::integer, ''::character varying, ''::character varying);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getcontactstrashlist(integer,integer,integer,character varying,character varying,character varying,character varying,integer,character varying,character varying) line 2039 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getcontactstrashlist(integer,integer,integer,character varying,character varying,character varying,character varying,integer,character varying,character varying) line 2040 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -7976,6 +7950,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getcontactstrashlist(_reguserno integ
  RETURNS TABLE(rownum bigint, seq integer, firstname character varying, lastname character varying, memo character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	-- ==========================
@@ -10388,7 +10363,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getcountchilduser"(0::integer, 0::integer);`
 - SQLSTATE: `42883`
 - Error: function public.getchildgroup(integer, integer) does not exist
-- Stack context: PL/pgSQL function contacts_getcountchilduser(integer,integer) line 3 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getcountchilduser(integer,integer) line 4 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10400,6 +10375,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getcountchilduser(_seq integer, _regu
  RETURNS TABLE(count integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 RETURN QUERY
 select COUNT(*) count FROM ContactsUser WHERE UseYn = 'Y'  AND Seq IN
@@ -10417,7 +10393,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getgroupbyseq"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getgroupbyseq(integer,character varying) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getgroupbyseq(integer,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10429,6 +10405,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getgroupbyseq(_userseq integer DEFAUL
  RETURNS TABLE(groupno integer, name text)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -10508,91 +10485,13 @@ $function$
 ```
 </details>
 
-## `contacts_gethistorylist`
-
-- Input: `0::integer, 0::integer, 0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE`
-- Generated SQL: `SELECT * FROM "public"."contacts_gethistorylist"(0::integer, 0::integer, 0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE);`
-- SQLSTATE: `42702`
-- Error: column reference "rownum" is ambiguous
-- Stack context: PL/pgSQL function contacts_gethistorylist(integer,integer,integer,integer,integer,date,date) line 31 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_gethistorylist(_userno integer, _currpage integer, _pagesize integer, _searchtype integer, _searchday integer DEFAULT 0, _searchdate1 date DEFAULT ('now'::text)::date, _searchdate2 date DEFAULT ('now'::text)::date)
- RETURNS TABLE(rownum bigint, historyno integer, seq integer, firstname character varying, lastname character varying, memo character varying, moddate timestamp without time zone)
- LANGUAGE plpgsql
-AS $function$
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	IF _SearchType = 1 THEN
-		RETURN QUERY
-		SELECT
-			RowNum,
-			HistoryNo,
-			Seq,
-			FirstName,
-			LastName,
-			Memo,
-			ModDate
-		FROM
-		(
-			SELECT
-				ROW_NUMBER() OVER(ORDER BY U.ModDate DESC) AS RowNum,
-				U.HistoryNo,
-				U.Seq,
-				U.FirstName,
-				U.LastName,
-				U.Memo,
-				U.ModDate
-			  FROM ContactsUserHistory U
-			WHERE U.RegUserNo = contacts_gethistorylist._userno
-			AND U.ModDate >= DATEADD(dd, _SearchDay, NOW())
-		) A
-		WHERE RowNum BETWEEN ((_CurrPage-1) * _PageSize + 1) AND (_CurrPage * _PageSize);
-	ELSE
-		RETURN QUERY
-		SELECT
-			RowNum,
-			HistoryNo,
-			Seq,
-			FirstName,
-			LastName,
-			Memo,
-			ModDate
-		FROM
-		(
-			SELECT
-				ROW_NUMBER() OVER(ORDER BY U.ModDate DESC) AS RowNum,
-				U.HistoryNo,
-				U.Seq,
-				U.FirstName,
-				U.LastName,
-				U.Memo,
-				U.ModDate
-			  FROM ContactsUserHistory U
-			WHERE U.RegUserNo = contacts_gethistorylist._userno
-			AND U.ModDate BETWEEN _SearchDate1 and _SearchDate2
-		) A
-		WHERE RowNum BETWEEN ((_CurrPage-1) * _PageSize + 1) AND (_CurrPage * _PageSize);
-	END IF;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_gethistorylistcount`
 
 - Input: `0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE`
 - Generated SQL: `SELECT * FROM "public"."contacts_gethistorylistcount"(0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_gethistorylistcount(integer,integer,integer,date,date) line 14 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_gethistorylistcount(integer,integer,integer,date,date) line 15 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -10604,6 +10503,7 @@ CREATE OR REPLACE FUNCTION public.contacts_gethistorylistcount(_userno integer, 
  RETURNS TABLE(cnt integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 -- !! WARNING: output needs manual review — see TODO comments
 BEGIN
 
@@ -10635,7 +10535,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getonerowchildgroup"(0::integer, 0::integer);`
 - SQLSTATE: `42883`
 - Error: function public.getchildgroup(integer, integer) does not exist
-- Stack context: PL/pgSQL function contacts_getonerowchildgroup(integer,integer) line 3 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getonerowchildgroup(integer,integer) line 4 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10647,6 +10547,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getonerowchildgroup(_groupno integer,
  RETURNS TABLE(groupno integer, groupname text, reguserno integer, regdate timestamp without time zone, memo character varying, parentgno integer, sort integer, isdefault character, useyn character)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 RETURN QUERY
 SELECT b.* FROM
@@ -10665,7 +10566,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getoutfile"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function public.uf_contactsdetail(integer, unknown) does not exist
-- Stack context: PL/pgSQL function contacts_getoutfile(integer,character varying) line 45 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getoutfile(integer,character varying) line 46 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10677,6 +10578,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getoutfile(_userno integer, _userseql
  RETURNS TABLE(seq integer, lastname character varying, firstname character varying, "position" character varying, number character varying, company character varying, depart character varying, groupname character varying, email character varying, checkdate timestamp without time zone, moddate timestamp without time zone, regdate timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _userseq integer;
 BEGIN
@@ -10751,7 +10653,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getoutfileexcel"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function public.uf_contactsdetailexcel(integer, unknown) does not exist
-- Stack context: PL/pgSQL function contacts_getoutfileexcel(integer,character varying) line 53 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getoutfileexcel(integer,character varying) line 54 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10763,6 +10665,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getoutfileexcel(_userno integer DEFAU
  RETURNS TABLE(lastname character varying, firstname character varying, callname character varying, cellphone character varying, companyphone character varying, homephone character varying, faxphone character varying, company character varying, "position" character varying, depart character varying, email character varying, companyzipcode character varying, companyaddress character varying, homezipcode character varying, homeaddress character varying, homepage character varying, memo character varying, groupname character varying, regdate timestamp without time zone, moddate timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _userseq integer;
 BEGIN
@@ -10854,7 +10757,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getoutlist"(0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function public.uf_contactsdetail(integer, unknown) does not exist
-- Stack context: PL/pgSQL function contacts_getoutlist(integer,character varying) line 79 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getoutlist(integer,character varying) line 80 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -10866,6 +10769,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getoutlist(_userno integer, _grouplis
  RETURNS TABLE(seq integer, lastname character varying, firstname character varying, checkdate timestamp without time zone, moddate timestamp without time zone, regdate timestamp without time zone, company character varying, depart character varying, "position" character varying, email character varying, number character varying, groupname character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _groupno integer;
 BEGIN
@@ -10994,7 +10898,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getoutlistcount"(0::integer, ''::character varying);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getoutlistcount(integer,character varying) line 33 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getoutlistcount(integer,character varying) line 34 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -11006,6 +10910,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getoutlistcount(_userno integer, _gro
  RETURNS TABLE(cnt integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _groupno integer;
 BEGIN
@@ -11059,7 +10964,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getoutlistexcel"(0::integer, ''::character varying, ''::character varying, ''::character varying, false);`
 - SQLSTATE: `42883`
 - Error: function public.uf_contactsdetailexcel(integer, unknown) does not exist
-- Stack context: PL/pgSQL function contacts_getoutlistexcel(integer,character varying,character varying,character varying,boolean) line 163 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getoutlistexcel(integer,character varying,character varying,character varying,boolean) line 164 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11071,6 +10976,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getoutlistexcel(_userno integer DEFAU
  RETURNS TABLE(seq integer, lastname character varying, callname character varying, firstname character varying, cellphone character varying, companyphone character varying, homephone character varying, faxphone character varying, company character varying, "position" character varying, depart character varying, email character varying, companyzipcode character varying, companyaddress character varying, homezipcode character varying, homeaddress character varying, homepage character varying, moddate timestamp without time zone, regdate timestamp without time zone, groupname text, memo character varying, groupid integer, reguserno integer, useyn character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _groupno integer;
 BEGIN
@@ -11379,7 +11285,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getpublicgroup"(''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getpublicgroup(character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getpublicgroup(character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11391,6 +11297,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getpublicgroup(_langcode character va
  RETURNS TABLE(id integer, jsonname text, name text, parentno integer, sharenumber integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -11416,7 +11323,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getsharegroup"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getsharegroup(integer,boolean,character varying) line 30 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getsharegroup(integer,boolean,character varying) line 31 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11428,6 +11335,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getsharegroup(_userno integer DEFAULT
  RETURNS TABLE(id integer, jsonname text, name text, parentno integer, sharenumber integer, sort integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 IF _IsAdmin = TRUE THEN
@@ -11502,7 +11410,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getsharegroupbyuser"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getsharegroupbyuser(integer,boolean,character varying) line 16 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getsharegroupbyuser(integer,boolean,character varying) line 17 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11514,6 +11422,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getsharegroupbyuser(_userno integer D
  RETURNS TABLE(id integer, jsonname text, name text, parentno integer, sort integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 IF _IsAdmin = TRUE THEN
@@ -11558,7 +11467,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getsharegroupsetting"(''::character varying);`
 - SQLSTATE: `42883`
 - Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getsharegroupsetting(character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getsharegroupsetting(character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11570,6 +11479,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getsharegroupsetting(_langcode charac
  RETURNS TABLE(id integer, jsonname text, name text, parentno integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -11590,11 +11500,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_gettrashuserlist"(0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "lastname" is ambiguous
-- Stack context: PL/pgSQL function contacts_gettrashuserlist(integer,integer,integer,character varying,integer,character varying) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function contacts_gettrashuserlist(integer,integer,integer,character varying,integer,character varying) line 6 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -11604,6 +11514,7 @@ CREATE OR REPLACE FUNCTION public.contacts_gettrashuserlist(_userno integer DEFA
  RETURNS TABLE(totalcnt integer, rownum bigint, seq integer, company character varying, depart character varying, "position" character varying, firstname character varying, lastname character varying, email character varying, number character varying, deldate timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -11674,7 +11585,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuser"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, ''::character varying, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character varying + character varying
-- Stack context: PL/pgSQL function contacts_getuser(integer,integer,integer,integer,character varying,integer,character varying,character varying) line 5 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuser(integer,integer,integer,integer,character varying,integer,character varying,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11686,6 +11597,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuser(_userno integer DEFAULT 70, _
  RETURNS TABLE(totalcount integer, rownum integer, company character varying, depart character varying, "position" character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, isdefault character, fullname character varying, cellphone character varying, companyphone character varying, faxphone character varying, email character varying, regusername character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 IF _GroupNo=0 THEN
@@ -11870,7 +11782,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuser_department"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: function organization_getdepartmentsbyuser(integer) does not exist
-- Stack context: PL/pgSQL function contacts_getuser_department(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuser_department(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11882,6 +11794,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuser_department(_userno integer DE
  RETURNS TABLE(totalcount integer, rownum integer, company character varying, depart character varying, "position" character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, isdefault integer, fullname character varying, cellphone character varying, companyphone character varying, email character varying, regusername character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -11986,7 +11899,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuser_share"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character varying + character varying
-- Stack context: PL/pgSQL function contacts_getuser_share(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuser_share(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -11998,6 +11911,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuser_share(_userno integer DEFAULT
  RETURNS TABLE(totalcount integer, rownum integer, company character varying, depart character varying, "position" character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, isdefault integer, fullname character varying, cellphone character varying, companyphone character varying, email character varying, regusername character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 			RETURN QUERY
@@ -12091,7 +12005,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuser_togroupmobile"(0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, ''::character varying, 0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character = boolean
-- Stack context: PL/pgSQL function contacts_getuser_togroupmobile(integer,integer,integer,character varying,character varying,character varying,integer,character varying) line 13 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuser_togroupmobile(integer,integer,integer,character varying,character varying,character varying,integer,character varying) line 14 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -12103,6 +12017,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuser_togroupmobile(_groupno intege
  RETURNS TABLE(seq integer, firstname character varying, lastname character varying, email character varying, photo character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 DECLARE
     _topgroupno integer;
 BEGIN
@@ -12236,7 +12151,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuser_ungroup"(0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character = boolean
-- Stack context: PL/pgSQL function contacts_getuser_ungroup(integer,integer,integer,character varying,character varying) line 64 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuser_ungroup(integer,integer,integer,character varying,character varying) line 65 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -12248,6 +12163,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuser_ungroup(_userno integer, _vie
  RETURNS TABLE(totalcnt integer, rownum integer, company character varying, depart character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -12364,7 +12280,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuserbypublicgroup"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, ''::character varying);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character varying + character varying
-- Stack context: PL/pgSQL function contacts_getuserbypublicgroup(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 4 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuserbypublicgroup(integer,integer,integer,integer,character varying,character varying,integer,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -12376,6 +12292,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuserbypublicgroup(_userno integer 
  RETURNS TABLE(totalcount integer, rownum integer, company character varying, depart character varying, "position" character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, isdefault integer, fullname character varying, cellphone character varying, companyphone character varying, email character varying, regusername character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 			RETURN QUERY
@@ -12474,7 +12391,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuserbysharegroup"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, ''::character varying, false);`
 - SQLSTATE: `42883`
 - Error: operator does not exist: character varying + character varying
-- Stack context: PL/pgSQL function contacts_getuserbysharegroup(integer,integer,integer,integer,character varying,character varying,integer,character varying,boolean) line 108 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuserbysharegroup(integer,integer,integer,integer,character varying,character varying,integer,character varying,boolean) line 109 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
@@ -12486,6 +12403,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuserbysharegroup(_userno integer D
  RETURNS TABLE(totalcount integer, rownum integer, company character varying, depart character varying, "position" character varying, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying, isdefault integer, fullname character varying, cellphone character varying, companyphone character varying, email character varying, regusername character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 IF _IsAdmin = TRUE THEN
@@ -12715,7 +12633,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuserdata"(0::integer, 0::integer, ''::character varying);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getuserdata(integer,integer,character varying) line 66 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuserdata(integer,integer,character varying) line 67 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -12727,6 +12645,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuserdata(_reguserno integer, _user
  RETURNS TABLE(value character varying, type smallint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -12829,7 +12748,7 @@ $function$
 - Generated SQL: `SELECT * FROM "public"."contacts_getuserdatahistory"(0::integer, 0::integer, 0::integer, ''::character varying);`
 - SQLSTATE: `42804`
 - Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getuserdatahistory(integer,integer,integer,character varying) line 67 at RETURN QUERY
+- Stack context: PL/pgSQL function contacts_getuserdatahistory(integer,integer,integer,character varying) line 68 at RETURN QUERY
 - Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
 - Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
@@ -12841,6 +12760,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuserdatahistory(_historyno integer
  RETURNS TABLE(value character varying, type smallint)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 
@@ -12949,11 +12869,11 @@ $function$
 
 - Input: `0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_getuserdetail"(0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "seq" is ambiguous
-- Stack context: PL/pgSQL function contacts_getuserdetail(integer) line 5 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function contacts_getuserdetail(integer) line 22 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -12963,6 +12883,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getuserdetail(_userseq integer)
  RETURNS TABLE(seq integer, reguserno integer, userseq integer, type smallint, typename character varying, zipcode1 character varying, zipcode2 character varying, address character varying, isdefault character, regdate timestamp without time zone, moddate timestamp without time zone)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	-- 주소;
@@ -13079,11 +13000,11 @@ $function$
 
 - Input: `0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getusergroupbylanguage"(0::integer, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "groupno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getusergroupbylanguage(integer,character varying) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: function parsejson(text) does not exist
+- Stack context: PL/pgSQL function contacts_getusergroupbylanguage(integer,character varying) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -13093,6 +13014,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getusergroupbylanguage(_reguserno int
  RETURNS TABLE(groupno integer, groupname text, reguserno integer, regdate timestamp without time zone, memo character varying, parentgno integer, sort integer, isdefault character, usercount integer, useyn character)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -13126,11 +13048,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_getusergroupmobi"(0::integer, 0::integer, 0::integer, 0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "rownum" is ambiguous
-- Stack context: PL/pgSQL function contacts_getusergroupmobi(integer,integer,integer,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
+- Stack context: PL/pgSQL function contacts_getusergroupmobi(integer,integer,integer,integer) line 5 at RETURN QUERY
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -13140,6 +13062,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getusergroupmobi(_reguser integer, _g
  RETURNS TABLE(rownum bigint, userseq integer, counts integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY
@@ -13171,11 +13094,11 @@ $function$
 
 - Input: `0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getusernumber"(0::integer, ''::character varying);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_getusernumber(integer,character varying) line 3 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: integer = character varying
+- Stack context: PL/pgSQL function contacts_getusernumber(integer,character varying) line 4 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -13185,6 +13108,7 @@ CREATE OR REPLACE FUNCTION public.contacts_getusernumber(_reguserno integer, _us
  RETURNS TABLE(seq integer, reguserno integer, userseq integer, type smallint, typename character varying, value character varying, isdefault character, regdate timestamp without time zone, moddate timestamp without time zone, setcall integer)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 RETURN QUERY
 SELECT * FROM ContactsNumber WHERE RegUserNo=contacts_getusernumber._reguserno AND UserSeq=contacts_getusernumber._userseq;
@@ -14459,11 +14383,11 @@ $function$
 
 - Input: `0::integer, ''::character varying, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."contacts_searchmobi"(0::integer, ''::character varying, 0::integer);`
-- SQLSTATE: `42702`
-- Error: column reference "reguserno" is ambiguous
-- Stack context: PL/pgSQL function contacts_searchmobi(integer,character varying,integer) line 4 at RETURN QUERY
-- Root cause: Ambiguous column/parameter generated SQL
-- Proposed fix: Qualify or rename the confirmed ambiguous parameter/variable in converter output, regenerate, and rerun.
+- SQLSTATE: `42883`
+- Error: operator does not exist: character varying + character varying
+- Stack context: PL/pgSQL function contacts_searchmobi(integer,character varying,integer) line 5 at RETURN QUERY
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -14473,6 +14397,7 @@ CREATE OR REPLACE FUNCTION public.contacts_searchmobi(_userno integer, _serchtex
  RETURNS TABLE(totalcnt integer, rownum integer, seq integer, firstname character varying, lastname character varying, reguserno integer, memo character varying, regdate timestamp without time zone, photo character varying, moddate timestamp without time zone, checkdate timestamp without time zone, share character varying, useyn character varying, deldate timestamp without time zone, important integer, callname character varying)
  LANGUAGE plpgsql
 AS $function$
+#variable_conflict use_column
 BEGIN
 
 	RETURN QUERY

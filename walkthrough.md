@@ -1,5 +1,47 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - #variable_conflict use_column for every RETURNS TABLE function
+
+- Runtime before: 238 PASS / 95 FAIL / 21 BLOCKED (354 discovered).
+- Runtime after: **240 PASS / 93 FAIL / 21 BLOCKED** (354 discovered).
+- Zero regressions: diffed every routine by name against the prior run — all
+  238 PASS and all 21 BLOCKED routines kept their exact status.
+- Root-cause analysis of the 95 FAILs grouped by SQLSTATE found the single
+  largest converter-owned bucket was `42702` ambiguous column reference (30
+  routines, all Board/Contacts). Confirmed in every one of the 30 cases: the
+  ambiguous unqualified column name exactly matched a column declared in
+  that routine's own `RETURNS TABLE(...)`. PL/pgSQL implicitly creates a
+  variable per `RETURNS TABLE` output column, visible for the rest of the
+  function body, so any unqualified reference to a same-named real column in
+  a joined query becomes ambiguous between the table column and the shadow
+  variable.
+- General fix: the `#variable_conflict use_column` pragma was already
+  emitted for MS table-valued functions (`isTableValued`) but not for
+  procedures, nor for functions whose `RETURNS TABLE` came from
+  static/catalog/metadata column inference. Broadened the condition to any
+  `RETURNS TABLE(...)` output — the converter never emits `RETURN NEXT`
+  against these shadow variables, so preferring the real table column is
+  always safe. No procedure names hardcoded.
+- Result: SQLSTATE 42702 failures went from 30 to 0 project-wide. 2 routines
+  (`board_getwidgetcarousel`, `contacts_gethistorylist`) resolved straight
+  to PASS. The other 28 progressed past the ambiguity to their next
+  pre-existing issue (missing `parsejson()`/helper functions, missing
+  relations, or `structure of query does not match function result type` —
+  a different bug class, tracked separately below).
+- Validation: build PASS with 0 warnings/errors; NUnit 96/96; Board QA
+  24/24; full rollback-only runtime smoke 240/93/21.
+- Remaining FAIL breakdown by SQLSTATE: `42883` missing function/operator
+  (57), `42804` type/structure mismatch (15), `42P01` missing relation (7),
+  `23502` NOT NULL violation (5), `42601` dynamic SQL syntax (5), `42703`
+  missing column (2), `42P19` (1), `22012` (1).
+- Next: `42883` is now the largest bucket. It splits into three distinct
+  causes needing separate treatment: missing `parsejson()` helper (~20,
+  needs a real implemented helper or a dependency classification — never
+  stubbed), missing SQL-Server-side helper functions/procedures not yet
+  converted (dependency, not a converter bug), and `operator does not
+  exist: character varying + character varying` (~6, likely a converter gap
+  where `+` string concatenation wasn't rewritten to `||`).
+
 ## 2026-07-03 - SQL Server result metadata unblocks SETOF record routines
 
 - Runtime before: 229 PASS / 20 FAIL / 105 BLOCKED (354 discovered).

@@ -68,6 +68,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getuserbyshare` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getusersetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getviewedlogs` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getwidgetcarousel` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_insertboard` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_insertcommentsetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_insertdepartallowaccess` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -157,6 +158,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getdupelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgroupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgrouplist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_gethistorylist` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlatitudeandlongitudecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlatitudeandlongitudeonecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlikelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
