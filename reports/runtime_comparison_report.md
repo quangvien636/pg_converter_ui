@@ -41,6 +41,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getcompanylist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getconfig` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcontentsetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getdepartandpositionname` | Executed; 1 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getfile` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getfiles` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getfolderallow` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

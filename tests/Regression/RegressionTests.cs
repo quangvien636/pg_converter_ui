@@ -904,6 +904,26 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestReturnsTableInferredFromFinalTempTableStarSelect()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestTempResult
+                as begin
+                    DECLARE @Result TABLE (ItemNo INT, Label VARCHAR(100))
+                    INSERT INTO @Result VALUES (1, 'one')
+                    SELECT * FROM @Result
+                end
+                """;
+            var obj = new DbObject("TestTempResult", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("RETURNS TABLE("));
+            Assert.That(pg, Does.Match(@"(?i)itemno integer"));
+            Assert.That(pg, Does.Match(@"(?i)label character varying\(100\)"));
+            Assert.That(pg, Does.Not.Contain("RETURNS SETOF record"));
+        }
+
+        [Test]
         public void TestDateExtractionFunctions()
         {
             string mssql = """

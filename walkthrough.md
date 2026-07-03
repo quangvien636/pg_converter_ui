@@ -1,5 +1,19 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Exact temp-table RETURNS TABLE inference
+
+- Runtime before: 227 PASS / 22 FAIL / 105 BLOCKED.
+- Runtime after: **228 PASS / 22 FAIL / 104 BLOCKED**.
+- General rule: when a procedure's final result is exactly `SELECT *` from a
+  locally declared temp table, infer `RETURNS TABLE` only if every temp-table
+  column name and type parses into a known PostgreSQL type.
+- No expression types or result names are guessed. Unsupported definitions
+  continue to use `SETOF record`.
+- Recovered `board_getdepartandpositionname`, whose two output columns are
+  proven by its local `_tmp` declaration.
+- Validation: build PASS with 0 warnings/errors; NUnit 80/80; Board QA 24/24;
+  full rollback-only runtime smoke 228/22/104.
+
 ## 2026-07-03 - Optional INTO in boolean INSERT mapping
 
 - Runtime before: 227 PASS / 23 FAIL / 104 BLOCKED.

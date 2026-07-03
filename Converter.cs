@@ -131,8 +131,13 @@ public static class Converter
             || Regex.IsMatch(convertedBody,
                 @"(?m)^[ \t]*SELECT\s+(?:TRUE|FALSE|NULL|_?[A-Za-z]\w*)\s*;?[ \t]*$",
                 RegexOptions.IgnoreCase);
-        string returnType = hasResultSelect ? "SETOF record" : "void";
-        string? returnTodo = hasResultSelect
+        var inferredTempTableReturn = hasResultSelect
+            ? TryInferTempTableStarReturn(convertedBody, rawBody)
+            : null;
+        string returnType = inferredTempTableReturn != null
+            ? $"TABLE(\n    {inferredTempTableReturn}\n)"
+            : hasResultSelect ? "SETOF record" : "void";
+        string? returnTodo = hasResultSelect && inferredTempTableReturn == null
             ? "-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually"
             : null;
         // PostgreSQL cannot combine INOUT parameters with an unrelated SETOF
@@ -187,7 +192,7 @@ public static class Converter
         var warnings = new List<string>();
         if (Regex.IsMatch(rawBody, @"\bEXEC(?:UTE)?\s+sp_executesql\b|\bEXEC(?:UTE)?\s*\(", RegexOptions.IgnoreCase))
             warnings.Add("Dynamic SQL detected. Manual rewrite required for PostgreSQL.");
-        if (hasResultSelect)
+        if (hasResultSelect && inferredTempTableReturn == null)
             warnings.Add("procedure contains result-returning SELECT; replace SETOF record with correct column types");
         if (outputModeDemoted)
             warnings.Add("OUTPUT parameter treated as input because PostgreSQL SETOF functions cannot also use INOUT parameters");
@@ -249,6 +254,83 @@ public static class Converter
                   $"COALESCE(NULLIF(({m.Groups[3].Value})::text, '')::integer, 0);"
                 : m.Value,
             RegexOptions.IgnoreCase);
+    }
+
+    static string? TryInferTempTableStarReturn(string pgBody, string rawBody)
+    {
+        var convertedReturn = Regex.Match(pgBody,
+            @"(?is)\bSELECT\s+\*\s+FROM\s+(\w+)\s*;?\s*$");
+        var rawReturn = Regex.Match(rawBody,
+            @"(?is)\bSELECT\s+\*\s+FROM\s+#?(\w+)\s*;?\s*(?:\bEND\b\s*;?)?\s*$");
+        if (!convertedReturn.Success && !rawReturn.Success)
+            return null;
+
+        var tableName = convertedReturn.Success
+            ? convertedReturn.Groups[1].Value
+            : rawReturn.Groups[1].Value;
+        var create = Regex.Match(pgBody,
+            $@"\bCREATE\s+TEMP(?:ORARY)?\s+TABLE\s+{Regex.Escape(tableName)}\s*\(",
+            RegexOptions.IgnoreCase);
+        if (!create.Success)
+            return null;
+
+        var openParen = create.Index + create.Length - 1;
+        var depth = 0;
+        var inString = false;
+        var closeParen = -1;
+        for (var i = openParen; i < pgBody.Length; i++)
+        {
+            var ch = pgBody[i];
+            if (ch == '\'')
+            {
+                if (inString && i + 1 < pgBody.Length && pgBody[i + 1] == '\'')
+                {
+                    i++;
+                    continue;
+                }
+                inString = !inString;
+                continue;
+            }
+            if (inString) continue;
+            if (ch == '(') depth++;
+            else if (ch == ')' && --depth == 0)
+            {
+                closeParen = i;
+                break;
+            }
+        }
+        if (closeParen < 0)
+            return null;
+
+        var definitions = new List<string>();
+        foreach (var part in SplitParams(pgBody[(openParen + 1)..closeParen]))
+        {
+            var column = Regex.Match(part.Trim(),
+                @"^(?:""(\w+)""|(\w+))\s+(.+?)\s*(?:NOT\s+NULL|NULL)?$",
+                RegexOptions.IgnoreCase);
+            if (!column.Success)
+                return null;
+
+            var name = column.Groups[1].Success
+                ? column.Groups[1].Value
+                : column.Groups[2].Value.ToLowerInvariant();
+            var type = column.Groups[3].Value.Trim();
+            var sizedCharacter = Regex.Match(type,
+                @"^(?:n?varchar|n?char)\s*\(\s*(\d+)\s*\)$",
+                RegexOptions.IgnoreCase);
+            if (sizedCharacter.Success)
+                type = $"character varying({sizedCharacter.Groups[1].Value})";
+            else
+                type = MapType(type);
+            if (!Regex.IsMatch(type,
+                    @"^(?:smallint|integer|bigint|real|double precision|numeric(?:\s*\([^)]*\))?|boolean|text|character varying(?:\s*\([^)]*\))?|character(?:\s*\([^)]*\))?|timestamp(?:\s+without\s+time\s+zone|\s+with\s+time\s+zone)?|date|time(?:\s+without\s+time\s+zone|\s+with\s+time\s+zone)?|uuid|bytea)$",
+                    RegexOptions.IgnoreCase))
+                return null;
+
+            definitions.Add($"{name} {type}");
+        }
+
+        return definitions.Count > 0 ? string.Join(",\n    ", definitions) : null;
     }
 
     static string ConvertFunction(DbObject obj, string owner,
