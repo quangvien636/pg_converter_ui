@@ -1,5 +1,27 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Catalog-proven string column concatenation
+
+- Runtime before: **260 PASS / 72 FAIL / 22 BLOCKED** (354 discovered).
+- Runtime after: **261 PASS / 71 FAIL / 22 BLOCKED** (354 discovered).
+- Recovered: `contacts_searchmobi`.
+- Zero regressions: all 260 previously passing routines remained PASS.
+- Added a catalog-driven rule that changes `column_a + column_b` to
+  `column_a || column_b` only when both operands resolve to SQL Server string
+  columns in tables referenced by the routine. Qualified aliases and
+  unqualified columns are supported; numeric and unresolved operands are left
+  unchanged.
+- The rule removed the string-operator failure from six routines. Five now
+  advance to their pre-existing `42804` result-shape mismatch and remain FAIL;
+  these are excluded from further converter work by the polymorphic result
+  shape stop condition.
+- `board_getsubmenus` still has `text + text` through a CTE-derived column. It
+  is not rewritten by this rule because the table catalog cannot prove that
+  CTE output type.
+- Validation: Release build PASS with 0 warnings/errors; NUnit 110/110; Board
+  QA 24/24; runtime 261/71/22.
+- Detailed evidence: `reports/runtime_fix_report_20260703_catalog_string_concat.md`.
+
 ## 2026-07-03 — Runtime stabilization checkpoint (FINAL)
 
 **Checkpoint timestamp:** 2026-07-03 16:05 +07:00

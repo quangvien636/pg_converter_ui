@@ -36,7 +36,7 @@ public static class Converter
         {
             return obj.Type switch
             {
-                ObjectType.Procedure  => ConvertProcedure(obj, owner, resultMetadataCatalog),
+                ObjectType.Procedure  => ConvertProcedure(obj, owner, tableCatalog, resultMetadataCatalog),
                 ObjectType.Function   => ConvertFunction(obj, owner, tableCatalog, resultMetadataCatalog),
                 ObjectType.Table      => ConvertTable(obj, owner),
                 ObjectType.Index      => ConvertIndex(obj),
@@ -55,6 +55,7 @@ public static class Converter
     // ── PROCEDURE → PostgreSQL function ──────────────────────────────────────
 
     static string ConvertProcedure(DbObject obj, string owner,
+        Dictionary<string, List<ColumnInfo>>? tableCatalog = null,
         Dictionary<string, SqlServerRoutineResultMetadata>? resultMetadataCatalog = null)
     {
         var block  = RenameVariables(obj.RawBlock);
@@ -128,6 +129,7 @@ public static class Converter
         }
         convertedBody = NormalizeIntegerSubstringAssignments(convertedBody, declares);
         convertedBody = NormalizeTempTableNumericInserts(convertedBody, pgParams);
+        convertedBody = NormalizeConfirmedStringColumnConcatenation(convertedBody, tableCatalog);
         convertedBody = EnsureLastSemicolon(convertedBody);
 
         bool hasResultSelect = HasResultReturningSelect(rawBody)
@@ -267,6 +269,80 @@ public static class Converter
                   $"COALESCE(NULLIF(({m.Groups[3].Value})::text, '')::integer, 0);"
                 : m.Value,
             RegexOptions.IgnoreCase);
+    }
+
+    static string NormalizeConfirmedStringColumnConcatenation(
+        string body,
+        Dictionary<string, List<ColumnInfo>>? tableCatalog)
+    {
+        if (tableCatalog == null || tableCatalog.Count == 0 || !body.Contains('+'))
+            return body;
+
+        var referencedTables = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var ambiguousAliases = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (Match source in Regex.Matches(body,
+            @"\b(?:FROM|JOIN)\s+(?:(?:public|dbo)\s*\.\s*)?""?(?<table>[A-Za-z_]\w*)""?(?:\s+(?:AS\s+)?(?<alias>[A-Za-z_]\w*))?",
+            RegexOptions.IgnoreCase))
+        {
+            var table = source.Groups["table"].Value;
+            if (!tableCatalog.ContainsKey(table))
+                continue;
+
+            referencedTables.Add(table);
+            aliases[table] = table;
+
+            var alias = source.Groups["alias"].Value;
+            if (alias.Length == 0 || Regex.IsMatch(alias,
+                @"^(?:WHERE|ON|INNER|LEFT|RIGHT|FULL|CROSS|JOIN|ORDER|GROUP|HAVING|UNION|LIMIT)$",
+                RegexOptions.IgnoreCase))
+                continue;
+
+            if (aliases.TryGetValue(alias, out var existing) &&
+                !existing.Equals(table, StringComparison.OrdinalIgnoreCase))
+            {
+                ambiguousAliases.Add(alias);
+                aliases.Remove(alias);
+            }
+            else if (!ambiguousAliases.Contains(alias))
+                aliases[alias] = table;
+        }
+
+        bool IsStringType(string typeName)
+        {
+            var type = Regex.Replace(typeName, @"\s*\([^)]*\)", "").Trim();
+            return Regex.IsMatch(type,
+                @"^(?:N?VARCHAR|N?CHAR|N?TEXT|TEXT|SYSNAME)$",
+                RegexOptions.IgnoreCase);
+        }
+
+        bool IsConfirmedStringColumn(string reference)
+        {
+            var parts = reference.Split('.');
+            if (parts.Length == 2)
+            {
+                if (!aliases.TryGetValue(parts[0], out var table) ||
+                    !tableCatalog.TryGetValue(table, out var columns))
+                    return false;
+                var column = columns.FirstOrDefault(c =>
+                    c.Name.Equals(parts[1], StringComparison.OrdinalIgnoreCase));
+                return column != null && IsStringType(column.TypeName);
+            }
+
+            var matches = referencedTables
+                .SelectMany(table => tableCatalog[table])
+                .Where(column => column.Name.Equals(reference, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            return matches.Count > 0 && matches.All(column => IsStringType(column.TypeName));
+        }
+
+        return Regex.Replace(body,
+            @"(?<![\w.])(?<left>(?:[A-Za-z_]\w*\.)?[A-Za-z_]\w*)\s*\+\s*(?<right>(?:[A-Za-z_]\w*\.)?[A-Za-z_]\w*)(?![\w.])",
+            match => IsConfirmedStringColumn(match.Groups["left"].Value) &&
+                     IsConfirmedStringColumn(match.Groups["right"].Value)
+                ? $"{match.Groups["left"].Value} || {match.Groups["right"].Value}"
+                : match.Value);
     }
 
     static string NormalizeTempTableNumericInserts(string body, IEnumerable<string> parameters)
@@ -693,6 +769,7 @@ public static class Converter
             convertedBody = $"-- !! body conversion error: {ex.Message}\n{bodyNoDecl}";
         }
         convertedBody = EnsureLastSemicolon(convertedBody);
+        convertedBody = NormalizeConfirmedStringColumnConcatenation(convertedBody, tableCatalog);
         if (scalarReturn is "character varying" or "character" or "text")
             convertedBody = Regex.Replace(convertedBody, @"(?<=\S)\s*\+\s*(?=\S)", " || ");
         if (isTableValued && tableResultVariable != null)

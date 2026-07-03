@@ -296,6 +296,62 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestConfirmedStringColumnsUseConcatenationOperator()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestCatalogConcat
+                AS
+                BEGIN
+                    SELECT U.FirstName + U.LastName AS FullName,
+                           U.PageNo + U.PageSize AS PageEnd,
+                           U.UnknownA + U.UnknownB AS UnknownValue
+                    FROM ContactsUser U
+                END
+                """;
+            var catalog = new Dictionary<string, List<ColumnInfo>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["ContactsUser"] =
+                [
+                    new("FirstName", "nvarchar", "50", 0, 0, true, false, false),
+                    new("LastName", "varchar", "50", 0, 0, true, false, false),
+                    new("PageNo", "int", null, 0, 0, false, false, false),
+                    new("PageSize", "int", null, 0, 0, false, false, false)
+                ]
+            };
+            var obj = new DbObject("Contacts_TestCatalogConcat", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres", catalog);
+
+            Assert.That(pg, Does.Contain("U.FirstName || U.LastName"));
+            Assert.That(pg, Does.Contain("U.PageNo + U.PageSize"));
+            Assert.That(pg, Does.Contain("U.UnknownA + U.UnknownB"));
+        }
+
+        [Test]
+        public void TestConfirmedUnqualifiedStringColumnsUseConcatenationOperator()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestUnqualifiedCatalogConcat
+                AS
+                BEGIN
+                    SELECT FirstName + LastName AS FullName
+                    FROM ContactsUser
+                END
+                """;
+            var catalog = new Dictionary<string, List<ColumnInfo>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["ContactsUser"] =
+                [
+                    new("FirstName", "nvarchar", "50", 0, 0, true, false, false),
+                    new("LastName", "nvarchar", "50", 0, 0, true, false, false)
+                ]
+            };
+            var obj = new DbObject("Contacts_TestUnqualifiedCatalogConcat", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres", catalog);
+
+            Assert.That(pg, Does.Contain("FirstName || LastName"));
+        }
+
+        [Test]
         public void TestExecProcedureWithLiteralArguments()
         {
             string mssql = """
