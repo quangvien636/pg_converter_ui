@@ -1,5 +1,27 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Runtime stabilization session summary and triage
+
+- Session start: 238 PASS / 95 FAIL / 21 BLOCKED (354 discovered).
+- Session end: **260 PASS / 72 FAIL / 22 BLOCKED** (354 discovered).
+- Six generalized converter fixes landed, each independently verified against
+  the live runtime database with zero PASS regressions (full detail in the
+  entries below): `#variable_conflict use_column` for `RETURNS TABLE`
+  functions, generalized `ParseJson` conversion, `COUNT(...)` integer casts,
+  boolean-parameter literal comparisons, the `ParseJson` fallback `COALESCE`
+  text cast, and `WITH RECURSIVE` for self-referencing CTEs.
+- Full triage of the remaining 72 FAILs — why no further blanket rule was
+  attempted, and prioritized recommended next work — is in
+  `reports/runtime_fail_triage_20260703.md`. Summary: the largest remaining
+  buckets are a genuine dependency gap (missing SQL-Server-side helper
+  functions not yet converted) and a structural limitation (multi-branch
+  polymorphic procedures that no schema-description API can capture in one
+  shape) — neither is a converter bug fixable by a blanket rule. One real,
+  scoped opportunity remains: SQL Server's `SELECT @var = expr` leaves the
+  variable unchanged when no row matches, while PostgreSQL's `SELECT INTO`
+  always sets it to NULL — a confirmed 4-routine NOT NULL violation cluster
+  that needs `DECLARE`-default tracking to fix safely.
+
 ## 2026-07-03 - WITH RECURSIVE for self-referencing CTEs (and a hang fix)
 
 - Runtime before: 256 PASS / 76 FAIL / 22 BLOCKED (354 discovered).
