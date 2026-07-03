@@ -863,6 +863,30 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestIntegerSubstringAssignmentPreservesEmptyStringCoercion()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestIntegerSubstring @Items varchar(max)
+                AS
+                BEGIN
+                    DECLARE @ItemNo INT
+                    DECLARE @TextItem varchar(20)
+                    SET @ItemNo = SUBSTRING(@Items, 0, CHARINDEX(',', @Items))
+                    SET @TextItem = SUBSTRING(@Items, 0, CHARINDEX(',', @Items))
+                END
+                """;
+            var obj = new DbObject("TestIntegerSubstring", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Match(
+                @"(?i)_itemno\s*:=\s*COALESCE\(NULLIF\(\(SUBSTRING\(.+?\)\)::text,\s*''\)::integer,\s*0\);"));
+            Assert.That(pg, Does.Match(
+                @"(?i)_textitem\s*:=\s*SUBSTRING\(.+?\);"));
+            Assert.That(pg, Does.Not.Match(
+                @"(?i)_textitem\s*:=\s*COALESCE\(NULLIF"));
+        }
+
+        [Test]
         public void TestDateExtractionFunctions()
         {
             string mssql = """

@@ -222,8 +222,8 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false`
 - Generated SQL: `SELECT "public"."board_getboardcontents"(0::integer, 0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false);`
 - SQLSTATE: `42601`
-- Error: syntax error at or near "LEFT"
-- Stack context: PL/pgSQL function board_getboardcontents(integer,integer,integer,boolean,integer,integer,character varying,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean) line 120 at EXECUTE statement
+- Error: syntax error at or near "$1"
+- Stack context: PL/pgSQL function board_getboardcontents(integer,integer,integer,boolean,integer,integer,character varying,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean) line 121 at EXECUTE statement
 - Root cause: Generated SQL fails when its dynamic/runtime path executes
 - Proposed fix: Capture the failing generated statement, repair that conversion path, regenerate, and rerun.
 - Validation after fix: NOT YET PASS
@@ -256,14 +256,14 @@ BEGIN
 	 */
 
 
-	_Query := 'SELECT ROW_NUMBER() OVER (ORDER BY ';
-	_strAlow := '';
-	_strWriteAlow := '';
+	_query := 'SELECT ROW_NUMBER() OVER (ORDER BY ';
+	_stralow := '';
+	_strwritealow := '';
 	IF _IsAdmin = FALSE THEN
-		_strAlow := ' LEFT JOIN (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',2)) AC ON BC.BoardNo=AC.BoardNo;
+		_stralow := ' LEFT JOIN (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',2)) AC ON BC.BoardNo=AC.BoardNo
 			LEFT JOIN  (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',4)) AD ON BC.BoardNo=AD.BoardNo
 			LEFT JOIN  (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',1)) AE ON BC.BoardNo=AE.BoardNo ';
-		_strWriteAlow := '(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CAST(_UserNo AS text) || ' )) AND ';
+		_strwritealow := '(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CAST(_UserNo AS text) || ' )) AND ';
 	END IF;
 
 	/*
@@ -353,7 +353,8 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 		Content text
 	) ON COMMIT DROP;
 
-	EXECUTE format('INSERT INTO _SearchResult ' || _Query, _BoardNo);
+	_Query := regexp_replace(_Query, '\yBoardNo\y', '$1', 'gi');
+	EXECUTE 'INSERT INTO _SearchResult ' || _Query USING _BoardNo;
 	/*
 	 * 페이징 계산
 	 */
@@ -363,18 +364,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
-	_TotalPageCount := _TotalItemCount / _CountPerPage;
+	_totalitemcount := (SELECT COUNT(*) FROM _SearchResult);
+	_totalpagecount := _TotalItemCount / _CountPerPage;
 	IF _TotalItemCount % _CountPerPage > 0 THEN
-	    _TotalPageCount := _TotalPageCount + 1;
+	    _totalpagecount := _TotalPageCount + 1;
 	END IF;
 	IF _TotalPageCount = 0 THEN
-	    _TotalPageCount := 1;
+	    _totalpagecount := 1;
 	END IF;
 	--IF (CurrentPageIndex > TotalPageCount) SET CurrentPageIndex = TotalPageCount;
 
-	_StartRowNum := ((_CurrentPageIndex - 1) * _CountPerPage) + 1;
-	_EndRowNum := board_getboardcontents._currentpageindex * _CountPerPage;
+	_startrownum := ((_CurrentPageIndex - 1) * _CountPerPage) + 1;
+	_endrownum := board_getboardcontents._currentpageindex * _CountPerPage;
 	/*
 	 *
 	 */
@@ -871,8 +872,8 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false`
 - Generated SQL: `SELECT "public"."board_getboardcontents_bk20181227"(0::integer, 0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false);`
 - SQLSTATE: `42601`
-- Error: syntax error at or near "LEFT"
-- Stack context: PL/pgSQL function board_getboardcontents_bk20181227(integer,integer,integer,boolean,integer,integer,character varying,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean) line 120 at EXECUTE statement
+- Error: syntax error at or near "$1"
+- Stack context: PL/pgSQL function board_getboardcontents_bk20181227(integer,integer,integer,boolean,integer,integer,character varying,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean) line 121 at EXECUTE statement
 - Root cause: Generated SQL fails when its dynamic/runtime path executes
 - Proposed fix: Capture the failing generated statement, repair that conversion path, regenerate, and rerun.
 - Validation after fix: NOT YET PASS
@@ -905,14 +906,14 @@ BEGIN
 	 */
 
 
-	_Query := 'SELECT ROW_NUMBER() OVER (ORDER BY ';
-	_strAlow := '';
-	_strWriteAlow := '';
+	_query := 'SELECT ROW_NUMBER() OVER (ORDER BY ';
+	_stralow := '';
+	_strwritealow := '';
 	IF _IsAdmin = FALSE THEN
-		_strAlow := ' LEFT JOIN (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',2)) AC ON BC.BoardNo=AC.BoardNo;
+		_stralow := ' LEFT JOIN (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',2)) AC ON BC.BoardNo=AC.BoardNo
 			LEFT JOIN  (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',4)) AD ON BC.BoardNo=AD.BoardNo
 			LEFT JOIN  (SELECT * FROM public."board_getboardallow"(' || CAST(_UserNo AS text) || ',1)) AE ON BC.BoardNo=AE.BoardNo ';
-		_strWriteAlow := '(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CAST(_UserNo AS text) || ' )) AND ';
+		_strwritealow := '(AE.BoardNo IS NOT NULL OR AC.BoardNo IS NOT NULL OR (AD.BoardNo IS NOT NULL AND BC.RegUserNo = ' || CAST(_UserNo AS text) || ' )) AND ';
 	END IF;
 
 	/*
@@ -1002,7 +1003,8 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 		Content text
 	) ON COMMIT DROP;
 
-	EXECUTE format('INSERT INTO _SearchResult ' || _Query, _BoardNo);
+	_Query := regexp_replace(_Query, '\yBoardNo\y', '$1', 'gi');
+	EXECUTE 'INSERT INTO _SearchResult ' || _Query USING _BoardNo;
 	/*
 	 * 페이징 계산
 	 */
@@ -1012,18 +1014,18 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
-	_TotalPageCount := _TotalItemCount / _CountPerPage;
+	_totalitemcount := (SELECT COUNT(*) FROM _SearchResult);
+	_totalpagecount := _TotalItemCount / _CountPerPage;
 	IF _TotalItemCount % _CountPerPage > 0 THEN
-	    _TotalPageCount := _TotalPageCount + 1;
+	    _totalpagecount := _TotalPageCount + 1;
 	END IF;
 	IF _TotalPageCount = 0 THEN
-	    _TotalPageCount := 1;
+	    _totalpagecount := 1;
 	END IF;
 	--IF (CurrentPageIndex > TotalPageCount) SET CurrentPageIndex = TotalPageCount;
 
-	_StartRowNum := ((_CurrentPageIndex - 1) * _CountPerPage) + 1;
-	_EndRowNum := board_getboardcontents_bk20181227._currentpageindex * _CountPerPage;
+	_startrownum := ((_CurrentPageIndex - 1) * _CountPerPage) + 1;
+	_endrownum := board_getboardcontents_bk20181227._currentpageindex * _CountPerPage;
 	/*
 	 *
 	 */
@@ -2418,725 +2420,6 @@ BEGIN
 	left join ContactsGroupUser g on c.groupno=g.groupno
 	WHERE c.RegUserNo=contacts_getgroupbyuser._reguserno AND c.UseYn='Y' --and --g.userseq=UserSeq
 	 ORDER BY c.Sort;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getoutfile`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT "public"."contacts_getoutfile"(0::integer, ''::character varying);`
-- SQLSTATE: `22P02`
-- Error: invalid input syntax for integer: ""
-- Stack context: PL/pgSQL function contacts_getoutfile(integer,character varying) line 33 at assignment
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutfile(_userno integer, _userseqlist character varying DEFAULT 'ALL'::character varying)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _userseq integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-
-	IF _UserSeqList = 'ALL' THEN
-		RETURN QUERY
-		SELECT
-			U.Seq,
-			U.LastName,
-			U.FirstName,
-			public."uf_contactsdetail"(U.Seq,'Position') AS Position,
-			public."uf_contactsdetail"(U.Seq,'number') AS Number,
-			public."uf_contactsdetail"(U.Seq,'company') AS Company,
-			public."uf_contactsdetail"(U.Seq,'Depart') As Depart,
-			public."uf_contactsdetail"(U.Seq,'group') AS GroupName,
-			public."uf_contactsdetail"(U.Seq,'email') AS Email,
-			U.CheckDate,
-			U.ModDate,
-			U.RegDate
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutfile._userno
-		AND UseYn = 'Y';
-	ELSE
-
-		CREATE TEMP TABLE _tabUser (UserSeq INT) ON COMMIT DROP;
-
-		_UserSeqList := contacts_getoutfile._userseqlist || ',';
-		WHILE STRPOS(_UserSeqList, ',') > 0 LOOP
-
-			_UserSeq := SUBSTRING(_UserSeqList,0,STRPOS(_UserSeqList, ','));
-			INSERT INTO _tabUser
-			(
-				UserSeq
-			)
-			VALUES
-			(
-				_UserSeq
-			);
-
-			_UserSeqList := SUBSTRING(_UserSeqList,STRPOS(_UserSeqList, ',')+1,LENGTH(_UserSeqList));
-		END LOOP;
-
-		RETURN QUERY
-		SELECT
-			U.Seq,
-			U.LastName,
-			U.FirstName,
-			U.CheckDate,
-			U.ModDate,
-			U.RegDate,
-			public."uf_contactsdetail"(U.Seq,'company') AS Company,
-			public."uf_contactsdetail"(U.Seq,'Depart') As Depart,
-			public."uf_contactsdetail"(U.Seq,'Position') AS Position,
-			public."uf_contactsdetail"(U.Seq,'email') AS Email,
-			public."uf_contactsdetail"(U.Seq,'number') AS Number,
-			public."uf_contactsdetail"(U.Seq,'group') AS GroupName
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutfile._userno
-		AND UseYn = 'Y'
-		AND Seq IN (SELECT UserSeq FROM _tabUser);
-	END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getoutfileexcel`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT "public"."contacts_getoutfileexcel"(0::integer, ''::character varying);`
-- SQLSTATE: `22P02`
-- Error: invalid input syntax for integer: ""
-- Stack context: PL/pgSQL function contacts_getoutfileexcel(integer,character varying) line 41 at assignment
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutfileexcel(_userno integer DEFAULT 1, _userseqlist character varying DEFAULT '2,3,4,5'::character varying)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _userseq integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-
-	IF _UserSeqList = 'ALL' THEN
-		RETURN QUERY
-		SELECT
-			U.LastName,
-			U.FirstName,
-			U.CallName,
-			public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-			public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-			public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-			public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-			public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-			public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-			public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-			public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-			public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-			public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-			public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-			public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-			public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-			U.Memo,
-			public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-			U.RegDate,
-			U.ModDate
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutfileexcel._userno
-		AND UseYn = 'Y';
-	ELSE
-
-		CREATE TEMP TABLE _tabUser (UserSeq INT) ON COMMIT DROP;
-
-		_UserSeqList := contacts_getoutfileexcel._userseqlist || ',';
-		WHILE STRPOS(_UserSeqList, ',') > 0 LOOP
-
-			_UserSeq := SUBSTRING(_UserSeqList,0,STRPOS(_UserSeqList, ','));
-			INSERT INTO _tabUser
-			(
-				UserSeq
-			)
-			VALUES
-			(
-				_UserSeq
-			);
-
-			_UserSeqList := SUBSTRING(_UserSeqList,STRPOS(_UserSeqList, ',')+1,LENGTH(_UserSeqList));
-		END LOOP;
-
-		RETURN QUERY
-		SELECT
-			U.LastName,
-			U.FirstName,
-			U.CallName,
-			public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-			public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-			public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-			public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-			public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-			public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-			public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-			public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-			public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-			public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-			public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-			public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-			public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-			U.Memo,
-			public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-			U.RegDate,
-			U.ModDate
-		FROM ContactsUser U
-		WHERE
-		--RegUserNo = UserNo	AND
-		 UseYn = 'Y'
-		AND Seq IN (SELECT UserSeq FROM _tabUser);
-	END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getoutlist`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT "public"."contacts_getoutlist"(0::integer, ''::character varying);`
-- SQLSTATE: `22P02`
-- Error: invalid input syntax for integer: ""
-- Stack context: PL/pgSQL function contacts_getoutlist(integer,character varying) line 67 at assignment
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutlist(_userno integer, _grouplist character varying DEFAULT 'ALL'::character varying)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _groupno integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	IF _GroupList = 'ALL' THEN
-		RETURN QUERY
-		SELECT
-			Seq,
-			LastName,
-			FirstName,
-			CheckDate,
-			ModDate,
-			RegDate,
-			Company,
-			Depart,
-			Position,
-			Email,
-			Number,
-			GroupName
-		FROM
-		(
-			SELECT
-				ROW_NUMBER() OVER(ORDER BY U.ModDate DESC) AS RowNum,
-				U.Seq,
-				U.LastName,
-				U.FirstName,
-				U.CheckDate,
-				U.ModDate,
-				U.RegDate,
-				public."uf_contactsdetail"(U.Seq,'company') AS Company,
-				public."uf_contactsdetail"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetail"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetail"(U.Seq,'email') AS Email,
-				public."uf_contactsdetail"(U.Seq,'number') AS Number,
-				public."uf_contactsdetail"(U.Seq,'group') AS GroupName
-			FROM ContactsUser U
-			WHERE RegUserNo = contacts_getoutlist._userno
-			AND UseYn = 'Y'
-		) A
-		WHERE 1>0;
-	ELSIF _GroupList = 'LIST' THEN
-		RETURN QUERY
-		SELECT
-			U.Seq,
-			U.LastName,
-			U.FirstName,
-			U.CheckDate,
-			U.ModDate,
-			U.RegDate,
-			public."uf_contactsdetail"(U.Seq,'company') AS Company,
-			public."uf_contactsdetail"(U.Seq,'Depart') As Depart,
-			public."uf_contactsdetail"(U.Seq,'Position') AS Position,
-			public."uf_contactsdetail"(U.Seq,'email') AS Email,
-			public."uf_contactsdetail"(U.Seq,'number') AS Number,
-			public."uf_contactsdetail"(U.Seq,'group') AS GroupName
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutlist._userno
-		AND UseYn = 'Y';
-	ELSE
-		CREATE TEMP TABLE _tabGroup (GroupNo INT) ON COMMIT DROP;
-
-		_GroupList := contacts_getoutlist._grouplist || ',';
-		WHILE STRPOS(_GroupList, ',') > 0 LOOP
-
-			_GroupNo := SUBSTRING(_GroupList,0,STRPOS(_GroupList, ','));
-			INSERT INTO _tabGroup
-			(
-				GroupNo
-			)
-			VALUES
-			(
-				_GroupNo
-			);
-
-			_GroupList := SUBSTRING(_GroupList,STRPOS(_GroupList, ',')+1,LENGTH(_GroupList));
-		END LOOP;
-
-		RETURN QUERY
-		SELECT
-			Seq,
-			LastName,
-			FirstName,
-			CheckDate,
-			ModDate,
-			RegDate,
-			Company,
-			Depart,
-			Position,
-			Email,
-			Number,
-			GroupName
-		FROM
-		(
-			SELECT
-				ROW_NUMBER() OVER(ORDER BY U.ModDate DESC) AS RowNum,
-				U.Seq,
-				U.LastName,
-				U.FirstName,
-				U.CheckDate,
-				U.ModDate,
-				U.RegDate,
-				public."uf_contactsdetail"(U.Seq,'company') AS Company,
-				public."uf_contactsdetail"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetail"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetail"(U.Seq,'email') AS Email,
-				public."uf_contactsdetail"(U.Seq,'number') AS Number,
-				public."uf_contactsdetail"(U.Seq,'group') AS GroupName
-			FROM ContactsUser U
-			JOIN ContactsGroupUser G ON U.Seq = G.UserSeq
-			JOIN ContactsGroup GR ON G.GroupNo=GR.GroupNo
-			WHERE U.RegUserNo = contacts_getoutlist._userno
-			AND U.UseYn = 'Y'
-			AND G.GroupNo IN (SELECT GroupNo FROM _tabGroup)
-		) A
-		WHERE 1>0;
-	END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getoutlistcount`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT "public"."contacts_getoutlistcount"(0::integer, ''::character varying);`
-- SQLSTATE: `22P02`
-- Error: invalid input syntax for integer: ""
-- Stack context: PL/pgSQL function contacts_getoutlistcount(integer,character varying) line 21 at assignment
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutlistcount(_userno integer, _grouplist character varying DEFAULT 'ALL'::character varying)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _groupno integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-	IF _GroupList = 'ALL' THEN
-
-		RETURN QUERY
-		SELECT
-			COUNT(U.Seq) AS CNT
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutlistcount._userno
-		AND UseYn = 'Y';
-	ELSE
-		CREATE TEMP TABLE _tabGroup (GroupNo INT) ON COMMIT DROP;
-
-		_GroupList := contacts_getoutlistcount._grouplist || ',';
-		WHILE STRPOS(_GroupList, ',') > 0 LOOP
-
-			_GroupNo := SUBSTRING(_GroupList,0,STRPOS(_GroupList, ','));
-			INSERT INTO _tabGroup
-			(
-				GroupNo
-			)
-			VALUES
-			(
-				_GroupNo
-			);
-
-			_GroupList := SUBSTRING(_GroupList,STRPOS(_GroupList, ',')+1,LENGTH(_GroupList));
-		END LOOP;
-
-		RETURN QUERY
-		SELECT
-			COUNT(U.Seq) AS CNT
-		FROM ContactsUser U
-		JOIN ContactsGroupUser G ON U.Seq = G.UserSeq
-		WHERE U.RegUserNo = contacts_getoutlistcount._userno
-		AND U.UseYn = 'Y'
-		AND G.GroupNo IN (SELECT GroupNo FROM _tabGroup);
-
-	END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getoutlistexcel`
-
-- Input: `0::integer, ''::character varying, ''::character varying, ''::character varying, false`
-- Generated SQL: `SELECT "public"."contacts_getoutlistexcel"(0::integer, ''::character varying, ''::character varying, ''::character varying, false);`
-- SQLSTATE: `22P02`
-- Error: invalid input syntax for integer: ""
-- Stack context: PL/pgSQL function contacts_getoutlistexcel(integer,character varying,character varying,character varying,boolean) line 11 at assignment
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutlistexcel(_userno integer DEFAULT 70, _grouplist character varying DEFAULT ''::character varying, _sharelist character varying DEFAULT '0'::character varying, _publiclist character varying DEFAULT ''::character varying, _isadmin boolean DEFAULT true)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _groupno integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-CREATE TEMP TABLE _tabGroup (GroupNo INT) ON COMMIT DROP;
-	_GroupList := contacts_getoutlistexcel._grouplist || ',';
-		WHILE STRPOS(_GroupList, ',') > 0 LOOP
-
-			_GroupNo := SUBSTRING(_GroupList,0,STRPOS(_GroupList, ','));
-			INSERT INTO _tabGroup
-			(
-				GroupNo
-			)
-			VALUES
-			(
-				_GroupNo
-			);
-
-			_GroupList := SUBSTRING(_GroupList,STRPOS(_GroupList, ',')+1,LENGTH(_GroupList));
-		END LOOP;
-IF _IsAdmin = TRUE THEN
-		RETURN QUERY
-		SELECT distinct
-			Seq,
-			LastName,
-			CallName,
-			FirstName,
-			cellphone,
-			companyphone,
-			homephone,
-			faxphone,
-			Company,
-			Position,
-			Depart,
-			Email,
-			companyzipcode,
-			companyaddress,
-			homezipcode,
-			homeaddress,
-			homepage,
-			ModDate,
-			RegDate,
-			CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>'KO' ELSE GroupName END AS GroupName ,
-			--GroupName,
-			Memo,
-			GroupId,
-			RegUserNo,
-			UseYn
-		FROM
-		(
-			SELECT
-				U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				gg.GroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			inner join (SELECT DISTINCT  M.GroupNo,G.UserSeq
-					FROM  ContactsGroupUser G inner JOIN ContactsGroup M ON M.GroupNo = G.GroupNo
-					where M.RegUserNo=contacts_getoutlistexcel._userno) gg  ON gg.UserSeq = U.Seq
-			WHERE
-			U.UseYn = 'Y'
-			AND gg.GroupNo IN (SELECT GroupNo FROM _tabGroup)
-			UNION  ALL
-			SELECT
-					U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				G.PublicGroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			LEFT JOIN Contact_PublicGroupUser G ON U.Seq = G.UserSeq
-
-			WHERE
-			 SUBSTRING(U.Share,1,3)='300'
-			AND U.UseYn = 'Y'
-			AND COALESCE(G.PublicGroupNo,0) IN (SELECT unnest(string_to_array(_PublicList, ','))::integer)
-			UNION  ALL
-			SELECT
-				U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				G.ShareGroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			LEFT JOIN Contact_ShareGroupUser G ON U.Seq = G.UserSeq
-			WHERE
-			 --((U.RegUserNo=UserNo AND SUBSTRING(U.Share,1,3)='200')
-
-				--or (SUBSTRING(U.Share,1,3)='200' AND (U.Seq IN (select C.Seq from ContactsSharers C INNER JOIN Organization_GetDepartmentsByUser(UserNo) DP ON DP.DepartNo = C.DepartNo))))
-			SUBSTRING(U.Share,1,3)='200'
-			--AND U.RegUserNo <> UserNo
-			AND U.UseYn = 'Y'
-			AND COALESCE(G.ShareGroupNo,0) IN (SELECT unnest(string_to_array(_ShareList, ','))::integer)
-		) A;
-
-		ELSE
-
-
-
-
-		RETURN QUERY
-		SELECT distinct
-			Seq,
-			LastName,
-			CallName,
-			FirstName,
-			cellphone,
-			companyphone,
-			homephone,
-			faxphone,
-			Company,
-			Position,
-			Depart,
-			Email,
-			companyzipcode,
-			companyaddress,
-			homezipcode,
-			homeaddress,
-			homepage,
-			ModDate,
-			RegDate,
-			CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>'KO' ELSE GroupName END AS GroupName ,
-			--GroupName,
-			Memo,
-			GroupId,
-			RegUserNo,
-			UseYn
-		FROM
-		(
-			SELECT
-				U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				gg.GroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			inner join (SELECT DISTINCT  M.GroupNo,G.UserSeq
-					FROM  ContactsGroupUser G inner JOIN ContactsGroup M ON M.GroupNo = G.GroupNo
-					where M.RegUserNo=contacts_getoutlistexcel._userno) gg  ON gg.UserSeq = U.Seq
-			WHERE
-			U.UseYn = 'Y'
-			AND gg.GroupNo IN (SELECT GroupNo FROM _tabGroup)
-			UNION  ALL
-			SELECT
-					U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				G.PublicGroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			LEFT JOIN Contact_PublicGroupUser G ON U.Seq = G.UserSeq
-
-			WHERE
-			 SUBSTRING(U.Share,1,3)='300'
-			AND U.UseYn = 'Y'
-			AND COALESCE(G.PublicGroupNo,0) IN (SELECT unnest(string_to_array(_PublicList, ','))::integer)
-			UNION  ALL
-			SELECT
-				U.Seq,
-				U.LastName as LastName,
-				U.CallName as CallName,
-				U.FirstName as FirstName,
-				public."uf_contactsdetailexcel"(U.Seq,'cellphone') AS cellphone,
-				public."uf_contactsdetailexcel"(U.Seq,'companyphone') AS companyphone,
-				public."uf_contactsdetailexcel"(U.Seq,'homephone') AS homephone,
-				public."uf_contactsdetailexcel"(U.Seq,'faxphone') AS faxphone,
-				public."uf_contactsdetailexcel"(U.Seq,'company') AS Company,
-				public."uf_contactsdetailexcel"(U.Seq,'Position') AS Position,
-				public."uf_contactsdetailexcel"(U.Seq,'Depart') As Depart,
-				public."uf_contactsdetailexcel"(U.Seq,'email') AS Email,
-				public."uf_contactsdetailexcel"(U.Seq,'companyzipcode') AS companyzipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'companyaddress') AS companyaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homezipcode') AS homezipcode,
-				public."uf_contactsdetailexcel"(U.Seq,'homeaddress') AS homeaddress,
-				public."uf_contactsdetailexcel"(U.Seq,'homepage') AS homepage,
-				U.Memo,
-				CASE WHEN STRPOS(public."uf_contactsdetailexcel"(U.Seq,'group', '{'))>0 THEN (SELECT StringValue FROM ParseJson(public."uf_contactsdetailexcel"(U.Seq,'group'))  WHERE NAME='KO') ELSE public."uf_contactsdetailexcel"(U.Seq,'group') END AS GroupName ,
-				--public."uf_contactsdetailexcel"(U.Seq,'group') AS GroupName,
-				U.ModDate,
-				U.RegDate,
-				G.ShareGroupNo as GroupId,
-				U.RegUserNo,
-				U.UseYn
-			FROM ContactsUser U
-			LEFT JOIN Contact_ShareGroupUser G ON U.Seq = G.UserSeq
-			WHERE
-			 ((U.RegUserNo=contacts_getoutlistexcel._userno AND SUBSTRING(U.Share,1,3)='200')
-
-				or (SUBSTRING(U.Share,1,3)='200' AND (U.Seq IN (select C.Seq from ContactsSharers C INNER JOIN Organization_BelongToDepartment DP ON DP.DepartNo = C.DepartNo AND DP.UserNo = contacts_getoutlistexcel._userno))))
-			--SUBSTRING(U.Share,1,3)='200'
-			AND U.RegUserNo <> contacts_getoutlistexcel._userno
-			AND U.UseYn = 'Y'
-			AND COALESCE(G.ShareGroupNo,0) IN (SELECT unnest(string_to_array(_ShareList, ','))::integer)
-		) A;
-END IF;
 END;
 $function$
 

@@ -124,6 +124,7 @@ public static class Converter
             Logger.Warn($"[{pgName}] procedure body conversion failed. {ex.Message}");
             convertedBody = $"-- !! body conversion error: {ex.Message}\n{bodyNoDecl}";
         }
+        convertedBody = NormalizeIntegerSubstringAssignments(convertedBody, declares);
         convertedBody = EnsureLastSemicolon(convertedBody);
 
         bool hasResultSelect = HasResultReturningSelect(rawBody)
@@ -228,6 +229,27 @@ public static class Converter
     }
 
     // ── FUNCTION ─────────────────────────────────────────────────────────────
+
+    static string NormalizeIntegerSubstringAssignments(string body, IEnumerable<string> declares)
+    {
+        var integerVariables = declares
+            .Select(d => Regex.Match(d.Trim(), @"^(\w+)\s+(?:smallint|integer|bigint)\s*;",
+                RegexOptions.IgnoreCase))
+            .Where(m => m.Success)
+            .Select(m => m.Groups[1].Value)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        if (integerVariables.Count == 0)
+            return body;
+
+        return Regex.Replace(body,
+            @"(?m)^([ \t]*)(\w+)\s*:=\s*(SUBSTRING\s*\(.+\))\s*;[ \t]*$",
+            m => integerVariables.Contains(m.Groups[2].Value)
+                ? $"{m.Groups[1].Value}{m.Groups[2].Value} := " +
+                  $"COALESCE(NULLIF(({m.Groups[3].Value})::text, '')::integer, 0);"
+                : m.Value,
+            RegexOptions.IgnoreCase);
+    }
 
     static string ConvertFunction(DbObject obj, string owner,
         Dictionary<string, List<ColumnInfo>>? tableCatalog = null)

@@ -1,5 +1,23 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Integer SUBSTRING assignment coercion
+
+- Runtime before: 227 PASS / 28 FAIL / 99 BLOCKED.
+- Runtime after: **227 PASS / 23 FAIL / 104 BLOCKED**.
+- Root cause: five Contacts list-parsing routines assigned an empty
+  `SUBSTRING(...)` result to a declared integer. SQL Server coerces that value
+  to zero, while PostgreSQL raises `22P02`.
+- General fix: integer-declared local variables now preserve SQL Server's
+  empty-string coercion for `SUBSTRING` assignments. Text variables are left
+  unchanged.
+- Cleared converter failures in `contacts_getoutfile`,
+  `contacts_getoutfileexcel`, `contacts_getoutlist`,
+  `contacts_getoutlistcount`, and `contacts_getoutlistexcel`. They are now
+  classified BLOCKED because their `SETOF record` result columns cannot be
+  inferred safely by the runtime runner.
+- Validation: build PASS with 0 warnings/errors; NUnit 78/78; Board QA 24/24;
+  full rollback-only runtime smoke 227/23/104.
+
 ## 2026-07-02 21:41 - Final validation
 
 - Session baseline: 207 PASS / 46 FAIL / 98 BLOCKED (351 discovered).
