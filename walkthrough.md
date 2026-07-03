@@ -1,5 +1,55 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - SQL Server result metadata unblocks SETOF record routines
+
+- Runtime before: 229 PASS / 20 FAIL / 105 BLOCKED (354 discovered).
+- Runtime after: **238 PASS / 95 FAIL / 21 BLOCKED** (354 discovered).
+- Zero regressions: diffed every routine by name against the prior baseline —
+  all 229 previously-PASS and all 20 previously-FAIL routines kept their
+  exact status. Every status change came from the 105 previously-BLOCKED
+  routines: 9 moved to PASS, 75 moved to FAIL (now callable but expose
+  pre-existing body/dependency issues that were invisible while BLOCKED),
+  21 remain BLOCKED (no trustworthy metadata available).
+- Root cause of the extractor failing 105/105 last session: the source SQL
+  Server is 2008/2008 R2, which predates both
+  `sys.dm_exec_describe_first_result_set_for_object` and
+  `sys.sp_describe_first_result_set` (SQL Server 2012+). Added a `SET FMTONLY
+  ON` fallback in `qa/SqlServerResultMetadata`, wrapped in a transaction that
+  is always rolled back as a safety net against FMTONLY's documented
+  tendency to still execute statement shapes it doesn't recognize. Extraction
+  now succeeds for 104/105 requested routines, all with fully-mapped column
+  types (0 unmapped).
+- `Converter.cs` now accepts an optional verified result-metadata catalog
+  (loaded from the gitignored `reports/generated/sqlserver_result_metadata.json`)
+  and resolves `RETURNS TABLE(...)` for procedures/functions whose column
+  shape static analysis cannot determine. Applied only when extraction
+  status is `Success` and every column has a trustworthy PostgreSQL type —
+  anything incomplete stays `SETOF record`/BLOCKED, never guessed.
+- First live rebuild against real metadata found two further defects that
+  were silently preventing 13 routines from deploying at all (CREATE
+  FUNCTION failed and was swallowed): an unquoted PostgreSQL reserved column
+  name (`Position`) and procedures whose result set legitimately repeats a
+  column name (`IsNotice, IsNotice`), which `RETURNS TABLE` forbids. Fixed
+  by reusing the existing `QuoteIfReserved` helper and refusing to emit
+  `RETURNS TABLE` when a routine has duplicate result column names.
+- Known limitation (affects 6 of the 75 new FAILs): a handful of procedures
+  (e.g. `Contacts_GetUserData`) branch on a parameter and return a
+  *different* column shape per branch. Every schema-description API SQL
+  Server offers — including the FMTONLY fallback — can only report one
+  representative shape, so the generated `RETURNS TABLE` is accurate for
+  only some branches. This surfaces as an honest PostgreSQL error
+  (`structure of query does not match function result type`) rather than a
+  silent wrong result, so it does not violate the no-fake-PASS rule, but it
+  is not fixable by better metadata alone — it needs per-branch handling
+  (e.g. multiple functions, or `SETOF record` kept deliberately) and was
+  left as BLOCKED-equivalent (correctly failing) rather than guessed.
+- Validation: build PASS with 0 warnings/errors; NUnit 95/95; Board QA
+  24/24; full rollback-only runtime smoke 238/95/21.
+- Next: investigate the 75 new FAILs by error class (ambiguous column
+  references, missing `parsejson()` helper, missing `user_depart`/`folder`
+  relations) — these are pre-existing converter/body-conversion gaps now
+  visible for the first time, unrelated to result metadata.
+
 ## 2026-07-03 - Final handoff verification
 
 - Final verified baseline: **229 PASS / 20 FAIL / 105 BLOCKED** from 354

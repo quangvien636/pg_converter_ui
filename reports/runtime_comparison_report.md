@@ -5,6 +5,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | Procedure | PostgreSQL execution | SQL Server reference | Behaviour verdict |
 |---|---|---|---|
 | `board_board_maxsortno_select` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_checkpermission` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_checkpermissionbycontentno` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_convertboard` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_countboardinfolder` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -41,6 +42,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getcompanylist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getconfig` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcontentsetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getdepartallowaccess` | Executed; 0 row(s), 12 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getdepartandpositionname` | Executed; 1 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getfile` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getfiles` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
@@ -50,10 +52,12 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getiosdeviceofallusers` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getlistconverturlfile` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getmaxsortoftree` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getnewboardcontent` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendedlogbyuserno` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendedlogs` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendlogcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getreplies` | Executed; 0 row(s), 15 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreply` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreplyfilebycontentno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreplyfilebyreplyfileno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
@@ -61,6 +65,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getsharers` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getstatusapprovalpermission` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getteamlist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getuserbyshare` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getusersetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getviewedlogs` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
 | `board_insertboard` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -104,6 +109,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_upwidget` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_usercollection_select` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
 | `board_web_search` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contact_checkinsertgroupdefault` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_changegroup` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_changepublicgroup` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_changesharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -147,6 +153,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getcontactsforoutlook` | Executed; 0 row(s), 28 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getcontactsgroup` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getdefaultcategory` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getdepartallowaccess` | Executed; 0 row(s), 11 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getdupelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgroupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgrouplist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
@@ -164,6 +171,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getranklist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getranklistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsetup` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getsharedepartmentdefault` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsharers` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gettopcategory` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gettrashcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -173,6 +181,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getuser_email` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_groupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_homepage` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getuser_noname` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_number` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_phoneinfo` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_sns` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
