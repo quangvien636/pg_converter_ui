@@ -1,5 +1,20 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Optional INTO in boolean INSERT mapping
+
+- Runtime before: 227 PASS / 23 FAIL / 104 BLOCKED.
+- Runtime after: **227 PASS / 22 FAIL / 105 BLOCKED**.
+- Root cause: SQL Server permits `INSERT Table (...) VALUES (...)`; the
+  boolean-column mapper only recognized `INSERT INTO Table`, even though a
+  later conversion phase added `INTO`.
+- General fix: boolean INSERT literal mapping now accepts both SQL Server
+  forms and still maps only confirmed boolean-style column names.
+- Cleared the `Enabled integer` runtime failure in
+  `board_insertboardcontent`. The routine is now BLOCKED only because its
+  `SETOF record` output metadata cannot be inferred safely.
+- Validation: build PASS with 0 warnings/errors; NUnit 79/79; Board QA 24/24;
+  full rollback-only runtime smoke 227/22/105.
+
 ## 2026-07-03 - Integer SUBSTRING assignment coercion
 
 - Runtime before: 227 PASS / 28 FAIL / 99 BLOCKED.

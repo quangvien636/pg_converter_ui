@@ -1371,7 +1371,7 @@ $$;";
     static string ConvertBooleanInsertLiterals(string body)
     {
         return Regex.Replace(body,
-            @"(\bINSERT\s+INTO\s+(?:[\w.""\[\]]+\.)?[\w""\[\]]+\s*\()([^()]+)(\)\s*VALUES\s*\()([^()]+)(\))",
+            @"(\bINSERT\s+(?:INTO\s+)?(?:[\w.""\[\]]+\.)?[\w""\[\]]+\s*\()([^()]+)(\)\s*VALUES\s*\()([^()]+)(\))",
             m => {
                 var columns = m.Groups[2].Value.Split(',');
                 var values = m.Groups[4].Value.Split(',');

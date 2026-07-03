@@ -841,6 +841,23 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("VALUES (1, TRUE, FALSE, 0)"));
         }
 
+        [Test]
+        public void TestBooleanLiteralInInsertValuesWithoutInto()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestBooleanInsertWithoutInto
+                AS
+                BEGIN
+                    INSERT Board_Contents (BoardNo, Enabled, IsAlarm)
+                    VALUES (1, 1, 0)
+                END
+                """;
+            var obj = new DbObject("TestBooleanInsertWithoutInto", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("VALUES (1, TRUE, FALSE)"));
+        }
+
         [TestCase("SELECT Items FROM dbo.fn_split_array(@UserNos, @Delimiter)",
             "SELECT unnest(string_to_array(_UserNos, _Delimiter))::integer")]
         [TestCase("SELECT * FROM SplitString(@Ids, ',')",
