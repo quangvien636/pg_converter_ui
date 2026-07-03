@@ -1,13 +1,13 @@
 # Runtime validation summary
 
-Generated: 2026-07-03 13:32:07 +07:00  
+Generated: 2026-07-03 13:54:12 +07:00  
 Target: `pg_converter_runtime_test`  
 Method: catalog discovery; typed dummy inputs; execution inside a rolled-back transaction.
 
 | Status | Count |
 |---|---:|
-| Runtime PASS | 242 |
-| Runtime FAIL | 90 |
+| Runtime PASS | 250 |
+| Runtime FAIL | 82 |
 | Blocked | 22 |
 | Total discovered | 354 |
 

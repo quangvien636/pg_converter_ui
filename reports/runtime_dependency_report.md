@@ -95,10 +95,10 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_gettrashcount` | TEMPORARY RUNTIME FIX | cu columns qualified; CREATE OR REPLACE is rolled back. |
 | `contacts_parentgroupno` | TEMPORARY RUNTIME FIX | cg columns qualified; CREATE OR REPLACE is rolled back. |
 | `board_board_maxsortno_select` | INFERRED RECORD SHAPE | column_1 integer |
-| `board_checkpermissionbycontentno` | INFERRED RECORD SHAPE | column_1 bigint |
-| `board_countboardinfolder` | INFERRED RECORD SHAPE | column_1 bigint |
-| `board_countcontentinboard` | INFERRED RECORD SHAPE | column_1 bigint |
-| `board_countfolderinfolder` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_checkpermissionbycontentno` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_countboardinfolder` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_countcontentinboard` | INFERRED RECORD SHAPE | column_1 integer |
+| `board_countfolderinfolder` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_folder_maxsortno_select` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_getallowbyitem` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 integer, column_6 integer, column_7 integer, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `board_getallowbyitemtype` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 integer, column_6 integer, column_7 integer, column_8 timestamp without time zone, column_9 timestamp without time zone |
@@ -107,7 +107,7 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getapprovaldoc` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(200), column_3 character varying(200), column_4 character varying(1000), column_5 character varying(1000), column_6 character varying(1000), column_7 character varying(1000), column_8 character varying(260), column_9 text |
 | `board_getapprovalfiles` | INFERRED RECORD SHAPE | column_1 character varying(260), column_2 text |
 | `board_getboard` | INFERRED RECORD SHAPE | column_1 integer, column_2 timestamp without time zone, column_3 character varying(4000), column_4 character varying(1000), column_5 integer, column_6 integer, column_7 integer, column_8 boolean, column_9 boolean, column_10 boolean, column_11 boolean, column_12 integer, column_13 integer, column_14 boolean, column_15 integer |
-| `board_getcommentsetting` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_getcommentsetting` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_getcompanylist` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100) |
 | `board_getconfig` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(50), column_3 character varying(500), column_4 integer, column_5 timestamp without time zone |
 | `board_getcontentsetting` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer |
@@ -121,13 +121,13 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getrecommendcount` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_getrecommendedlogbyuserno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 bigint, column_4 integer, column_5 character varying(100), column_6 integer, column_7 character varying(100), column_8 integer, column_9 character varying(100), column_10 timestamp without time zone |
 | `board_getrecommendedlogs` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 bigint, column_4 integer, column_5 character varying(100), column_6 integer, column_7 character varying(100), column_8 integer, column_9 character varying(100), column_10 timestamp without time zone |
-| `board_getrecommendlogcount` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_getrecommendlogcount` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_getreply` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 integer, column_4 character varying(100), column_5 integer, column_6 character varying(100), column_7 integer, column_8 character varying(100), column_9 timestamp without time zone, column_10 timestamp without time zone, column_11 bigint, column_12 integer, column_13 integer, column_14 text |
 | `board_getreplyfilebycontentno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 character varying(260), column_4 integer, column_5 text |
 | `board_getreplyfilebyreplyfileno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 bigint, column_3 character varying(260), column_4 integer, column_5 text |
 | `board_getreplyfilebyreplyno` | INFERRED RECORD SHAPE | column_1 bigint, column_2 character varying(260), column_3 integer, column_4 text |
 | `board_getsharers` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100), column_3 character, column_4 integer, column_5 character varying(100) |
-| `board_getstatusapprovalpermission` | INFERRED RECORD SHAPE | column_1 bigint |
+| `board_getstatusapprovalpermission` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_getteamlist` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100) |
 | `board_getusersetting` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer |
 | `board_getviewedlogs` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 bigint, column_4 integer, column_5 character varying(100), column_6 integer, column_7 character varying, column_8 integer, column_9 character varying, column_10 timestamp without time zone, column_11 character varying(100), column_12 character varying(200), column_13 boolean, column_14 character varying(500) |
@@ -139,11 +139,11 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_updatenoticepermission` | INFERRED RECORD SHAPE | column_1 integer |
 | `board_updaterecommendpublic` | INFERRED RECORD SHAPE | column_1 bigint |
 | `board_usercollection_select` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 character varying(100), column_4 character varying(100), column_5 integer, column_6 text, column_7 character varying(100), column_8 character varying(100) |
-| `contacts_checkexitgroupandcontact` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_countgroupcountchild` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_countgroupuser` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_countuserpublicwithoutgroup` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_countusersharewithoutgroup` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_checkexitgroupandcontact` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_countgroupcountchild` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_countgroupuser` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_countuserpublicwithoutgroup` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_countusersharewithoutgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_deleteallgroupbyuserseq` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_deletepublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_deletesharegroup` | INFERRED RECORD SHAPE | column_1 integer |
@@ -151,8 +151,8 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getallcompany` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 character varying(50), column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getalldays` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 character, column_9 timestamp without time zone, column_10 timestamp without time zone |
 | `contacts_getallemail` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 character varying(50), column_5 character, column_6 timestamp without time zone, column_7 timestamp without time zone |
-| `contacts_getallgroups` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint, column_10 character |
-| `contacts_getallgroupsrestore` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint, column_10 character |
+| `contacts_getallgroups` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 integer, column_10 character |
+| `contacts_getallgroupsrestore` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 integer, column_10 character |
 | `contacts_getallgroupuser` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 integer, column_5 timestamp without time zone, column_6 timestamp without time zone |
 | `contacts_getallhomepage` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(500), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getalllistgroupcontact` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer |
@@ -167,8 +167,8 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getcontactsgroup` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 character |
 | `contacts_getdefaultcategory` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_getdupelist` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100), column_3 character varying(100), column_4 integer, column_5 character varying(50), column_6 integer, column_7 character varying(50), column_8 bigint, column_9 bigint |
-| `contacts_getgroupbyuser` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint, column_10 character |
-| `contacts_getgroupinfo` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint |
+| `contacts_getgroupbyuser` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 integer, column_10 character |
+| `contacts_getgroupinfo` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 integer |
 | `contacts_getgrouplist` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 character varying(500), column_4 integer, column_5 integer, column_6 character |
 | `contacts_getlatitudeandlongitudecontacts` | INFERRED RECORD SHAPE | column_1 integer, column_2 double precision, column_3 double precision, column_4 character varying(100), column_5 character varying(100), column_6 character varying(500) |
 | `contacts_getlatitudeandlongitudeonecontacts` | INFERRED RECORD SHAPE | column_1 integer, column_2 double precision, column_3 double precision, column_4 character varying(100), column_5 character varying(100), column_6 character varying(500) |
@@ -179,14 +179,14 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getlocations` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 timestamp without time zone, column_4 integer, column_5 timestamp without time zone, column_6 character varying(100), column_7 double precision, column_8 double precision, column_9 integer, column_10 character varying(500) |
 | `contacts_getnamegroup` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 text |
 | `contacts_getoneaddress` | INFERRED RECORD SHAPE | column_1 character varying(500) |
-| `contacts_getprivateboxcount` | INFERRED RECORD SHAPE | column_1 bigint |
-| `contacts_getpublicboxcount` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_getprivateboxcount` | INFERRED RECORD SHAPE | column_1 integer |
+| `contacts_getpublicboxcount` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_getranklist` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 character varying(100), column_4 character varying(100), column_5 character varying(500), column_6 integer |
-| `contacts_getranklistcount` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_getranklistcount` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_getsetup` | INFERRED RECORD SHAPE | column_1 integer, column_2 timestamp without time zone, column_3 integer, column_4 timestamp without time zone, column_5 integer, column_6 integer, column_7 bigint, column_8 boolean |
 | `contacts_getsharers` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 character varying(100), column_4 character |
 | `contacts_gettopcategory` | INFERRED RECORD SHAPE | column_1 bigint, column_2 integer, column_3 text |
-| `contacts_gettrashcount` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_gettrashcount` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_getuser_address` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(5), column_7 character varying(5), column_8 character varying(500), column_9 character, column_10 timestamp without time zone, column_11 timestamp without time zone |
 | `contacts_getuser_company` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 character varying(50), column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getuser_days` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(50), column_7 character, column_8 character, column_9 timestamp without time zone, column_10 timestamp without time zone |
@@ -197,8 +197,8 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `contacts_getuser_phoneinfo` | INFERRED RECORD SHAPE | column_1 character varying(100) |
 | `contacts_getuser_sns` | INFERRED RECORD SHAPE | column_1 integer, column_2 integer, column_3 integer, column_4 smallint, column_5 character varying(50), column_6 character varying(500), column_7 character, column_8 timestamp without time zone, column_9 timestamp without time zone |
 | `contacts_getuser_touserno` | INFERRED RECORD SHAPE | column_1 integer, column_2 character varying(100), column_3 character varying(100), column_4 integer, column_5 character varying(500), column_6 timestamp without time zone, column_7 character varying(500), column_8 timestamp without time zone, column_9 timestamp without time zone, column_10 character varying(50), column_11 character varying(1), column_12 timestamp without time zone, column_13 integer, column_14 character varying(20) |
-| `contacts_getusergroupbyuserno` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 bigint, column_10 character |
-| `contacts_insertbackupinfo` | INFERRED RECORD SHAPE | column_1 bigint |
+| `contacts_getusergroupbyuserno` | INFERRED RECORD SHAPE | column_1 integer, column_2 text, column_3 integer, column_4 timestamp without time zone, column_5 character varying(500), column_6 integer, column_7 integer, column_8 character, column_9 integer, column_10 character |
+| `contacts_insertbackupinfo` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_insertlistgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_insertpublicgroup` | INFERRED RECORD SHAPE | column_1 integer |
 | `contacts_insertsharegroup` | INFERRED RECORD SHAPE | column_1 integer |

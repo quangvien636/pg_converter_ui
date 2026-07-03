@@ -115,6 +115,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_changepublicgroup` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_changesharegroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_checkexitgroupandcontact` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_checknumber` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_countgroupcountchild` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_countgroupuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_countuserpublicwithoutgroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -139,6 +140,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getallcompany` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getalldays` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getallemail` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getallgroup` | Executed; 0 row(s), 11 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getallgroups` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getallgroupsrestore` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getallgroupuser` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
@@ -151,6 +153,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getbackupinfo` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getbackupinfoonce` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getcheckgroup` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getcontactgroup` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getcontactsforoutlook` | Executed; 0 row(s), 28 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getcontactsgroup` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getdefaultcategory` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
@@ -160,6 +163,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getgroupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgrouplist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gethistorylist` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_gethistorylistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlatitudeandlongitudecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlatitudeandlongitudeonecontacts` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getlikelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
@@ -169,8 +173,10 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getlocations` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getnamegroup` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getoneaddress` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getoutlistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getprivateboxcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getpublicboxcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getpublicgroup` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getranklist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getranklistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsetup` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
@@ -190,7 +196,9 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getuser_phoneinfo` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_sns` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getuser_touserno` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getusergroupbylanguage` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getusergroupbyuserno` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getusergroupmobi` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertbackupinfo` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertcontactforoutlookentryid` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_insertcontactforoutlookfolderentryid` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

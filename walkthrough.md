@@ -1,5 +1,47 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Cast COUNT(...) to integer
+
+- Runtime before: 242 PASS / 90 FAIL / 22 BLOCKED (354 discovered).
+- Runtime after: **250 PASS / 82 FAIL / 22 BLOCKED** (354 discovered).
+- Zero regressions of any kind: all 242 previously-PASS routines stayed
+  PASS, all 22 BLOCKED routines stayed BLOCKED, 8 FAIL routines moved
+  straight to PASS.
+- Investigated SQLSTATE 42804 (`structure of query does not match function
+  result type`, 31 of 90 FAILs) by querying live PostgreSQL error `Detail`
+  directly (the runtime harness redacts it). Found it is not one root
+  cause: some are the already-documented genuine multi-branch polymorphic
+  procedures (not generalizable), some are `character varying`/`text`
+  direction mismatches, and 6 were a single clean pattern —
+  `Returned type bigint does not match expected type integer` — always at
+  a column backed by `COUNT(*) OVER()` or a plain `COUNT(...)`.
+  Confirmed against `contacts_gettrashuserlist`: SQL Server's `COUNT`
+  always returns `int`, matching the result metadata's declared
+  `integer` column; PostgreSQL's `COUNT` (aggregate or windowed) always
+  returns `bigint`, so the converted body silently changed the value's
+  width.
+- General fix: `CastCountToInteger` wraps every `COUNT(...)` call —
+  including any trailing `OVER(...)` clause — with an explicit
+  `::integer` cast, using the existing `FindClosingParenthesis` helper
+  for correct balanced-paren matching. Applied everywhere in the body,
+  not just RETURN QUERY positions, since it mirrors SQL Server's real
+  semantics unconditionally; `COUNT_BIG(...)` is excluded by construction.
+  No procedure names hardcoded, no column-position correlation needed.
+- Validation: build PASS with 0 warnings/errors; NUnit 101/101; Board QA
+  24/24; full rollback-only runtime smoke 250/82/22.
+- Remaining FAIL breakdown by SQLSTATE (82 total): `42883` (~36, split
+  between missing SQL-Server-side helper functions — a dependency gap,
+  not a converter bug — and a handful of `operator does not exist`
+  cases), `42804` (~25, now dominated by the genuine multi-branch
+  polymorphic procedures plus a few text/varchar direction mismatches),
+  `42P01` missing relation (7), `23502` NOT NULL violation (5), `42601`
+  dynamic SQL syntax (5), `42703` missing column (2), `42P19` (1),
+  `22012` (1).
+- Next: the remaining `42804` bucket is heterogeneous with no further
+  single clean pattern found; the multi-branch polymorphic cases need
+  per-routine design decisions (not a blanket rule) and are better suited
+  to a triage/dependency writeup than further blind generalization.
+
 ## 2026-07-03 - Generalize ParseJson conversion
 
 - Runtime before: 240 PASS / 93 FAIL / 21 BLOCKED (354 discovered).

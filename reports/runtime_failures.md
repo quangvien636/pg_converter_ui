@@ -145,7 +145,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getallboardcontents._userno --AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
-REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
+REP AS (SELECT BC.ContentNo,(Count(BR.ReplyNo))::integer AS ReplyCount
 	FROM Board_Contents BC
 	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 	WHERE BC.Enabled = TRUE
@@ -193,7 +193,7 @@ TMP AS (
 
 ) ,
 
-Total AS (Select count(*) as ToTal FROM TMP)
+Total AS (Select (count(*))::integer as ToTal FROM TMP)
 SELECT T.BoardNo,
 T.ContentNo ,
 T.Title,
@@ -272,7 +272,7 @@ ORDER BY T.RootId DESC,T.ContentNo ASC;
 
 --	SET Query +=  ' AND ( BC.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(ToDate AS text) || '''  '
 
---	SET Query +=  ' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
+--	SET Query +=  ' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
 
 --	IF (TypeEff > 0)
 --	BEGIN
@@ -286,16 +286,16 @@ ORDER BY T.RootId DESC,T.ContentNo ASC;
 
 --    IF (FilterType <> 100)
 --	BEGIN
---		SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
+--		SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
 --	END
 
 --	if (IsAdmin = FALSE)  BEGIN
 
 
 --	--SELECT * FROM Board_Sharers BS1 INNER JOIN Organization_BelongToDepartment DP ON DP.DepartNo= BS1.DepartNo WHERE UserNo=222
---	--((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 )
+--	--((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 )
 --		SET Query +=  '  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType > 1) OR  ( BC.RegUserNo = ' || CAST(UserNo AS text) || ') OR (BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 INNER JOIN public."organization_getdepartmentsbyuser" (' || CAST(UserNo AS text) || ') DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
---where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(UserNo  AS text) || ')) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'
+--where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(UserNo  AS text) || ')) OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'
 --		--DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
 --		--SET Query +=  ' AND ( BC.RegUserNo <> ' || CAST(UserNo AS text) || ' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CAST(DepartNo AS text) || '))'
 --	END
@@ -322,7 +322,7 @@ ORDER BY T.RootId DESC,T.ContentNo ASC;
 --	DECLARE StartRowNum INT
 --	DECLARE EndRowNum INT
 
---	SET TotalItemCount = (SELECT COUNT(*) FROM SearchResult)
+--	SET TotalItemCount = (SELECT (COUNT(*))::integer FROM SearchResult)
 --	SET TotalPageCount = TotalItemCount / CountPerPage
 
 --	IF (TotalItemCount % CountPerPage > 0) SET TotalPageCount = TotalPageCount + 1
@@ -400,7 +400,7 @@ ORDER BY T.RootId DESC,T.ContentNo ASC;
 --		WHERE T.RowNum BETWEEN StartRowNum AND EndRowNum
 
 
---	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount, (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC ORDER BY RowNum ASC
+--	SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount, (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC ORDER BY RowNum ASC
 --	SELECT TotalItemCount AS TotalContentCount, TotalPageCount AS TotalPageCount, CurrentPageIndex AS CurrentPageIndex
 END;
 $function$
@@ -502,7 +502,7 @@ WHERE  ' || _strWriteAlow || ' BB.Enabled = TRUE AND  BC.Enabled = TRUE
 AND  ''' || _BoardList || ''' ILIKE ( ''%,'' || CAST(BB.BoardNo AS text) || '',%'') '), '');
 	_query := COALESCE(_query, '') || COALESCE((' AND ( BC.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(_ToDate AS text) || '''  '), '');
 
-	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
+	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
 
 	IF _TypeEff > 0 THEN
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.TitleEffect <> 2 '), '');
@@ -511,7 +511,7 @@ AND  ''' || _BoardList || ''' ILIKE ( ''%,'' || CAST(BB.BoardNo AS text) || '',%
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.IsAlarm = TRUE '), '');
 	END IF;
     IF _FilterType <> 100 THEN
-		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
+		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
 	END IF;
 
 	IF COALESCE((select PermissionType from Authority_SitePermissions where UserNo = board_getallboardcontentsbyboardlist._userno), 0) <> 1 THEN
@@ -538,7 +538,7 @@ AND  ''' || _BoardList || ''' ILIKE ( ''%,'' || CAST(BB.BoardNo AS text) || '',%
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
+	_TotalItemCount := (SELECT (COUNT(*))::integer FROM _SearchResult);
 	_TotalPageCount := _TotalItemCount / _CountPerPage;
 	IF _TotalPageCount % _CountPerPage > 0 THEN
 	    _TotalPageCount := _TotalPageCount + 1;
@@ -616,7 +616,7 @@ AND  ''' || _BoardList || ''' ILIKE ( ''%,'' || CAST(BB.BoardNo AS text) || '',%
 		ORDER BY T.RowNum ASC;
 
 	RETURN QUERY
-	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getallboardcontentsbyboardlist._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC;
+	SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getallboardcontentsbyboardlist._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC;
 	RETURN QUERY
 	SELECT _TotalItemCount AS TotalContentCount, _TotalPageCount AS TotalPageCount, _CurrentPageIndex AS CurrentPageIndex;
 END;
@@ -745,7 +745,7 @@ WITH DEPARTPERMISSION AS (
 )
 	SELECT B.BoardNo, B.ModUserNo, B.ModDate, B.Name, B.Description, B.FolderNo, B.DisplayTypeNo, B.SortNo,
 				B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount, B.Enabled,B.ViewMode,B.SpecType,
-				(SELECT COUNT(*) FROM Board_Contents BC
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC
 				WHERE '2020-12-31'::timestamp< BC.RegDate AND (BC.BoardNo = B.BoardNo
 					AND BC.Enabled = TRUE
 					And BC.RegUserNo <> board_getboardbyuserno._userno
@@ -981,7 +981,7 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 
 	_query := COALESCE(_query, '') || COALESCE((' AND ( BC.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(_ToDate AS text) || '''  '), '');
 
-	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
+	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
 
 	IF _TypeEff > 0 THEN
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.TitleEffect <> 2 '), '');
@@ -990,7 +990,7 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.IsAlarm = TRUE '), '');
 	END IF;
 	IF _FilterType <> 100 THEN
-		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
+		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
 	END IF;
 
 
@@ -999,9 +999,9 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 		--SET Query +=' AND BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (' || CAST(UserNo AS text) || ') DP ON DP.DepartNo= BS1.DepartNo)'
 
 	--SELECT * FROM Board_Sharers BS1 INNER JOIN Organization_BelongToDepartment DP ON DP.DepartNo= BS1.DepartNo WHERE UserNo=222
-	--((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 );
+	--((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 );
 		_query := COALESCE(_query, '') || COALESCE(('  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType > 1) OR ( BC.RegUserNo = ' || CAST(_UserNo AS text) || ') OR (BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (' || CAST(_UserNo AS text) || ') DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
-where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) || ')) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'), '');
+where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) || ')) OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'), '');
 		--DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
 		--SET Query +=  ' AND ( BC.RegUserNo <> ' || CAST(UserNo AS text) || ' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CAST(DepartNo AS text) || '))'
 	--END
@@ -1031,7 +1031,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
+	_TotalItemCount := (SELECT (COUNT(*))::integer FROM _SearchResult);
 	_TotalPageCount := _TotalItemCount / _CountPerPage;
 	IF _TotalItemCount % _CountPerPage > 0 THEN
 	    _TotalPageCount := _TotalPageCount + 1;
@@ -1226,7 +1226,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	END IF;
 
 	RETURN QUERY
-	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC ORDER BY RN ASC;
+	SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC ORDER BY RN ASC;
 	RETURN QUERY
 	SELECT _TotalItemCount AS TotalContentCount, _TotalPageCount AS TotalPageCount, _CurrentPageIndex AS CurrentPageIndex;
 
@@ -1285,7 +1285,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 	--SET Query +=  ' AND ( BC.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(ToDate AS text) || '''  '
 
-	--SET Query +=  ' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
+	--SET Query +=  ' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
 
 	--IF (TypeEff > 0)
 	--BEGIN
@@ -1297,7 +1297,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	--END
 	--IF (FilterType <> 100)
 	--BEGIN
-	--	SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
+	--	SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
 	--END
 
 	--IF COALESCE((select PermissionType from Authority_SitePermissions where UserNo = UserNo), 0) <> 1 BEGIN
@@ -1331,7 +1331,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	--DECLARE StartRowNum INT
 	--DECLARE EndRowNum INT
 
-	--SET TotalItemCount = (SELECT COUNT(*) FROM SearchResult)
+	--SET TotalItemCount = (SELECT (COUNT(*))::integer FROM SearchResult)
 	--SET TotalPageCount = TotalItemCount / CountPerPage
 
 	--IF (TotalPageCount % CountPerPage > 0) SET TotalPageCount = TotalPageCount + 1
@@ -1526,7 +1526,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 	--END
 
-	--SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC
+	--SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC
 	--SELECT TotalItemCount AS TotalContentCount, TotalPageCount AS TotalPageCount, CurrentPageIndex AS CurrentPageIndex
 END;
 $function$
@@ -1630,7 +1630,7 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 
 	_query := COALESCE(_query, '') || COALESCE((' AND ( BC.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(_ToDate AS text) || '''  '), '');
 
-	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
+	_query := COALESCE(_query, '') || COALESCE((' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(_FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(_ToDate AS text) || ''' ) > 0 ) '), '');
 
 	IF _TypeEff > 0 THEN
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.TitleEffect <> 2 '), '');
@@ -1639,7 +1639,7 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 		_query := COALESCE(_query, '') || COALESCE((' AND BC.IsAlarm = TRUE '), '');
 	END IF;
 	IF _FilterType <> 100 THEN
-		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
+		_query := COALESCE(_query, '') || COALESCE(('AND BC.RegUserNo <> ' || CAST(_UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(_UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '), '');
 	END IF;
 
 
@@ -1648,9 +1648,9 @@ WHERE  ' || _strWriteAlow || '  BC.BoardNo = BoardNo AND BC.Enabled = TRUE '), '
 		--SET Query +=' AND BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (' || CAST(UserNo AS text) || ') DP ON DP.DepartNo= BS1.DepartNo)'
 
 	--SELECT * FROM Board_Sharers BS1 INNER JOIN Organization_BelongToDepartment DP ON DP.DepartNo= BS1.DepartNo WHERE UserNo=222
-	--((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 );
+	--((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = 16) <=0 );
 		_query := COALESCE(_query, '') || COALESCE(('  AND ((AE.BoardNo IS NOT NULL  AND BB.SpecType > 1) OR ( BC.RegUserNo = ' || CAST(_UserNo AS text) || ') OR (BC.ContentNo IN (SELECT DISTINCT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (' || CAST(_UserNo AS text) || ') DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
-where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) || ')) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'), '');
+where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) || ')) OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )'), '');
 		--DECLARE DepartNo INT = (SELECT DepartNo FROM Organization_BelongToDepartment WHERE UserNo = UserNo)
 		--SET Query +=  ' AND ( BC.RegUserNo <> ' || CAST(UserNo AS text) || ' Or ContentNo NOT IN (SELECT distinct ContentNo FROM Board_Sharers WHERE DepartNo <> ' || CAST(DepartNo AS text) || '))'
 	--END
@@ -1680,7 +1680,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
+	_TotalItemCount := (SELECT (COUNT(*))::integer FROM _SearchResult);
 	_TotalPageCount := _TotalItemCount / _CountPerPage;
 	IF _TotalItemCount % _CountPerPage > 0 THEN
 	    _TotalPageCount := _TotalPageCount + 1;
@@ -1875,7 +1875,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	END IF;
 
 	RETURN QUERY
-	SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents_bk20181227._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC ORDER BY RN ASC;
+	SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboardcontents_bk20181227._userno AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM _TempTable As BC ORDER BY RN ASC;
 	RETURN QUERY
 	SELECT _TotalItemCount AS TotalContentCount, _TotalPageCount AS TotalPageCount, _CurrentPageIndex AS CurrentPageIndex;
 
@@ -1934,7 +1934,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 	--SET Query +=  ' AND ( BC.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BC.RegDate <= ''' || CAST(ToDate AS text) || '''  '
 
-	--SET Query +=  ' OR (SELECT COUNT(*) FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
+	--SET Query +=  ' OR (SELECT (COUNT(*))::integer FROM Board_Replies BR WHERE BR.ContentNo=BC.ContentNo AND  BR.RegDate >= ''' || CAST(FromDate AS text) || ''' AND BR.RegDate <= ''' || CAST(ToDate AS text) || ''' ) > 0 ) '
 
 	--IF (TypeEff > 0)
 	--BEGIN
@@ -1946,7 +1946,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	--END
 	--IF (FilterType <> 100)
 	--BEGIN
-	--	SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
+	--	SET Query += 'AND BC.RegUserNo <> ' || CAST(UserNo AS text) || ' AND (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=' || CAST(UserNo AS text) || ' AND BC.ContentNo=Board_ViewedLogs.ContentNo) <= 0  '
 	--END
 
 	--IF COALESCE((select PermissionType from Authority_SitePermissions where UserNo = UserNo), 0) <> 1 BEGIN
@@ -1980,7 +1980,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 	--DECLARE StartRowNum INT
 	--DECLARE EndRowNum INT
 
-	--SET TotalItemCount = (SELECT COUNT(*) FROM SearchResult)
+	--SET TotalItemCount = (SELECT (COUNT(*))::integer FROM SearchResult)
 	--SET TotalPageCount = TotalItemCount / CountPerPage
 
 	--IF (TotalPageCount % CountPerPage > 0) SET TotalPageCount = TotalPageCount + 1
@@ -2175,7 +2175,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=' || CAST(_UserNo  AS text) ||
 
 	--END
 
-	--SELECT * , (Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC
+	--SELECT * , (Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount , (SELECT BF.Name FROM Board_Files BF WHERE BF.ContentNo=BC.ContentNo AND (BF.Name ILIKE '%.gif' OR BF.Name ILIKE '%.png' OR BF.Name ILIKE '%.jpg' OR BF.Name ILIKE '%.jpeg' )) As AvataContent  FROM TempTable As BC
 	--SELECT TotalItemCount AS TotalContentCount, TotalPageCount AS TotalPageCount, CurrentPageIndex AS CurrentPageIndex
 END;
 $function$
@@ -2310,7 +2310,7 @@ BEGIN
     -- ----------------------------------------------------------------
     COUNT_ADMIN AS (
         SELECT   BC.BoardNo,
-                 COUNT(*) AS UnreadCount
+                 (COUNT(*))::integer AS UnreadCount
         FROM     Board_Contents BC
         WHERE    BC.Enabled = TRUE
           AND    NOT EXISTS (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
@@ -2322,7 +2322,7 @@ BEGIN
     -- ----------------------------------------------------------------
     COUNT_USER AS (
         SELECT   BC.BoardNo,
-                 COUNT(*) AS UnreadCount
+                 (COUNT(*))::integer AS UnreadCount
         FROM     Board_Contents BC
         WHERE    BC.Enabled = TRUE
           AND    BC.BoardNo  IN (SELECT BoardNo FROM PERM_BOARD)
@@ -2400,12 +2400,12 @@ BEGIN
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
-				(SELECT COUNT(*) FROM Board_Contents BC
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC
 				WHERE BC.BoardNo = Board_Boards.BoardNo AND BC.Enabled = TRUE-- And BC.RegUserNo <> UserNo
 					And BC.BoardNo IN (SELECT * FROM public."board_getboardallow"(  _UserNo ,2))
 					And BC.ContentNo Not In (Select Board_ViewedLogs.ContentNo From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboards_bk._userno)
 					AND ((BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 INNER JOIN public."organization_getdepartmentsbyuser"(_UserNo) DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
-where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )  ) As CountContent
+where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) )  ) As CountContent
 			FROM Board_Boards
 			WHERE (ViewMode=board_getboards_bk._viewmode OR _ViewMode < 0) And (DisplayTypeNo=board_getboards_bk._displaytypeno OR _DisplayTypeNo < 0)
 			ORDER BY SortNo ASC ,BoardNo ASC;
@@ -2413,7 +2413,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) O
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
-				(SELECT COUNT(*) FROM Board_Contents BC  WHERE BC.BoardNo = Board_Boards.BoardNo AND BC.Enabled = TRUE-- And BC.RegUserNo <> UserNo
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC  WHERE BC.BoardNo = Board_Boards.BoardNo AND BC.Enabled = TRUE-- And BC.RegUserNo <> UserNo
 					And BC.ContentNo Not In (Select Board_ViewedLogs.ContentNo From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboards_bk._userno) ) As CountContent
 			FROM Board_Boards
 			WHERE (ViewMode=board_getboards_bk._viewmode OR _ViewMode < 0) And (DisplayTypeNo=board_getboards_bk._displaytypeno OR _DisplayTypeNo < 0)
@@ -2427,12 +2427,12 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) O
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
-				(SELECT COUNT(*) FROM Board_Contents BC
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC
 				WHERE BC.BoardNo = Board_Boards.BoardNo AND BC.Enabled = TRUE --And BC.RegUserNo <> UserNo
 					And BC.BoardNo IN (SELECT * FROM public."board_getboardallow"(  _UserNo ,2))
 					And BC.ContentNo Not In (Select Board_ViewedLogs.ContentNo From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboards_bk._userno)
 					AND ((BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 INNER JOIN public."organization_getdepartmentsbyuser"(_UserNo) DP ON DP.DepartNo= BS1.DepartNo)) OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1
-where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) ) ) As CountContent
+where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ) ) ) As CountContent
 			FROM Board_Boards
 			WHERE Enabled = TRUE AND (ViewMode=board_getboards_bk._viewmode  OR _ViewMode < 0) And (DisplayTypeNo=board_getboards_bk._displaytypeno OR _DisplayTypeNo < 0)
 			ORDER BY SortNo ASC ,BoardNo ASC;
@@ -2440,7 +2440,7 @@ where BSS1.contentno=BC.ContentNo and BSS1.userno=board_getboards_bk._userno)) O
 			RETURN QUERY
 			SELECT BoardNo, ModUserNo, ModDate, Name, Description, FolderNo, DisplayTypeNo, SortNo,
 				IsReply, IsHead, IsNotice, IsRecommend, RecommendedDisplayCount, Enabled,ViewMode,SpecType,
-				(SELECT COUNT(*) FROM Board_Contents
+				(SELECT (COUNT(*))::integer FROM Board_Contents
 					WHERE  Board_Contents.BoardNo = Board_Boards.BoardNo AND Enabled = TRUE
 						--And Board_Contents.RegUserNo <> UserNo
 						And Board_Contents.ContentNo Not In (Select Board_ViewedLogs.ContentNo From Board_ViewedLogs where Board_ViewedLogs.UserNo=board_getboards_bk._userno)) As CountContent
@@ -2582,7 +2582,7 @@ BEGIN
     -- ----------------------------------------------------------------
     COUNT_ADMIN AS (
         SELECT   BC.BoardNo,
-                 COUNT(*) AS UnreadCount
+                 (COUNT(*))::integer AS UnreadCount
         FROM     Board_Contents BC
         WHERE    BC.Enabled = TRUE
           AND    NOT EXISTS (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
@@ -2594,7 +2594,7 @@ BEGIN
     -- ----------------------------------------------------------------
     COUNT_USER AS (
         SELECT   BC.BoardNo,
-                 COUNT(*) AS UnreadCount
+                 (COUNT(*))::integer AS UnreadCount
         FROM     Board_Contents BC
         WHERE    BC.Enabled = TRUE
           AND    BC.BoardNo  IN (SELECT BoardNo FROM PERM_BOARD)
@@ -2958,7 +2958,7 @@ BEGIN
                 CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name) WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
                 CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name) WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC
             ) AS RowNum,
-            COUNT(*) OVER () AS TotalRows,
+            (COUNT(*) OVER ())::integer AS TotalRows,
             B.ViewMode AS BoardType, B.SpecType,
             CASE WHEN _IsAdmin = TRUE OR P.AllowValue%2<>0 OR D.AllowValue%2<>0 OR BC.RegUserNo=board_getlistboardcontent._userno
                  THEN TRUE ELSE FALSE END AS IsDelete,
@@ -3027,7 +3027,7 @@ BEGIN
         COALESCE(T.TotalRows,0) - T.RowNum + 1                                            AS RowNumber
     FROM TMP T
     LEFT JOIN LATERAL (
-        SELECT COUNT(DISTINCT BV.UserNo) AS ViewedCount
+        SELECT (COUNT(DISTINCT BV.UserNo))::integer AS ViewedCount
         FROM   Board_ViewedLogs BV
         WHERE  BV.ContentNo = T.ContentNo
           AND  (   T.SpecType      = 1
@@ -3041,7 +3041,7 @@ BEGIN
                 ))
     ) VL ON TRUE
     LEFT JOIN LATERAL (
-        SELECT COUNT(ReplyNo) AS ReplyCount
+        SELECT (COUNT(ReplyNo))::integer AS ReplyCount
         FROM   Board_Replies
         WHERE  ContentNo = T.ContentNo
     ) R ON TRUE
@@ -3103,7 +3103,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getlistboardcontent_bk._userno AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
---REP AS (SELECT BC.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount
+--REP AS (SELECT BC.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount
 --	FROM Board_Contents BC
 --	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 --	WHERE (BC.BoardNo=BoardNo OR  BoardNo =0 ) AND BC.Enabled = TRUE
@@ -3120,7 +3120,7 @@ VIEWED AS (SELECT DISTINCT UserNo,ContentNo
 FROM Board_ViewedLogs
 WHERE UserNo=board_getlistboardcontent_bk._userno),
 VIEWEDLIST AS (
-	SELECT DISTINCT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT DISTINCT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM (SELECT DISTINCT ContentNo,UserNo FROM Board_ViewedLogs)  BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	INNER JOIN Board_Boards BB ON BB.BoardNo=BC.BoardNo
@@ -3232,7 +3232,7 @@ T.ModDate,
 	c.Total -T.RowNumber +1 AS RowNumber
 FROM TMP T
 LEFT JOIN Total c ON c.Total>0
-LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
+LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
 LEFT JOIN (SELECT ContentNo,Url,Name,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
 LEFT JOIN VIEWEDLIST VL ON VL.ContentNo=T.ContentNo
 --INNER JOIN REP R ON R.ContentNo=T.ContentNo
@@ -3261,7 +3261,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getlistboardcontent_bk._userno AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
---REP AS (SELECT BC.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount
+--REP AS (SELECT BC.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount
 --	FROM Board_Contents BC
 --	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 --	WHERE (BC.BoardNo=BoardNo OR  BoardNo =0 ) AND BC.Enabled = TRUE
@@ -3278,7 +3278,7 @@ VIEWED AS (SELECT DISTINCT UserNo,ContentNo
 FROM Board_ViewedLogs
 WHERE UserNo=board_getlistboardcontent_bk._userno),
 VIEWEDLIST AS (
-	SELECT DISTINCT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT DISTINCT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM (SELECT DISTINCT ContentNo,UserNo FROM Board_ViewedLogs)  BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	INNER JOIN Board_Boards BB ON BB.BoardNo=BC.BoardNo
@@ -3424,7 +3424,7 @@ T.Type,
 	c.Total -T.RowNumber +1 AS RowNumber
 FROM TMP T
 LEFT JOIN Total c ON c.Total>0
-LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
+LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
 LEFT JOIN (SELECT ContentNo,Url,Name,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
 LEFT JOIN VIEWEDLIST VL ON VL.ContentNo=T.ContentNo
 --INNER JOIN REP R ON R.ContentNo=T.ContentNo
@@ -3433,7 +3433,7 @@ ORDER BY T.RowNumber;
 END IF;
 
 
---LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
+--LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
 END;
 $function$
 
@@ -3480,7 +3480,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getlistboardcontent_search._userno AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
-REP AS (SELECT BC.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount
+REP AS (SELECT BC.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount
 	FROM Board_Contents BC
 	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 	WHERE (BC.BoardNo=board_getlistboardcontent_search._boardno OR  _BoardNo =0 ) AND BC.Enabled = TRUE
@@ -3490,7 +3490,7 @@ VIEWED AS (SELECT DISTINCT UserNo,ContentNo
 FROM Board_ViewedLogs
 WHERE UserNo=board_getlistboardcontent_search._userno),
 VIEWEDLIST AS (
-	SELECT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM Board_ViewedLogs BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	LEFT JOIN SHARE S ON S.ContentNo=BV.ContentNo
@@ -3598,7 +3598,7 @@ T.Type,
 	c.Total -T.RowNumber +1 AS RowNumber
 FROM TMP T
 LEFT JOIN Total c ON c.Total>0
-LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
+LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
 LEFT JOIN (SELECT ContentNo,Url,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
 LEFT JOIN VIEWEDLIST VL ON VL.ContentNo=T.ContentNo
 --INNER JOIN REP R ON R.ContentNo=T.ContentNo
@@ -3620,7 +3620,7 @@ ORDER BY T.RowNumber;
 --	CASE WHEN SortType=1 AND SortColumn='VIEWED' THEN  T.ViewedCount END DESC
 
 
---LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
+--LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
 END;
 $function$
 
@@ -3676,7 +3676,7 @@ PERMISSION_BOARD AS (SELECT B.BoardNo, B.Name,B.ViewMode,B.SpecType
 	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo
 	WHERE B.BoardNo  IN (SELECT unnest(string_to_array(_BoardList, ','))::integer)  AND ( _IsAdmin = TRUE   OR   P.AllowValue >0 OR  D.AllowValue >0 OR B.SpecType=1 )
 	),
-REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
+REP AS (SELECT BC.ContentNo,(Count(BR.ReplyNo))::integer AS ReplyCount
 	FROM Board_Contents BC
 	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 	WHERE (BC.BoardNo IN (SELECT unnest(string_to_array(_BoardList, ','))::integer)) AND BC.Enabled = TRUE
@@ -3687,7 +3687,7 @@ VIEWED AS (
 	FROM Board_ViewedLogs
 	WHERE UserNo=board_getlistboardcontentbyfolder._userno),
 VIEWEDLIST AS (
-	SELECT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM Board_ViewedLogs BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	LEFT JOIN SHARE S ON S.ContentNo=BV.ContentNo
@@ -3777,7 +3777,7 @@ VIEWEDLIST AS (
 		--END ILIKE '%' || SearchValue || '%')
 	AND ( _IsAdmin = TRUE OR BC.RegUserNo=board_getlistboardcontentbyfolder._userno OR P.AllowValue=7 OR D.AllowValue=7 OR ((P.AllowAccessNo IS NOT NULL OR D.AllowAccessNo IS NOT NULL)AND  B.SpecType=0 AND (BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL)) OR ((BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL)AND  B.SpecType=1))
 ) ,
-Total AS (Select count(*) as ToTal FROM TMP)
+Total AS (Select (count(*))::integer as ToTal FROM TMP)
 SELECT T.BoardNo,
 T.ContentNo ,
 T.Title,
@@ -3820,7 +3820,7 @@ T.Type,
 	c.Total -T.RowNumber +1 AS RowNumber
 FROM TMP T
 LEFT JOIN Total c ON c.Total>0
-LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
+LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
 LEFT JOIN (SELECT ContentNo,Url,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
 LEFT JOIN VIEWEDLIST VL ON VL.ContentNo=T.ContentNo
 --INNER JOIN REP R ON R.ContentNo=T.ContentNo
@@ -3872,7 +3872,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getlistboardcontentsearch._userno AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
-REP AS (SELECT BC.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount
+REP AS (SELECT BC.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount
 	FROM Board_Contents BC
 	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 	WHERE (BC.BoardNo=board_getlistboardcontentsearch._boardno OR  _BoardNo =0 ) AND BC.Enabled = TRUE
@@ -3882,7 +3882,7 @@ VIEWED AS (SELECT DISTINCT UserNo,ContentNo
 FROM Board_ViewedLogs
 WHERE UserNo=board_getlistboardcontentsearch._userno),
 VIEWEDLIST AS (
-	SELECT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM Board_ViewedLogs BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	LEFT JOIN SHARE S ON S.ContentNo=BV.ContentNo
@@ -3991,7 +3991,7 @@ T.Type,
 	c.Total -T.RowNumber +1 AS RowNumber
 FROM TMP T
 LEFT JOIN Total c ON c.Total>0
-LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
+LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R ON R.ContentNo=T.ContentNo
 LEFT JOIN (SELECT ContentNo,Url,ROW_NUMBER() OVER(PARTITION BY ContentNo  ORDER BY ContentNo ASC) AS Rn FROM Board_Files ) F ON F.ContentNo=T.ContentNo AND F.Rn=1
 LEFT JOIN VIEWEDLIST VL ON VL.ContentNo=T.ContentNo
 --INNER JOIN REP R ON R.ContentNo=T.ContentNo
@@ -4013,7 +4013,7 @@ ORDER BY T.RowNumber;
 --	CASE WHEN SortType=1 AND SortColumn='VIEWED' THEN  T.ViewedCount END DESC
 
 
---LEFT JOIN (SELECT BR.ContentNo,COUNT(BR.ReplyNo) AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
+--LEFT JOIN (SELECT BR.ContentNo,(COUNT(BR.ReplyNo))::integer AS ReplyCount FROM Board_Replies BR GROUP BY BR.ContentNo)R  ON R.ContentNo=T.ContentNo
 END;
 $function$
 
@@ -4068,7 +4068,7 @@ VIEWED AS (
 	FROM Board_ViewedLogs
 	WHERE UserNo=board_getlistboardcontenttoexcel._userno),
 VIEWEDLIST AS (
-	SELECT BV.ContentNo, COUNT(BV.UserNo) AS ViewedCount
+	SELECT BV.ContentNo, (COUNT(BV.UserNo))::integer AS ViewedCount
 	FROM Board_ViewedLogs BV
 	INNER JOIN Board_Contents BC ON BV.ContentNo=BC.ContentNo
 	LEFT JOIN SHARE S ON S.ContentNo=BV.ContentNo
@@ -4135,7 +4135,7 @@ VIEWEDLIST AS (
 	AND ( _IsAdmin = TRUE OR BC.RegUserNo=board_getlistboardcontenttoexcel._userno OR P.AllowValue=7 OR D.AllowValue=7 OR ((P.AllowAccessNo IS NOT NULL OR D.AllowAccessNo IS NOT NULL)AND  B.SpecType=0 AND (BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL)) OR ((BC.IsShareAll = TRUE  OR S.ContentNo IS NOT NULL)AND  B.SpecType=1))
 	AND (COALESCE(_ContentNos,'')=''  OR BC.ContentNo IN (SELECT unnest(string_to_array(_ContentNos, ','))::integer))
 ) ,
-Total AS (Select count(*) as ToTal FROM TMP)
+Total AS (Select (count(*))::integer as ToTal FROM TMP)
 SELECT
 c.Total -T.RowNumber +1 AS RowNumber,
 T.Title,
@@ -4220,7 +4220,7 @@ DECLARE
 BEGIN
 
 
-	_Total := (SELECT COUNT(UserId) FROM ORGANIZATION_USERS);
+	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
 	RETURN QUERY
 	WITH RECURSIVE RootDeparts AS (
 		  SELECT *
@@ -4257,7 +4257,7 @@ BEGIN
 		WHERE  (_DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=board_getlistnoticepermission._positionno OR _PositionNo=0) AND U.Enabled = TRUE AND (U.UserID ILIKE '%' || _SearchValue || '%' OR U.Name ILIKE '%' || _SearchValue || '%'  )
 	)
 
-	SELECT (SELECT COUNT(*) AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin
+	SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin
 	FROM USERS U--,TOTAL T
 	WHERE  U.RowNum >board_getlistnoticepermission._pagesize*(_PageNumber-1) AND U.RowNum <=board_getlistnoticepermission._pagesize*_PageNumber;
 END;
@@ -4295,7 +4295,7 @@ BEGIN
 	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
 	--ELSE
 	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo);
-	_Total := (SELECT COUNT(UserId) FROM ORGANIZATION_USERS);
+	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
 	RETURN QUERY
 	WITH
 	--UserParentPermistions AS(
@@ -4352,8 +4352,8 @@ BEGIN
 		LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=board_getlistuserpermission._applicationno
 		WHERE (_DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=board_getlistuserpermission._positionno OR _PositionNo=0) AND U.Enabled = TRUE
 	)--,
-	--TOTAL AS (SELECT COUNT(*) AS Total  FROM USERS U)
-	SELECT (SELECT COUNT(*) AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,U.DisableAdmin,U.DisableRead,U.DisableWrite
+	--TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
+	SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,U.DisableAdmin,U.DisableRead,U.DisableWrite
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableAdmin ELSE  TRUE  END AS DisableAdmin,
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableRead ELSE TRUE END AS DisableRead,
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableWrite ELSE TRUE END AS DisableWrite
@@ -4368,7 +4368,7 @@ BEGIN
 	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
 	--ELSE
 	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo)
-	--SET Total =(SELECT COUNT(UserId) FROM ORGANIZATION_USERS);
+	--SET Total =(SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
 	--WITH
 	--UserParentPermistions AS(
 	--	SELECT * FROM Board_AllowAccess WHERE ItemNo=ParentFolderNo AND ItemType=1
@@ -4418,8 +4418,8 @@ BEGIN
 	--	LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=ApplicationNo
 	--	WHERE (DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=PositionNo OR PositionNo=0) AND U.Enabled = TRUE
 	--)--,
-	----TOTAL AS (SELECT COUNT(*) AS Total  FROM USERS U)
-	--SELECT (SELECT COUNT(*) AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,
+	----TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
+	--SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableAdmin ELSE  TRUE  END AS DisableAdmin,
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableRead ELSE TRUE END AS DisableRead,
 	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableWrite ELSE TRUE END AS DisableWrite
@@ -4461,7 +4461,7 @@ BEGIN
 	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
 	--ELSE
 	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo);
-	_Total := (SELECT COUNT(UserId) FROM ORGANIZATION_USERS);
+	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
 	RETURN QUERY
 	WITH
 	--UserParentPermistions AS(
@@ -4507,7 +4507,7 @@ BEGIN
 		LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=board_getlistuserpermissiontoexcel._applicationno
 		WHERE (_DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=board_getlistuserpermissiontoexcel._positionno OR _PositionNo=0) AND U.Enabled = TRUE
 	)--,
-	--TOTAL AS (SELECT COUNT(*) AS Total  FROM USERS U)
+	--TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
 	SELECT U.UserId,U.Name AS UserName,U.IsAdmin AS "Admin" ,U.IsWrite As Write ,U.IsRead AS "Read"
 	FROM USERS U--,TOTAL T
 	--LEFT JOIN UserParentPermistions  UP ON UP.UserNo=U.UserNo
@@ -4642,7 +4642,7 @@ SHARE AS(
 		WHERE U.UserNo=board_getprenextcontent._userno --AND U.Enabled = TRUE
 		) U ON U.UserNo=BS.UserNo OR U.DepartNo=BS.DepartNo
 ),
-REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
+REP AS (SELECT BC.ContentNo,(Count(BR.ReplyNo))::integer AS ReplyCount
 	FROM Board_Contents BC
 	LEFT JOIN Board_Replies BR ON BR.ContentNo=BC.ContentNo
 	WHERE (BC.BoardNo=board_getprenextcontent._boardno OR  _BoardNo =0 ) AND BC.Enabled = TRUE
@@ -4671,7 +4671,7 @@ REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
 
 
 ) ,
-Total AS (Select count(*) as ToTal FROM TMP)
+Total AS (Select (count(*))::integer as ToTal FROM TMP)
 
 
 SELECT T.ContentNo,T.Title,T.ModUserName,T.BoardName,T.RegDateToString,FALSE AS Type,T.Private,T.ViewMode
@@ -4740,7 +4740,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 
 	--	COALESCE(BH.Name, '') AS HeadName, FALSE AS IsRecommended
 	--	,BC.IsAlarm
-	--	,(Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
+	--	,(Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
 	--FROM Board_Contents BC
 	--LEFT JOIN Board_Heads BH ON BH.HeadNo = BC.HeadNo
 	--LEFT JOIN (SELECT * FROM public."board_getboardallow"(UserNo ,2)) AC ON BC.BoardNo=AC.BoardNo
@@ -4751,7 +4751,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--AND BC.Enabled = TRUE
 	--AND (BC.RegUserNo = UserNo	OR (BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (UserNo) DP ON DP.DepartNo= BS1.DepartNo))
 	--	OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1 where BSS1.contentno=BC.ContentNo and BSS1.userno=UserNo))
-	--	OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ))
+	--	OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ))
 	--order by BC.ContentNo desc
 
 
@@ -4771,7 +4771,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--	 BC.ViewedCount,
 	--	COALESCE(BH.Name, '') AS HeadName, FALSE AS IsRecommended
 	--	,BC.IsAlarm
-	--	,(Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
+	--	,(Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
 	--FROM Board_Contents BC
 	--LEFT JOIN Board_Heads BH ON BH.HeadNo = BC.HeadNo
 	--LEFT JOIN (SELECT * FROM public."board_getboardallow"(UserNo ,2)) AC ON BC.BoardNo=AC.BoardNo
@@ -4782,7 +4782,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--AND BC.Enabled = TRUE
 	--AND (BC.RegUserNo = UserNo	OR (BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 inner JOIN public."organization_getdepartmentsbyuser" (UserNo) DP ON DP.DepartNo= BS1.DepartNo))
 	--	OR (BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1 where BSS1.contentno=BC.ContentNo and BSS1.userno=UserNo))
-	--	OR ((SELECT COUNT(*) FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ))
+	--	OR ((SELECT (COUNT(*))::integer FROM Board_Sharers BS2 WHERE BS2.CONTENTNO = BC.ContentNO) <=0 ))
 	--order by BC.ContentNo asc
 	--end
 	---- Is admin
@@ -4815,7 +4815,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--	-- BC.RegDepartNo,
 	--	--( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.RegDepartNo) end) as RegDepartName
 	--	,BC.IsAlarm
-	--	,(Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
+	--	,(Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
 	--FROM Board_Contents BC
 	--LEFT JOIN Board_Heads BH ON BH.HeadNo = BC.HeadNo
 	--WHERE BC.ContentNo < ContentNo and BC.BoardNo = BoardNo
@@ -4850,7 +4850,7 @@ T.RowNumber=(SELECT RowNumber+1 FROM TMP WHERE ContentNo=board_getprenextcontent
 	--	-- BC.RegDepartNo,
 	--	--( case when LanguageSign = 'EN' then COALESCE((Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo),(Select Name_EN from Organization_Departments where DepartNo = BC.RegDepartNo) ) else (Select Name from Organization_Departments where DepartNo = BC.RegDepartNo) end) as RegDepartName
 	--	,BC.IsAlarm
-	--	,(Select Count(*) From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
+	--	,(Select (Count(*))::integer From Board_ViewedLogs where Board_ViewedLogs.UserNo=UserNo AND BC.ContentNo=Board_ViewedLogs.ContentNo) As ReadCount
 	--FROM Board_Contents BC
 	--LEFT JOIN Board_Heads BH ON BH.HeadNo = BC.HeadNo
 	--WHERE BC.ContentNo > ContentNo and BC.BoardNo = BoardNo
@@ -4903,7 +4903,7 @@ WITH RECURSIVE TMP AS (
 --	FROM TMP P
 --	LEFT JOIN TMP  C ON P.ReplyNo=C.ParentNo
 --	GROUP BY P.ReplyNo
---	HAVING COUNT(C.ParentNo) = 0
+--	HAVING (COUNT(C.ParentNo))::integer = 0
 --)
 	SELECT BR.ReplyNo,
 		BR.ModUserNo,
@@ -5025,7 +5025,7 @@ FOLDER AS (
 BOARD AS (
 	SELECT B.BoardNo, B.ModUserNo, B.ModDate, B.Name, B.Description, B.FolderNo, B.DisplayTypeNo, B.SortNo,
 				B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount, B.Enabled,B.ViewMode,B.SpecType,
-				(SELECT COUNT(*) FROM Board_Contents BC
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC
 				WHERE '2020-12-31'::timestamp< BC.RegDate AND (BC.BoardNo = B.BoardNo
 					AND BC.Enabled = TRUE
 					And BC.RegUserNo <> board_getsubmenus._userno
@@ -5227,7 +5227,7 @@ FOLDER AS (
 	    CONTENT_COUNT AS (
         SELECT
             BC.BoardNo,
-            COUNT(*) AS CountContent
+            (COUNT(*))::integer AS CountContent
         FROM Board_Contents BC
         WHERE
             BC.Enabled = TRUE
@@ -5249,7 +5249,7 @@ BOARD AS (
             B.ModUserNo,
             B.ModDate,
             B.ViewMode,
-				(SELECT COUNT(*) FROM Board_Contents BC
+				(SELECT (COUNT(*))::integer FROM Board_Contents BC
 				WHERE '2020-12-31'::timestamp< BC.RegDate AND (BC.BoardNo = B.BoardNo
 					AND BC.Enabled = TRUE
 					And BC.RegUserNo <> board_gettreesubmenu._userno
@@ -5305,7 +5305,7 @@ ORDER BY ParentNo ASC, SortNo DESC;
 
   --  -- 3. Content Count logic moved to CTE to prevent RBAR (Row-By-Agonizing-Row) processing
   --  BoardContentCounts AS (
-  --      SELECT BC.BoardNo, COUNT(*) AS CountContent
+  --      SELECT BC.BoardNo, (COUNT(*))::integer AS CountContent
   --      FROM Board_Contents BC
   --      WHERE BC.RegDate > '2020-12-31'
   --        AND BC.Enabled = TRUE
@@ -5427,7 +5427,7 @@ FOLDER AS (
 BOARD AS (
 	SELECT B.BoardNo, B.ModUserNo, B.ModDate, B.Name, B.Description, B.FolderNo, B.DisplayTypeNo, B.SortNo,
 			B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount, B.Enabled, B.ViewMode, B.SpecType,
-			(SELECT COUNT(*) FROM Board_Contents BC
+			(SELECT (COUNT(*))::integer FROM Board_Contents BC
 			WHERE '2020-12-31'::timestamp < BC.RegDate AND (BC.BoardNo = B.BoardNo
 				AND BC.Enabled = TRUE
 				AND BC.RegUserNo <> board_gettreesubmenu_v2._userno
@@ -5513,7 +5513,7 @@ BEGIN
 
     -- 3. Content Count logic moved to CTE to prevent RBAR (Row-By-Agonizing-Row) processing
     BoardContentCounts AS (
-        SELECT BC.BoardNo, COUNT(*) AS CountContent
+        SELECT BC.BoardNo, (COUNT(*))::integer AS CountContent
         FROM Board_Contents BC
         WHERE BC.RegDate > '2020-12-31'
           AND BC.Enabled = TRUE
@@ -5728,7 +5728,7 @@ BEGIN
 
 
 
-	_TotalItemCount := (SELECT COUNT(*) FROM _SearchResult);
+	_TotalItemCount := (SELECT (COUNT(*))::integer FROM _SearchResult);
 	_TotalPageCount := _TotalItemCount / _CountPerPage;
 	IF _TotalPageCount % _CountPerPage > 0 THEN
 	    _TotalPageCount := _TotalPageCount + 1;
@@ -5896,7 +5896,7 @@ BEGIN
 
 
 		_DepartName := public."comngetdepartname"(_DepartNo);
-		IF (select count(*) from Board_Sharers b where b.ContentNo = board_setshare._contentno and b.DepartNo=board_setshare._departno and b.Userno=board_setshare._userno)=0 THEN
+		IF (select (count(*))::integer from Board_Sharers b where b.ContentNo = board_setshare._contentno and b.DepartNo=board_setshare._departno and b.Userno=board_setshare._userno)=0 THEN
 		INSERT INTO Board_Sharers(ContentNo,DepartNo,DepartName,IsChild,UserNo)
 		VALUES(_ContentNo,_DepartNo,_DepartName,_IsChild,_UserNo);
 		END IF;
@@ -6089,51 +6089,6 @@ $function$
 ```
 </details>
 
-## `contacts_checknumber`
-
-- Input: `0::integer, ''::character varying, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_checknumber"(0::integer, ''::character varying, 0::integer);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_checknumber(integer,character varying,integer) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_checknumber(_reguserno integer, _value character varying, _type integer)
- RETURNS TABLE(cnt integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-IF _Type = 0 THEN
-	RETURN QUERY
-	SELECT COUNT(*) cnt FROM ContactsNumber N
-	INNER JOIN ContactsUser U ON U.Seq = N.UserSeq AND U.UseYn='Y'
-	WHERE N.RegUserNo = contacts_checknumber._reguserno
-	AND REPLACE(N.Value,'-','') = REPLACE(_Value,'-','');
-ELSE
-	RETURN QUERY
-	SELECT COUNT(*) cnt FROM ContactsEmail E
-	INNER JOIN ContactsUser U ON U.Seq = E.UserSeq AND U.UseYn='Y'
-	WHERE E.RegUserNo = contacts_checknumber._reguserno AND E.Value = contacts_checknumber._value;
-
-
-
-
-
-
-
-END IF;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_finduser`
 
 - Input: `0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying`
@@ -6160,7 +6115,7 @@ BEGIN
 		IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6238,7 +6193,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6301,7 +6256,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6376,7 +6331,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6439,7 +6394,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6514,7 +6469,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6577,7 +6532,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6652,7 +6607,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6715,7 +6670,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6790,7 +6745,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6853,7 +6808,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6928,7 +6883,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -6991,7 +6946,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -7066,7 +7021,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -7129,7 +7084,7 @@ BEGIN
 	IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -7204,7 +7159,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName END ASC,
@@ -7402,53 +7357,6 @@ $function$
 ```
 </details>
 
-## `contacts_getallgroup`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getallgroup"(0::integer, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getallgroup(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getallgroup(_reguserno integer DEFAULT 70, _langcode character varying DEFAULT 'KO'::character varying)
- RETURNS TABLE(groupno integer, groupname text, rootgroupno integer, reguserno integer, regdate timestamp without time zone, memo character varying, parentgno integer, sort integer, isdefault character, usercount integer, name text)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	WITH RECURSIVE ContactsGroups AS (
-		   SELECT CGP.GroupNo,CGP.GroupNo AS RootGroupNo, CGP.GroupName, CGP.RegUserNo, CGP.RegDate, CGP.Memo, CGP.ParentGNo, CGP.Sort, CGP.IsDefault,CGP.UseYn
-		  FROM ContactsGroup CGP
-		  WHERE CGP.UseYn='Y' AND CGP.ParentGNo=0 AND  CGP.RegUserNo=contacts_getallgroup._reguserno
-		  UNION ALL
-		  SELECT CGC.GroupNo,C.RootGroupNo, CGC.GroupName, CGC.RegUserNo, CGC.RegDate, CGC.Memo, CGC.ParentGNo, CGC.Sort, CGC.IsDefault,CGC.UseYn
-		  FROM ContactsGroup CGC
-		  INNER JOIN ContactsGroups C ON CGC.ParentGNo = C.GroupNo AND CGC.UseYn='Y' AND   CGC.RegUserNo=contacts_getallgroup._reguserno
-	)
-	SELECT CG.GroupNo,CG.GroupName,CG.RootGroupNo,CG.RegUserNo,CG.RegDate,CG.Memo,CG.ParentGNo,CG.Sort,CG.IsDefault,
-	(
-		SELECT COUNT(*)
-		FROM ContactsGroupUser C
-		INNER JOIN ContactsUser U ON U.Seq = C.UserSeq
-		WHERE U.UseYn='Y' AND C.GroupNo =CG.GroupNo
-	) AS UserCount,
-	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN CG.GroupName::json->>contacts_getallgroup._langcode ELSE CG.GroupName END AS  Name
-	FROM ContactsGroups  CG
-	WHERE CG.RegUserNo=contacts_getallgroup._reguserno AND CG.UseYn='Y' ORDER BY CG.Sort;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getalluser_distinct`
 
 - Input: `0::integer, 0::integer, 0::integer`
@@ -7474,63 +7382,16 @@ BEGIN
 	WITH RECURSIVE s AS (
 			SELECT ROW_NUMBER()
 				OVER(ORDER BY Seq DESC) AS RowNum,Seq,FirstName,LastName,RegUserNo,Memo,RegDate,Photo,ModDate,CallName,ViewCount,(FirstName+LastName) as FullName
-				--,(SELECT COUNT(*) FROM ContactsUser WHERE  Seq IN  (select MAX(Seq) AS SEQ FROM ContactsUser WHERE RegUserNo=RegUserNo GROUP BY FirstName+LastName)) as counts
+				--,(SELECT (COUNT(*))::integer FROM ContactsUser WHERE  Seq IN  (select MAX(Seq) AS SEQ FROM ContactsUser WHERE RegUserNo=RegUserNo GROUP BY FirstName+LastName)) as counts
 			FROM ContactsUser Cu
 			WHERE Seq IN  (select MAX(Seq) AS SEQ FROM ContactsUser WHERE RegUserNo=contacts_getalluser_distinct._reguserno   GROUP BY FirstName+LastName)
 		  AND RegUserNo=contacts_getalluser_distinct._reguserno AND UseYn='Y'
 		)
-		Select * , (select COUNT(*) FROM s) As counts From s
+		Select * , (select (COUNT(*))::integer FROM s) As counts From s
 		Where RowNum Between
 			(_currPage - 1)*_recodperpage+1
 			AND _currPage*_recodperpage
 			ORDER BY Seq DESC;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getcontactgroup`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getcontactgroup"(0::integer, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getcontactgroup(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getcontactgroup(_userno integer DEFAULT 70, _langcode character varying DEFAULT 'KO'::character varying)
- RETURNS TABLE(id integer, jsonname text, parentno integer, sharenumber integer, name text)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	WITH RECURSIVE ContactsGroups AS (
-		   SELECT CGP.GroupNo,CGP.GroupNo AS RootGroupNo, CGP.GroupName, CGP.RegUserNo, CGP.RegDate, CGP.Memo, CGP.ParentGNo, CGP.Sort, CGP.IsDefault,CGP.UseYn
-		  FROM ContactsGroup CGP
-		  WHERE CGP.UseYn='Y' AND CGP.ParentGNo=0 AND  CGP.RegUserNo=contacts_getcontactgroup._userno
-		  UNION ALL
-		  SELECT CGC.GroupNo,C.RootGroupNo, CGC.GroupName, CGC.RegUserNo, CGC.RegDate, CGC.Memo, CGC.ParentGNo, CGC.Sort, CGC.IsDefault,CGC.UseYn
-		  FROM ContactsGroup CGC
-		  INNER JOIN ContactsGroups C ON CGC.ParentGNo = C.GroupNo AND CGC.UseYn='Y' AND   CGC.RegUserNo=contacts_getcontactgroup._userno
-	)
-	SELECT CG.GroupNo AS Id,CG.GroupName AS JsonName,CG.ParentGNo AS ParentNo  ,
-	(
-		SELECT COUNT(*)
-		FROM ContactsGroupUser C
-		INNER JOIN ContactsUser U ON U.Seq = C.UserSeq
-		WHERE U.UseYn='Y' AND C.GroupNo =CG.GroupNo
-	) AS ShareNumber,
-	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN CG.GroupName::json->>contacts_getcontactgroup._langcode ELSE CG.GroupName END AS Name
-	FROM ContactsGroups  CG
-	WHERE CG.RegUserNo=contacts_getcontactgroup._userno AND CG.UseYn='Y' ORDER BY CG.Sort;
 END;
 $function$
 
@@ -7567,10 +7428,10 @@ BEGIN
 
 
 
-	_PagingQry := 'SELECT count(*) cnt FROM;
+	_PagingQry := 'SELECT (count(*))::integer cnt FROM;
 				(SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq,Name,Memo FROM ContactsUser';
 
-	_CountQry := 'SELECT COUNT(*) CNT FROM ContactsUser';
+	_CountQry := 'SELECT (COUNT(*))::integer CNT FROM ContactsUser';
 	_PARAM := 'P_RegUserNo INT,;
 	P_TS NVARCHAR(5),
 	P_TE NVARCHAR(5),
@@ -7675,7 +7536,7 @@ BEGIN
 	_PagingQry := 'SELECT ROWNUM, Seq, Name, Memo FROM;
 				(SELECT ROW_NUMBER() OVER(ORDER BY RegDate DESC) ROWNUM, Seq, Name, Memo FROM ContactsUser ';
 
-	_CountQry := 'SELECT COUNT(*) CNT FROM ContactsUser ';
+	_CountQry := 'SELECT (COUNT(*))::integer CNT FROM ContactsUser ';
 	_PARAM := 'P_RegUserNo INT,;
 	P_Sidx INT,
 	P_Eidx INT,
@@ -9810,7 +9671,7 @@ BEGIN
 			-- ===========================
 			IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 				RETURN QUERY
-				SELECT COUNT (*) CNT
+				SELECT (COUNT (*))::integer CNT
 				FROM ContactsUser CU
 				WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno;
 			ELSE
@@ -9818,7 +9679,7 @@ BEGIN
 			-- 색인인 경우
 			-- ===========================;
 				RETURN QUERY
-				SELECT COUNT (*) CNT
+				SELECT (COUNT (*))::integer CNT
 				FROM ContactsUser CU
 				WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 				AND LastName BETWEEN _TS AND _TE
@@ -9845,7 +9706,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND ( FirstName ILIKE '%' || _Search || '%' OR LastName ILIKE '%' || _Search || '%' );
@@ -9854,7 +9715,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -9878,7 +9739,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsCompany WHERE Position ILIKE '%' || _Search || '%');
@@ -9887,7 +9748,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -9911,7 +9772,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsNumber WHERE Value ILIKE '%' || _Search || '%');
@@ -9920,7 +9781,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -9944,7 +9805,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsCompany WHERE Company ILIKE '%' || _Search || '%');
@@ -9953,7 +9814,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -9977,7 +9838,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsCompany WHERE Depart ILIKE '%' || _Search || '%');
@@ -9986,7 +9847,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10010,7 +9871,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsEmail WHERE Value ILIKE '%' || _Search || '%');
@@ -10019,7 +9880,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10043,7 +9904,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND Seq IN (SELECT UserSeq FROM ContactsGroupUser WHERE
@@ -10053,7 +9914,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10078,7 +9939,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND TO_CHAR(RegDate, 'YYYYMMDD') ILIKE '%' || _Search || '%';
@@ -10087,7 +9948,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10111,7 +9972,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND TO_CHAR(ModDate, 'YYYYMMDD') = '%' || _Search || '%';
@@ -10120,7 +9981,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10144,7 +10005,7 @@ BEGIN
 				-- ===========================
 				IF _TS = '' AND _TE = '' THEN -- ㄱㄴㄷ 검색용
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND TO_CHAR(CheckDate, 'YYYYMMDD') = '%' || _Search || '%';
@@ -10153,7 +10014,7 @@ BEGIN
 				-- 색인인 경우
 				-- ===========================;
 					RETURN QUERY
-					SELECT COUNT (*) CNT
+					SELECT (COUNT (*))::integer CNT
 					FROM ContactsUser CU
 					WHERE UseYn = '' AND CU.RegUserNo = contacts_getcontactstrashlist._reguserno
 					AND LastName BETWEEN _TS AND _TE
@@ -10199,7 +10060,7 @@ AS $function$
 #variable_conflict use_column
 BEGIN
 RETURN QUERY
-select COUNT(*) count FROM ContactsUser WHERE UseYn = 'Y'  AND Seq IN
+select (COUNT(*))::integer count FROM ContactsUser WHERE UseYn = 'Y'  AND Seq IN
  (SELECT UserSeq from ContactsGroupUser WHERE RegUserNo = contacts_getcountchilduser._reguserno
 AND GroupNo IN (SELECT TreeID FROM public."getchildgroup"(_RegUserNo, _Seq)));
 END;
@@ -10211,7 +10072,7 @@ $function$
 ## `contacts_getgroupbyuser`
 
 - Input: `0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getgroupbyuser"(0::integer, 0::integer) AS result("column_1" integer, "column_2" text, "column_3" integer, "column_4" timestamp without time zone, "column_5" character varying(500), "column_6" integer, "column_7" integer, "column_8" character, "column_9" bigint, "column_10" character);`
+- Generated SQL: `SELECT * FROM "public"."contacts_getgroupbyuser"(0::integer, 0::integer) AS result("column_1" integer, "column_2" text, "column_3" integer, "column_4" timestamp without time zone, "column_5" character varying(500), "column_6" integer, "column_7" integer, "column_8" character, "column_9" integer, "column_10" character);`
 - SQLSTATE: `23502`
 - Error: null value in column "sort" violates not-null constraint
 - Stack context: SQL statement "INSERT INTO ContactsGroup (GroupName, ParentGNo, RegUserNo, Sort,RegDate,IsDefault,UseYn) 	VALUES (_GrpName, _ParentNo, _UserNo, _Sort+1,NOW(),'0','Y')" PL/pgSQL function contacts_insertgroup(integer,character varying,integer) line 13 at SQL statement SQL statement "SELECT contacts_insertgroup(_RegUserNo,'임시 그룹',0)" PL/pgSQL function contacts_getgroupbyuser(integer,integer) line 7 at PERFORM
@@ -10230,7 +10091,7 @@ AS $function$
 BEGIN
 
 
- IF (SELECT COUNT(*) FROM ContactsGroup  WHERE RegUserNo=contacts_getgroupbyuser._reguserno AND UseYn='Y')<=0 THEN
+ IF (SELECT (COUNT(*))::integer FROM ContactsGroup  WHERE RegUserNo=contacts_getgroupbyuser._reguserno AND UseYn='Y')<=0 THEN
 	PERFORM contacts_insertgroup(_RegUserNo,'임시 그룹',0);
  END IF;
 
@@ -10238,7 +10099,7 @@ BEGIN
 	RETURN QUERY
 	SELECT distinct c.GroupNo, c.GroupName, c.RegUserNo, c.RegDate, c.Memo, c.ParentGNo, c.Sort, c.IsDefault,
 	(
-		SELECT COUNT(*)
+		SELECT (COUNT(*))::integer
 		FROM ContactsGroupUser Cc
 		INNER JOIN ContactsUser U ON U.Seq = Cc.UserSeq AND U.UseYn='Y'
 		WHERE Cc.GroupNo = c.GroupNo
@@ -10248,50 +10109,6 @@ BEGIN
 	left join ContactsGroupUser g on c.groupno=g.groupno
 	WHERE c.RegUserNo=contacts_getgroupbyuser._reguserno AND c.UseYn='Y' --and --g.userseq=UserSeq
 	 ORDER BY c.Sort;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_gethistorylistcount`
-
-- Input: `0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE`
-- Generated SQL: `SELECT * FROM "public"."contacts_gethistorylistcount"(0::integer, 0::integer, 0::integer, CURRENT_DATE, CURRENT_DATE);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_gethistorylistcount(integer,integer,integer,date,date) line 15 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_gethistorylistcount(_userno integer, _searchtype integer, _searchday integer DEFAULT 0, _searchdate1 date DEFAULT ('now'::text)::date, _searchdate2 date DEFAULT ('now'::text)::date)
- RETURNS TABLE(cnt integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-
-	IF _SearchType = 1 THEN
-		RETURN QUERY
-		SELECT
-			COUNT(*) AS CNT
-		  FROM ContactsUserHistory U
-		WHERE U.RegUserNo = contacts_gethistorylistcount._userno
-		AND U.ModDate >= DATEADD(dd, _SearchDay, NOW());
-	ELSE
-		RETURN QUERY
-		SELECT
-			COUNT(*) AS CNT
-		  FROM ContactsUserHistory U
-		WHERE U.RegUserNo = contacts_gethistorylistcount._userno
-		AND U.ModDate BETWEEN _SearchDate1 AND _SearchDate2;
-	END IF;
 END;
 $function$
 
@@ -10661,72 +10478,6 @@ $function$
 ```
 </details>
 
-## `contacts_getoutlistcount`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getoutlistcount"(0::integer, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getoutlistcount(integer,character varying) line 34 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getoutlistcount(_userno integer, _grouplist character varying DEFAULT 'ALL'::character varying)
- RETURNS TABLE(cnt integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-DECLARE
-    _groupno integer;
-BEGIN
-
-	IF _GroupList = 'ALL' THEN
-
-		RETURN QUERY
-		SELECT
-			COUNT(U.Seq) AS CNT
-		FROM ContactsUser U
-		WHERE RegUserNo = contacts_getoutlistcount._userno
-		AND UseYn = 'Y';
-	ELSE
-		CREATE TEMP TABLE _tabGroup (GroupNo INT) ON COMMIT DROP;
-
-		_GroupList := contacts_getoutlistcount._grouplist || ',';
-		WHILE STRPOS(_GroupList, ',') > 0 LOOP
-
-			_GroupNo := COALESCE(NULLIF((SUBSTRING(_GroupList,0,STRPOS(_GroupList, ',')))::text, '')::integer, 0);
-			INSERT INTO _tabGroup
-			(
-				GroupNo
-			)
-			VALUES
-			(
-				_GroupNo
-			);
-
-			_GroupList := SUBSTRING(_GroupList,STRPOS(_GroupList, ',')+1,LENGTH(_GroupList));
-		END LOOP;
-
-		RETURN QUERY
-		SELECT
-			COUNT(U.Seq) AS CNT
-		FROM ContactsUser U
-		JOIN ContactsGroupUser G ON U.Seq = G.UserSeq
-		WHERE U.RegUserNo = contacts_getoutlistcount._userno
-		AND U.UseYn = 'Y'
-		AND G.GroupNo IN (SELECT GroupNo FROM _tabGroup);
-
-	END IF;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getoutlistexcel`
 
 - Input: `0::integer, ''::character varying, ''::character varying, ''::character varying, false`
@@ -11048,44 +10799,6 @@ $function$
 ```
 </details>
 
-## `contacts_getpublicgroup`
-
-- Input: `''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getpublicgroup"(''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getpublicgroup(character varying) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getpublicgroup(_langcode character varying DEFAULT 'KO'::character varying)
- RETURNS TABLE(id integer, jsonname text, name text, parentno integer, sharenumber integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	SELECT PG.PublicGroupNo AS Id,PG.PublicGroupName AS JsonName,COALESCE(CASE WHEN STRPOS(PG.PublicGroupName, '{')>0 THEN COALESCE(PG.PublicGroupName::json->>contacts_getpublicgroup._langcode,PG.PublicGroupName::json->>'KO') ELSE PG.PublicGroupName END,'') AS Name , PG.ParentNo ,
-	COALESCE(SU.ShareNumber,0) AS ShareNumber
-	FROM  Contact_PublicGroup PG
-	LEFT JOIN  ( SELECT P.PublicGroupNo, Count(P.PublicGroupNo) AS ShareNumber
-				FROM Contact_PublicGroupUser  P
-				INNER JOIN ContactsUser U ON U.Seq = P.UserSeq AND U.UseYn='Y'
-				WHERE P.IsDelete= FALSE
-				GROUP BY P.PublicGroupNo) SU ON SU.PublicGroupNo = PG.PublicGroupNo
-	WHERE PG.IsDelete= FALSE
-	ORDER BY  PG.ParentNo, PG.Sort;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getsharegroup`
 
 - Input: `0::integer, false, ''::character varying`
@@ -11117,14 +10830,14 @@ IF _IsAdmin = TRUE THEN
 	COALESCE(SU.ShareNumber,0) AS ShareNumber,
 	SG.Sort
 	FROM  Contact_ShareGroup SG
-	LEFT JOIN  ( SELECT ShareGroupNo, Count(ShareGroupNo) AS ShareNumber
+	LEFT JOIN  ( SELECT ShareGroupNo, (Count(ShareGroupNo))::integer AS ShareNumber
 				FROM Contact_ShareGroupUser S
 				INNER JOIN ContactsUser U ON U.Seq=S.UserSeq AND U.UseYn='Y'
 				WHERE S.IsDelete= FALSE
 				GROUP BY S.ShareGroupNo) SU ON SU.ShareGroupNo = SG.ShareGroupNo
 	WHERE SG.IsDelete= FALSE
 	UNION ALL
-	SELECT 0 AS Id,'' as JsonName,'' AS Name,-1 AS ParentNo,(SELECT Count(*)
+	SELECT 0 AS Id,'' as JsonName,'' AS Name,-1 AS ParentNo,(SELECT (Count(*))::integer
 				FROM ContactsUser U
 				LEFT OUTER JOIN  Contact_ShareGroupUser S   ON U.Seq=S.UserSeq AND S.IsDelete= FALSE
 				WHERE  U.UseYn='Y'  AND SUBSTRING(U.Share,1,3)='200') AS ShareNumber,
@@ -11151,7 +10864,7 @@ ELSE
 	COALESCE(SU.ShareNumber,0) AS ShareNumber
 	FROM DEPARTPERMISSION D
 	LEFT JOIN Contact_ShareGroup SG   ON D.ItemNo=SG.ShareGroupNo AND SG.IsDelete= FALSE
-	LEFT JOIN  ( SELECT ShareGroupNo, Count(ShareGroupNo) AS ShareNumber
+	LEFT JOIN  ( SELECT ShareGroupNo, (Count(ShareGroupNo))::integer AS ShareNumber
 				FROM Contact_ShareGroupUser SG
 				INNER JOIN ContactsUser U ON U.Seq=SG.UserSeq AND U.UseYn='Y'
 				INNER JOIN SHARE CS ON CS.Seq=U.Seq
@@ -11159,7 +10872,7 @@ ELSE
 				GROUP BY SG.ShareGroupNo
 				--UNION
 				--SELECT 0 AS ShareGroupNo,
-				--(SELECT COUNT (*)FROM ContactsUser U
+				--(SELECT (COUNT (*))::integerFROM ContactsUser U
 				--LEFT OUTER JOIN Contact_ShareGroupUser S  ON U.Seq=S.UserSeq AND  S.IsDelete= FALSE
 				--INNER JOIN SHARE CS ON CS.Seq=U.Seq
 				--WHERE SUBSTRING(U.Share,1,3)='200'  AND U.UseYn='Y') AS ShareNumber
@@ -11257,7 +10970,7 @@ SELECT --MAX(T.RowNum) TotalCnt
 	  T.*
 FROM(
 		select
-			COUNT(*) OVER() AS TotalCnt
+			(COUNT(*) OVER())::integer AS TotalCnt
 			,ROW_NUMBER() OVER (ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME'  THEN LastName END ASC,
 				CASE WHEN _SortColumn='DESC_NAME'  THEN LastName END DESC,
@@ -11347,7 +11060,7 @@ IF _GroupNo=0 THEN
 		ContactsCompanys AS(SELECT  C.UserSeq, C.Company, C.Depart, C.Position,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C)
         SELECT  * FROM (
 			SELECT
-			CAST(COUNT(*) OVER() as INT) AS TotalCount,
+			CAST((COUNT(*) OVER())::integer as INT) AS TotalCount,
 			CAST(ROW_NUMBER() OVER (
 				ORDER BY
 				CASE WHEN _SortColumn='' THEN U.Important END DESC,
@@ -11432,7 +11145,7 @@ ELSE
 		ContactsEmails AS(SELECT  CE.UserSeq,CE.Value,ROW_NUMBER() OVER(PARTITION BY CE.UserSeq ORDER BY CE.RegDate) AS Nm FROM ContactsEmail CE),
 		ContactsCompanys AS(SELECT  C.UserSeq, C.Company, C.Depart, C.Position,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C)
 	SELECT * FROM (SELECT
-		CAST(COUNT(*) OVER() AS INT) AS TotalCount,
+		CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount,
 		CAST( ROW_NUMBER() OVER (
 		ORDER BY
 			CASE WHEN _SortColumn='' THEN U.Important END DESC,
@@ -11545,7 +11258,7 @@ BEGIN
 			SELECT  C.*,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C
 		)
 		SELECT * FROM (SELECT
-		CAST(COUNT(*) OVER() AS INT) AS TotalCount
+		CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount
 		,CAST( ROW_NUMBER() OVER (
 		ORDER BY
 			CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName + U.FirstName END ASC,
@@ -11654,7 +11367,7 @@ BEGIN
 			ContactsEmails AS(SELECT  CE.*,ROW_NUMBER() OVER(PARTITION BY CE.UserSeq ORDER BY CE.RegDate) AS Nm FROM ContactsEmail CE),
 			ContactsCompanys AS(SELECT  C.*,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C)
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS INT) AS TotalCount
+			CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount
 			,CAST( ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName + U.FirstName END ASC,
@@ -11766,7 +11479,7 @@ BEGIN
 			RETURN QUERY
 			SELECT  T.Seq as seq,T.FirstName firstName,T.LastName lastName,T.email as email,T.Photo photo FROM (
 			SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName+U.FirstName END ASC,
@@ -11821,7 +11534,7 @@ BEGIN
 			 RETURN QUERY
 			 SELECT  T.Seq as seq,T.FirstName firstName,T.LastName lastName,T.email as email,T.Photo photo FROM (
 				SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName+U.FirstName END ASC,
@@ -11904,7 +11617,7 @@ BEGIN
 		IF _Initial = 'ETC' THEN
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName+U.FirstName END ASC,
@@ -11962,7 +11675,7 @@ BEGIN
 		ELSE
 			RETURN QUERY
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS int) AS TotalCnt
+			CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 			,CAST(ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='ASC_NAME' THEN U.LastName+U.FirstName END ASC,
@@ -12035,7 +11748,7 @@ BEGIN
 			ContactsEmails AS(SELECT     CE.UserSeq,CE.Value,ROW_NUMBER() OVER(PARTITION BY CE.UserSeq ORDER BY CE.RegDate) AS Nm FROM ContactsEmail CE),
 			ContactsCompanys AS(SELECT      C.UserSeq, C.Company, C.Depart, C.Position,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C)
 			SELECT * FROM (SELECT
-			CAST(COUNT(*) OVER() AS INT) AS TotalCount
+			CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount
 			,CAST( ROW_NUMBER() OVER (
 			ORDER BY
 				CASE WHEN _SortColumn='' THEN U.LastName + U.FirstName END ASC,
@@ -12155,7 +11868,7 @@ IF _IsAdmin = TRUE THEN
 			SELECT  C.*,ROW_NUMBER() OVER(PARTITION BY C.UserSeq ORDER BY C.RegDate) AS Nm FROM ContactsCompany C
 		)
 		SELECT * FROM (SELECT
-		CAST(COUNT(*) OVER() AS INT) AS TotalCount
+		CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount
 		,CAST( ROW_NUMBER() OVER (
 		ORDER BY
 		CASE WHEN _SortColumn='' THEN U.Important END DESC,
@@ -12264,7 +11977,7 @@ IF _IsAdmin = TRUE THEN
 			WHERE  OB.UserNo=contacts_getuserbysharegroup._userno AND OB.IsDefault= TRUE AND _GroupNo=BD.ItemNo
 		)
 		SELECT * FROM (SELECT
-		CAST(COUNT(*) OVER() AS INT) AS TotalCount
+		CAST((COUNT(*) OVER())::integer AS INT) AS TotalCount
 		,CAST( ROW_NUMBER() OVER (
 		ORDER BY
 		CASE WHEN _SortColumn='' THEN U.Important END DESC,
@@ -12724,100 +12437,6 @@ BEGIN
 	RegDate,
 	ModDate
 	FROM ContactsSns WHERE UserSeq = contacts_getuserdetail._userseq;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getusergroupbylanguage`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getusergroupbylanguage"(0::integer, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getusergroupbylanguage(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getusergroupbylanguage(_reguserno integer DEFAULT 70, _langcode character varying DEFAULT 'EN'::character varying)
- RETURNS TABLE(groupno integer, groupname text, reguserno integer, regdate timestamp without time zone, memo character varying, parentgno integer, sort integer, isdefault character, usercount integer, useyn character)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	WITH RECURSIVE ContactsGroups AS (
-		  SELECT CGP.GroupNo,CGP.GroupNo AS RootGourpNo
-		  FROM ContactsGroup CGP
-		  WHERE CGP.UseYn='Y'
-		  UNION ALL
-		  SELECT CGC.GroupNo,C.RootGourpNo
-		  FROM ContactsGroup CGC
-		  INNER JOIN ContactsGroups C ON CGC.ParentGNo = C.GroupNo AND CGC.UseYn='Y'
-	)
-	SELECT GroupNo, CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>contacts_getusergroupbylanguage._langcode ELSE GroupName END AS  GroupName, RegUserNo, RegDate, Memo, COALESCE(ParentGNo,0) AS ParentGNo, Sort, IsDefault,
-	(
-		SELECT COUNT(*)
-		FROM ContactsGroupUser C
-		INNER JOIN ContactsUser U ON U.Seq = C.UserSeq
-		WHERE U.UseYn='Y' AND C.GroupNo IN (SELECT GroupNo FROM ContactsGroups WHERE RootGourpNo=CG.GroupNo)
-	) AS UserCount,
-	UseYn
-	FROM ContactsGroup CG
-	WHERE CG.RegUserNo=contacts_getusergroupbylanguage._reguserno AND CG.UseYn='Y'
-	ORDER BY CG.Sort;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getusergroupmobi`
-
-- Input: `0::integer, 0::integer, 0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."contacts_getusergroupmobi"(0::integer, 0::integer, 0::integer, 0::integer);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function contacts_getusergroupmobi(integer,integer,integer,integer) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getusergroupmobi(_reguser integer, _groupid integer, _currpage integer DEFAULT 1, _recodperpage integer DEFAULT 20)
- RETURNS TABLE(rownum bigint, userseq integer, counts integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	WITH RECURSIVE s AS (
-			SELECT ROW_NUMBER()
-				OVER(ORDER BY CG.UserSeq DESC) AS RowNum,CG.UserSeq ,
-				(SELECT COUNT(*) FROM ContactsGroupUser CG INNER JOIN ContactsUser CU ON CG.UserSeq=CU.Seq
-					WHERE CG.RegUserNo=contacts_getusergroupmobi._reguser
-						  AND CG.GroupNo=contacts_getusergroupmobi._groupid
-						  AND CU.UseYn='Y') as counts
-			FROM ContactsGroupUser CG
-			INNER JOIN ContactsUser CU
-			ON CG.UserSeq=CU.Seq
-			WHERE CG.RegUserNo=contacts_getusergroupmobi._reguser
-				  AND CG.GroupNo=contacts_getusergroupmobi._groupid
-				  AND CU.UseYn='Y'
-		)
-		Select * From s
-		Where RowNum Between
-			(_currPage - 1)*_recodperpage+1
-			AND _currPage*_recodperpage;
 END;
 $function$
 
@@ -14136,7 +13755,7 @@ BEGIN
 
 	RETURN QUERY
 	SELECT * FROM (SELECT
-				CAST(COUNT(*) OVER() AS int) AS TotalCnt
+				CAST((COUNT(*) OVER())::integer AS int) AS TotalCnt
 				,CAST(ROW_NUMBER() OVER (
 				ORDER BY
 					U.LastName ASC
@@ -14237,7 +13856,7 @@ BEGIN
 	IF _Mode = 0 THEN
 
 		_DepartName := public."comngetdepartname"(_DepartNo);
-		IF (select count(*) from ContactsSharers where Seq=contacts_setshare._seq and DepartNo= contacts_setshare._departno )=0 THEN
+		IF (select (count(*))::integer from ContactsSharers where Seq=contacts_setshare._seq and DepartNo= contacts_setshare._departno )=0 THEN
 			INSERT INTO ContactsSharers(Seq,DepartNo,DepartName,IsChild)
 			VALUES(_Seq,_DepartNo,_DepartName,_IsChild);
 		END IF;
