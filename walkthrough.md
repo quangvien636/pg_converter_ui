@@ -1,5 +1,21 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Final handoff verification
+
+- Final verified baseline: **229 PASS / 20 FAIL / 105 BLOCKED** from 354
+  discovered routines.
+- Build PASS with 0 warnings/errors; NUnit 81/81; Board QA 24/24.
+- Commits since `ec3a9eb`: `51e3410`, `5a46ff3`, `de6d74c`, and `6a740b5`.
+- Net improvement since `ec3a9eb`: 2 additional runtime PASS and 8 fewer
+  runtime FAIL.
+- Broader catalog return inference, partial dynamic SQL repairs, and
+  text/integer comparison coercion were rolled back when the complete runtime
+  gate did not improve or a non-deployable helper was exposed.
+- No further safe generalized converter fix remains without authoritative
+  result metadata, helper deployment/signature mappings, dynamic binding
+  metadata, or missing source relation schemas.
+- Full handoff: `reports/final_runtime_handoff_20260703.md`.
+
 ## 2026-07-03 - Temp-table numeric INSERT typing
 
 - Runtime before: 228 PASS / 22 FAIL / 104 BLOCKED.
