@@ -380,6 +380,35 @@ public static class Converter
         return -1;
     }
 
+    // SQL Server's COUNT(...) (aggregate or windowed) always returns int; PostgreSQL's
+    // always returns bigint. Cast every COUNT(...) call — plus its OVER(...) clause when
+    // present — back to integer so converted result columns keep SQL Server's original
+    // width. COUNT_BIG is intentionally excluded by the word-boundary/paren match.
+    static string CastCountToInteger(string body)
+    {
+        var matches = Regex.Matches(body, @"\bCOUNT\s*\(", RegexOptions.IgnoreCase)
+            .Cast<Match>().ToList();
+        for (var i = matches.Count - 1; i >= 0; i--)
+        {
+            var open = matches[i].Index + matches[i].Length - 1;
+            var close = FindClosingParenthesis(body, open);
+            if (close < 0) continue;
+
+            var exprEnd = close + 1;
+            var overMatch = Regex.Match(body[exprEnd..], @"^\s*OVER\s*\(", RegexOptions.IgnoreCase);
+            if (overMatch.Success)
+            {
+                var overOpen = exprEnd + overMatch.Length - 1;
+                var overClose = FindClosingParenthesis(body, overOpen);
+                if (overClose >= 0)
+                    exprEnd = overClose + 1;
+            }
+
+            body = body[..matches[i].Index] + "(" + body[matches[i].Index..exprEnd] + ")::integer" + body[exprEnd..];
+        }
+        return body;
+    }
+
     static string? TryInferTempTableStarReturn(string pgBody, string rawBody)
     {
         var convertedReturn = Regex.Match(pgBody,
@@ -1571,6 +1600,8 @@ $$;";
         body = Regex.Replace(body,
             @"\(SELECT\s+StringValue\s+FROM\s+ParseJson\s*\(\s*([\w.]+)\s*\)\s+WHERE\s+(?:\w+\.)?NAME\s*=\s*('[^']*'|[\w.]+)\s*\)",
             "$1::json->>$2", RegexOptions.IgnoreCase);
+
+        body = CastCountToInteger(body);
 
         body = QualifyConfirmedSingleTableAggregate(body, fnName);
         body = QualifyConfirmedContactGetterColumns(body, fnName);

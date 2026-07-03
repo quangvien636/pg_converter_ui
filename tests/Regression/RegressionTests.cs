@@ -1049,5 +1049,37 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("_langcode"));
             Assert.That(pg, Does.Not.Contain("ParseJson"));
         }
+
+        // ─── COUNT(...) matches SQL Server's int width, not PostgreSQL's bigint ──
+
+        [Test]
+        public void TestWindowedCountCastToInteger()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestWindowedCount\r\nAS\r\nBEGIN\r\n    SELECT COUNT(*) OVER() AS TotalCnt, Seq FROM ContactsUser U\r\nEND";
+            var obj = new DbObject("testwindowedcount", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("(COUNT(*) OVER())::integer"));
+        }
+
+        [Test]
+        public void TestPlainCountCastToInteger()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestPlainCount\r\nAS\r\nBEGIN\r\n    SELECT COUNT(DISTINCT Seq) AS Total FROM ContactsUser\r\nEND";
+            var obj = new DbObject("testplaincount", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("(COUNT(DISTINCT Seq))::integer"));
+        }
+
+        [Test]
+        public void TestCountBigIsNotCast()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestCountBig\r\nAS\r\nBEGIN\r\n    SELECT COUNT_BIG(*) AS Total FROM ContactsUser\r\nEND";
+            var obj = new DbObject("testcountbig", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Contain("::integer"));
+        }
     }
 }
