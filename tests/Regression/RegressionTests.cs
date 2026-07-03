@@ -1108,5 +1108,28 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("_SearchType = 1"));
             Assert.That(pg, Does.Not.Contain("TRUE"));
         }
+
+        // ─── ParseJson per-language fallback COALESCE resolves to text ───────────
+
+        [Test]
+        public void TestParseJsonLanguageFallbackCoalesceCastToText()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestJsonFallback\r\nAS\r\nBEGIN\r\n    SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'EN'), (SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'KO')) ELSE B.Name END, '') AS Name FROM Board_Boards B\r\nEND";
+            var obj = new DbObject("testjsonfallback", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("END, '')::text"));
+            Assert.That(pg, Does.Not.Contain("ParseJson"));
+        }
+
+        [Test]
+        public void TestUnrelatedCoalesceCaseNotCastToText()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestPlainCoalesceCase\r\nAS\r\nBEGIN\r\n    SELECT COALESCE(CASE WHEN Enabled = 1 THEN Name ELSE '' END, 'x') FROM Board_Boards\r\nEND";
+            var obj = new DbObject("testplaincoalescecase", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Not.Contain("::text"));
+        }
     }
 }

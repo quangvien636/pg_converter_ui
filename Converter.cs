@@ -410,6 +410,35 @@ public static class Converter
         return body;
     }
 
+    // The ParseJson->>text rewrite above feeds into SQL Server's common per-language
+    // label idiom: COALESCE(CASE WHEN STRPOS(Name,'{')>0 THEN <json chain> ELSE Name
+    // END, ''). Name is character varying, but the json chain is text, and PostgreSQL
+    // resolves that mixed COALESCE/CASE to character varying overall -- while the
+    // result metadata (correctly) declared the column text, since the source column is
+    // nvarchar(max). Cast the whole construct to text so it matches. Scoped to exactly
+    // the shape our own ParseJson rewrite produces (detected via the ::json->> it left
+    // behind), so this never touches unrelated COALESCE/CASE expressions.
+    static string CastJsonFallbackCoalesceToText(string body)
+    {
+        var matches = Regex.Matches(body, @"\bCOALESCE\s*\(", RegexOptions.IgnoreCase)
+            .Cast<Match>().ToList();
+        for (var i = matches.Count - 1; i >= 0; i--)
+        {
+            var open = matches[i].Index + matches[i].Length - 1;
+            if (!Regex.IsMatch(body[(open + 1)..], @"^\s*CASE\s+WHEN\s+STRPOS\s*\(", RegexOptions.IgnoreCase))
+                continue;
+            var close = FindClosingParenthesis(body, open);
+            if (close < 0) continue;
+            if (!body[open..(close + 1)].Contains("::json->>", StringComparison.OrdinalIgnoreCase))
+                continue;
+            var tailStart = close + 1;
+            if (tailStart < body.Length && body[tailStart] == ':')
+                continue; // already cast
+            body = body[..tailStart] + "::text" + body[tailStart..];
+        }
+        return body;
+    }
+
     // SQL Server's bit columns are commonly compared against the integer literals 0/1
     // (@Flag = 1). Once converted to a PostgreSQL boolean parameter that literal
     // comparison has no operator (boolean = integer). We know our own generated
@@ -1626,6 +1655,7 @@ $$;";
         body = Regex.Replace(body,
             @"\(SELECT\s+StringValue\s+FROM\s+ParseJson\s*\(\s*([\w.]+)\s*\)\s+WHERE\s+(?:\w+\.)?NAME\s*=\s*('[^']*'|[\w.]+)\s*\)",
             "$1::json->>$2", RegexOptions.IgnoreCase);
+        body = CastJsonFallbackCoalesceToText(body);
 
         body = CastCountToInteger(body);
 
