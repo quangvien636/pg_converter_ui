@@ -189,6 +189,7 @@ public static class Converter
             .Where(n => n.Length >= 2)
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
+        convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
 
         // Rank 3: Drop DECLARE vars whose names duplicate procedure parameter names.
         // PL/pgSQL raises "duplicate variable declaration" when a DECLARE entry matches a param.
@@ -405,6 +406,30 @@ public static class Converter
             }
 
             body = body[..matches[i].Index] + "(" + body[matches[i].Index..exprEnd] + ")::integer" + body[exprEnd..];
+        }
+        return body;
+    }
+
+    // SQL Server's bit columns are commonly compared against the integer literals 0/1
+    // (@Flag = 1). Once converted to a PostgreSQL boolean parameter that literal
+    // comparison has no operator (boolean = integer). We know our own generated
+    // parameter types exactly, so this rewrite never has to guess: only parameters we
+    // ourselves declared boolean are touched, qualified or not.
+    static string NormalizeBooleanParameterComparisons(string body, IEnumerable<string> pgParams, string fnName)
+    {
+        var booleanParams = pgParams
+            .Select(p => Regex.Match(p.Trim(), @"^(?:(?:IN|OUT|INOUT)\s+)?(\w+)\s+boolean\b", RegexOptions.IgnoreCase))
+            .Where(m => m.Success)
+            .Select(m => m.Groups[1].Value)
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var name in booleanParams)
+        {
+            var reference = $@"(?:{Regex.Escape(fnName)}\.)?{Regex.Escape(name)}\b";
+            body = Regex.Replace(body, $@"({reference})\s*=\s*1\b", "$1 = TRUE", RegexOptions.IgnoreCase);
+            body = Regex.Replace(body, $@"({reference})\s*=\s*0\b", "$1 = FALSE", RegexOptions.IgnoreCase);
+            body = Regex.Replace(body, $@"\b1\s*=\s*({reference})", "TRUE = $1", RegexOptions.IgnoreCase);
+            body = Regex.Replace(body, $@"\b0\s*=\s*({reference})", "FALSE = $1", RegexOptions.IgnoreCase);
         }
         return body;
     }
@@ -634,6 +659,7 @@ public static class Converter
             .Where(n => n.Length >= 2)
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
+        convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
 
         // Rank 3: Drop DECLARE vars whose names duplicate function parameter names.
         var paramNameSetF = new HashSet<string>(paramNames, StringComparer.OrdinalIgnoreCase);

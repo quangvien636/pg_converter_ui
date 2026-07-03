@@ -1081,5 +1081,32 @@ namespace RegressionTests
 
             Assert.That(pg, Does.Not.Contain("::integer"));
         }
+
+        // ─── Boolean parameters compared against SQL Server's 0/1 bit literals ───
+
+        [Test]
+        public void TestBooleanParameterComparedToIntegerLiteral()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestBoolParam\r\n    @TitleEffect BIT\r\nAS\r\nBEGIN\r\n    SELECT Title FROM Board_Contents WHERE (@TitleEffect = 1 OR (@TitleEffect = 0 AND TitleEffect = 0))\r\nEND";
+            var obj = new DbObject("testboolparam", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("_TitleEffect = TRUE"));
+            Assert.That(pg, Does.Contain("_TitleEffect = FALSE"));
+            // The unrelated bare "TitleEffect" table column (not our boolean parameter)
+            // must be left untouched.
+            Assert.That(pg, Does.Contain("TitleEffect = 0)"));
+        }
+
+        [Test]
+        public void TestNonBooleanParameterComparisonUntouched()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestIntParam\r\n    @SearchType INT\r\nAS\r\nBEGIN\r\n    SELECT Title FROM Board_Contents WHERE @SearchType = 1\r\nEND";
+            var obj = new DbObject("testintparam", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("_SearchType = 1"));
+            Assert.That(pg, Does.Not.Contain("TRUE"));
+        }
     }
 }
