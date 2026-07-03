@@ -625,51 +625,6 @@ $function$
 ```
 </details>
 
-## `board_getallboardwidget`
-
-- Input: `''::character varying, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getallboardwidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_getallboardwidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getallboardwidget(_langcode character varying DEFAULT 'EN'::character varying, _userno integer DEFAULT 6656, _isadmin boolean DEFAULT false)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-	RETURN QUERY
-	WITH DEPARTPERMISSION AS (
-		Select ItemNo ,AllowValue,AllowAccessNo
-		FROM Board_DepartAllowAccess BD
-		INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
-		WHERE BD.ItemType=2 AND OB.UserNo=board_getallboardwidget._userno AND OB.IsDefault= TRUE
-)
-	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getallboardwidget._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name
-		, B.Description, B.FolderNo, B.DisplayTypeNo,
-		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
-	FROM Board_NewBoardWidget W
-	INNER JOIN Board_Boards B ON W.BoardNo=B.BoardNo
-	LEFT JOIN Board_AllowAccess BA ON BA.ItemNo=B.BoardNo AND BA.UserNo=board_getallboardwidget._userno
-	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo
-	WHERE W.IsDelete = FALSE  AND (_IsAdmin = TRUE OR  B.SpecType=1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-	ORDER BY W.Sort DESC;
-END;
-$function$
-
-```
-</details>
-
 ## `board_getandroiddeviceofusersbydepartment`
 
 - Input: `''::character varying, ''::character varying, ''::character varying`
@@ -764,51 +719,6 @@ WITH DEPARTPERMISSION AS (
 			LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo
 			WHERE (ViewMode=board_getboardbyuserno._viewmode OR _ViewMode < 0) And (DisplayTypeNo=board_getboardbyuserno._displaytypeno OR _DisplayTypeNo < 0)  AND  B.Enabled = ~_IsDisabled  AND (_IsAdmin = TRUE OR  B.SpecType=1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
 			ORDER BY SortNo DESC;
-END;
-$function$
-
-```
-</details>
-
-## `board_getboardcommunitywidget`
-
-- Input: `''::character varying, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getboardcommunitywidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_getboardcommunitywidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getboardcommunitywidget(_langcode character varying DEFAULT 'EN'::character varying, _userno integer DEFAULT 6656, _isadmin boolean DEFAULT false)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-	RETURN QUERY
-	WITH DEPARTPERMISSION AS (
-	Select ItemNo ,AllowValue,AllowAccessNo
-	FROM Board_DepartAllowAccess BD
-	INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
-	WHERE BD.ItemType=2 AND OB.UserNo=board_getboardcommunitywidget._userno AND OB.IsDefault= TRUE
-)
-	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getboardcommunitywidget._langcode,B.Name::json->>board_getboardcommunitywidget._langcode) ELSE B.Name END,'') AS Name
-		, B.Description, B.FolderNo, B.DisplayTypeNo,
-		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
-	FROM Board_NewBoardWidget W
-	INNER JOIN Board_Boards B ON W.BoardNo=B.BoardNo
-	LEFT JOIN Board_AllowAccess BA ON BA.ItemNo=B.BoardNo AND BA.ItemType=2 AND BA.UserNo=board_getboardcommunitywidget._userno
-	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo
-	WHERE W.IsDelete = FALSE AND W.Type=2  AND (_IsAdmin = TRUE OR  B.SpecType=1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-	ORDER BY W.Sort DESC;
 END;
 $function$
 
@@ -4518,51 +4428,6 @@ $function$
 ```
 </details>
 
-## `board_getmultiwidget`
-
-- Input: `''::character varying, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getmultiwidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_getmultiwidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getmultiwidget(_langcode character varying DEFAULT 'EN'::character varying, _userno integer DEFAULT 6656, _isadmin boolean DEFAULT false)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-	RETURN QUERY
-	WITH DEPARTPERMISSION AS (
-		Select ItemNo ,AllowValue,AllowAccessNo
-		FROM Board_DepartAllowAccess BD
-		INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
-		WHERE BD.ItemType=2 AND OB.UserNo=board_getmultiwidget._userno AND OB.IsDefault= TRUE
-)
-	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getmultiwidget._langcode,B.Name::json->>board_getmultiwidget._langcode) ELSE B.Name END,'') AS Name
-		, B.Description, B.FolderNo, B.DisplayTypeNo,
-		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
-	FROM Board_MultiBoardWidget W
-	INNER JOIN Board_Boards B ON W.BoardNo=B.BoardNo
-	LEFT JOIN Board_AllowAccess BA ON BA.ItemNo=B.BoardNo AND BA.UserNo=board_getmultiwidget._userno
-	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo
-	WHERE W.IsDelete = FALSE  AND (_IsAdmin = TRUE OR  B.SpecType=1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-	ORDER BY W.Sort DESC;
-END;
-$function$
-
-```
-</details>
-
 ## `board_getnewboardwidget`
 
 - Input: `''::character varying, 0::integer`
@@ -4945,50 +4810,12 @@ $function$
 ```
 </details>
 
-## `board_getsettingcommunitywidget`
-
-- Input: `''::character varying`
-- Generated SQL: `SELECT * FROM "public"."board_getsettingcommunitywidget"(''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_getsettingcommunitywidget(character varying) line 7 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getsettingcommunitywidget(_langcode character varying DEFAULT 'EN'::character varying)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name text, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, viewmode integer, enabled boolean, spectype integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-
-	RETURN QUERY
-	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getsettingcommunitywidget._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name
-		, B.Description, B.FolderNo, B.DisplayTypeNo,
-		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
-	FROM Board_NewBoardWidget W
-	INNER JOIN Board_Boards B ON W.BoardNo=B.BoardNo
-	WHERE W.IsDelete = FALSE AND W.Type=2
-	ORDER BY W.Sort DESC;
-END;
-$function$
-
-```
-</details>
-
 ## `board_getsubmenus`
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getsubmenus"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: operator does not exist: character varying + text
+- Error: operator does not exist: text + text
 - Stack context: PL/pgSQL function board_getsubmenus(integer,boolean,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -5048,14 +4875,14 @@ BOARD AS (
 ),
 TREESUB AS
 (
-    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE(T.Name::json->>board_getsubmenus._langcode,T.Name::json->>'KO') ELSE T.Name END,'') AS Name ,
+    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE(T.Name::json->>board_getsubmenus._langcode,T.Name::json->>'KO') ELSE T.Name END,'')::text AS Name ,
 	 ('f' || CAST(T.FolderNo AS VARCHAR))AS Id  ,
 	 T.ModUserNo,T.ModDate, T.Name AS JsonName,
 	CASE  WHEN T.ParentNo = 0 THEN '#' ELSE 'f' || CAST(T.ParentNo AS VARCHAR)  END AS ParentNo,
 	T.SortNo,TRUE AS IsFolder ,T.IsOpen , 0 AS CountContent, 0 AS ViewMode, 'fa fa-folder' AS icon
     FROM       FOLDER T
     UNION ALL
-	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getsubmenus._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name ,
+	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getsubmenus._langcode,B.Name::json->>'KO') ELSE B.Name END,'')::text AS Name ,
 		('b' || CAST(B.BoardNo AS VARCHAR) )  AS Id  ,
 		B.ModUserNo,B.ModDate, B.Name AS JsonName,
 		CASE WHEN B.FolderNo = 0 THEN '#' ELSE 'f' || CAST(B.FolderNo AS VARCHAR)   END  AS ParentNo,
@@ -5147,7 +4974,7 @@ FOLDER AS
 )
 SELECT	F.No ,
 		--F.Name ,
-		COALESCE(CASE WHEN STRPOS(F.Name, '{')>0 THEN COALESCE(F.Name::json->>board_gettreeboard._langcode,F.Name::json->>'KO') ELSE F.Name END,'') AS Name ,
+		COALESCE(CASE WHEN STRPOS(F.Name, '{')>0 THEN COALESCE(F.Name::json->>board_gettreeboard._langcode,F.Name::json->>'KO') ELSE F.Name END,'')::text AS Name ,
 		F.ParentNo ,
 		F.IsBoard ,
 		F.RootTree ,
@@ -5158,311 +4985,6 @@ SELECT	F.No ,
 	LEFT JOIN TEMP T ON T.RootTree=F.RootTree And T.LastRoot=F.Index
 	ORDER BY  ParentNo ASC,--IsBoard DESC,
 	F.SortNo DESC; --,F.No ASC
-END;
-$function$
-
-```
-</details>
-
-## `board_gettreesubmenu`
-
-- Input: `0::integer, false, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_gettreesubmenu(integer,boolean,character varying) line 5 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_gettreesubmenu(_userno integer DEFAULT 222, _isadmin boolean DEFAULT false, _langcode character varying DEFAULT 'EN'::character varying)
- RETURNS TABLE(name text, no integer, moduserno integer, moddate timestamp without time zone, jsonname character varying, parentno integer, sortno integer, isfolder boolean, isopen boolean, countcontent integer, viewmode integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-RETURN QUERY
-WITH RECURSIVE DEPARTPERMISSION AS (
-	Select ItemNo ,AllowValue,AllowAccessNo ,ItemType,ROW_NUMBER() OVER(PARTITION BY ItemNo,UserNo,ItemType  ORDER BY ItemNo ASC) AS Rn
-	FROM Board_DepartAllowAccess BD
-	INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
-	WHERE  OB.UserNo=board_gettreesubmenu._userno AND OB.IsDefault= TRUE
-),
-History AS (SELECT BH.*, ROW_NUMBER() OVER (PARTITION BY  BH.UserNo,BH.FolderNo ORDER BY HistoryFolderNo) AS RowNum FROM Board_HistoryFolder BH WHERE BH.UserNo=board_gettreesubmenu._userno),
-PERMISSION AS (
-        SELECT ItemNo, ItemType, MAX(AllowValue) AS AllowValue
-        FROM (
-            SELECT ItemNo, ItemType, AllowValue
-            FROM Board_AllowAccess
-            WHERE UserNo = board_gettreesubmenu._userno
-
-            UNION ALL
-
-            SELECT ItemNo, ItemType, AllowValue
-            FROM DEPARTPERMISSION
-            WHERE rn = 1
-        ) P
-        GROUP BY ItemNo, ItemType
-    ),
-
-FOLDER AS (
-	SELECT BF.FolderNo,
-            BF.ParentNo,
-            BF.Name,
-            BF.SortNo,
-            BF.ModUserNo,
-            BF.ModDate,
-            COALESCE(BH.IsOpen, TRUE) AS IsOpen
-	FROM  Board_Folders BF
-	LEFT JOIN PERMISSION BA ON BA.ItemNo=BF.FolderNo AND BA.ItemType=1 --AND BA.UserNo=UserNo
-	LEFT JOIN History BH ON  BF.FolderNo=BH.FolderNo AND BH.RowNum=1
-	--LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=BF.FolderNo AND D.ItemType=1
-	WHERE   BF.Enabled = TRUE AND (_IsAdmin = TRUE OR BF.SpecType=1  OR BA.AllowValue>0-- OR D.AllowValue>0
-	)
-	ORDER BY SortNo ASC,FolderNo ASC),
-	    CONTENT_COUNT AS (
-        SELECT
-            BC.BoardNo,
-            (COUNT(*))::integer AS CountContent
-        FROM Board_Contents BC
-        WHERE
-            BC.Enabled = TRUE
-            AND BC.RegDate > '2020-12-31'
-            AND BC.RegUserNo <> board_gettreesubmenu._userno
-            AND NOT EXISTS (
-                SELECT 1
-                FROM Board_ViewedLogs BV
-                WHERE BV.ContentNo = BC.ContentNo
-                  AND BV.UserNo = board_gettreesubmenu._userno
-            )
-        GROUP BY BC.BoardNo
-    ),
-BOARD AS (
-	SELECT  B.BoardNo,
-            B.FolderNo,
-            B.Name,
-            B.SortNo,
-            B.ModUserNo,
-            B.ModDate,
-            B.ViewMode,
-				(SELECT (COUNT(*))::integer FROM Board_Contents BC
-				WHERE '2020-12-31'::timestamp< BC.RegDate AND (BC.BoardNo = B.BoardNo
-					AND BC.Enabled = TRUE
-					And BC.RegUserNo <> board_gettreesubmenu._userno
-					And BC.ContentNo Not In (Select BV.ContentNo From Board_ViewedLogs BV where BV.UserNo=board_gettreesubmenu._userno)
-					And (_IsAdmin = TRUE OR BA.AllowValue=7  OR
-					(  (BC.BoardNo IN (SELECT * FROM public."board_getboardallow"(_UserNo ,2)) OR B.SpecType=1)
-						AND (
-							(BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 INNER JOIN public."organization_belongtodepartment" DP ON DP.DepartNo= BS1.DepartNo AND DP.UserNo=board_gettreesubmenu._userno)) -- SHARE BY DEPARTMENT
-						  OR(BC.ContentNo IN ( SELECT BSS1.ContentNo FROM Board_Sharers BSS1 where BSS1.contentno=BC.ContentNo and BSS1.userno=board_gettreesubmenu._userno)) -- SHARE BY USER
-						  OR BC.IsShareAll = TRUE  -- SHARE ALL
-							) )
-					))
-				 ) As CountContent
-			FROM Board_Boards B
-			--INNER JOIN FOLDER F ON F.FolderNo=B.FolderNo
-			LEFT JOIN PERMISSION BA ON BA.ItemNo=B.BoardNo AND BA.ItemType=2-- AND BA.UserNo=UserNo
-			--LEFT JOIN DEPARTPERMISSION D ON D.ItemNo=B.BoardNo AND D.ItemType=2 AND Rn=1
-			WHERE  B.Enabled = TRUE  AND (_IsAdmin = TRUE OR  B.SpecType=1 OR BA.AllowValue IS NOT NULL )
-			--ORDER BY SortNo ASC
-),
-TREESUB AS
-(
-    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE(T.Name::json->>board_gettreesubmenu._langcode,T.Name::json->>'KO') ELSE T.Name END,'') AS Name ,
-	T.FolderNo AS No  ,T.ModUserNo,T.ModDate, T.Name AS JsonName, T.ParentNo, T.SortNo,TRUE AS IsFolder ,T.IsOpen , 0 AS CountContent, 0 AS ViewMode
-    FROM       FOLDER T
-    UNION ALL
-	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_gettreesubmenu._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name ,
-		B.BoardNo AS No  ,B.ModUserNo,B.ModDate, B.Name AS JsonName, B.FolderNo AS ParentNo, B.SortNo,FALSE AS IsFolder ,FALSE AS IsOpen,B.CountContent,B.ViewMode
-	 FROM      BOARD B
-)
-SELECT F.* --,   ROW_NUMBER() OVER (PARTITION BY No,IsFolder ORDER BY ParentNo ASC, SortNo DESC) AS rn
-FROM TREESUB F
-ORDER BY ParentNo ASC, SortNo DESC;
-  --SET NOCOUNT ON;
-
-  --  -- 1. Optimized Permission CTE
-  --  WITH DEPARTPERMISSION AS (
-  --      SELECT ItemNo, ItemType, MAX(AllowValue) AS AllowValue
-  --      FROM Board_DepartAllowAccess BD
-  --      INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo = BD.DepartNo
-  --      WHERE OB.UserNo = UserNo AND OB.IsDefault = TRUE
-  --      GROUP BY ItemNo, ItemType
-  --  ),
-
-  --  -- 2. History CTE (Get only the latest state)
-  --  History AS (
-  --      SELECT FolderNo, IsOpen
-  --      FROM (
-  --          SELECT FolderNo, IsOpen, ROW_NUMBER() OVER (PARTITION BY FolderNo ORDER BY HistoryFolderNo DESC) AS Rn
-  --          FROM Board_HistoryFolder
-  --          WHERE UserNo = UserNo
-  --      ) H WHERE Rn = 1    ),
-
-  --  -- 3. Content Count logic moved to CTE to prevent RBAR (Row-By-Agonizing-Row) processing
-  --  BoardContentCounts AS (
-  --      SELECT BC.BoardNo, (COUNT(*))::integer AS CountContent
-  --      FROM Board_Contents BC
-  --      WHERE BC.RegDate > '2020-12-31'
-  --        AND BC.Enabled = TRUE
-  --        AND BC.RegUserNo <> UserNo
-  --        AND NOT EXISTS (SELECT 1 FROM Board_ViewedLogs BV WHERE BV.ContentNo = BC.ContentNo AND BV.UserNo = UserNo)
-  --        -- Logic for sharing/permissions can be complex; simplified here for aggregation performance
-  --      GROUP BY BC.BoardNo
-  --  ),
-
-  --  -- 4. Folders Data
-  --  FOLDER_DATA AS (
-  --      SELECT
-  --          BF.FolderNo, BF.Name, BF.ParentNo, BF.SortNo, BF.ModUserNo, BF.ModDate,
-  --          COALESCE(BH.IsOpen, TRUE) AS IsOpen,
-  --          TRUE AS IsFolder,
-  --          0 AS CountContent,
-  --          0 AS ViewMode
-  --      FROM Board_Folders BF
-  --      LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = BF.FolderNo AND BA.ItemType = 1 AND BA.UserNo = UserNo
-  --      LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = BF.FolderNo AND D.ItemType = 1
-  --      LEFT JOIN History BH ON BF.FolderNo = BH.FolderNo
-  --      WHERE BF.Enabled = TRUE
-  --        AND (IsAdmin = TRUE OR BF.SpecType = 1 OR BA.AllowValue > 0 OR D.AllowValue > 0)
-  --  ),
-
-  --  -- 5. Boards Data
-  --  BOARD_DATA AS (
-  --      SELECT
-  --          B.BoardNo, B.Name, B.FolderNo AS ParentNo, B.SortNo, B.ModUserNo, B.ModDate,
-  --          FALSE AS IsOpen,
-  --          FALSE AS IsFolder,
-  --          COALESCE(BCC.CountContent, 0) AS CountContent,
-  --          B.ViewMode
-  --      FROM Board_Boards B
-  --      LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = B.BoardNo AND BA.ItemType = 2 AND BA.UserNo = UserNo
-  --      LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = B.BoardNo AND D.ItemType = 2
-  --      LEFT JOIN BoardContentCounts BCC ON BCC.BoardNo = B.BoardNo
-  --      WHERE B.Enabled = TRUE
-  --        AND (IsAdmin = TRUE OR B.SpecType = 1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-  --  ),
-
-  --  -- 6. Combine and Parse JSON Names
-  --  TREESUB AS (
-  --      SELECT * FROM FOLDER_DATA
-  --      UNION ALL        SELECT * FROM BOARD_DATA
-  --  )
-  --  SELECT
-  --      COALESCE(
-  --          CASE                 WHEN F.Name ILIKE '{%}' THEN
-  --                  COALESCE(
-  --                      F.Name::json->>LangCode,
-  --                      F.Name::json->>'KO',
-  --                      F.Name
-  --                  )
-  --              ELSE F.Name
-  --          END, ''
-  --      ) AS Name,
-  --      F.FolderNo AS No,
-  --      F.ModUserNo,
-  --      F.ModDate,
-  --      F.Name AS JsonName,
-  --      F.ParentNo,
-  --      F.SortNo,
-  --      F.IsFolder,
-  --      F.IsOpen,
-  --      F.CountContent,
-  --      F.ViewMode
-  --  FROM TREESUB F
-  --  ORDER BY F.ParentNo ASC, F.SortNo DESC;
-END;
-$function$
-
-```
-</details>
-
-## `board_gettreesubmenu_v2`
-
-- Input: `0::integer, false, ''::character varying, 0::integer, 0::integer`
-- Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu_v2"(0::integer, false, ''::character varying, 0::integer, 0::integer);`
-- SQLSTATE: `42804`
-- Error: structure of query does not match function result type
-- Stack context: PL/pgSQL function board_gettreesubmenu_v2(integer,boolean,character varying,integer,integer) line 6 at RETURN QUERY
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_gettreesubmenu_v2(_userno integer DEFAULT 222, _isadmin boolean DEFAULT false, _langcode character varying DEFAULT 'EN'::character varying, _selectedboardno integer DEFAULT 0, _selectedfolderno integer DEFAULT 0)
- RETURNS TABLE(name text, no integer, moduserno integer, moddate timestamp without time zone, jsonname character varying, parentno integer, sortno integer, isfolder boolean, isopen boolean, countcontent integer, viewmode integer, isselected boolean)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-RETURN QUERY
-WITH
- DEPARTPERMISSION AS (
-	Select ItemNo, AllowValue, AllowAccessNo, ItemType, ROW_NUMBER() OVER(PARTITION BY ItemNo, UserNo, ItemType ORDER BY ItemNo ASC) AS Rn
-	FROM Board_DepartAllowAccess BD
-	INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo = BD.DepartNo
-	WHERE OB.UserNo = board_gettreesubmenu_v2._userno AND OB.IsDefault = TRUE
-),
-History AS (
-	SELECT BH.*, ROW_NUMBER() OVER (PARTITION BY BH.UserNo, BH.FolderNo ORDER BY HistoryFolderNo) AS RowNum
-	FROM Board_HistoryFolder BH
-	WHERE BH.UserNo = board_gettreesubmenu_v2._userno
-),
-FOLDER AS (
-	SELECT BF.*, COALESCE(BH.IsOpen, TRUE) AS IsOpen
-	FROM Board_Folders BF
-	LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = BF.FolderNo AND BA.ItemType = 1 AND BA.UserNo = board_gettreesubmenu_v2._userno
-	LEFT JOIN History BH ON BF.FolderNo = BH.FolderNo AND BH.RowNum = 1
-	LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = BF.FolderNo AND D.ItemType = 1
-	WHERE BF.Enabled = TRUE AND (_IsAdmin = TRUE OR BF.SpecType = 1 OR BA.AllowValue > 0 OR D.AllowValue > 0)
-),
-BOARD AS (
-	SELECT B.BoardNo, B.ModUserNo, B.ModDate, B.Name, B.Description, B.FolderNo, B.DisplayTypeNo, B.SortNo,
-			B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount, B.Enabled, B.ViewMode, B.SpecType,
-			(SELECT (COUNT(*))::integer FROM Board_Contents BC
-			WHERE '2020-12-31'::timestamp < BC.RegDate AND (BC.BoardNo = B.BoardNo
-				AND BC.Enabled = TRUE
-				AND BC.RegUserNo <> board_gettreesubmenu_v2._userno
-				AND BC.ContentNo NOT IN (SELECT BV.ContentNo FROM Board_ViewedLogs BV WHERE BV.UserNo = board_gettreesubmenu_v2._userno)
-				AND (_IsAdmin = TRUE OR BA.AllowValue = 7 OR D.AllowValue = 7 OR
-				(  (BC.BoardNo IN (SELECT * FROM public."board_getboardallow"(_UserNo, 2)) OR B.SpecType = 1)
-					AND (
-						(BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1 INNER JOIN public."organization_belongtodepartment" DP ON DP.DepartNo = BS1.DepartNo AND DP.UserNo = board_gettreesubmenu_v2._userno))
-					  OR (BC.ContentNo IN (SELECT BSS1.ContentNo FROM Board_Sharers BSS1 WHERE BSS1.ContentNo = BC.ContentNo AND BSS1.UserNo = board_gettreesubmenu_v2._userno))
-					  OR BC.IsShareAll = TRUE
-						) )
-				))
-			) AS CountContent
-		FROM Board_Boards B
-		LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = B.BoardNo AND BA.ItemType = 2 AND BA.UserNo = board_gettreesubmenu_v2._userno
-		LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = B.BoardNo AND D.ItemType = 2 AND Rn = 1
-		WHERE B.Enabled = TRUE AND (_IsAdmin = TRUE OR B.SpecType = 1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-),
-TREESUB AS (
-	SELECT COALESCE(CASE WHEN STRPOS(T.Name, '{') > 0 THEN COALESCE(T.Name::json->>board_gettreesubmenu_v2._langcode, T.Name::json->>'KO') ELSE T.Name END, '') AS Name,
-		T.FolderNo AS No, T.ModUserNo, T.ModDate, T.Name AS JsonName, T.ParentNo, T.SortNo, TRUE AS IsFolder, T.IsOpen, 0 AS CountContent, 0 AS ViewMode
-	FROM FOLDER T
-	UNION ALL
-	SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{') > 0 THEN COALESCE(B.Name::json->>board_gettreesubmenu_v2._langcode, B.Name::json->>'KO') ELSE B.Name END, '') AS Name,
-		B.BoardNo AS No, B.ModUserNo, B.ModDate, B.Name AS JsonName, B.FolderNo AS ParentNo, B.SortNo, FALSE AS IsFolder, FALSE AS IsOpen, B.CountContent, B.ViewMode
-	FROM BOARD B
-)
-SELECT F.*,
-	CASE
-		WHEN F.IsFolder = TRUE AND F.No = board_gettreesubmenu_v2._selectedfolderno THEN TRUE
-		WHEN F.IsFolder = FALSE AND F.No = board_gettreesubmenu_v2._selectedboardno  THEN TRUE
-		ELSE FALSE
-	END AS IsSelected
-FROM TREESUB F
-ORDER BY ParentNo ASC, SortNo DESC;
 END;
 $function$
 
@@ -10825,7 +10347,7 @@ IF _IsAdmin = TRUE THEN
 	SELECT * FROM (
 	SELECT SG.ShareGroupNo AS Id,
 	ShareGroupName AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'')::text AS Name ,
 	ParentNo ,
 	COALESCE(SU.ShareNumber,0) AS ShareNumber,
 	SG.Sort
@@ -10859,7 +10381,7 @@ ELSE
 	)
 	SELECT COALESCE(SG.ShareGroupNo,0) AS Id,
 	COALESCE(ShareGroupName,'') AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'')::text AS Name ,
 	COALESCE(ParentNo,-1) AS ParentNo,
 	COALESCE(SU.ShareNumber,0) AS ShareNumber
 	FROM DEPARTPERMISSION D
@@ -10911,7 +10433,7 @@ IF _IsAdmin = TRUE THEN
 	RETURN QUERY
 	SELECT * FROM (SELECT SG.ShareGroupNo AS Id,
 	ShareGroupName AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'')::text AS Name ,
 	ParentNo ,Sort
 	FROM  Contact_ShareGroup SG
 	WHERE SG.IsDelete= FALSE
@@ -10928,7 +10450,7 @@ ELSE
 	)
 	SELECT SG.ShareGroupNo AS Id,
 	COALESCE(ShareGroupName,'') AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'')::text AS Name ,
 	COALESCE(ParentNo,-1) AS ParentNo
 	FROM DEPARTPERMISSION D
 	LEFT JOIN Contact_ShareGroup SG   ON D.ItemNo=SG.ShareGroupNo AND SG.IsDelete= FALSE

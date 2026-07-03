@@ -236,7 +236,7 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getlistuserpermissiontoexcel` | `42P01` | relation "rootdeparts" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getopenfolder` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_getprenextcontent` | `42703` | column "text" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
-| `board_getsubmenus` | `42883` | operator does not exist: character varying + text | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
+| `board_getsubmenus` | `42883` | operator does not exist: text + text | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_getteamname` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |
 | `board_gettreeboard` | `42P01` | relation "folder" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_gettreesubmenu_v2_json` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |

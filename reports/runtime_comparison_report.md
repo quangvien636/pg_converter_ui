@@ -30,6 +30,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_downmultiwidget` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_downwidget` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_folder_maxsortno_select` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getallboardwidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getallowbyitem` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getallowbyitemtype` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getallowbyuser` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
@@ -38,6 +39,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getapprovalfiles` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getboard` | Executed; 0 row(s), 15 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getboardallow` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getboardcommunitywidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcommentsetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcompanylist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getconfig` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
@@ -52,6 +54,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getiosdeviceofallusers` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getlistconverturlfile` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getmaxsortoftree` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getmultiwidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getnewboardcontent` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getrecommendedlogbyuserno` | Executed; 0 row(s), 10 column(s) | Not executed | Not yet behaviour-validated |
@@ -62,9 +65,12 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getreplyfilebycontentno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreplyfilebyreplyfileno` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getreplyfilebyreplyno` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getsettingcommunitywidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getsharers` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getstatusapprovalpermission` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getteamlist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
+| `board_gettreesubmenu` | Executed; 0 row(s), 11 column(s) | Not executed | Not yet behaviour-validated |
+| `board_gettreesubmenu_v2` | Executed; 0 row(s), 12 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getuserbyshare` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getusersetting` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getviewedlogs` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |

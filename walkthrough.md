@@ -1,5 +1,55 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Cast ParseJson language-fallback COALESCE to text
+
+- Runtime before: 250 PASS / 82 FAIL / 22 BLOCKED (354 discovered).
+- Runtime after: **256 PASS / 76 FAIL / 22 BLOCKED** (354 discovered).
+- Zero regressions: all 250 previously-PASS routines stayed PASS, all 22
+  BLOCKED routines stayed BLOCKED.
+- Investigated the remaining `42804` bucket (27 `structure of query`
+  failures) by querying live PostgreSQL error `Detail` for all of them at
+  once. 15 shared one identical mechanism: SQL Server's per-language
+  label idiom `COALESCE(CASE WHEN STRPOS(Name,'{')>0 THEN <ParseJson
+  chain> ELSE Name END, '')` mixes a `character varying` column (`Name`)
+  with the `text`-typed `->>` chain the ParseJson rule (from two
+  sessions ago) produces. PostgreSQL resolves that mixed COALESCE/CASE to
+  `character varying` overall, but the result metadata correctly declares
+  these columns `text` (the source SQL Server column is `nvarchar(max)`).
+  Confirmed empirically against the live database with `pg_typeof`:
+  unqualified the expression resolves to varchar (oid 1043); appending
+  `::text` right after the outer `COALESCE` forces text (oid 25),
+  matching the declared type.
+- General fix: `CastJsonFallbackCoalesceToText` detects exactly this
+  shape — an outer `COALESCE(` whose first branch is `CASE WHEN
+  STRPOS(...)` and whose body contains the `::json->>` marker the
+  ParseJson rule itself leaves behind — using the same
+  `FindClosingParenthesis` balanced-paren helper as the other fixes, and
+  appends `::text`. Because detection requires our own `::json->>`
+  marker, it can only ever fire on constructs this converter itself
+  produced; unrelated `COALESCE(CASE WHEN ...)` shapes are left alone.
+- Result: 6 routines moved FAIL → PASS (the
+  `board_getlistboardcontent`/`board_gettreesubmenu`/widget family). The
+  remaining ~9 of the original 15 in this shape are still blocked by the
+  separate `boolean = integer` fix's downstream discovery (already
+  documented, net-neutral entry above) or other unrelated issues in the
+  same routine.
+- Validation: build PASS with 0 warnings/errors; NUnit 105/105; Board QA
+  24/24; full rollback-only runtime smoke 256/76/22.
+- Remaining FAIL breakdown by SQLSTATE (76 total): `42883` (~30, mostly
+  missing SQL-Server-side helper functions — a dependency gap), `42804`
+  (~21, now dominated by genuine multi-branch polymorphic procedures like
+  `contacts_getuserdata`), `42P01` missing relation (7), `23502` NOT NULL
+  violation (5), `42601` dynamic SQL syntax (5), `42703` missing column
+  (5), `42P19` (1), `22012` (1).
+- Next: no further single clean converter-owned pattern identified in the
+  remaining buckets without deeper per-routine investigation; `42883`'s
+  missing-helper-function entries are dependency gaps (not converter
+  bugs — the SQL Server side hasn't been converted/deployed for those
+  helpers) and the remaining `42804` entries are the already-documented
+  polymorphic-procedure limitation. A dependency/triage report is the
+  more appropriate next artifact rather than further blind
+  generalization attempts.
+
 ## 2026-07-03 - Boolean-parameter 0/1 literal comparisons (net-neutral, kept for correctness)
 
 - Runtime before: 250 PASS / 82 FAIL / 22 BLOCKED (354 discovered).
