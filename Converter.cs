@@ -1564,10 +1564,13 @@ $$;";
         body = Regex.Replace(body, @"(CAST\s*\([^()]+(?:\([^()]*\)[^()]*)*\s+AS\s+(?:text|character\s+varying\d*|varchar\d*)\))\s*\+\s*", "$1 || ");
         body = Regex.Replace(body, @"\+\s*(CAST\s*\([^()]+(?:\([^()]*\)[^()]*)*\s+AS\s+(?:text|character\s+varying\d*|varchar\d*)\))", "|| $1");
 
-        // ParseJson
+        // ParseJson: SQL Server's helper for reading a per-language label out of a
+        // JSON-shaped Name column. The lookup key can be a literal ('EN') or a
+        // parameter/column reference (@LangCode), and the WHERE column may or may
+        // not be alias-qualified (NAME vs B.NAME).
         body = Regex.Replace(body,
-            @"\(SELECT\s+StringValue\s+FROM\s+ParseJson\s*\((\w+)\)\s+WHERE\s+NAME\s*=\s*'(\w+)'[^)]*\)",
-            "$1::json->>'$2'", RegexOptions.IgnoreCase);
+            @"\(SELECT\s+StringValue\s+FROM\s+ParseJson\s*\(\s*([\w.]+)\s*\)\s+WHERE\s+(?:\w+\.)?NAME\s*=\s*('[^']*'|[\w.]+)\s*\)",
+            "$1::json->>$2", RegexOptions.IgnoreCase);
 
         body = QualifyConfirmedSingleTableAggregate(body, fnName);
         body = QualifyConfirmedContactGetterColumns(body, fnName);

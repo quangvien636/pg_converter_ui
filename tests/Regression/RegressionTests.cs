@@ -1024,5 +1024,30 @@ namespace RegressionTests
             Assert.That(pg, Does.Contain("RETURN QUERY SELECT ItemNo"));
             Assert.That(pg, Does.Not.Contain("INSERT INTO _Rows"));
         }
+
+        // ─── ParseJson: literal and parameter lookup keys ───────────────────
+
+        [Test]
+        public void TestParseJsonWithLiteralKey()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestParseJsonLiteral\r\nAS\r\nBEGIN\r\n    SELECT (SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'EN') FROM Board_Boards B\r\nEND";
+            var obj = new DbObject("testparsejsonliteral", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("B.Name::json->>'EN'"));
+            Assert.That(pg, Does.Not.Contain("ParseJson"));
+        }
+
+        [Test]
+        public void TestParseJsonWithParameterKeyAndAliasedWhereColumn()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestParseJsonParam\r\n    @LangCode VARCHAR(10)\r\nAS\r\nBEGIN\r\n    SELECT (SELECT StringValue FROM ParseJson( CG.GroupName)  WHERE CG.NAME=@LangCode) FROM Contacts_Group CG\r\nEND";
+            var obj = new DbObject("testparsejsonparam", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("CG.GroupName::json->>"));
+            Assert.That(pg, Does.Contain("_langcode"));
+            Assert.That(pg, Does.Not.Contain("ParseJson"));
+        }
     }
 }
