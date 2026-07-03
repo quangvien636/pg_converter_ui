@@ -193,6 +193,8 @@ public static class Converter
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
         convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
         convertedBody = NormalizeStringParameterNumericLiteralComparisons(convertedBody, validParams);
+        convertedBody = NormalizeIntegralColumnStringParameterComparisons(
+            convertedBody, validParams, tableCatalog);
 
         // Rank 3: Drop DECLARE vars whose names duplicate procedure parameter names.
         // PL/pgSQL raises "duplicate variable declaration" when a DECLARE entry matches a param.
@@ -633,6 +635,117 @@ public static class Converter
         return body;
     }
 
+    static string NormalizeIntegralColumnStringParameterComparisons(
+        string body,
+        IEnumerable<string> parameters,
+        Dictionary<string, List<ColumnInfo>>? tableCatalog)
+    {
+        if (tableCatalog == null || tableCatalog.Count == 0)
+            return body;
+
+        var stringParameters = parameters
+            .Select(parameter => Regex.Match(parameter.Trim(),
+                @"^(?:(?:IN|OUT|INOUT)\s+)?(?<name>\w+)\s+(?:character varying|character|text)\b",
+                RegexOptions.IgnoreCase))
+            .Where(match => match.Success)
+            .Select(match => match.Groups["name"].Value)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        if (stringParameters.Count == 0)
+            return body;
+
+        var referencedTables = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var ambiguousAliases = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (Match source in Regex.Matches(body,
+            @"\b(?:FROM|JOIN|UPDATE)\s+(?:(?:public|dbo)\s*\.\s*)?""?(?<table>[A-Za-z_]\w*)""?(?:\s+(?:AS\s+)?(?<alias>[A-Za-z_]\w*))?",
+            RegexOptions.IgnoreCase))
+        {
+            var table = source.Groups["table"].Value;
+            if (!tableCatalog.ContainsKey(table))
+                continue;
+
+            referencedTables.Add(table);
+            aliases[table] = table;
+            var alias = source.Groups["alias"].Value;
+            if (alias.Length == 0 || Regex.IsMatch(alias,
+                @"^(?:SET|WHERE|ON|INNER|LEFT|RIGHT|FULL|CROSS|JOIN|ORDER|GROUP|HAVING|UNION|LIMIT)$",
+                RegexOptions.IgnoreCase))
+                continue;
+            if (aliases.TryGetValue(alias, out var existing) &&
+                !existing.Equals(table, StringComparison.OrdinalIgnoreCase))
+            {
+                ambiguousAliases.Add(alias);
+                aliases.Remove(alias);
+            }
+            else if (!ambiguousAliases.Contains(alias))
+                aliases[alias] = table;
+        }
+
+        string? IntegralType(string reference)
+        {
+            var parts = reference.Split('.');
+            List<ColumnInfo> matches;
+            if (parts.Length == 2)
+            {
+                if (!aliases.TryGetValue(parts[0], out var table) ||
+                    !tableCatalog.TryGetValue(table, out var columns))
+                    return null;
+                matches = columns.Where(column =>
+                    column.Name.Equals(parts[1], StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            else
+            {
+                matches = referencedTables
+                    .SelectMany(table => tableCatalog[table])
+                    .Where(column => column.Name.Equals(reference, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            var types = matches
+                .Select(column => MapType(column.TypeName))
+                .Where(type => type is "smallint" or "integer" or "bigint")
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            return matches.Count > 0 && types.Count == 1 && matches.All(column =>
+                MapType(column.TypeName).Equals(types[0], StringComparison.OrdinalIgnoreCase))
+                ? types[0]
+                : null;
+        }
+
+        foreach (var parameter in stringParameters)
+        {
+            var parameterReference = $@"(?:[A-Za-z_]\w*\.)?{Regex.Escape(parameter)}";
+            const string columnReference = @"(?:[A-Za-z_]\w*\.)?[A-Za-z_]\w*";
+
+            body = Regex.Replace(body,
+                $@"(?<![\w.])(?<column>{columnReference})\s*(?<operator>=|<>|!=)\s*(?<parameter>{parameterReference})(?![\w.])",
+                match =>
+                {
+                    var type = IntegralType(match.Groups["column"].Value);
+                    return type == null ? match.Value :
+                        $"{match.Groups["column"].Value} {match.Groups["operator"].Value} " +
+                        IntegralStringCast(match.Groups["parameter"].Value, type);
+                },
+                RegexOptions.IgnoreCase);
+            body = Regex.Replace(body,
+                $@"(?<![\w.])(?<parameter>{parameterReference})\s*(?<operator>=|<>|!=)\s*(?<column>{columnReference})(?![\w.])",
+                match =>
+                {
+                    var type = IntegralType(match.Groups["column"].Value);
+                    return type == null ? match.Value :
+                        $"{IntegralStringCast(match.Groups["parameter"].Value, type)} " +
+                        $"{match.Groups["operator"].Value} {match.Groups["column"].Value}";
+                },
+                RegexOptions.IgnoreCase);
+        }
+        return body;
+    }
+
+    static string IntegralStringCast(string parameter, string targetType) =>
+        $"(CASE WHEN {parameter} IS NULL THEN NULL::{targetType} " +
+        $"WHEN BTRIM({parameter}) = '' THEN 0 ELSE {parameter}::{targetType} END)";
+
     static string? TryInferTempTableStarReturn(string pgBody, string rawBody)
     {
         var convertedReturn = Regex.Match(pgBody,
@@ -861,6 +974,8 @@ public static class Converter
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
         convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
         convertedBody = NormalizeStringParameterNumericLiteralComparisons(convertedBody, validParams);
+        convertedBody = NormalizeIntegralColumnStringParameterComparisons(
+            convertedBody, validParams, tableCatalog);
 
         // Rank 3: Drop DECLARE vars whose names duplicate function parameter names.
         var paramNameSetF = new HashSet<string>(paramNames, StringComparer.OrdinalIgnoreCase);

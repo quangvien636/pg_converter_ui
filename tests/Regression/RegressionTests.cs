@@ -390,6 +390,63 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestIntegralColumnStringParameterUsesSqlServerStyleCast()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestIntegralComparison
+                    @UserSeq VARCHAR(20)
+                AS
+                BEGIN
+                    SELECT Seq FROM ContactsNumber N
+                    WHERE N.UserSeq = @UserSeq
+                      AND N.Value = @UserSeq
+                END
+                """;
+            var catalog = new Dictionary<string, List<ColumnInfo>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["ContactsNumber"] =
+                [
+                    new("Seq", "int", null, 0, 0, false, false, false),
+                    new("UserSeq", "int", null, 0, 0, false, false, false),
+                    new("Value", "varchar", "100", 0, 0, true, false, false)
+                ]
+            };
+            var obj = new DbObject("Contacts_TestIntegralComparison", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres", catalog);
+
+            Assert.That(pg, Does.Contain(
+                "N.UserSeq = (CASE WHEN contacts_testintegralcomparison._userseq IS NULL " +
+                "THEN NULL::integer WHEN BTRIM(contacts_testintegralcomparison._userseq) = '' " +
+                "THEN 0 ELSE contacts_testintegralcomparison._userseq::integer END)"));
+            Assert.That(pg, Does.Contain("N.Value = contacts_testintegralcomparison._userseq"));
+        }
+
+        [Test]
+        public void TestUnknownColumnStringParameterComparisonStaysUnchanged()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Contacts_TestUnknownComparison
+                    @Value VARCHAR(20)
+                AS
+                BEGIN
+                    SELECT Seq FROM ContactsNumber WHERE UnknownNo = @Value
+                END
+                """;
+            var catalog = new Dictionary<string, List<ColumnInfo>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["ContactsNumber"] =
+                [
+                    new("Seq", "int", null, 0, 0, false, false, false)
+                ]
+            };
+            var obj = new DbObject("Contacts_TestUnknownComparison", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres", catalog);
+
+            Assert.That(pg, Does.Contain("UnknownNo = contacts_testunknowncomparison._value"));
+            Assert.That(pg, Does.Not.Contain("BTRIM"));
+        }
+
+        [Test]
         public void TestExecProcedureWithLiteralArguments()
         {
             string mssql = """

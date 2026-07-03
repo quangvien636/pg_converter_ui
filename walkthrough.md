@@ -1,5 +1,22 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Integral columns compared with string parameters
+
+- Runtime before: **263 PASS / 69 FAIL / 22 BLOCKED**.
+- Runtime after: **266 PASS / 66 FAIL / 22 BLOCKED**.
+- Recovered: `contacts_checkgroup`, `contacts_getusernumber`,
+  `contacts_setcontactsrestore`.
+- Zero regressions: all 263 previously passing routines remained PASS.
+- Added a catalog-proven implicit conversion rule for integral table columns
+  compared with string parameters. It preserves NULL, maps blank/whitespace
+  strings to zero, and casts nonblank text to the exact integral column type,
+  matching SQL Server type precedence without touching unknown columns or
+  string-to-string comparisons.
+- Validation: Release build PASS with 0 warnings/errors; NUnit 114/114; Board
+  QA 24/24; runtime 266/66/22.
+- Detailed evidence:
+  `reports/runtime_fix_report_20260703_integral_column_string_param.md`.
+
 ## 2026-07-03 - String parameter comparisons with numeric literals
 
 - Runtime before: **261 PASS / 71 FAIL / 22 BLOCKED**.
