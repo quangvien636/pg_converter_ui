@@ -192,6 +192,7 @@ public static class Converter
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
         convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
+        convertedBody = NormalizeStringParameterNumericLiteralComparisons(convertedBody, validParams);
 
         // Rank 3: Drop DECLARE vars whose names duplicate procedure parameter names.
         // PL/pgSQL raises "duplicate variable declaration" when a DECLARE entry matches a param.
@@ -605,6 +606,33 @@ public static class Converter
         return body;
     }
 
+    static string NormalizeStringParameterNumericLiteralComparisons(
+        string body,
+        IEnumerable<string> parameters)
+    {
+        var stringParameters = parameters
+            .Select(parameter => Regex.Match(parameter.Trim(),
+                @"^(?:(?:IN|OUT|INOUT)\s+)?(?<name>\w+)\s+(?:character varying|character|text)\b",
+                RegexOptions.IgnoreCase))
+            .Where(match => match.Success)
+            .Select(match => match.Groups["name"].Value)
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var parameter in stringParameters)
+        {
+            var reference = $@"(?:[A-Za-z_]\w*\.)?{Regex.Escape(parameter)}";
+            body = Regex.Replace(body,
+                $@"(?<![\w.])(?<parameter>{reference})\s*(?<operator>=|<>|!=)\s*(?<literal>-?\d+)\b",
+                "${parameter} ${operator} '${literal}'",
+                RegexOptions.IgnoreCase);
+            body = Regex.Replace(body,
+                $@"(?<![\w.])(?<literal>-?\d+)\s*(?<operator>=|<>|!=)\s*(?<parameter>{reference})(?![\w.])",
+                "'${literal}' ${operator} ${parameter}",
+                RegexOptions.IgnoreCase);
+        }
+        return body;
+    }
+
     static string? TryInferTempTableStarReturn(string pgBody, string rawBody)
     {
         var convertedReturn = Regex.Match(pgBody,
@@ -832,6 +860,7 @@ public static class Converter
             .ToList();
         convertedBody = QualifyParams(convertedBody, pgName, paramNames);
         convertedBody = NormalizeBooleanParameterComparisons(convertedBody, validParams, pgName);
+        convertedBody = NormalizeStringParameterNumericLiteralComparisons(convertedBody, validParams);
 
         // Rank 3: Drop DECLARE vars whose names duplicate function parameter names.
         var paramNameSetF = new HashSet<string>(paramNames, StringComparer.OrdinalIgnoreCase);

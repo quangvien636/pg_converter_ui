@@ -1,5 +1,19 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - String parameter comparisons with numeric literals
+
+- Runtime before: **261 PASS / 71 FAIL / 22 BLOCKED**.
+- Runtime after: **263 PASS / 69 FAIL / 22 BLOCKED**.
+- Recovered: `board_setshare`, `contacts_setshare`.
+- Zero regressions: all 261 previously passing routines remained PASS.
+- Added a parameter-type-driven rule that quotes numeric equality/inequality
+  literals only when the other operand is a declared string parameter.
+  Numeric and boolean parameters remain governed by their existing rules.
+- Validation: Release build PASS with 0 warnings/errors; NUnit 112/112; Board
+  QA 24/24; runtime 263/69/22.
+- Detailed evidence:
+  `reports/runtime_fix_report_20260703_string_param_numeric_literal.md`.
+
 ## 2026-07-03 - Catalog-proven string column concatenation
 
 - Runtime before: **260 PASS / 72 FAIL / 22 BLOCKED** (354 discovered).

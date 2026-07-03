@@ -352,6 +352,44 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestStringParameterNumericLiteralComparisonUsesStringLiteral()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Board_TestStringMode
+                    @Mode VARCHAR(10)
+                AS
+                BEGIN
+                    IF @Mode = 0 SELECT 1
+                    IF 1 <> @Mode SELECT 2
+                END
+                """;
+            var obj = new DbObject("Board_TestStringMode", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("_Mode = '0'"));
+            Assert.That(pg, Does.Contain("'1' <> board_teststringmode._mode"));
+            Assert.That(pg, Does.Not.Contain("_Mode = 0"));
+        }
+
+        [Test]
+        public void TestIntegerParameterNumericLiteralComparisonStaysNumeric()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.Board_TestIntegerMode
+                    @Mode INT
+                AS
+                BEGIN
+                    IF @Mode = 0 SELECT 1
+                END
+                """;
+            var obj = new DbObject("Board_TestIntegerMode", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("_Mode = 0"));
+            Assert.That(pg, Does.Not.Contain("_Mode = '0'"));
+        }
+
+        [Test]
         public void TestExecProcedureWithLiteralArguments()
         {
             string mssql = """
