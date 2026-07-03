@@ -924,6 +924,30 @@ namespace RegressionTests
         }
 
         [Test]
+        public void TestTextValuesAreCoercedForNumericTempTableColumns()
+        {
+            string mssql = """
+                CREATE PROCEDURE dbo.TestTempNumericInsert @GroupNo varchar(max), @UserNo int
+                AS
+                BEGIN
+                    DECLARE @Rows TABLE (GroupNo INT, UserNo INT)
+                    INSERT INTO @Rows(GroupNo, UserNo)
+                    VALUES (SUBSTRING(@GroupNo, 0, CHARINDEX(',', @GroupNo)), @UserNo)
+                    INSERT INTO @Rows VALUES (@GroupNo, @UserNo)
+                END
+                """;
+            var obj = new DbObject("TestTempNumericInsert", ObjectType.Procedure, mssql, true, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain(
+                "COALESCE(NULLIF((SUBSTRING(_GroupNo, 0, STRPOS(_GroupNo, ',')))::text, '')::integer, 0)"));
+            Assert.That(pg, Does.Contain(
+                "COALESCE(NULLIF((_GroupNo)::text, '')::integer, 0)"));
+            Assert.That(pg, Does.Not.Contain(
+                "COALESCE(NULLIF((_UserNo)::text"));
+        }
+
+        [Test]
         public void TestDateExtractionFunctions()
         {
             string mssql = """

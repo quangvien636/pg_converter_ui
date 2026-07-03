@@ -125,6 +125,7 @@ public static class Converter
             convertedBody = $"-- !! body conversion error: {ex.Message}\n{bodyNoDecl}";
         }
         convertedBody = NormalizeIntegerSubstringAssignments(convertedBody, declares);
+        convertedBody = NormalizeTempTableNumericInserts(convertedBody, pgParams);
         convertedBody = EnsureLastSemicolon(convertedBody);
 
         bool hasResultSelect = HasResultReturningSelect(rawBody)
@@ -254,6 +255,118 @@ public static class Converter
                   $"COALESCE(NULLIF(({m.Groups[3].Value})::text, '')::integer, 0);"
                 : m.Value,
             RegexOptions.IgnoreCase);
+    }
+
+    static string NormalizeTempTableNumericInserts(string body, IEnumerable<string> parameters)
+    {
+        var textVariables = parameters
+            .Select(p => Regex.Match(p.Trim(),
+                @"^(?:(?:IN|OUT|INOUT)\s+)?(\w+)\s+(?:character varying|character|text)\b",
+                RegexOptions.IgnoreCase))
+            .Where(m => m.Success)
+            .Select(m => m.Groups[1].Value)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (textVariables.Count == 0)
+            return body;
+
+        var tempSchemas = new Dictionary<string, List<(string Name, string Type)>>(StringComparer.OrdinalIgnoreCase);
+        foreach (Match create in Regex.Matches(body,
+            @"\bCREATE\s+TEMP(?:ORARY)?\s+TABLE\s+(\w+)\s*\(",
+            RegexOptions.IgnoreCase))
+        {
+            var open = create.Index + create.Length - 1;
+            var close = FindClosingParenthesis(body, open);
+            if (close < 0) continue;
+
+            var columns = new List<(string Name, string Type)>();
+            foreach (var part in SplitParams(body[(open + 1)..close]))
+            {
+                var column = Regex.Match(part.Trim(),
+                    @"^(?:""(\w+)""|(\w+))\s+([A-Za-z]+(?:\s+[A-Za-z]+){0,3}(?:\s*\([^)]*\))?)",
+                    RegexOptions.IgnoreCase);
+                if (!column.Success)
+                {
+                    columns.Clear();
+                    break;
+                }
+                columns.Add((
+                    column.Groups[1].Success ? column.Groups[1].Value : column.Groups[2].Value,
+                    MapType(column.Groups[3].Value)));
+            }
+            if (columns.Count > 0)
+                tempSchemas[create.Groups[1].Value] = columns;
+        }
+        if (tempSchemas.Count == 0)
+            return body;
+
+        var inserts = Regex.Matches(body,
+            @"\bINSERT\s+INTO\s+(?<table>\w+)\s*(?:\((?<cols>[^()]*)\))?\s*VALUES\s*\(",
+            RegexOptions.IgnoreCase).Cast<Match>().ToList();
+        for (var matchIndex = inserts.Count - 1; matchIndex >= 0; matchIndex--)
+        {
+            var insert = inserts[matchIndex];
+            if (!tempSchemas.TryGetValue(insert.Groups["table"].Value, out var schema))
+                continue;
+
+            var open = insert.Index + insert.Length - 1;
+            var close = FindClosingParenthesis(body, open);
+            if (close < 0) continue;
+
+            var values = SplitParams(body[(open + 1)..close]);
+            var targetNames = insert.Groups["cols"].Success
+                ? SplitParams(insert.Groups["cols"].Value).Select(c => c.Trim().Trim('"')).ToList()
+                : schema.Select(c => c.Name).ToList();
+            if (values.Count != targetNames.Count)
+                continue;
+
+            var changed = false;
+            for (var i = 0; i < values.Count; i++)
+            {
+                var target = schema.FirstOrDefault(c =>
+                    c.Name.Equals(targetNames[i], StringComparison.OrdinalIgnoreCase));
+                if (target == default ||
+                    target.Type is not ("smallint" or "integer" or "bigint" or "numeric"))
+                    continue;
+
+                var expression = values[i].Trim();
+                var variable = Regex.Match(expression, @"^(\w+)$");
+                var isTextSource = variable.Success && textVariables.Contains(variable.Groups[1].Value);
+                if (!isTextSource &&
+                    !Regex.IsMatch(expression, @"^SUBSTRING\s*\(", RegexOptions.IgnoreCase))
+                    continue;
+
+                values[i] = $"COALESCE(NULLIF(({expression})::text, '')::{target.Type}, 0)";
+                changed = true;
+            }
+
+            if (changed)
+                body = body[..(open + 1)] + string.Join(",", values) + body[close..];
+        }
+        return body;
+    }
+
+    static int FindClosingParenthesis(string text, int open)
+    {
+        var depth = 0;
+        var inString = false;
+        for (var i = open; i < text.Length; i++)
+        {
+            var ch = text[i];
+            if (ch == '\'')
+            {
+                if (inString && i + 1 < text.Length && text[i + 1] == '\'')
+                {
+                    i++;
+                    continue;
+                }
+                inString = !inString;
+                continue;
+            }
+            if (inString) continue;
+            if (ch == '(') depth++;
+            else if (ch == ')' && --depth == 0) return i;
+        }
+        return -1;
     }
 
     static string? TryInferTempTableStarReturn(string pgBody, string rawBody)

@@ -214,6 +214,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_setusercheckdate` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updatecontactgroupuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updatecontactimportant` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_updatecontactsuser` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updatedepartallowaccess` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updategroup` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_updategroupmemo` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

@@ -3655,60 +3655,6 @@ $function$
 ```
 </details>
 
-## `contacts_setcontactsuser`
-
-- Input: `''::character varying, ''::character varying, ''::character varying, 0::integer, ''::character varying, ''::character varying, ''::character varying, ''::character varying, 0::integer`
-- Generated SQL: `SELECT "public"."contacts_setcontactsuser"(''::character varying, ''::character varying, ''::character varying, 0::integer, ''::character varying, ''::character varying, ''::character varying, ''::character varying, 0::integer);`
-- SQLSTATE: `42804`
-- Error: column "groupno" is of type integer but expression is of type character varying
-- Stack context: PL/pgSQL function contacts_setcontactsuser(character varying,character varying,character varying,integer,character varying,character varying,character varying,character varying,integer) line 25 at SQL statement
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_setcontactsuser(_lastname character varying, _firstname character varying, _nicname character varying, _reguserno integer, _memo character varying, _userpic character varying, _groupno character varying, _share character varying, _seq integer)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _rtn integer;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-
-	IF _Seq = 0 THEN
-		INSERT INTO ContactsUser(LastName, FirstName, CallName, RegUserNo, Memo, Photo, RegDate, ModDate, CheckDate, Share, UseYn, Important)
-		VALUES(_LastName,_FirstName,_NicName,_RegUserNo,_Memo,_UserPic, NOW(), NOW(), NOW(), _Share, 'Y', 0);
-		_RTN := lastval();
-	ELSE
-		UPDATE ContactsUser SET FirstName=contacts_setcontactsuser._firstname, LastName=contacts_setcontactsuser._lastname,CallName=contacts_setcontactsuser._nicname,Memo=contacts_setcontactsuser._memo, RegDate = NOW(), Share=contacts_setcontactsuser._share WHERE Seq=contacts_setcontactsuser._seq;
-		DELETE FROM ContactsGroupUser WHERE RegUserNo=contacts_setcontactsuser._reguserno AND UserSeq=contacts_setcontactsuser._seq;
-		_RTN := contacts_setcontactsuser._seq;
-	END IF;
-
-	CREATE TEMP TABLE _tab (GroupNo INT, UserSeq INT,RegUserNo INT) ON COMMIT DROP;
-	WHILE STRPOS(_GroupNo, ',') > 0 LOOP
-		INSERT INTO _tab(GroupNo,UserSeq,RegUserNo)
-		VALUES (SUBSTRING(_GroupNo,0,STRPOS(_GroupNo, ',')),_RTN,_RegUserNo);
-		_GroupNo := SUBSTRING(_GroupNo,STRPOS(_GroupNo, ',')+1,LENGTH(_GroupNo));
-	END LOOP;
-
-	INSERT INTO _tab VALUES (_GroupNo,_RTN,_RegUserNo);
-	INSERT INTO ContactsGroupUser
-	(GroupNo,UserSeq,RegUserNo,RegDate,ModDate)
-	SELECT GroupNo, UserSeq, RegUserNo, NOW(), NOW() FROM _tab;
-
-	RETURN QUERY
-	SELECT _RTN;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_setshare`
 
 - Input: `0::integer, 0::integer, ''::character varying, ''::character varying`
@@ -3776,50 +3722,6 @@ BEGIN
 	UPDATE _AndroidDevices SET
 		NotificationOptions = contacts_updateandroiddevice_notificationoptions._notificationoptions
 	WHERE UserNo = contacts_updateandroiddevice_notificationoptions._userno AND DeviceID = contacts_updateandroiddevice_notificationoptions._deviceid;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_updatecontactsuser`
-
-- Input: `0::integer, 0::integer, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying`
-- Generated SQL: `SELECT "public"."contacts_updatecontactsuser"(0::integer, 0::integer, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying, ''::character varying);`
-- SQLSTATE: `42804`
-- Error: column "groupno" is of type integer but expression is of type character varying
-- Stack context: PL/pgSQL function contacts_updatecontactsuser(integer,integer,character varying,character varying,character varying,character varying,character varying,character varying,character varying) line 16 at SQL statement
-- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
-- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_updatecontactsuser(_reguserno integer, _userseq integer, _memo character varying, _share character varying, _groupno character varying, _company character varying, _zipcode1 character varying, _zipcode2 character varying, _address character varying)
- RETURNS void
- LANGUAGE plpgsql
-AS $function$
-BEGIN
-
-	DELETE FROM ContactsGroupUser WHERE UserSeq = contacts_updatecontactsuser._userseq;
-
-	UPDATE ContactsUser SET Memo = contacts_updatecontactsuser._memo, RegDate = NOW(), Share = contacts_updatecontactsuser._share
-		WHERE RegUserNo = contacts_updatecontactsuser._reguserno AND Seq = contacts_updatecontactsuser._userseq;
-
-	CREATE TEMP TABLE _tab (GroupNo INT,ContactsUser INT,RegUserNo INT) ON COMMIT DROP;
-	WHILE STRPOS(_GroupNo, ',') > 0 LOOP
-		INSERT INTO _tab(GroupNo,ContactsUser,RegUserNo)
-		VALUES (SUBSTRING(_GroupNo,0,STRPOS(_GroupNo, ',')),_UserSeq,_RegUserNo);
-		_GroupNo := SUBSTRING(_GroupNo,STRPOS(_GroupNo, ',')+1,LENGTH(_GroupNo));
-	END LOOP;
-
-	INSERT INTO _tab VALUES (_GroupNo,_UserSeq,_RegUserNo);
-	INSERT INTO ContactsGroupUser (GroupNo, UserSeq, RegUserNo, RegDate) SELECT *,NOW() FROM _tab;
-
-	UPDATE ContactsCompany SET Company = contacts_updatecontactsuser._company WHERE RegUserNo = contacts_updatecontactsuser._reguserno AND UserSeq = contacts_updatecontactsuser._userseq;
-
-	UPDATE ContactsAddress SET ZipCode1 = contacts_updatecontactsuser._zipcode1, ZipCode2 = contacts_updatecontactsuser._zipcode2, Address = contacts_updatecontactsuser._address WHERE RegUserNo = contacts_updatecontactsuser._reguserno AND UserSeq = contacts_updatecontactsuser._userseq;
 END;
 $function$
 

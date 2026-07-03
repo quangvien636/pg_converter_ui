@@ -1,5 +1,20 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Temp-table numeric INSERT typing
+
+- Runtime before: 228 PASS / 22 FAIL / 104 BLOCKED.
+- Runtime after: **229 PASS / 20 FAIL / 105 BLOCKED**.
+- General rule: parse locally declared temp-table schemas and preserve SQL
+  Server's implicit text-to-number conversion only when a known text parameter
+  or `SUBSTRING` expression is inserted into a declared numeric temp column.
+- Permanent tables, unknown expressions, and nonnumeric temp columns are
+  untouched.
+- `contacts_updatecontactsuser` moved to PASS.
+- `contacts_setcontactsuser` cleared its `groupno` type failure and is now
+  BLOCKED only by non-inferable `SETOF record` metadata.
+- Validation: build PASS with 0 warnings/errors; NUnit 81/81; Board QA 24/24;
+  full rollback-only runtime smoke 229/20/105.
+
 ## 2026-07-03 - Exact temp-table RETURNS TABLE inference
 
 - Runtime before: 227 PASS / 22 FAIL / 105 BLOCKED.
