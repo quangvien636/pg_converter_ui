@@ -2,18 +2,19 @@
 
 Generated: 2026-07-03  
 Baseline commit: `ec3a9eb`  
-Final converter commit: `6a740b5`
+Security cleanup commit: `423dee0`  
+Final converter commit: `615b6ad`
 
 ## Final verification
 
 | Gate | Result |
 |---|---:|
 | Product build | PASS, 0 warnings/errors |
-| NUnit regression | 81/81 PASS |
-| Board representative QA | 24/24 PASS |
-| Runtime PASS | 229 |
-| Runtime FAIL | 20 |
-| Runtime BLOCKED | 105 |
+| NUnit regression | **108/108 PASS** |
+| Board representative QA | **24/24 PASS** |
+| Runtime PASS | **260** |
+| Runtime FAIL | **72** |
+| Runtime BLOCKED | **22** |
 | Total routines | 354 |
 
 Runtime validation used catalog discovery, typed dummy inputs, and a transaction
@@ -28,8 +29,23 @@ does not by itself prove business equivalence.
 | `5a46ff3` | Handle boolean INSERTs without `INTO` | 227 PASS / 22 FAIL / 105 BLOCKED |
 | `de6d74c` | Infer exact temp-table result metadata | 228 PASS / 22 FAIL / 104 BLOCKED |
 | `6a740b5` | Type numeric temp-table INSERTs | 229 PASS / 20 FAIL / 105 BLOCKED |
+| `9335dd1` | Quote reserved words; reject duplicate result columns | 229 PASS / 20 FAIL / 105 BLOCKED |
+| `e3d2312` | Document SQL Server result metadata improvement | 229 PASS / 20 FAIL / 105 BLOCKED |
+| `f9b7863` | Emit `#variable_conflict use_column` for every RETURNS TABLE | 240 PASS / 93 FAIL / 21 BLOCKED |
+| `c9b282a` | Document `#variable_conflict` improvement | 240 PASS / 93 FAIL / 21 BLOCKED |
+| `0dd77bd` | Generalize ParseJson conversion | 242 PASS / 90 FAIL / 22 BLOCKED |
+| `c4b6ec5` | Document ParseJson improvement | 242 PASS / 90 FAIL / 22 BLOCKED |
+| `6c86a69` | Cast `COUNT(...)` to integer | 250 PASS / 82 FAIL / 22 BLOCKED |
+| `1c60e92` | Document COUNT cast improvement | 250 PASS / 82 FAIL / 22 BLOCKED |
+| `fe2acab` | Rewrite boolean-parameter 0/1 comparisons to TRUE/FALSE | 250 PASS / 82 FAIL / 22 BLOCKED |
+| `f701d9e` | Document boolean-parameter fix | 250 PASS / 82 FAIL / 22 BLOCKED |
+| `d701ede` | Cast ParseJson fallback COALESCE to text | 256 PASS / 76 FAIL / 22 BLOCKED |
+| `05dcd0d` | Document COALESCE text-cast improvement | 256 PASS / 76 FAIL / 22 BLOCKED |
+| `5e00144` | WITH RECURSIVE for self-referencing CTEs | 260 PASS / 72 FAIL / 22 BLOCKED |
+| `2542e81` | Document WITH RECURSIVE + hang fix | 260 PASS / 72 FAIL / 22 BLOCKED |
+| `615b6ad` | Add FAIL triage report and session summary | 260 PASS / 72 FAIL / 22 BLOCKED |
 
-Net improvement since `ec3a9eb`: **+2 runtime PASS and -8 runtime FAIL**.
+Net improvement since `ec3a9eb`: **+31 runtime PASS, −23 runtime FAIL**.
 
 ## General converter rules added
 
@@ -44,6 +60,21 @@ Net improvement since `ec3a9eb`: **+2 runtime PASS and -8 runtime FAIL**.
 4. Parse local temp-table schemas and coerce proven text sources into numeric
    columns during INSERT, without affecting permanent tables or unknown
    expressions.
+5. Emit `#variable_conflict use_column` for every function with a
+   `RETURNS TABLE(...)` output, eliminating all 30 `42702` ambiguous-column
+   failures project-wide.
+6. Generalize ParseJson conversion to accept dotted argument references,
+   optional alias qualifiers, and parameter-key (identifier) WHERE clauses —
+   eliminating all 28 `42883 parsejson(...) does not exist` failures.
+7. Cast every `COUNT(...)` (aggregate and windowed) to `::integer` to match
+   SQL Server's guaranteed `int` return width.
+8. Rewrite boolean-parameter `name = 1`/`name = 0` comparisons to `TRUE`/`FALSE`
+   using the already-computed parameter list — zero new false positives.
+9. Cast the ParseJson per-language fallback `COALESCE(CASE WHEN STRPOS(...)...)`
+   to `::text`, matching the declared result type from SQL Server metadata.
+10. Replace the broken pre-existing WITH RECURSIVE detection with
+    `AddRecursiveToSelfReferencingCte`, which uses balanced-paren walking per
+    CTE entry and `SkipCommentsAndWhitespace` to avoid catastrophic backtracking.
 
 ## Runtime progression
 
@@ -53,7 +84,14 @@ Net improvement since `ec3a9eb`: **+2 runtime PASS and -8 runtime FAIL**.
 | Integer `SUBSTRING` coercion | 227 | 23 | 104 |
 | Optional `INSERT INTO` | 227 | 22 | 105 |
 | Exact temp-table return metadata | 228 | 22 | 104 |
-| Temp-table numeric typing | **229** | **20** | **105** |
+| Temp-table numeric typing | 229 | 20 | 105 |
+| SQL Server result metadata integration | 238 | 95 | 21 |
+| `#variable_conflict use_column` for all RETURNS TABLE | 240 | 93 | 21 |
+| Generalize ParseJson conversion | 242 | 90 | 22 |
+| Cast `COUNT(...)` to integer | 250 | 82 | 22 |
+| Boolean-parameter 0/1 comparisons | 250 | 82 | 22 |
+| ParseJson COALESCE text cast | 256 | 76 | 22 |
+| WITH RECURSIVE for self-referencing CTEs | **260** | **72** | **22** |
 
 ## Remaining FAIL groups
 

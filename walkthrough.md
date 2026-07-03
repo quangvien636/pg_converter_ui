@@ -1,5 +1,35 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 — Runtime stabilization checkpoint (FINAL)
+
+**Checkpoint timestamp:** 2026-07-03 16:05 +07:00
+
+| Gate | Result |
+|---|---:|
+| Product build | PASS, 0 warnings/errors |
+| NUnit regression | **108/108 PASS** |
+| Board representative QA | **24/24 PASS** |
+| Runtime PASS | **260** |
+| Runtime FAIL | **72** |
+| Runtime BLOCKED | **22** |
+| Total routines discovered | 354 |
+
+Runtime validation used catalog discovery, typed dummy inputs executed inside
+a rolled-back transaction. A PASS proves the invocation executed; it does not
+by itself prove business equivalence.
+
+**Security remediation applied this session** (separate commit `423dee0`):
+- `scratch/` (38 files, some containing plaintext credentials) removed from
+  git tracking via `git rm --cached`; now gitignored
+- `reports/production-validation-artifacts-*/` (15,860 customer schema files)
+  removed from git tracking; now gitignored
+- `reports/schema_snapshots/`, `reports/runtime-logs/`, `*.log` also gitignored
+- `reports/runtime-validation.md` sanitised: server host, database name, user,
+  and connection string redacted
+- No local files deleted; no history rewritten
+
+---
+
 ## 2026-07-03 - Runtime stabilization session summary and triage
 
 - Session start: 238 PASS / 95 FAIL / 21 BLOCKED (354 discovered).
