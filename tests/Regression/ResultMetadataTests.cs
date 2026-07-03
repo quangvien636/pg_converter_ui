@@ -90,6 +90,24 @@ public class ResultMetadataTests
         Assert.That(pg, Does.Contain("RETURNS TABLE resolved from verified SQL Server result metadata"));
         Assert.That(pg, Does.Not.Contain("SETOF record"));
         Assert.That(pg, Does.Not.Contain("replace SETOF record"));
+
+        // A RETURNS TABLE column name (e.g. boardno) becomes an implicit PL/pgSQL
+        // variable visible in the function body. Without #variable_conflict
+        // use_column, any unqualified reference to a real column with the same
+        // name in a joined query raises "column reference is ambiguous".
+        Assert.That(pg, Does.Contain("#variable_conflict use_column"));
+    }
+
+    [Test]
+    public void ProcedureOmitsVariableConflictPragmaWhenNotReturningTable()
+    {
+        string mssql = "CREATE PROCEDURE dbo.Board_NoResultSet\r\nAS\r\nBEGIN\r\n    UPDATE Board_Boards SET Enabled = 1\r\nEND";
+        var obj = new DbObject("board_noresultset", ObjectType.Procedure, mssql, false, "OK");
+
+        string pg = Converter.Convert(obj, "postgres");
+
+        Assert.That(pg, Does.Contain("RETURNS void"));
+        Assert.That(pg, Does.Not.Contain("#variable_conflict"));
     }
 
     [Test]

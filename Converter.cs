@@ -224,6 +224,8 @@ public static class Converter
         if (createParams.Length > 0) sb.AppendLine(createParams);
         sb.AppendLine($") RETURNS {returnType}");
         sb.AppendLine("AS $function$");
+        if (returnType.StartsWith("TABLE(", StringComparison.Ordinal))
+            sb.AppendLine("#variable_conflict use_column");
         if (declares.Any())
         {
             sb.AppendLine("DECLARE");
@@ -628,7 +630,7 @@ public static class Converter
         foreach (var warn in warnings.Distinct())
             sb.AppendLine($"-- TODO: {warn}");
         sb.AppendLine("AS $function$");
-        if (isTableValued)
+        if (returnType.StartsWith("TABLE(", StringComparison.Ordinal))
             sb.AppendLine("#variable_conflict use_column");
 
         if (declares.Any())
