@@ -40,6 +40,8 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getboard` | Executed; 0 row(s), 15 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getboardallow` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getboardcommunitywidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getboards` | Executed; 0 row(s), 17 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getboards_improved` | Executed; 0 row(s), 17 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcommentsetting` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getcompanylist` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getconfig` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
@@ -53,6 +55,8 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `board_getheads` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getiosdeviceofallusers` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getlistconverturlfile` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getlistuserpermission` | Executed; 0 row(s), 14 column(s) | Not executed | Not yet behaviour-validated |
+| `board_getlistuserpermissiontoexcel` | Executed; 0 row(s), 5 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getmaxsortoftree` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getmultiwidget` | Executed; 0 row(s), 16 column(s) | Not executed | Not yet behaviour-validated |
 | `board_getnewboardcontent` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |

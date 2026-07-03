@@ -1,5 +1,59 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - WITH RECURSIVE for self-referencing CTEs (and a hang fix)
+
+- Runtime before: 256 PASS / 76 FAIL / 22 BLOCKED (354 discovered).
+- Runtime after: **260 PASS / 72 FAIL / 22 BLOCKED** (354 discovered).
+- Zero regressions: all 256 previously-PASS routines stayed PASS, all 22
+  BLOCKED routines stayed BLOCKED.
+- Root cause of the mission-flagged `user_depart`/`folder`/`rootdeparts`
+  missing-relation failures: SQL Server infers a recursive CTE
+  automatically; PostgreSQL requires the `WITH` clause to say
+  `WITH RECURSIVE` explicitly. Without it, the recursive branch's
+  self-join fails with "relation X does not exist".
+- Found there was already an attempted fix for this in the converter —
+  and it was broken two ways: (1) it checked for a self-reference by
+  scanning from the CTE's own opening paren to the **end of the entire
+  function body**, not just the CTE's own definition, so it keyed off
+  whether the CTE name was referenced *anywhere later* — including by
+  its own normal consuming `SELECT`, which is not a self-reference at
+  all; (2) it required literal whitespace between `WITH`/name/`AS`/`(`,
+  so it silently never fired on this codebase's heavily-commented CTE
+  headers (multi-line `-- ...` blocks between every token). Removed and
+  replaced with `AddRecursiveToSelfReferencingCte`, which walks each
+  comma-separated `name AS (...)` entry via the existing
+  `FindClosingParenthesis` helper and checks only that CTE's own body.
+- **Hang discovered and fixed mid-flight**: the first version of the
+  replacement used a regex "gap" group (`(?:\s|--[^\r\n]*)*`) to skip
+  comments/whitespace between tokens. Against `board_getboards` — a
+  large, heavily-commented, 9-CTE real procedure — this caused
+  catastrophic backtracking once the match failed against the trailing
+  final `SELECT` (full of `... AS ...` column-alias false starts),
+  effectively hanging the runtime rebuild for over 50 minutes before it
+  was noticed and killed. Replaced the regex gap with
+  `SkipCommentsAndWhitespace`, a plain linear character scan with no
+  backtracking risk. Verified by converting all 2516 source routines
+  standalone: completes in under two minutes with no hangs, and by
+  timing each of the 6 affected routines individually (worst case 851 ms
+  for `board_getboards`, all correctly flagged recursive).
+- Validation: build PASS with 0 warnings/errors; NUnit 108/108; Board QA
+  24/24; full rollback-only runtime smoke 260/72/22.
+- Process note: when the subsequent full rebuild appeared stalled, the
+  actual `dotnet run --project qa/RebuildRuntime` process (identified via
+  its command line, not just "a dotnet.exe") was terminated directly
+  rather than the whole session restarting; only the rebuild step was
+  re-run once the fix was verified.
+- Remaining FAIL breakdown by SQLSTATE (72 total): `42883` (~30, mostly
+  missing SQL-Server-side helper functions — a dependency gap), `42804`
+  (~21, genuine multi-branch polymorphic procedures), `42P01` missing
+  relation (1 remaining — `_androiddevices`, a different, non-CTE cause),
+  `23502` NOT NULL violation (5), `42601` dynamic SQL syntax (5), `42703`
+  missing column (5), `42P19` (1), `22012` (1).
+- Next: no further single clean converter-owned pattern identified
+  without deeper per-routine investigation. A dependency/triage report
+  for the remaining `42883`/`42804` buckets is the more appropriate next
+  artifact.
+
 ## 2026-07-03 - Cast ParseJson language-fallback COALESCE to text
 
 - Runtime before: 250 PASS / 82 FAIL / 22 BLOCKED (354 discovered).

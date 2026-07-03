@@ -2093,196 +2093,6 @@ $function$
 ```
 </details>
 
-## `board_getboards`
-
-- Input: `0::integer, false, 0::integer, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getboards"(0::integer, false, 0::integer, 0::integer, false);`
-- SQLSTATE: `42P01`
-- Error: relation "user_depart" does not exist
-- Stack context: PL/pgSQL function board_getboards(integer,boolean,integer,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getboards(_userno integer DEFAULT 70, _isdisabled boolean DEFAULT false, _viewmode integer DEFAULT (-1), _displaytypeno integer DEFAULT (-1), _isadmin boolean DEFAULT false)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-    RETURN QUERY
-    WITH
-
-    -- ----------------------------------------------------------------
-    -- 1 Táº¥t cáº£ phÃ²ng ban cá»§a user â€” gá»“m cáº£ dept cha trong hierarchy
-    --     Anchor  : dept trá»±c tiáº¿p tá»« Organization_BelongToDepartment
-    --     Recursive: leo ngÆ°á»£c ParentNo Ä‘áº¿n root (ParentNo=0)
-    --     Fix v1  : v1 chá»‰ query Organization_BelongToDepartment (dept trá»±c tiáº¿p)
-    --               â†’ bá» sÃ³t dept cha â†’ share check sai
-    --     Replaces: Organization_GetDepartmentsByUser(UserNo)
-    -- ----------------------------------------------------------------
-    USER_DEPART AS (
-        -- Anchor: dept trá»±c tiáº¿p
-        SELECT OD.DepartNo, OD.ParentNo
-        FROM   Organization_BelongToDepartment      OBD
-        INNER JOIN Organization_Departments OD ON OD.DepartNo = OBD.DepartNo
-        WHERE  OBD.UserNo = board_getboards._userno
-
-        UNION ALL
-
-        -- Recursive: dept cha
-        SELECT OD.DepartNo, OD.ParentNo
-        FROM   Organization_Departments OD
-        INNER JOIN USER_DEPART                   UD ON OD.DepartNo = UD.ParentNo
-        WHERE  UD.ParentNo <> 0
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 2 Board user cÃ³ quyá»n Ä‘á»c trá»±c tiáº¿p (AllowValue bit 2)
-    -- ----------------------------------------------------------------
-    PERM_BOARD_DIRECT AS (
-        SELECT A.ItemNo AS BoardNo
-        FROM   Board_AllowAccess A
-        WHERE  A.UserNo     = board_getboards._userno
-          AND  A.ItemType   = 2
-          AND  (A.AllowValue & 2) > 0
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 3 Folder cÃ³ quyá»n Ä‘á»c + toÃ n bá»™ sub-folder con chÃ¡u
-    --     Anchor  : folder user cÃ³ AllowValue bit 2 â€” ItemType=1
-    --     Recursive: má»Ÿ rá»™ng xuá»‘ng folder con qua ParentNo
-    -- ----------------------------------------------------------------
-    PERMITTED_FOLDER_TREE AS (
-        -- Anchor: folder cÃ³ quyá»n trá»±c tiáº¿p
-        SELECT BF.FolderNo, BF.ParentNo
-        FROM   Board_AllowAccess               A
-        INNER JOIN Board_Folders      BF ON BF.FolderNo = A.ItemNo
-        WHERE  A.UserNo     = board_getboards._userno
-          AND  A.ItemType   = 1
-          AND  (A.AllowValue & 2) > 0
-          AND  BF.Enabled = TRUE
-
-        UNION ALL
-
-        -- Recursive: folder con
-        SELECT F.FolderNo, F.ParentNo
-        FROM   Board_Folders F
-        INNER JOIN PERMITTED_FOLDER_TREE      PFT ON F.ParentNo = PFT.FolderNo
-        WHERE  F.Enabled = TRUE
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 4 Board trong folder (hoáº·c sub-folder) Ä‘Æ°á»£c phÃ©p Ä‘á»c
-    -- ----------------------------------------------------------------
-    PERM_BOARD_FOLDER AS (
-        SELECT DISTINCT B.BoardNo
-        FROM   Board_Boards B
-        INNER JOIN PERMITTED_FOLDER_TREE      PFT ON PFT.FolderNo = B.FolderNo
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 5 Tá»•ng há»£p: board user Ä‘Æ°á»£c phÃ©p Ä‘á»c (trá»±c tiáº¿p + qua folder)
-    -- ----------------------------------------------------------------
-    PERM_BOARD AS (
-        SELECT BoardNo FROM PERM_BOARD_DIRECT
-        UNION
-        SELECT BoardNo FROM PERM_BOARD_FOLDER
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 6 Contents user Ä‘Ã£ Ä‘á»c
-    -- ----------------------------------------------------------------
-    VIEWED AS (
-        SELECT ContentNo
-        FROM   Board_ViewedLogs
-        WHERE  UserNo = board_getboards._userno
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 7 Contents shared vá»›i user (dept trá»±c tiáº¿p + toÃ n bá»™ dept cha)
-    --     Fix v1: v1 chá»‰ check dept trá»±c tiáº¿p â†’ miss share vá»›i dept cha
-    -- ----------------------------------------------------------------
-    SHARED AS (
-        SELECT DISTINCT BS.ContentNo
-        FROM   Board_Sharers BS
-        WHERE  BS.UserNo   = board_getboards._userno
-           OR  BS.DepartNo IN (SELECT DISTINCT DepartNo FROM USER_DEPART)
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 8 Sá»‘ content chÆ°a Ä‘á»c â€” ADMIN path
-    -- ----------------------------------------------------------------
-    COUNT_ADMIN AS (
-        SELECT   BC.BoardNo,
-                 (COUNT(*))::integer AS UnreadCount
-        FROM     Board_Contents BC
-        WHERE    BC.Enabled = TRUE
-          AND    NOT EXISTS (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
-        GROUP BY BC.BoardNo
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 9 Sá»‘ content chÆ°a Ä‘á»c â€” USER path (permission + share)
-    -- ----------------------------------------------------------------
-    COUNT_USER AS (
-        SELECT   BC.BoardNo,
-                 (COUNT(*))::integer AS UnreadCount
-        FROM     Board_Contents BC
-        WHERE    BC.Enabled = TRUE
-          AND    BC.BoardNo  IN (SELECT BoardNo FROM PERM_BOARD)
-          AND    NOT EXISTS  (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
-          AND    (
-                      BC.ContentNo IN (SELECT ContentNo FROM SHARED)
-                   OR NOT EXISTS (SELECT 1 FROM Board_Sharers BS2 WHERE BS2.ContentNo = BC.ContentNo)
-                 )
-        GROUP BY BC.BoardNo
-    )
-
-    -- ----------------------------------------------------------------
-    -- 10 Káº¿t quáº£ cuá»‘i
-    -- ----------------------------------------------------------------
-    SELECT
-        B.BoardNo,
-        B.ModUserNo,
-        B.ModDate,
-        B.Name,
-        B.Description,
-        B.FolderNo,
-        B.DisplayTypeNo,
-        B.SortNo,
-        B.IsReply,
-        B.IsHead,
-        B.IsNotice,
-        B.IsRecommend,
-        B.RecommendedDisplayCount,
-        B.Enabled,
-        B.ViewMode,
-        B.SpecType,
-        COALESCE(
-            CASE WHEN _IsAdmin = TRUE THEN CA.UnreadCount
-                                   ELSE CU.UnreadCount
-            END,
-            0
-        ) AS CountContent
-    FROM  Board_Boards B
-    LEFT JOIN COUNT_ADMIN CA ON CA.BoardNo = B.BoardNo
-    LEFT JOIN COUNT_USER  CU ON CU.BoardNo = B.BoardNo
-    WHERE  (_IsDisabled = TRUE OR B.Enabled = TRUE)
-      AND  (B.ViewMode      = board_getboards._viewmode      OR _ViewMode      < 0)
-      AND  (B.DisplayTypeNo = board_getboards._displaytypeno OR _DisplayTypeNo < 0)
-    ORDER BY B.SortNo ASC, B.BoardNo ASC;
-END;
-$function$
-
-```
-</details>
-
 ## `board_getboards_bk`
 
 - Input: `0::integer, false, 0::integer, 0::integer, false`
@@ -2365,196 +2175,6 @@ $function$
 ```
 </details>
 
-## `board_getboards_improved`
-
-- Input: `0::integer, false, 0::integer, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getboards_improved"(0::integer, false, 0::integer, 0::integer, false);`
-- SQLSTATE: `42P01`
-- Error: relation "user_depart" does not exist
-- Stack context: PL/pgSQL function board_getboards_improved(integer,boolean,integer,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getboards_improved(_userno integer DEFAULT 70, _isdisabled boolean DEFAULT false, _viewmode integer DEFAULT (-1), _displaytypeno integer DEFAULT (-1), _isadmin boolean DEFAULT false)
- RETURNS TABLE(boardno integer, moduserno integer, moddate timestamp without time zone, name character varying, description character varying, folderno integer, displaytypeno integer, sortno integer, isreply boolean, ishead boolean, isnotice boolean, isrecommend boolean, recommendeddisplaycount integer, enabled boolean, viewmode integer, spectype integer, countcontent integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-    RETURN QUERY
-    WITH
-
-    -- ----------------------------------------------------------------
-    -- 1 Táº¥t cáº£ phÃ²ng ban cá»§a user â€” gá»“m cáº£ dept cha trong hierarchy
-    --     Anchor  : dept trá»±c tiáº¿p tá»« Organization_BelongToDepartment
-    --     Recursive: leo ngÆ°á»£c ParentNo Ä‘áº¿n root (ParentNo=0)
-    --     Fix v1  : v1 chá»‰ query Organization_BelongToDepartment (dept trá»±c tiáº¿p)
-    --               â†’ bá» sÃ³t dept cha â†’ share check sai
-    --     Replaces: Organization_GetDepartmentsByUser(UserNo)
-    -- ----------------------------------------------------------------
-    USER_DEPART AS (
-        -- Anchor: dept trá»±c tiáº¿p
-        SELECT OD.DepartNo, OD.ParentNo
-        FROM   Organization_BelongToDepartment      OBD
-        INNER JOIN Organization_Departments OD ON OD.DepartNo = OBD.DepartNo
-        WHERE  OBD.UserNo = board_getboards_improved._userno
-
-        UNION ALL
-
-        -- Recursive: dept cha
-        SELECT OD.DepartNo, OD.ParentNo
-        FROM   Organization_Departments OD
-        INNER JOIN USER_DEPART                   UD ON OD.DepartNo = UD.ParentNo
-        WHERE  UD.ParentNo <> 0
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 2 Board user cÃ³ quyá»n Ä‘á»c trá»±c tiáº¿p (AllowValue bit 2)
-    -- ----------------------------------------------------------------
-    PERM_BOARD_DIRECT AS (
-        SELECT A.ItemNo AS BoardNo
-        FROM   Board_AllowAccess A
-        WHERE  A.UserNo     = board_getboards_improved._userno
-          AND  A.ItemType   = 2
-          AND  (A.AllowValue & 2) > 0
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 3 Folder cÃ³ quyá»n Ä‘á»c + toÃ n bá»™ sub-folder con chÃ¡u
-    --     Anchor  : folder user cÃ³ AllowValue bit 2 â€” ItemType=1
-    --     Recursive: má»Ÿ rá»™ng xuá»‘ng folder con qua ParentNo
-    -- ----------------------------------------------------------------
-    PERMITTED_FOLDER_TREE AS (
-        -- Anchor: folder cÃ³ quyá»n trá»±c tiáº¿p
-        SELECT BF.FolderNo, BF.ParentNo
-        FROM   Board_AllowAccess               A
-        INNER JOIN Board_Folders      BF ON BF.FolderNo = A.ItemNo
-        WHERE  A.UserNo     = board_getboards_improved._userno
-          AND  A.ItemType   = 1
-          AND  (A.AllowValue & 2) > 0
-          AND  BF.Enabled = TRUE
-
-        UNION ALL
-
-        -- Recursive: folder con
-        SELECT F.FolderNo, F.ParentNo
-        FROM   Board_Folders F
-        INNER JOIN PERMITTED_FOLDER_TREE      PFT ON F.ParentNo = PFT.FolderNo
-        WHERE  F.Enabled = TRUE
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 4 Board trong folder (hoáº·c sub-folder) Ä‘Æ°á»£c phÃ©p Ä‘á»c
-    -- ----------------------------------------------------------------
-    PERM_BOARD_FOLDER AS (
-        SELECT DISTINCT B.BoardNo
-        FROM   Board_Boards B
-        INNER JOIN PERMITTED_FOLDER_TREE      PFT ON PFT.FolderNo = B.FolderNo
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 5 Tá»•ng há»£p: board user Ä‘Æ°á»£c phÃ©p Ä‘á»c (trá»±c tiáº¿p + qua folder)
-    -- ----------------------------------------------------------------
-    PERM_BOARD AS (
-        SELECT BoardNo FROM PERM_BOARD_DIRECT
-        UNION
-        SELECT BoardNo FROM PERM_BOARD_FOLDER
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 6 Contents user Ä‘Ã£ Ä‘á»c
-    -- ----------------------------------------------------------------
-    VIEWED AS (
-        SELECT ContentNo
-        FROM   Board_ViewedLogs
-        WHERE  UserNo = board_getboards_improved._userno
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 7 Contents shared vá»›i user (dept trá»±c tiáº¿p + toÃ n bá»™ dept cha)
-    --     Fix v1: v1 chá»‰ check dept trá»±c tiáº¿p â†’ miss share vá»›i dept cha
-    -- ----------------------------------------------------------------
-    SHARED AS (
-        SELECT DISTINCT BS.ContentNo
-        FROM   Board_Sharers BS
-        WHERE  BS.UserNo   = board_getboards_improved._userno
-           OR  BS.DepartNo IN (SELECT DISTINCT DepartNo FROM USER_DEPART)
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 8 Sá»‘ content chÆ°a Ä‘á»c â€” ADMIN path
-    -- ----------------------------------------------------------------
-    COUNT_ADMIN AS (
-        SELECT   BC.BoardNo,
-                 (COUNT(*))::integer AS UnreadCount
-        FROM     Board_Contents BC
-        WHERE    BC.Enabled = TRUE
-          AND    NOT EXISTS (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
-        GROUP BY BC.BoardNo
-    ),
-
-    -- ----------------------------------------------------------------
-    -- 9 Sá»‘ content chÆ°a Ä‘á»c â€” USER path (permission + share)
-    -- ----------------------------------------------------------------
-    COUNT_USER AS (
-        SELECT   BC.BoardNo,
-                 (COUNT(*))::integer AS UnreadCount
-        FROM     Board_Contents BC
-        WHERE    BC.Enabled = TRUE
-          AND    BC.BoardNo  IN (SELECT BoardNo FROM PERM_BOARD)
-          AND    NOT EXISTS  (SELECT 1 FROM VIEWED V WHERE V.ContentNo = BC.ContentNo)
-          AND    (
-                      BC.ContentNo IN (SELECT ContentNo FROM SHARED)
-                   OR NOT EXISTS (SELECT 1 FROM Board_Sharers BS2 WHERE BS2.ContentNo = BC.ContentNo)
-                 )
-        GROUP BY BC.BoardNo
-    )
-
-    -- ----------------------------------------------------------------
-    -- 10 Káº¿t quáº£ cuá»‘i
-    -- ----------------------------------------------------------------
-    SELECT
-        B.BoardNo,
-        B.ModUserNo,
-        B.ModDate,
-        B.Name,
-        B.Description,
-        B.FolderNo,
-        B.DisplayTypeNo,
-        B.SortNo,
-        B.IsReply,
-        B.IsHead,
-        B.IsNotice,
-        B.IsRecommend,
-        B.RecommendedDisplayCount,
-        B.Enabled,
-        B.ViewMode,
-        B.SpecType,
-        COALESCE(
-            CASE WHEN _IsAdmin = TRUE THEN CA.UnreadCount
-                                   ELSE CU.UnreadCount
-            END,
-            0
-        ) AS CountContent
-    FROM  Board_Boards B
-    LEFT JOIN COUNT_ADMIN CA ON CA.BoardNo = B.BoardNo
-    LEFT JOIN COUNT_USER  CU ON CU.BoardNo = B.BoardNo
-    WHERE  (_IsDisabled = TRUE OR B.Enabled = TRUE)
-      AND  (B.ViewMode      = board_getboards_improved._viewmode      OR _ViewMode      < 0)
-      AND  (B.DisplayTypeNo = board_getboards_improved._displaytypeno OR _DisplayTypeNo < 0)
-    ORDER BY B.SortNo ASC, B.BoardNo ASC;
-END;
-$function$
-
-```
-</details>
-
 ## `board_getcurrentmanagerlist`
 
 - Input: ``
@@ -2609,11 +2229,11 @@ $function$
 
 - Input: `0::integer, false, false`
 - Generated SQL: `SELECT * FROM "public"."board_getfolderbyuserno"(0::integer, false, false);`
-- SQLSTATE: `42P01`
-- Error: relation "folder" does not exist
+- SQLSTATE: `42883`
+- Error: operator does not exist: boolean =~ boolean
 - Stack context: PL/pgSQL function board_getfolderbyuserno(integer,boolean,boolean) line 6 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
+- Root cause: Missing function or incompatible invocation signature
+- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2628,7 +2248,7 @@ BEGIN
 
 
 RETURN QUERY
-WITH DEPARTPERMISSION AS (
+WITH RECURSIVE DEPARTPERMISSION AS (
 	Select ItemNo ,AllowValue,AllowAccessNo
 	FROM Board_DepartAllowAccess BD
 	INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
@@ -4132,7 +3752,8 @@ BEGIN
 
 	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
 	RETURN QUERY
-	WITH RECURSIVE RootDeparts AS (
+	WITH RECURSIVE
+	RootDeparts AS (
 		  SELECT *
 		  FROM Organization_Departments
 		  WHERE DepartNo = board_getlistnoticepermission._departno
@@ -4170,258 +3791,6 @@ BEGIN
 	SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin
 	FROM USERS U--,TOTAL T
 	WHERE  U.RowNum >board_getlistnoticepermission._pagesize*(_PageNumber-1) AND U.RowNum <=board_getlistnoticepermission._pagesize*_PageNumber;
-END;
-$function$
-
-```
-</details>
-
-## `board_getlistuserpermission`
-
-- Input: `0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getlistuserpermission"(0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false);`
-- SQLSTATE: `42P01`
-- Error: relation "rootdeparts" does not exist
-- Stack context: PL/pgSQL function board_getlistuserpermission(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 14 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getlistuserpermission(_itemno integer DEFAULT 25, _itemtype integer DEFAULT 1, _applicationno integer DEFAULT 7, _departno integer DEFAULT 1, _positionno integer DEFAULT 0, _languagecode character varying DEFAULT 'EN'::character varying, _pagenumber integer DEFAULT 1, _pagesize integer DEFAULT 10, _ispermission boolean DEFAULT true)
- RETURNS TABLE(total integer, name character varying, userid character varying, userno integer, departno integer, positionno integer, departname character varying, positionname character varying, isadmin boolean, isread boolean, iswrite boolean, disableadmin boolean, disableread boolean, disablewrite boolean)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-DECLARE
-    _total bigint;
-BEGIN
-
-
-	--DECLARE ParentFolderNo INT;
-	--IF(ItemType=1)
-	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
-	--ELSE
-	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo);
-	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
-	RETURN QUERY
-	WITH
-	--UserParentPermistions AS(
-	--	SELECT * FROM Board_AllowAccess WHERE ItemNo=ParentFolderNo AND ItemType=1
-	--),
-	UserPermistions as (
-		SELECT DISTINCT BA.UserNo,
-		CASE WHEN BA.AllowValue%2<>0 THEN TRUE ELSE FALSE END AS IsAdmin ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =2 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsRead ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =4 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsWrite ,
-		FALSE  AS DisableAdmin ,
-		CASE WHEN BA.AllowValue%2<>0 THEN TRUE ELSE FALSE END AS DisableWrite ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue=4 OR BA.AllowValue=6 THEN TRUE ELSE FALSE END AS DisableRead
-		FROM Board_AllowAccess BA
-		--LEFT JOIN UserParentPermistions UP ON UP.UserNo=BA.UserNo AND UP.ItemNo=ParentFolderNo AND UP.ItemType=1
-		WHERE BA.ItemNo=board_getlistuserpermission._itemno AND BA.ItemType=board_getlistuserpermission._itemtype
-	),
-	RootDeparts AS (
-		  SELECT *
-		  FROM Organization_Departments
-		  WHERE DepartNo = board_getlistuserpermission._departno
-		  UNION ALL
-		  SELECT OD.*
-		  FROM Organization_Departments OD
-		  JOIN RootDeparts R ON OD.ParentNo = R.DepartNo
-	 ),
-	 BelongToDepartment AS(
-			SELECT T.*,ROW_NUMBER() OVER(PARTITION BY T.UserNo,T.DepartNo ORDER BY T.IsDefault) AS Nm FROM ORGANIZATION_BelongToDepartment T
-	),
-	 USERS AS(
-		SELECT	ROW_NUMBER() OVER ( ORDER BY U.UserNo ) AS RowNum ,
-			U.Name,
-            U.UserId,
-			U.UserNo,
-			OB.DepartNo,
-			OB.PositionNo,
-			CASE WHEN _LanguageCode='EN' THEN OD.Name_EN WHEN _LanguageCode='VN' THEN OD.Name_VN WHEN _LanguageCode='CH' THEN OD.Name_CH WHEN _LanguageCode='JP' THEN OD.Name_JP ELSE OD.Name  END AS DepartName,
-			CASE WHEN _LanguageCode='EN' THEN OP.NAME_EN WHEN _LanguageCode='VN' THEN OP.Name_VN WHEN _LanguageCode='CH' THEN OP.Name_CH WHEN _LanguageCode='JP' THEN OP.Name_JP ELSE OP.Name END  AS PositionName,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsAdmin IS NOT NULL THEN  UP.IsAdmin ELSE FALSE END AS IsAdmin ,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsRead ELSE FALSE END AS IsRead ,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsWrite ELSE FALSE END AS IsWrite ,
-			CASE WHEN _IsPermission = FALSE --OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL
-			THEN TRUE  WHEN UP.DisableAdmin IS NOT NULL THEN  UP.DisableAdmin ELSE FALSE END AS DisableAdmin,
-			CASE WHEN _IsPermission = FALSE --OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL
-			THEN TRUE WHEN UP.DisableRead IS NOT NULL THEN  UP.DisableRead ELSE FALSE END AS DisableRead,
-			CASE WHEN _IsPermission = FALSE --OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL
-			THEN TRUE  WHEN UP.DisableWrite IS NOT NULL THEN  UP.DisableWrite ELSE FALSE END AS DisableWrite
-			FROM ORGANIZATION_USERS U
-		LEFT JOIN UserPermistions UP ON UP.UserNo=U.UserNo
-		INNER JOIN BelongToDepartment OB ON OB.UserNo=U.UserNo AND OB.Nm=1
-		INNER JOIN Organization_Departments OD ON OD.DepartNo=OB.DepartNo
-		INNER JOIN Organization_Positions OP ON OP.PositionNo=OB.PositionNo
-		LEFT JOIN Authority_SitePermissions SP ON SP.UserNo=U.UserNo AND SP.PermissionType=1
-		LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=board_getlistuserpermission._applicationno
-		WHERE (_DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=board_getlistuserpermission._positionno OR _PositionNo=0) AND U.Enabled = TRUE
-	)--,
-	--TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
-	SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,U.DisableAdmin,U.DisableRead,U.DisableWrite
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableAdmin ELSE  TRUE  END AS DisableAdmin,
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableRead ELSE TRUE END AS DisableRead,
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableWrite ELSE TRUE END AS DisableWrite
-	FROM USERS U--,TOTAL T
-	--LEFT JOIN UserParentPermistions  UP ON UP.UserNo=U.UserNo
-	WHERE U.RowNum >board_getlistuserpermission._pagesize*(_PageNumber-1) AND U.RowNum <=board_getlistuserpermission._pagesize*_PageNumber;
-
-	--SET NOCOUNT ON;
-	--DECLARE Total BIGINT;
-	--DECLARE ParentFolderNo INT;
-	--IF(ItemType=1)
-	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
-	--ELSE
-	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo)
-	--SET Total =(SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
-	--WITH
-	--UserParentPermistions AS(
-	--	SELECT * FROM Board_AllowAccess WHERE ItemNo=ParentFolderNo AND ItemType=1
-	--),
-	--UserPermistions as (
-	--	SELECT DISTINCT BA.UserNo,
-	--	CASE WHEN BA.AllowValue%2<>0 THEN TRUE ELSE FALSE END AS IsAdmin ,
-	--	CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =2 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsRead ,
-	--	CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =4 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsWrite ,
-	--	CASE WHEN UP.AllowValue%2=0 THEN TRUE ELSE FALSE END AS DisableAdmin ,
-	--	CASE WHEN BA.AllowValue%2<>0 OR UP.AllowValue=2  THEN TRUE ELSE FALSE END AS DisableWrite ,
-	--	CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue=4 OR BA.AllowValue=6 THEN TRUE ELSE FALSE END AS DisableRead
-	--	FROM Board_AllowAccess BA
-	--	LEFT JOIN UserParentPermistions UP ON UP.UserNo=BA.UserNo AND UP.ItemNo=ParentFolderNo AND UP.ItemType=1
-	--	WHERE BA.ItemNo=ItemNo AND BA.ItemType=ItemType
-	--),
-	--RootDeparts AS (
-	--	  SELECT *
-	--	  FROM Organization_Departments
-	--	  WHERE DepartNo = DepartNo
-	--	  UNION ALL
-	--	  SELECT OD.*
-	--	  FROM Organization_Departments OD
-	--	  JOIN RootDeparts R ON OD.ParentNo = R.DepartNo
-	-- ),
-	-- USERS AS(
-	--	SELECT	ROW_NUMBER() OVER ( ORDER BY U.UserNo ) AS RowNum ,
-	--		U.Name,
- --           U.UserId,
-	--		U.UserNo,
-	--		OB.DepartNo,
-	--		OB.PositionNo,
-	--		CASE WHEN LanguageCode='EN' THEN OD.Name_EN WHEN LanguageCode='VN' THEN OD.Name_VN WHEN LanguageCode='CH' THEN OD.Name_CH WHEN LanguageCode='JP' THEN OD.Name_JP ELSE OD.Name  END AS DepartName,
-	--		CASE WHEN LanguageCode='EN' THEN OP.NAME_EN WHEN LanguageCode='VN' THEN OP.Name_VN WHEN LanguageCode='CH' THEN OP.Name_CH WHEN LanguageCode='JP' THEN OP.Name_JP ELSE OP.Name END  AS PositionName,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsAdmin IS NOT NULL THEN  UP.IsAdmin ELSE FALSE END AS IsAdmin ,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsRead ELSE FALSE END AS IsRead ,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsWrite ELSE FALSE END AS IsWrite ,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.DisableAdmin IS NOT NULL THEN  UP.DisableAdmin ELSE FALSE END AS DisableAdmin,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.DisableRead IS NOT NULL THEN  UP.DisableRead ELSE FALSE END AS DisableRead,
-	--		CASE WHEN IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.DisableWrite IS NOT NULL THEN  UP.DisableWrite ELSE FALSE END AS DisableWrite
-	--		FROM ORGANIZATION_USERS U
-	--	LEFT JOIN UserPermistions UP ON UP.UserNo=U.UserNo
-	--	INNER JOIN ORGANIZATION_BelongToDepartment OB ON OB.UserNo=U.UserNo AND OB.IsDefault = TRUE
-	--	INNER JOIN Organization_Departments OD ON OD.DepartNo=OB.DepartNo
-	--	INNER JOIN Organization_Positions OP ON OP.PositionNo=OB.PositionNo
-	--	LEFT JOIN Authority_SitePermissions SP ON SP.UserNo=U.UserNo AND SP.PermissionType=1
-	--	LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=ApplicationNo
-	--	WHERE (DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=PositionNo OR PositionNo=0) AND U.Enabled = TRUE
-	--)--,
-	----TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
-	--SELECT (SELECT (COUNT(*))::integer AS Total  FROM USERS U) AS Total, U.Name,U.UserId,U.UserNo,U.DepartNo,U.PositionNo,U.DepartName,U.PositionName,U.IsAdmin,U.IsRead,U.IsWrite,
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableAdmin ELSE  TRUE  END AS DisableAdmin,
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableRead ELSE TRUE END AS DisableRead,
-	--CASE WHEN  UP.AllowValue IS NOT NULL OR COALESCE(ParentFolderNo,0)=0 THEN  U.DisableWrite ELSE TRUE END AS DisableWrite
-	--FROM USERS U--,TOTAL T
-	--LEFT JOIN UserParentPermistions  UP ON UP.UserNo=U.UserNo
-	--WHERE U.RowNum >PageSize*(PageNumber-1) AND U.RowNum <=PageSize*PageNumber
-END;
-$function$
-
-```
-</details>
-
-## `board_getlistuserpermissiontoexcel`
-
-- Input: `0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false`
-- Generated SQL: `SELECT * FROM "public"."board_getlistuserpermissiontoexcel"(0::integer, 0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, false);`
-- SQLSTATE: `42P01`
-- Error: relation "rootdeparts" does not exist
-- Stack context: PL/pgSQL function board_getlistuserpermissiontoexcel(integer,integer,integer,integer,integer,character varying,integer,integer,boolean) line 14 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_getlistuserpermissiontoexcel(_itemno integer DEFAULT 25, _itemtype integer DEFAULT 1, _applicationno integer DEFAULT 7, _departno integer DEFAULT 1, _positionno integer DEFAULT 0, _languagecode character varying DEFAULT 'EN'::character varying, _pagenumber integer DEFAULT 1, _pagesize integer DEFAULT 10, _ispermission boolean DEFAULT true)
- RETURNS TABLE(userid character varying, username character varying, admin boolean, write boolean, read boolean)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-DECLARE
-    _total bigint;
-BEGIN
-
-
-	--DECLARE ParentFolderNo INT;
-	--IF(ItemType=1)
-	--	SET ParentFolderNo= (SELECT ParentNo FROM Board_Folders  WHERE  FolderNo=ItemNo)
-	--ELSE
-	--	SET ParentFolderNo= (SELECT FolderNo FROM Board_Boards  WHERE  BoardNo=ItemNo);
-	_Total := (SELECT (COUNT(UserId))::integer FROM ORGANIZATION_USERS);
-	RETURN QUERY
-	WITH
-	--UserParentPermistions AS(
-	--	SELECT * FROM Board_AllowAccess WHERE ItemNo=ParentFolderNo AND ItemType=1
-	--),
-	UserPermistions as (
-		SELECT DISTINCT BA.UserNo,
-		CASE WHEN BA.AllowValue%2<>0 THEN TRUE ELSE FALSE END AS IsAdmin ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =2 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsRead ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue =4 OR BA.AllowValue =6 THEN TRUE ELSE FALSE END AS IsWrite ,
-		FALSE  AS DisableAdmin ,
-		CASE WHEN BA.AllowValue%2<>0 THEN TRUE ELSE FALSE END AS DisableWrite ,
-		CASE WHEN BA.AllowValue%2<>0 OR BA.AllowValue=4 OR BA.AllowValue=6 THEN TRUE ELSE FALSE END AS DisableRead
-		FROM Board_AllowAccess BA
-		--LEFT JOIN UserParentPermistions UP ON UP.UserNo=BA.UserNo AND UP.ItemNo=ParentFolderNo AND UP.ItemType=1
-		WHERE BA.ItemNo=board_getlistuserpermissiontoexcel._itemno AND BA.ItemType=board_getlistuserpermissiontoexcel._itemtype
-	),
-	RootDeparts AS (
-		  SELECT *
-		  FROM Organization_Departments
-		  WHERE DepartNo = board_getlistuserpermissiontoexcel._departno
-		  UNION ALL
-		  SELECT OD.*
-		  FROM Organization_Departments OD
-		  JOIN RootDeparts R ON OD.ParentNo = R.DepartNo
-	 ),
-	 BelongToDepartment AS(
-			SELECT T.*,ROW_NUMBER() OVER(PARTITION BY T.UserNo,T.DepartNo ORDER BY T.IsDefault) AS Nm FROM ORGANIZATION_BelongToDepartment T
-	),
-	 USERS AS(
-		SELECT	ROW_NUMBER() OVER ( ORDER BY U.UserNo ) AS RowNum ,
-			U.Name,
-            U.UserId,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsAdmin IS NOT NULL THEN  UP.IsAdmin ELSE FALSE END AS IsAdmin ,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsRead ELSE FALSE END AS IsRead ,
-			CASE WHEN _IsPermission = FALSE OR SP.UserNo IS NOT NULL OR MP.UserNo IS NOT NULL THEN TRUE  WHEN UP.IsRead IS NOT NULL THEN  UP.IsWrite ELSE FALSE END AS IsWrite
-			FROM ORGANIZATION_USERS U
-		LEFT JOIN UserPermistions UP ON UP.UserNo=U.UserNo
-		INNER JOIN BelongToDepartment OB ON OB.UserNo=U.UserNo AND OB.Nm=1
-		INNER JOIN Organization_Departments OD ON OD.DepartNo=OB.DepartNo
-		INNER JOIN Organization_Positions OP ON OP.PositionNo=OB.PositionNo
-		LEFT JOIN Authority_SitePermissions SP ON SP.UserNo=U.UserNo AND SP.PermissionType=1
-		LEFT JOIN Authority_ModulePermission MP ON MP.UserNo=U.UserNo AND MP.ApplicationNo=board_getlistuserpermissiontoexcel._applicationno
-		WHERE (_DepartNo=0 OR  OD.DepartNo IN (SELECT DepartNo FROM RootDeparts)) AND(OP.PositionNo=board_getlistuserpermissiontoexcel._positionno OR _PositionNo=0) AND U.Enabled = TRUE
-	)--,
-	--TOTAL AS (SELECT (COUNT(*))::integer AS Total  FROM USERS U)
-	SELECT U.UserId,U.Name AS UserName,U.IsAdmin AS "Admin" ,U.IsWrite As Write ,U.IsRead AS "Read"
-	FROM USERS U--,TOTAL T
-	--LEFT JOIN UserParentPermistions  UP ON UP.UserNo=U.UserNo
-	WHERE U.RowNum >board_getlistuserpermissiontoexcel._pagesize*(_PageNumber-1) AND U.RowNum <=board_getlistuserpermissiontoexcel._pagesize*_PageNumber;
 END;
 $function$
 
@@ -4752,7 +4121,8 @@ AS $function$
 BEGIN
 
 RETURN QUERY
-WITH RECURSIVE TMP AS (
+WITH RECURSIVE TMP AS
+(
   SELECT *--,0 AS Level
   ,CAST(ReplyNo AS text) AS Root
   FROM Board_Replies
@@ -4908,11 +4278,11 @@ $function$
 
 - Input: `false, ''::character varying, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_gettreeboard"(false, ''::character varying, 0::integer, false);`
-- SQLSTATE: `42P01`
-- Error: relation "folder" does not exist
+- SQLSTATE: `42P19`
+- Error: recursive reference to query "folder" must not appear within its non-recursive term
 - Stack context: PL/pgSQL function board_gettreeboard(boolean,character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing relation dependency
-- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4927,7 +4297,7 @@ BEGIN
 
 
 RETURN QUERY
-WITH
+WITH RECURSIVE
  DEPARTPERMISSION AS (
 	Select ItemNo ,AllowValue,AllowAccessNo ,ItemType
 	FROM Board_DepartAllowAccess BD
@@ -5457,7 +4827,8 @@ BEGIN
 
 
 RETURN QUERY
-WITH RECURSIVE FOLDER AS (
+WITH RECURSIVE FOLDER AS
+(
     SELECT     FolderNo as No ,Name,ParentNo, 0 as IsBoard,FolderNo as RootTree,1 as Index
     FROM       Board_Folders
     WHERE      ParentNo = 0 AND Enabled = TRUE
@@ -6901,7 +6272,8 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	WITH RECURSIVE s AS (
+	WITH s AS
+		(
 			SELECT ROW_NUMBER()
 				OVER(ORDER BY Seq DESC) AS RowNum,Seq,FirstName,LastName,RegUserNo,Memo,RegDate,Photo,ModDate,CallName,ViewCount,(FirstName+LastName) as FullName
 				--,(SELECT (COUNT(*))::integer FROM ContactsUser WHERE  Seq IN  (select MAX(Seq) AS SEQ FROM ContactsUser WHERE RegUserNo=RegUserNo GROUP BY FirstName+LastName)) as counts
@@ -10369,7 +9741,7 @@ IF _IsAdmin = TRUE THEN
 	ORDER BY  T.ParentNo, T.Sort;
 ELSE
 	RETURN QUERY
-	WITH RECURSIVE DEPARTPERMISSION AS (
+	WITH  DEPARTPERMISSION AS (
 		Select ItemNo ,AllowValue,AllowAccessNo
 		FROM Contact_DepartAllowAccess BD
 		INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
@@ -10442,7 +9814,7 @@ IF _IsAdmin = TRUE THEN
 	ORDER BY  T.ParentNo, T.Sort;
 ELSE
 	RETURN QUERY
-	WITH RECURSIVE DEPARTPERMISSION AS (
+	WITH  DEPARTPERMISSION AS (
 		Select ItemNo ,AllowValue,AllowAccessNo
 		FROM Contact_DepartAllowAccess BD
 		INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo=BD.DepartNo
