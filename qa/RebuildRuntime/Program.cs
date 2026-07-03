@@ -64,6 +64,11 @@ class Program
                 o => MssqlDbReader.ParseTableRaw(o.RawBlock),
                 StringComparer.OrdinalIgnoreCase);
 
+        // Optional: verified SQL Server result-set metadata (ignored generated file), used
+        // only to resolve RETURNS TABLE columns that static analysis could not infer.
+        var resultMetadataCatalog = ResultMetadataCatalog.TryLoadDefault();
+        Console.WriteLine($"Result metadata routines available: {resultMetadataCatalog?.Count ?? 0}");
+
         // 2. Reset target database schema public
         if (!targetedRoutineDeploy)
         {
@@ -204,7 +209,7 @@ class Program
             conn.Open();
             foreach (var fn in functions)
             {
-                var sql = Converter.Convert(fn, "postgres", tableCatalog);
+                var sql = Converter.Convert(fn, "postgres", tableCatalog, resultMetadataCatalog);
                 try
                 {
                     using var cmd = conn.CreateCommand();

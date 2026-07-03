@@ -374,8 +374,12 @@ public partial class Form1 : Form
                 o => MssqlDbReader.ParseTableRaw(o.RawBlock),
                 StringComparer.OrdinalIgnoreCase);
 
+        // Optional: verified SQL Server result-set metadata (ignored generated file), used
+        // only to resolve RETURNS TABLE columns that static analysis could not infer.
+        var resultMetadataCatalog = ResultMetadataCatalog.TryLoadDefault();
+
         Cursor = Cursors.WaitCursor;
-        Logger.Section($"GenerateScript: {selected.Count} objects  owner={owner}  tables in catalog={tableCatalog.Count}");
+        Logger.Section($"GenerateScript: {selected.Count} objects  owner={owner}  tables in catalog={tableCatalog.Count}  result metadata={resultMetadataCatalog?.Count ?? 0}");
 
         try
         {
@@ -395,7 +399,7 @@ public partial class Form1 : Form
             {
                 try
                 {
-                    var sql = Converter.Convert(obj, owner, tableCatalog);
+                    var sql = Converter.Convert(obj, owner, tableCatalog, resultMetadataCatalog);
                     sb.AppendLine(sql);
                     sb.AppendLine();
                     // -- !! ERROR lines come from Converter's internal catch → count as error

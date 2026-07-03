@@ -16,3 +16,6 @@ publish/
 
 # Test runner temp
 *.tmp
+
+# Generated SQL Server result metadata may contain private schema details.
+reports/generated/sqlserver_result_metadata*.json

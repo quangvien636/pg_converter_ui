@@ -28,15 +28,16 @@ public static class Converter
         PgReservedWords.Contains(name) ? $"\"{name}\"" : name;
 
     public static string Convert(DbObject obj, string owner,
-        Dictionary<string, List<ColumnInfo>>? tableCatalog = null)
+        Dictionary<string, List<ColumnInfo>>? tableCatalog = null,
+        Dictionary<string, SqlServerRoutineResultMetadata>? resultMetadataCatalog = null)
     {
         Logger.Info($"Convert [{obj.Type}] {obj.Name}");
         try
         {
             return obj.Type switch
             {
-                ObjectType.Procedure  => ConvertProcedure(obj, owner),
-                ObjectType.Function   => ConvertFunction(obj, owner, tableCatalog),
+                ObjectType.Procedure  => ConvertProcedure(obj, owner, resultMetadataCatalog),
+                ObjectType.Function   => ConvertFunction(obj, owner, tableCatalog, resultMetadataCatalog),
                 ObjectType.Table      => ConvertTable(obj, owner),
                 ObjectType.Index      => ConvertIndex(obj),
                 ObjectType.Constraint => ConvertConstraint(obj),
@@ -53,7 +54,8 @@ public static class Converter
 
     // ── PROCEDURE → PostgreSQL function ──────────────────────────────────────
 
-    static string ConvertProcedure(DbObject obj, string owner)
+    static string ConvertProcedure(DbObject obj, string owner,
+        Dictionary<string, SqlServerRoutineResultMetadata>? resultMetadataCatalog = null)
     {
         var block  = RenameVariables(obj.RawBlock);
         var pgName = obj.Name.ToLower();
@@ -135,10 +137,15 @@ public static class Converter
         var inferredTempTableReturn = hasResultSelect
             ? TryInferTempTableStarReturn(convertedBody, rawBody)
             : null;
+        var metadataReturn = hasResultSelect && inferredTempTableReturn == null
+            ? TryResolveResultMetadataReturn(pgName, resultMetadataCatalog)
+            : null;
         string returnType = inferredTempTableReturn != null
             ? $"TABLE(\n    {inferredTempTableReturn}\n)"
-            : hasResultSelect ? "SETOF record" : "void";
-        string? returnTodo = hasResultSelect && inferredTempTableReturn == null
+            : metadataReturn != null
+                ? $"TABLE(\n    {metadataReturn}\n)"
+                : hasResultSelect ? "SETOF record" : "void";
+        string? returnTodo = hasResultSelect && inferredTempTableReturn == null && metadataReturn == null
             ? "-- TODO: replace SETOF record — procedure returns results; add RETURNS TABLE(col type, ...) manually"
             : null;
         // PostgreSQL cannot combine INOUT parameters with an unrelated SETOF
@@ -193,7 +200,7 @@ public static class Converter
         var warnings = new List<string>();
         if (Regex.IsMatch(rawBody, @"\bEXEC(?:UTE)?\s+sp_executesql\b|\bEXEC(?:UTE)?\s*\(", RegexOptions.IgnoreCase))
             warnings.Add("Dynamic SQL detected. Manual rewrite required for PostgreSQL.");
-        if (hasResultSelect && inferredTempTableReturn == null)
+        if (hasResultSelect && inferredTempTableReturn == null && metadataReturn == null)
             warnings.Add("procedure contains result-returning SELECT; replace SETOF record with correct column types");
         if (outputModeDemoted)
             warnings.Add("OUTPUT parameter treated as input because PostgreSQL SETOF functions cannot also use INOUT parameters");
@@ -207,6 +214,8 @@ public static class Converter
         sb.AppendLine($"-- ─── PROCEDURE→FUNCTION: {pgName} ───────────────────────────────");
         sb.AppendLine("-- NOTE: SQL Server stored procedure converted to PostgreSQL function.");
         sb.AppendLine("-- TODO: Review converted output — stored procedure semantics differ; test before use in production.");
+        if (metadataReturn != null)
+            sb.AppendLine("-- NOTE: RETURNS TABLE resolved from verified SQL Server result metadata.");
         if (returnTodo != null) sb.AppendLine(returnTodo);
         foreach (var warn in warnings.Distinct())
             sb.AppendLine($"-- TODO: {warn}");
@@ -447,7 +456,8 @@ public static class Converter
     }
 
     static string ConvertFunction(DbObject obj, string owner,
-        Dictionary<string, List<ColumnInfo>>? tableCatalog = null)
+        Dictionary<string, List<ColumnInfo>>? tableCatalog = null,
+        Dictionary<string, SqlServerRoutineResultMetadata>? resultMetadataCatalog = null)
     {
         var block  = RenameVariables(obj.RawBlock);
         var pgName = obj.Name.ToLower();
@@ -550,6 +560,7 @@ public static class Converter
 
         string returnType;
         string? returnTodo = null;
+        string? metadataCols = null;
         if (scalarReturn != null)
         {
             returnType = scalarReturn;
@@ -565,10 +576,18 @@ public static class Converter
         else
         {
             var cols = TryExtractReturnColumns(convertedBody, rawBody, tableCatalog);
+            metadataCols = string.IsNullOrEmpty(cols)
+                ? TryResolveResultMetadataReturn(pgName, resultMetadataCatalog)
+                : null;
             if (!string.IsNullOrEmpty(cols))
             {
                 returnType = $"TABLE(\n    {cols}\n)";
                 Logger.Info($"[{pgName}] auto-detected RETURNS TABLE columns");
+            }
+            else if (metadataCols != null)
+            {
+                returnType = $"TABLE(\n    {metadataCols}\n)";
+                Logger.Info($"[{pgName}] resolved RETURNS TABLE columns from SQL Server result metadata");
             }
             else
             {
@@ -603,6 +622,8 @@ public static class Converter
         sb.AppendLine($"CREATE OR REPLACE FUNCTION public.{pgName}(");
         if (createParams.Length > 0) sb.AppendLine(createParams);
         sb.AppendLine($") RETURNS {returnType}");
+        if (metadataCols != null)
+            sb.AppendLine("-- NOTE: RETURNS TABLE resolved from verified SQL Server result metadata.");
         if (returnTodo != null) sb.AppendLine(returnTodo);
         foreach (var warn in warnings.Distinct())
             sb.AppendLine($"-- TODO: {warn}");
@@ -734,6 +755,22 @@ public static class Converter
 
         if (string.IsNullOrEmpty(colPart) || Regex.IsMatch(colPart, @"^\s*\*\s*$")) return "";
         return BuildColDefs(colPart);
+    }
+
+    static string? TryResolveResultMetadataReturn(string pgName,
+        Dictionary<string, SqlServerRoutineResultMetadata>? resultMetadataCatalog)
+    {
+        if (resultMetadataCatalog == null) return null;
+        if (!resultMetadataCatalog.TryGetValue(pgName, out var routine)) return null;
+
+        var colDefs = new List<string>();
+        foreach (var col in routine.Columns.OrderBy(c => c.Ordinal))
+        {
+            if (string.IsNullOrWhiteSpace(col.Name) || col.PostgreSqlType == null)
+                return null; // incomplete metadata — do not guess, leave SETOF record
+            colDefs.Add($"{col.Name.ToLower()} {col.PostgreSqlType}");
+        }
+        return colDefs.Count > 0 ? string.Join(",\n    ", colDefs) : null;
     }
 
     static string TryResolveCteColumns(string searchIn, string cteName)
