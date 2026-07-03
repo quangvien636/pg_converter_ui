@@ -105,11 +105,11 @@ $function$
 
 - Input: `0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false, 0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getallboardcontents"(0::integer, 0::integer, false, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, 0::integer, false, false, 0::integer, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42703`
+- Error: column "month" does not exist
 - Stack context: PL/pgSQL function board_getallboardcontents(integer,integer,boolean,integer,integer,character varying,integer,integer,timestamp without time zone,timestamp without time zone,integer,boolean,boolean,integer,character varying) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Missing column dependency
+- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -156,7 +156,7 @@ FROM Board_ViewedLogs
 WHERE UserNo=board_getallboardcontents._userno),
 TMP AS (
 	SELECT BC.*,T.Url AS FileUrl,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getallboardcontents._languagesign) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getallboardcontents._languagesign ELSE B.Name END AS BoardName ,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -629,11 +629,11 @@ $function$
 
 - Input: `''::character varying, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getallboardwidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getallboardwidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -655,7 +655,7 @@ BEGIN
 		WHERE BD.ItemType=2 AND OB.UserNo=board_getallboardwidget._userno AND OB.IsDefault= TRUE
 )
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE B.NAME=board_getallboardwidget._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME='KO')) ELSE B.Name END,'') AS Name
+		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getallboardwidget._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_NewBoardWidget W
@@ -774,11 +774,11 @@ $function$
 
 - Input: `''::character varying, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getboardcommunitywidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getboardcommunitywidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -800,7 +800,7 @@ BEGIN
 	WHERE BD.ItemType=2 AND OB.UserNo=board_getboardcommunitywidget._userno AND OB.IsDefault= TRUE
 )
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE B.NAME=board_getboardcommunitywidget._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getboardcommunitywidget._langcode)) ELSE B.Name END,'') AS Name
+		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getboardcommunitywidget._langcode,B.Name::json->>board_getboardcommunitywidget._langcode) ELSE B.Name END,'') AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_NewBoardWidget W
@@ -819,11 +819,11 @@ $function$
 
 - Input: `0::bigint, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getboardcontentinfo"(0::bigint, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getboardcontentinfo(bigint,character varying) line 17 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -850,7 +850,7 @@ BEGIN
 
 	RETURN QUERY
 	SELECT BC.BoardNo, BC.ModUserNo,
-		CASE WHEN STRPOS(BB.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(BB.Name)  WHERE NAME='EN') ELSE BB.Name END  AS BoardName,
+		CASE WHEN STRPOS(BB.Name, '{')>0 THEN BB.Name::json->>'EN' ELSE BB.Name END  AS BoardName,
 		CASE WHEN _LanguageSign = 'EN' THEN COALESCE(OU.Name_EN,OU.Name) ELSE OU.Name END AS ModUserName,
 		BC.ModPositionNo,
 		CASE WHEN _LanguageSign = 'EN' THEN COALESCE(OP.Name_EN ,OP.Name) ELSE OP.Name  END AS ModPositionName,
@@ -2862,7 +2862,7 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontent(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 9 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -2924,7 +2924,7 @@ BEGIN
         SELECT
             BC.BoardNo, BC.ContentNo, BC.Title, BC.IsFile, BC.ViewedCount, BC.RootId,
             BC.TitleEffect, BC.RegDate, BC.ModDate, BC.IsNotice, BC.RegUserNo,
-            CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name) WHERE Name=board_getlistboardcontent._langcode) ELSE B.Name END AS BoardName,
+            CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent._langcode ELSE B.Name END AS BoardName,
             CASE _LangCode WHEN 'EN' THEN COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name) WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
             CASE _LangCode WHEN 'EN' THEN COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name) WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
             CASE _LangCode WHEN 'EN' THEN COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name) WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -2945,7 +2945,7 @@ BEGIN
                 CASE WHEN _SortType=0 AND _SortColumn='TYPE'       THEN BC.Type        END ASC,
                 CASE WHEN _SortType=0 AND _SortColumn='ERRORTYPE'  THEN BC.ErrorType   END ASC,
                 CASE WHEN _SortType=0 AND _SortColumn='PERSONTYPE' THEN BC.PersonType  END ASC,
-                CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name) WHERE Name=board_getlistboardcontent._langcode) ELSE B.Name END END ASC,
+                CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent._langcode ELSE B.Name END END ASC,
                 CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name) WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
                 CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name) WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
                 CASE WHEN _SortType=1 AND _SortColumn='TITLE'      THEN BC.Title       END DESC,
@@ -2954,7 +2954,7 @@ BEGIN
                 CASE WHEN _SortType=1 AND _SortColumn='TYPE'       THEN BC.Type        END DESC,
                 CASE WHEN _SortType=1 AND _SortColumn='ERRORTYPE'  THEN BC.ErrorType   END DESC,
                 CASE WHEN _SortType=1 AND _SortColumn='PERSONTYPE' THEN BC.PersonType  END DESC,
-                CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name) WHERE Name=board_getlistboardcontent._langcode) ELSE B.Name END END DESC,
+                CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent._langcode ELSE B.Name END END DESC,
                 CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name) WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
                 CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN CASE _LangCode WHEN 'EN' THEN COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name) WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC
             ) AS RowNum,
@@ -3065,7 +3065,7 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_bk"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontent_bk(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -3130,7 +3130,7 @@ VIEWEDLIST AS (
 ),
 TMP AS (
 	SELECT BC.BoardNo,BC.ContentNo,BC.Title,BC.IsFile,BC.ViewedCount,BC.RootId,BC.TitleEffect,BC.RegDate,BC.ModDate,BC.IsNotice,--T.Url AS FileUrl,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -3145,7 +3145,7 @@ TMP AS (
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN BC.HeadNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
@@ -3154,7 +3154,7 @@ TMP AS (
 		CASE WHEN _SortType=0 AND _SortColumn='ERRORTYPE' THEN  BC.ErrorType END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='PERSONTYPE' THEN  BC.PersonType END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -3288,7 +3288,7 @@ VIEWEDLIST AS (
 ),
 TMP AS (
 	SELECT BC.BoardNo,BC.ContentNo,BC.Title,BC.IsFile,BC.ViewedCount,BC.RootId,BC.TitleEffect,BC.RegDate,BC.ModDate,--T.Url AS FileUrl,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -3303,7 +3303,7 @@ TMP AS (
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN BC.HeadNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
@@ -3312,7 +3312,7 @@ TMP AS (
 		CASE WHEN _SortType=0 AND _SortColumn='ERRORTYPE' THEN  BC.ErrorType END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='PERSONTYPE' THEN  BC.PersonType END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_bk._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_bk._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -3445,7 +3445,7 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_search"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontent_search(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean) line 8 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -3499,7 +3499,7 @@ VIEWEDLIST AS (
 ),
 TMP AS (
 	SELECT BC.BoardNo,BC.ContentNo,BC.Title, BC.Content ,BC.IsFile,BC.ViewedCount,BC.RootId,BC.TitleEffect,BC.RegDate,--T.Url AS FileUrl,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_search._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_search._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -3508,13 +3508,13 @@ TMP AS (
 	ROW_NUMBER() OVER(PARTITION BY BC.Enabled  ORDER BY CASE WHEN _SortType=0 AND _SortColumn='' THEN BC.RootId END DESC,
 		CASE WHEN _SortType=0 AND _SortColumn='' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_search._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_search._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='VIEWED' THEN  BC.ViewedCount END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontent_search._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontent_search._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -3632,7 +3632,7 @@ $function$
 - Input: `0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentbyfolder"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontentbyfolder(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -3698,7 +3698,7 @@ VIEWEDLIST AS (
 	SELECT BC.ContentNo,BC.BoardNo,BC.Title,BC.IsFile,BC.ViewedCount,BC.RegDate,BC.ModDate,BC.RootId,BC.TitleEffect,T.Url AS FileUrl,
 	SUBSTRING(TO_CHAR(BC.RegDate, 'YYYY-MM-DD HH24:MI:SS'),3,14) as RegDateToString,
 	CASE WHEN '2020-12-31'::timestamp> BC.RegDate OR(BV.ContentNo IS NOT NULL OR BC.RegUserNo=board_getlistboardcontentbyfolder._userno) THEN TRUE ELSE FALSE END AS IsReaded ,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentbyfolder._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentbyfolder._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -3711,13 +3711,13 @@ VIEWEDLIST AS (
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN BC.HeadNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentbyfolder._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentbyfolder._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='VIEWED' THEN  BC.ViewedCount END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentbyfolder._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentbyfolder._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -3837,7 +3837,7 @@ $function$
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentsearch"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontentsearch(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 8 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -3891,7 +3891,7 @@ VIEWEDLIST AS (
 ),
 TMP AS (
 	SELECT BC.BoardNo,BC.ContentNo,BC.Title, BC.Content ,BC.IsFile,BC.ViewedCount,BC.RootId,BC.TitleEffect,BC.RegDate,--T.Url AS FileUrl,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentsearch._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentsearch._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -3900,13 +3900,13 @@ TMP AS (
 	ROW_NUMBER() OVER(PARTITION BY BC.Enabled  ORDER BY CASE WHEN _SortType=0 AND _SortColumn='' THEN BC.RootId END DESC,
 		CASE WHEN _SortType=0 AND _SortColumn='' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentsearch._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentsearch._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='VIEWED' THEN  BC.ViewedCount END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontentsearch._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontentsearch._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -4025,7 +4025,7 @@ $function$
 - Input: `0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontenttoexcel"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: boolean = integer
 - Stack context: PL/pgSQL function board_getlistboardcontenttoexcel(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying,character varying) line 5 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -4079,7 +4079,7 @@ VIEWEDLIST AS (
 	SELECT BC.ContentNo, BC.Title,BC.ViewedCount,BC.RegDate,BC.ModDate,BC.RootId,
 	SUBSTRING(TO_CHAR(BC.RegDate, 'YYYY-MM-DD HH24:MI:SS'),3,14) as RegDateToString,
 	CASE WHEN '2020-12-31'::timestamp> BC.RegDate OR(BV.ContentNo IS NOT NULL OR BC.RegUserNo=board_getlistboardcontenttoexcel._userno) THEN TRUE ELSE FALSE END AS IsReaded ,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontenttoexcel._langcode) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontenttoexcel._langcode ELSE B.Name END AS BoardName ,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -4092,13 +4092,13 @@ VIEWEDLIST AS (
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN BC.HeadNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='LISTSORT' THEN  BC.ContentNo END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='TITLE' THEN  BC.Title END ASC,
-		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontenttoexcel._langcode) ELSE B.Name END END ASC,
+		CASE WHEN _SortType=0 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontenttoexcel._langcode ELSE B.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGUSER' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='REGDATE' THEN BC.RegDate END ASC,
 		CASE WHEN _SortType=0 AND _SortColumn='VIEWED' THEN  BC.ViewedCount END ASC,
 		CASE WHEN _SortType=1 AND _SortColumn='TITLE' THEN  BC.Title END DESC,
-		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistboardcontenttoexcel._langcode) ELSE B.Name END END DESC,
+		CASE WHEN _SortType=1 AND _SortColumn='BOARD' THEN  CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistboardcontenttoexcel._langcode ELSE B.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGUSER' THEN   CASE _LangCode WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='DEPART' THEN  CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END END DESC,
 		CASE WHEN _SortType=1 AND _SortColumn='REGDATE' THEN  BC.RegDate END DESC,
@@ -4163,11 +4163,11 @@ $function$
 
 - Input: `''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistcommentsetting"(''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistcommentsetting(character varying) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4183,7 +4183,7 @@ BEGIN
 
 	RETURN QUERY
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getlistcommentsetting._langcode) ELSE B.Name END AS Name
+		CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getlistcommentsetting._langcode ELSE B.Name END AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_CommentSetting W
@@ -4522,11 +4522,11 @@ $function$
 
 - Input: `''::character varying, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getmultiwidget"(''::character varying, 0::integer, false);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getmultiwidget(character varying,integer,boolean) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4548,7 +4548,7 @@ BEGIN
 		WHERE BD.ItemType=2 AND OB.UserNo=board_getmultiwidget._userno AND OB.IsDefault= TRUE
 )
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE B.NAME=board_getmultiwidget._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getmultiwidget._langcode)) ELSE B.Name END,'') AS Name
+		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getmultiwidget._langcode,B.Name::json->>board_getmultiwidget._langcode) ELSE B.Name END,'') AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_MultiBoardWidget W
@@ -4567,11 +4567,11 @@ $function$
 
 - Input: `''::character varying, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."board_getnewboardwidget"(''::character varying, 0::integer);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getnewboardwidget(character varying,integer) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4587,7 +4587,7 @@ BEGIN
 
 	RETURN QUERY
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getnewboardwidget._langcode) ELSE B.Name END AS Name
+		CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getnewboardwidget._langcode ELSE B.Name END AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_NewBoardWidget W
@@ -4604,11 +4604,11 @@ $function$
 
 - Input: `0::integer, 0::integer, ''::character varying, 0::integer, false`
 - Generated SQL: `SELECT * FROM "public"."board_getprenextcontent"(0::integer, 0::integer, ''::character varying, 0::integer, false);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42703`
+- Error: column "text" does not exist
 - Stack context: PL/pgSQL function board_getprenextcontent(integer,integer,character varying,integer,boolean) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Missing column dependency
+- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4651,7 +4651,7 @@ REP AS (SELECT BC.ContentNo,Count(BR.ReplyNo) AS ReplyCount
 ,TMP AS (
 	SELECT --BC.*,--T.Url AS FileUrl,
 	BC.ContentNo,BC.Title,BC.ModUserName,BC.Private,BC.IsShareAll,
-	CASE WHEN STRPOS(B.Name, '{')>0 THEN (SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getprenextcontent._languagesign) ELSE B.Name END AS BoardName ,
+	CASE WHEN STRPOS(B.Name, '{')>0 THEN B.Name::json->>board_getprenextcontent._languagesign ELSE B.Name END AS BoardName ,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OU.Name_EN,OU.Name) WHEN 'VN' THEN  COALESCE(OU.Name_VN,OU.Name) WHEN 'CH' THEN COALESCE(OU.Name_CH,OU.Name)  WHEN 'JP' THEN COALESCE(OU.Name_JP,OU.Name) ELSE OU.Name END AS RegUserName,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OP.Name_EN,OP.Name) WHEN 'VN' THEN  COALESCE(OP.Name_VN,OP.Name) WHEN 'CH' THEN COALESCE(OP.Name_CH,OP.Name)  WHEN 'JP' THEN COALESCE(OP.Name_JP,OP.Name) ELSE OP.Name END AS RegPositionName,
 	CASE _LanguageSign WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END AS RegDepartName,
@@ -4949,11 +4949,11 @@ $function$
 
 - Input: `''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getsettingcommunitywidget"(''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getsettingcommunitywidget(character varying) line 7 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4970,7 +4970,7 @@ BEGIN
 
 	RETURN QUERY
 	SELECT B.BoardNo,B.ModUserNo, B.ModDate,
-		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE B.NAME=board_getsettingcommunitywidget._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME='KO')) ELSE B.Name END,'') AS Name
+		COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getsettingcommunitywidget._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name
 		, B.Description, B.FolderNo, B.DisplayTypeNo,
 		B.SortNo, B.IsReply, B.IsHead, B.IsNotice, B.IsRecommend, B.RecommendedDisplayCount,B.ViewMode, B.Enabled,B.SpecType
 	FROM Board_NewBoardWidget W
@@ -4988,7 +4988,7 @@ $function$
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getsubmenus"(0::integer, false, ''::character varying);`
 - SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- Error: operator does not exist: character varying + text
 - Stack context: PL/pgSQL function board_getsubmenus(integer,boolean,character varying) line 6 at RETURN QUERY
 - Root cause: Missing function or incompatible invocation signature
 - Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
@@ -5048,14 +5048,14 @@ BOARD AS (
 ),
 TREESUB AS
 (
-    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(T.Name)  WHERE NAME=board_getsubmenus._langcode),(SELECT StringValue FROM ParseJson(T.Name)  WHERE NAME='KO')) ELSE T.Name END,'') AS Name ,
+    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE(T.Name::json->>board_getsubmenus._langcode,T.Name::json->>'KO') ELSE T.Name END,'') AS Name ,
 	 ('f' || CAST(T.FolderNo AS VARCHAR))AS Id  ,
 	 T.ModUserNo,T.ModDate, T.Name AS JsonName,
 	CASE  WHEN T.ParentNo = 0 THEN '#' ELSE 'f' || CAST(T.ParentNo AS VARCHAR)  END AS ParentNo,
 	T.SortNo,TRUE AS IsFolder ,T.IsOpen , 0 AS CountContent, 0 AS ViewMode, 'fa fa-folder' AS icon
     FROM       FOLDER T
     UNION ALL
-	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_getsubmenus._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME='KO')) ELSE B.Name END,'') AS Name ,
+	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_getsubmenus._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name ,
 		('b' || CAST(B.BoardNo AS VARCHAR) )  AS Id  ,
 		B.ModUserNo,B.ModDate, B.Name AS JsonName,
 		CASE WHEN B.FolderNo = 0 THEN '#' ELSE 'f' || CAST(B.FolderNo AS VARCHAR)   END  AS ParentNo,
@@ -5147,7 +5147,7 @@ FOLDER AS
 )
 SELECT	F.No ,
 		--F.Name ,
-		COALESCE(CASE WHEN STRPOS(F.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(F.Name)  WHERE F.NAME=board_gettreeboard._langcode),(SELECT StringValue FROM ParseJson(F.Name)  WHERE NAME='KO')) ELSE F.Name END,'') AS Name ,
+		COALESCE(CASE WHEN STRPOS(F.Name, '{')>0 THEN COALESCE(F.Name::json->>board_gettreeboard._langcode,F.Name::json->>'KO') ELSE F.Name END,'') AS Name ,
 		F.ParentNo ,
 		F.IsBoard ,
 		F.RootTree ,
@@ -5168,11 +5168,11 @@ $function$
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_gettreesubmenu(integer,boolean,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -5272,11 +5272,11 @@ BOARD AS (
 ),
 TREESUB AS
 (
-    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(T.Name)  WHERE NAME=board_gettreesubmenu._langcode),(SELECT StringValue FROM ParseJson(T.Name)  WHERE NAME='KO')) ELSE T.Name END,'') AS Name ,
+    SELECT    	COALESCE(CASE WHEN STRPOS(T.Name, '{')>0 THEN COALESCE(T.Name::json->>board_gettreesubmenu._langcode,T.Name::json->>'KO') ELSE T.Name END,'') AS Name ,
 	T.FolderNo AS No  ,T.ModUserNo,T.ModDate, T.Name AS JsonName, T.ParentNo, T.SortNo,TRUE AS IsFolder ,T.IsOpen , 0 AS CountContent, 0 AS ViewMode
     FROM       FOLDER T
     UNION ALL
-	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME=board_gettreesubmenu._langcode),(SELECT StringValue FROM ParseJson(B.Name)  WHERE NAME='KO')) ELSE B.Name END,'') AS Name ,
+	SELECT	COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE(B.Name::json->>board_gettreesubmenu._langcode,B.Name::json->>'KO') ELSE B.Name END,'') AS Name ,
 		B.BoardNo AS No  ,B.ModUserNo,B.ModDate, B.Name AS JsonName, B.FolderNo AS ParentNo, B.SortNo,FALSE AS IsFolder ,FALSE AS IsOpen,B.CountContent,B.ViewMode
 	 FROM      BOARD B
 )
@@ -5356,8 +5356,8 @@ ORDER BY ParentNo ASC, SortNo DESC;
   --      COALESCE(
   --          CASE                 WHEN F.Name ILIKE '{%}' THEN
   --                  COALESCE(
-  --                      (SELECT StringValue FROM ParseJson(F.Name) WHERE Name = LangCode),
-  --                      (SELECT StringValue FROM ParseJson(F.Name) WHERE Name = 'KO'),
+  --                      F.Name::json->>LangCode,
+  --                      F.Name::json->>'KO',
   --                      F.Name
   --                  )
   --              ELSE F.Name
@@ -5385,11 +5385,11 @@ $function$
 
 - Input: `0::integer, false, ''::character varying, 0::integer, 0::integer`
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenu_v2"(0::integer, false, ''::character varying, 0::integer, 0::integer);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_gettreesubmenu_v2(integer,boolean,character varying,integer,integer) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -5447,11 +5447,11 @@ BOARD AS (
 		WHERE B.Enabled = TRUE AND (_IsAdmin = TRUE OR B.SpecType = 1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
 ),
 TREESUB AS (
-	SELECT COALESCE(CASE WHEN STRPOS(T.Name, '{') > 0 THEN COALESCE((SELECT StringValue FROM ParseJson(T.Name) WHERE NAME = board_gettreesubmenu_v2._langcode), (SELECT StringValue FROM ParseJson(T.Name) WHERE NAME = 'KO')) ELSE T.Name END, '') AS Name,
+	SELECT COALESCE(CASE WHEN STRPOS(T.Name, '{') > 0 THEN COALESCE(T.Name::json->>board_gettreesubmenu_v2._langcode, T.Name::json->>'KO') ELSE T.Name END, '') AS Name,
 		T.FolderNo AS No, T.ModUserNo, T.ModDate, T.Name AS JsonName, T.ParentNo, T.SortNo, TRUE AS IsFolder, T.IsOpen, 0 AS CountContent, 0 AS ViewMode
 	FROM FOLDER T
 	UNION ALL
-	SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{') > 0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = board_gettreesubmenu_v2._langcode), (SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'KO')) ELSE B.Name END, '') AS Name,
+	SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{') > 0 THEN COALESCE(B.Name::json->>board_gettreesubmenu_v2._langcode, B.Name::json->>'KO') ELSE B.Name END, '') AS Name,
 		B.BoardNo AS No, B.ModUserNo, B.ModDate, B.Name AS JsonName, B.FolderNo AS ParentNo, B.SortNo, FALSE AS IsFolder, FALSE AS IsOpen, B.CountContent, B.ViewMode
 	FROM BOARD B
 )
@@ -5469,194 +5469,15 @@ $function$
 ```
 </details>
 
-## `board_gettreesubmenu_v2_json`
-
-- Input: `0::integer, false, ''::character varying, 0::integer, 0::integer`
-- Generated SQL: `SELECT "public"."board_gettreesubmenu_v2_json"(0::integer, false, ''::character varying, 0::integer, 0::integer);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
-- Stack context: PL/pgSQL function board_gettreesubmenu_v2_json(integer,boolean,character varying,integer,integer) line 13 at SQL statement
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.board_gettreesubmenu_v2_json(_userno integer DEFAULT 222, _isadmin boolean DEFAULT false, _langcode character varying DEFAULT 'EN'::character varying, _selectedboardno integer DEFAULT 0, _selectedfolderno integer DEFAULT 0)
- RETURNS SETOF record
- LANGUAGE plpgsql
-AS $function$
-DECLARE
-    _json character varying;
--- !! WARNING: output needs manual review — see TODO comments
-BEGIN
-
-
-DROP TABLE IF EXISTS T;
-DROP TABLE IF EXISTS O;
-DROP TABLE IF EXISTS BL;
-
-    -- Step 1: Build flat tree data
-    CREATE TEMP TABLE T ON COMMIT DROP AS WITH
-    DEPARTPERMISSION AS (
-        SELECT ItemNo, AllowValue, AllowAccessNo, ItemType,
-               ROW_NUMBER() OVER(PARTITION BY ItemNo, UserNo, ItemType ORDER BY ItemNo ASC) AS Rn
-        FROM Board_DepartAllowAccess BD
-        INNER JOIN Organization_BelongToDepartment OB ON OB.DepartNo = BD.DepartNo
-        WHERE OB.UserNo = board_gettreesubmenu_v2_json._userno AND OB.IsDefault = TRUE
-    ),
-    History AS (
-        SELECT BH.*, ROW_NUMBER() OVER (PARTITION BY BH.UserNo, BH.FolderNo ORDER BY HistoryFolderNo) AS RowNum
-        FROM Board_HistoryFolder BH WHERE BH.UserNo = board_gettreesubmenu_v2_json._userno
-    ),
-    FOLDER AS (
-        SELECT BF.*, COALESCE(BH.IsOpen, TRUE) AS IsOpen
-        FROM Board_Folders BF
-        LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = BF.FolderNo AND BA.ItemType = 1 AND BA.UserNo = board_gettreesubmenu_v2_json._userno
-        LEFT JOIN History BH ON BF.FolderNo = BH.FolderNo AND BH.RowNum = 1
-        LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = BF.FolderNo AND D.ItemType = 1 AND D.Rn = 1
-        WHERE BF.Enabled = TRUE
-          AND (_IsAdmin = TRUE OR BF.SpecType = 1 OR BA.AllowValue > 0 OR D.AllowValue > 0)
-    ),
-    BOARD AS (
-        SELECT B.BoardNo, B.ModUserNo, B.ModDate, B.Name, B.FolderNo, B.SortNo,
-               B.Enabled, B.ViewMode, B.SpecType,
-               (SELECT COUNT(*) FROM Board_Contents BC
-                WHERE '2020-12-31'::timestamp < BC.RegDate
-                  AND BC.BoardNo = B.BoardNo AND BC.Enabled = TRUE
-                  AND BC.RegUserNo <> board_gettreesubmenu_v2_json._userno
-                  AND BC.ContentNo NOT IN (SELECT BV.ContentNo FROM Board_ViewedLogs BV WHERE BV.UserNo = board_gettreesubmenu_v2_json._userno)
-                  AND (_IsAdmin = TRUE OR BA.AllowValue = 7 OR D.AllowValue = 7
-                       OR ((BC.BoardNo IN (SELECT * FROM public."board_getboardallow"(_UserNo, 2)) OR B.SpecType = 1)
-                           AND (
-                               BC.ContentNo IN (SELECT BS1.ContentNo FROM Board_Sharers BS1
-                                                INNER JOIN public."organization_belongtodepartment" DP
-                                                ON DP.DepartNo = BS1.DepartNo AND DP.UserNo = board_gettreesubmenu_v2_json._userno)
-                               OR BC.ContentNo IN (SELECT BSS1.ContentNo FROM Board_Sharers BSS1
-                                                   WHERE BSS1.ContentNo = BC.ContentNo AND BSS1.UserNo = board_gettreesubmenu_v2_json._userno)
-                               OR BC.IsShareAll = TRUE
-                           )))
-               ) AS CountContent
-        FROM Board_Boards B
-        LEFT JOIN Board_AllowAccess BA ON BA.ItemNo = B.BoardNo AND BA.ItemType = 2 AND BA.UserNo = board_gettreesubmenu_v2_json._userno
-        LEFT JOIN DEPARTPERMISSION D ON D.ItemNo = B.BoardNo AND D.ItemType = 2 AND D.Rn = 1
-        WHERE B.Enabled = TRUE
-          AND (_IsAdmin = TRUE OR B.SpecType = 1 OR BA.AllowValue IS NOT NULL OR D.AllowValue IS NOT NULL)
-    ),
-    TREESUB AS (
-        SELECT COALESCE(CASE WHEN STRPOS(F.Name, '{') > 0
-                      THEN COALESCE(NULLIF((SELECT StringValue FROM ParseJson(F.Name) WHERE NAME = board_gettreesubmenu_v2_json._langcode), ''),
-                           COALESCE(NULLIF((SELECT StringValue FROM ParseJson(F.Name) WHERE NAME = 'KO'), ''),
-                                        (SELECT StringValue FROM ParseJson(F.Name) WHERE NAME = 'EN')))
-                      ELSE F.Name END, '') AS Name,
-               F.FolderNo AS No, F.ModUserNo, F.ModDate, F.Name AS JsonName,
-               F.ParentNo, F.SortNo,
-               TRUE AS IsFolder, F.IsOpen,
-               CAST(0 AS BIGINT) AS CountContent, 0 AS ViewMode
-        FROM FOLDER F
-        UNION ALL
-        SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{') > 0
-                      THEN COALESCE(NULLIF((SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = board_gettreesubmenu_v2_json._langcode), ''),
-                           COALESCE(NULLIF((SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'KO'), ''),
-                                        (SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'EN')))
-                      ELSE B.Name END, '') AS Name,
-               B.BoardNo AS No, B.ModUserNo, B.ModDate, B.Name AS JsonName,
-               B.FolderNo AS ParentNo, B.SortNo,
-               FALSE AS IsFolder, FALSE AS IsOpen,
-               CAST(B.CountContent AS BIGINT) AS CountContent, B.ViewMode
-        FROM BOARD B
-    )
-    SELECT Name, No, ModUserNo, JsonName, ParentNo, SortNo,
-        IsFolder, IsOpen, CountContent, ViewMode,
-        CAST(CASE WHEN IsFolder = TRUE AND No = board_gettreesubmenu_v2_json._selectedfolderno THEN 1
-                  WHEN IsFolder = FALSE AND No = board_gettreesubmenu_v2_json._selectedboardno  THEN 1
-                  ELSE 0 END AS BIT) AS IsSelected FROM TREESUB;
-
-    -- Step 2: Pre-compute boardlist per folder (separate step â€” SQL 2008 R2 no nested FOR XML);;
-    RETURN QUERY
-    SELECT f.No AS FolderNo,
-           STUFF(array_to_string(ARRAY(
-               SELECT ',' || CAST(b.No AS text)
-               FROM T b
-               WHERE b.ParentNo = f.No AND b.IsFolder = FALSE
-               ORDER BY b.SortNo DESC), ''), 1, 1, '') AS Boardlist
-    INTO BL
-    FROM T f WHERE f.IsFolder = TRUE;
-
-    -- Step 3: Depth-first ordering
-    --         Path component = (10000000 - SortNo) so higher SortNo â†’ smaller value â†’ sorts first
-    CREATE TEMP TABLE O ON COMMIT DROP AS WITH RECURSIVE DFS AS (
-        SELECT No, IsFolder,
-               CAST(RIGHT('0000000' || CAST(10000000 - SortNo AS text), 7) AS text) AS SortPath
-        FROM T WHERE ParentNo = 0
-        UNION ALL
-        SELECT t.No, t.IsFolder,
-               d.SortPath || '|' || RIGHT('0000000' || CAST(10000000 - t.SortNo AS text), 7)
-        FROM T t INNER JOIN DFS d ON t.ParentNo = d.No AND d.IsFolder = TRUE
-    )
-    SELECT No, IsFolder, SortPath FROM DFS;
-
-    -- Step 4: Build JSON array using FOR XML PATH (SQL 2008 R2 compatible);
-
-
-    _json := (COALESCE(array_to_string(ARRAY(
-SELECT
-',' || '{"id":"' || CASE WHEN t.IsFolder = TRUE THEN 'f' ELSE 'b' END || CAST(t.No AS text) || '",' || '"parent":"' || CASE WHEN t.ParentNo=0 THEN '#' ELSE 'f' || CAST(t.ParentNo AS text) END || '",' || '"text":"' || REPLACE(REPLACE(
-CASE WHEN t.IsFolder = FALSE AND t.CountContent>0
-THEN t.Name || ' <span class=''submenu_board_content_count''>' || CAST(t.CountContent AS text) || '</span>'
-ELSE t.Name END,
-'\', '\\'), '"', '\"') || '",' || '"icon":"' || CASE WHEN t.IsFolder = TRUE THEN 'fa fa-folder' ELSE 'fa fa-file-o' END || '",' || '"li_attr":{"type":"' || CASE WHEN t.IsFolder = TRUE THEN '0' ELSE CAST(t.ViewMode AS text) END || '","RegUserNo":' || CAST(t.ModUserNo AS text) || '},' || '"data":{' || '"title":"' || REPLACE(REPLACE(COALESCE(t.Name,''), '\','\\'), '"','\"') || '",' || '"boardlist":' || CASE WHEN t.IsFolder = TRUE
-THEN '"' || COALESCE(bl.Boardlist, '') || '"'
-ELSE 'null' END || ',' || '"jsonName":"' || REPLACE(REPLACE(COALESCE(t.JsonName,''), '\','\\'), '"','\"') || '"' || '},' || '"state":' || CASE WHEN t.IsFolder = TRUE AND NOT EXISTS (SELECT 1 FROM T c WHERE c.ParentNo=t.No)
-THEN 'null'
-ELSE '{"opened":' || CASE WHEN t.IsFolder = FALSE THEN 'true'
-WHEN t.IsOpen = TRUE   THEN 'true'
-ELSE 'false' END || ',"disabled":false,"selected":' || CASE WHEN t.IsSelected = TRUE THEN 'true' ELSE 'false' END || '}'
-END || '}'
-FROM T t
-INNER JOIN O o  ON t.No = o.No AND t.IsFolder = o.IsFolder
-LEFT  JOIN BL bl ON t.IsFolder = TRUE AND bl.FolderNo = t.No
-ORDER BY o.SortPath), ''), ''));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    RETURN QUERY
-    SELECT '[' || STUFF(COALESCE(_Json, ''), 1, 1, '') || ']' AS JsonData;
-
-    DROP TABLE IF EXISTS T;
-    DROP TABLE IF EXISTS O;
-    DROP TABLE IF EXISTS BL;
-END;
-$function$
-
-```
-</details>
-
 ## `board_gettreesubmenutest`
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_gettreesubmenutest"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(character varying) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_gettreesubmenutest(integer,boolean,character varying) line 8 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -5743,8 +5564,8 @@ BEGIN
         COALESCE(
             CASE                 WHEN F.Name ILIKE '{%}' THEN
                     COALESCE(
-                        (SELECT StringValue FROM ParseJson(F.Name) WHERE Name = board_gettreesubmenutest._langcode),
-                        (SELECT StringValue FROM ParseJson(F.Name) WHERE Name = 'KO'),
+                        F.Name::json->>board_gettreesubmenutest._langcode,
+                        F.Name::json->>'KO',
                         F.Name
                     )
                 ELSE F.Name
@@ -7585,11 +7406,11 @@ $function$
 
 - Input: `0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getallgroup"(0::integer, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getallgroup(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -7619,7 +7440,7 @@ BEGIN
 		INNER JOIN ContactsUser U ON U.Seq = C.UserSeq
 		WHERE U.UseYn='Y' AND C.GroupNo =CG.GroupNo
 	) AS UserCount,
-	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson( CG.GroupName)  WHERE NAME=contacts_getallgroup._langcode) ELSE CG.GroupName END AS  Name
+	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN CG.GroupName::json->>contacts_getallgroup._langcode ELSE CG.GroupName END AS  Name
 	FROM ContactsGroups  CG
 	WHERE CG.RegUserNo=contacts_getallgroup._reguserno AND CG.UseYn='Y' ORDER BY CG.Sort;
 END;
@@ -7673,11 +7494,11 @@ $function$
 
 - Input: `0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getcontactgroup"(0::integer, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getcontactgroup(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -7707,7 +7528,7 @@ BEGIN
 		INNER JOIN ContactsUser U ON U.Seq = C.UserSeq
 		WHERE U.UseYn='Y' AND C.GroupNo =CG.GroupNo
 	) AS ShareNumber,
-	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson( CG.GroupName)  WHERE NAME=contacts_getcontactgroup._langcode) ELSE CG.GroupName END AS Name
+	CASE WHEN STRPOS(CG.GroupName, '{')>0 THEN CG.GroupName::json->>contacts_getcontactgroup._langcode ELSE CG.GroupName END AS Name
 	FROM ContactsGroups  CG
 	WHERE CG.RegUserNo=contacts_getcontactgroup._userno AND CG.UseYn='Y' ORDER BY CG.Sort;
 END;
@@ -10387,58 +10208,6 @@ $function$
 ```
 </details>
 
-## `contacts_getgroupbyseq`
-
-- Input: `0::integer, ''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getgroupbyseq"(0::integer, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getgroupbyseq(integer,character varying) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getgroupbyseq(_userseq integer DEFAULT 0, _langcode character varying DEFAULT 'EN'::character varying)
- RETURNS TABLE(groupno integer, name text)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-
-	RETURN QUERY
-	WITH RECURSIVE SHAREGROUP AS (
-		SELECT S.GroupNo,
-		CASE WHEN STRPOS(G.GroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson(G.GroupName)  WHERE NAME=contacts_getgroupbyseq._langcode) ELSE G.GroupName END AS Name
-		FROM ContactsGroupUser S
-		INNER JOIN ContactsGroup G ON G.GroupNo=S.GroupNo AND  G.UseYn='Y'
-		Where S.UserSeq=contacts_getgroupbyseq._userseq
-		--
-		UNION ALL
-		SELECT S.ShareGroupNo AS GroupNo,
-			CASE WHEN STRPOS(G.ShareGroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson(G.ShareGroupName)  WHERE NAME=contacts_getgroupbyseq._langcode) ELSE G.ShareGroupName END AS Name
-		FROM Contact_ShareGroupUser S
-		INNER JOIN Contact_ShareGroup G ON G.ShareGroupNo=S.ShareGroupNo AND   G.IsDelete= FALSE
-		Where S.UserSeq=contacts_getgroupbyseq._userseq
-		--
-		 UNION ALL
-		SELECT S.PublicGroupNo AS GroupNo,
-		CASE WHEN STRPOS(G.PublicGroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson(G.PublicGroupName)  WHERE NAME=contacts_getgroupbyseq._langcode) ELSE G.PublicGroupName END AS Name
-		FROM Contact_PublicGroupUser S
-		INNER JOIN Contact_PublicGroup G ON G.PublicGroupNo=S.PublicGroupNo AND  G.IsDelete= FALSE
-		Where S.UserSeq=contacts_getgroupbyseq._userseq
-		--ORDER BY S.UserSeq DESC LIMIT 1
-	)
-	SELECT T.GroupNo,T.Name FROM SHAREGROUP T ORDER BY T.GroupNo DESC;
-END;
-$function$
-
-```
-</details>
-
 ## `contacts_getgroupbyuser`
 
 - Input: `0::integer, 0::integer`
@@ -11283,11 +11052,11 @@ $function$
 
 - Input: `''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getpublicgroup"(''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getpublicgroup(character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -11301,7 +11070,7 @@ AS $function$
 BEGIN
 
 	RETURN QUERY
-	SELECT PG.PublicGroupNo AS Id,PG.PublicGroupName AS JsonName,COALESCE(CASE WHEN STRPOS(PG.PublicGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(PG.PublicGroupName)  WHERE NAME=contacts_getpublicgroup._langcode),(SELECT StringValue FROM ParseJson(PG.PublicGroupName)  WHERE NAME='KO')) ELSE PG.PublicGroupName END,'') AS Name , PG.ParentNo ,
+	SELECT PG.PublicGroupNo AS Id,PG.PublicGroupName AS JsonName,COALESCE(CASE WHEN STRPOS(PG.PublicGroupName, '{')>0 THEN COALESCE(PG.PublicGroupName::json->>contacts_getpublicgroup._langcode,PG.PublicGroupName::json->>'KO') ELSE PG.PublicGroupName END,'') AS Name , PG.ParentNo ,
 	COALESCE(SU.ShareNumber,0) AS ShareNumber
 	FROM  Contact_PublicGroup PG
 	LEFT JOIN  ( SELECT P.PublicGroupNo, Count(P.PublicGroupNo) AS ShareNumber
@@ -11321,11 +11090,11 @@ $function$
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getsharegroup"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getsharegroup(integer,boolean,character varying) line 31 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -11343,7 +11112,7 @@ IF _IsAdmin = TRUE THEN
 	SELECT * FROM (
 	SELECT SG.ShareGroupNo AS Id,
 	ShareGroupName AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME=contacts_getsharegroup._langcode),(SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME='KO')) ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
 	ParentNo ,
 	COALESCE(SU.ShareNumber,0) AS ShareNumber,
 	SG.Sort
@@ -11377,7 +11146,7 @@ ELSE
 	)
 	SELECT COALESCE(SG.ShareGroupNo,0) AS Id,
 	COALESCE(ShareGroupName,'') AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME=contacts_getsharegroup._langcode),(SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME='KO')) ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroup._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
 	COALESCE(ParentNo,-1) AS ParentNo,
 	COALESCE(SU.ShareNumber,0) AS ShareNumber
 	FROM DEPARTPERMISSION D
@@ -11408,11 +11177,11 @@ $function$
 
 - Input: `0::integer, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getsharegroupbyuser"(0::integer, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getsharegroupbyuser(integer,boolean,character varying) line 17 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -11429,7 +11198,7 @@ IF _IsAdmin = TRUE THEN
 	RETURN QUERY
 	SELECT * FROM (SELECT SG.ShareGroupNo AS Id,
 	ShareGroupName AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME=contacts_getsharegroupbyuser._langcode),(SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME='KO')) ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
 	ParentNo ,Sort
 	FROM  Contact_ShareGroup SG
 	WHERE SG.IsDelete= FALSE
@@ -11446,7 +11215,7 @@ ELSE
 	)
 	SELECT SG.ShareGroupNo AS Id,
 	COALESCE(ShareGroupName,'') AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME=contacts_getsharegroupbyuser._langcode),(SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME='KO')) ELSE SG.ShareGroupName END,'') AS Name ,
+	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE(SG.ShareGroupName::json->>contacts_getsharegroupbyuser._langcode,SG.ShareGroupName::json->>'KO') ELSE SG.ShareGroupName END,'') AS Name ,
 	COALESCE(ParentNo,-1) AS ParentNo
 	FROM DEPARTPERMISSION D
 	LEFT JOIN Contact_ShareGroup SG   ON D.ItemNo=SG.ShareGroupNo AND SG.IsDelete= FALSE
@@ -11455,41 +11224,6 @@ ELSE
 	 WHERE   D.AllowValue>4
 	ORDER BY  SG.ParentNo, SG.Sort;
 END IF;
-END;
-$function$
-
-```
-</details>
-
-## `contacts_getsharegroupsetting`
-
-- Input: `''::character varying`
-- Generated SQL: `SELECT * FROM "public"."contacts_getsharegroupsetting"(''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
-- Stack context: PL/pgSQL function contacts_getsharegroupsetting(character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
-- Validation after fix: NOT YET PASS
-
-<details><summary>Deployed PostgreSQL definition</summary>
-
-```sql
-CREATE OR REPLACE FUNCTION public.contacts_getsharegroupsetting(_langcode character varying DEFAULT 'KO'::character varying)
- RETURNS TABLE(id integer, jsonname text, name text, parentno integer)
- LANGUAGE plpgsql
-AS $function$
-#variable_conflict use_column
-BEGIN
-
-	RETURN QUERY
-	SELECT SG.ShareGroupNo AS Id,
-	ShareGroupName AS JsonName,
-	COALESCE(CASE WHEN STRPOS(SG.ShareGroupName, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME=contacts_getsharegroupsetting._langcode),(SELECT StringValue FROM ParseJson(SG.ShareGroupName)  WHERE NAME='KO')) ELSE SG.ShareGroupName END,'') AS Name ,
-	ParentNo
-	FROM  Contact_ShareGroup SG
-	WHERE SG.IsDelete= FALSE
-	ORDER BY  SG.ParentNo, SG.Sort;
 END;
 $function$
 
@@ -13000,11 +12734,11 @@ $function$
 
 - Input: `0::integer, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."contacts_getusergroupbylanguage"(0::integer, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: function parsejson(text) does not exist
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function contacts_getusergroupbylanguage(integer,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -13027,7 +12761,7 @@ BEGIN
 		  FROM ContactsGroup CGC
 		  INNER JOIN ContactsGroups C ON CGC.ParentGNo = C.GroupNo AND CGC.UseYn='Y'
 	)
-	SELECT GroupNo, CASE WHEN STRPOS(GroupName, '{')>0 THEN (SELECT StringValue FROM ParseJson(GroupName)  WHERE NAME=contacts_getusergroupbylanguage._langcode) ELSE GroupName END AS  GroupName, RegUserNo, RegDate, Memo, COALESCE(ParentGNo,0) AS ParentGNo, Sort, IsDefault,
+	SELECT GroupNo, CASE WHEN STRPOS(GroupName, '{')>0 THEN GroupName::json->>contacts_getusergroupbylanguage._langcode ELSE GroupName END AS  GroupName, RegUserNo, RegDate, Memo, COALESCE(ParentGNo,0) AS ParentGNo, Sort, IsDefault,
 	(
 		SELECT COUNT(*)
 		FROM ContactsGroupUser C

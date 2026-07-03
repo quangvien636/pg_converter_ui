@@ -156,6 +156,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getdefaultcategory` | Executed; 0 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getdepartallowaccess` | Executed; 0 row(s), 11 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getdupelist` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getgroupbyseq` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgroupinfo` | Executed; 0 row(s), 9 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getgrouplist` | Executed; 0 row(s), 6 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gethistorylist` | Executed; 0 row(s), 7 column(s) | Not executed | Not yet behaviour-validated |
@@ -174,6 +175,7 @@ No SQL Server comparison was executed in this run because no source fixture/conn
 | `contacts_getranklistcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsetup` | Executed; 0 row(s), 8 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsharedepartmentdefault` | Executed; 0 row(s), 2 column(s) | Not executed | Not yet behaviour-validated |
+| `contacts_getsharegroupsetting` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_getsharers` | Executed; 0 row(s), 4 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gettopcategory` | Executed; 0 row(s), 3 column(s) | Not executed | Not yet behaviour-validated |
 | `contacts_gettrashcount` | Executed; 1 row(s), 1 column(s) | Not executed | Not yet behaviour-validated |

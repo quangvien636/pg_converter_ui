@@ -1,5 +1,55 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Generalize ParseJson conversion
+
+- Runtime before: 240 PASS / 93 FAIL / 21 BLOCKED (354 discovered).
+- Runtime after: **242 PASS / 90 FAIL / 22 BLOCKED** (354 discovered).
+- Zero PASS regressions: all 240 previously-PASS routines kept PASS. One
+  routine (`board_gettreesubmenu_v2_json`) moved FAIL → BLOCKED; this is a
+  runtime-harness classification artifact, not a correctness regression —
+  see below.
+- Root cause: the largest FAIL sub-bucket (28 of 93) was SQLSTATE 42883
+  `function parsejson(...) does not exist`. The converter already had a
+  rule translating SQL Server's `(SELECT StringValue FROM ParseJson(x)
+  WHERE Name = 'literal')` idiom to `x::json->>'literal'`, but the regex
+  only matched a bare unqualified argument and a quoted string-literal key.
+  Real usage is far more varied: alias-qualified arguments (`B.Name`,
+  `CG.GroupName`), an alias-qualified WHERE column (`B.NAME` vs `NAME`),
+  and — most commonly — a parameter reference as the key (`WHERE
+  Name=_langcode`) rather than a literal. Every unmatched shape fell
+  through untouched, leaving a call to a nonexistent function at runtime.
+- General fix: broadened the regex to accept a dotted argument reference,
+  an optional alias before `NAME` in the WHERE clause, and either a
+  literal or an identifier as the key. No procedure names hardcoded.
+- Result: all 28 `parsejson(...) does not exist` failures cleared
+  project-wide.
+- Note on `board_gettreesubmenu_v2_json`: this routine has an unrelated
+  pre-existing bug (a `RETURN QUERY ... INTO BL ...` construct — a
+  `SELECT ... INTO` table-creation statement that appears to have been
+  mislabeled as a result-returning statement during conversion) and was
+  never going to pass. Before this fix, the runtime harness's SETOF-record
+  shape-inference heuristic happened to succeed just enough to invoke it
+  for real and observe the direct `parsejson` error (classified FAIL).
+  After the fix removed that error, the same heuristic no longer succeeds
+  for this specific multi-`RETURN QUERY` shape, so it now falls back to
+  the opaque "cannot accept a set" BLOCKED classification instead. The
+  function was non-functional in both runs — no PASS was lost. The
+  `RETURN QUERY ... INTO` bug is a separate, unrelated converter defect
+  worth its own investigation later.
+- Validation: build PASS with 0 warnings/errors; NUnit 98/98; Board QA
+  24/24; full rollback-only runtime smoke 242/90/22.
+- Remaining FAIL breakdown by SQLSTATE: `42883` (29 — mostly missing
+  helper functions and a handful of `operator does not exist` cases),
+  `42804` (15), `42P01` (7), `23502` (5), `42601` (5), `42703` (2),
+  `42P19` (1), `22012` (1).
+- Next: within the remaining `42883` bucket, distinguish genuine SQL
+  Server-side dependency helpers (e.g. `uf_contactsdetail`,
+  `getchildgroup`, `organization_getdepartmentsbyuser` — not yet
+  converted/deployed, a dependency gap, not a converter bug) from the
+  `operator does not exist: character varying + character varying` cases
+  (~6), which look like a converter gap where `+` string concatenation
+  wasn't rewritten to `||` in some code shape.
+
 ## 2026-07-03 - #variable_conflict use_column for every RETURNS TABLE function
 
 - Runtime before: 238 PASS / 95 FAIL / 21 BLOCKED (354 discovered).
