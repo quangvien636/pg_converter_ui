@@ -2861,11 +2861,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistboardcontent(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 9 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -2981,7 +2981,7 @@ BEGIN
           AND  BC.RegDate       >= board_getlistboardcontent._fromdate
           AND  BC.RegDate       <= board_getlistboardcontent._todate
           AND  (_FilterType = 100 OR (_FilterType = 1 AND BV.ContentNo IS NULL))
-          AND  (_TitleEffect = 1 OR (_TitleEffect = 0 AND TitleEffect = 0))
+          AND  (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND TitleEffect = 0))
           AND  (_MgDepartment   = '' OR _MgDepartment = BC.PersonType)
           AND  (_SearchValue = ''
                 OR (_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')
@@ -3064,11 +3064,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_bk"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistboardcontent_bk(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 6 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3183,7 +3183,7 @@ TMP AS (
 	AND BC.RegDate>=board_getlistboardcontent_bk._fromdate
 	AND BC.RegDate<=board_getlistboardcontent_bk._todate
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND TitleEffect=0))
 	AND (COALESCE(_MgDepartment,'')='' OR _MgDepartment=BC.PersonType)
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')
@@ -3358,7 +3358,7 @@ TMP AS (
 	AND BC.RegDate>=board_getlistboardcontent_bk._fromdate
 	AND BC.RegDate<=board_getlistboardcontent_bk._todate
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND TitleEffect=0))
 	AND (COALESCE(_MgDepartment,'')='' OR _MgDepartment=BC.PersonType)
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND  BC.Title ILIKE '%' || _SearchValue || '%')
@@ -3444,11 +3444,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontent_search"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistboardcontent_search(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean) line 8 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3546,7 +3546,7 @@ TMP AS (
 	AND BC.RegDate>=board_getlistboardcontent_search._fromdate
 	AND BC.RegDate<=board_getlistboardcontent_search._todate
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND TitleEffect=0))
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')
 			OR(_SearchType=1 AND CASE _LangCode WHEN 'EN' THEN  COALESCE(OD.Name_EN,OD.Name) WHEN 'VN' THEN  COALESCE(OD.Name_VN,OD.Name) WHEN 'CH' THEN COALESCE(OD.Name_CH,OD.Name)  WHEN 'JP' THEN COALESCE(OD.Name_JP,OD.Name) ELSE OD.Name END ILIKE '%' || _SearchValue || '%')
@@ -3631,11 +3631,11 @@ $function$
 
 - Input: `0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentbyfolder"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42703`
+- Error: column "text" does not exist
 - Stack context: PL/pgSQL function board_getlistboardcontentbyfolder(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Missing column dependency
+- Proposed fix: Create the source-owned schema dependency, or document it as external with evidence.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3756,7 +3756,7 @@ VIEWEDLIST AS (
 	WHERE (BC.BoardNo IN (SELECT unnest(string_to_array(_BoardList, ','))::integer)) AND BC.Enabled = TRUE AND BC.RegDate>=board_getlistboardcontentbyfolder._fromdate AND BC.RegDate<=board_getlistboardcontentbyfolder._todate
 	AND B.ViewMode>=2
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND BC.TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND BC.TitleEffect=0))
 	AND (COALESCE(_MgDepartment,'')='' OR _MgDepartment=BC.PersonType)
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')
@@ -3836,11 +3836,11 @@ $function$
 
 - Input: `0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontentsearch"(0::integer, 0::integer, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistboardcontentsearch(integer,integer,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying) line 8 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -3938,7 +3938,7 @@ TMP AS (
 	AND BC.RegDate>=board_getlistboardcontentsearch._fromdate
 	AND BC.RegDate<=board_getlistboardcontentsearch._todate
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND TitleEffect=0))
 	AND (COALESCE(_MgDepartment,'')='' OR _MgDepartment=BC.PersonType)
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')
@@ -4024,11 +4024,11 @@ $function$
 
 - Input: `0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying, ''::character varying`
 - Generated SQL: `SELECT * FROM "public"."board_getlistboardcontenttoexcel"(0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, 0::integer, 0::integer, ''::character varying, ''::character varying, 0::integer, CURRENT_TIMESTAMP::timestamp without time zone, CURRENT_TIMESTAMP::timestamp without time zone, false, false, ''::character varying, ''::character varying);`
-- SQLSTATE: `42883`
-- Error: operator does not exist: boolean = integer
+- SQLSTATE: `42804`
+- Error: structure of query does not match function result type
 - Stack context: PL/pgSQL function board_getlistboardcontenttoexcel(integer,character varying,integer,integer,character varying,integer,integer,character varying,character varying,integer,timestamp without time zone,timestamp without time zone,boolean,boolean,character varying,character varying) line 5 at RETURN QUERY
-- Root cause: Missing function or incompatible invocation signature
-- Proposed fix: Verify the expected helper/signature and create or convert it only if it exists in the source system.
+- Root cause: Runtime PostgreSQL error requiring procedure-specific investigation
+- Proposed fix: Investigate against source definition and rerun the recorded invocation after a scoped fix.
 - Validation after fix: NOT YET PASS
 
 <details><summary>Deployed PostgreSQL definition</summary>
@@ -4121,7 +4121,7 @@ VIEWEDLIST AS (
 	WHERE (0 IN (SELECT unnest(string_to_array(_BoardList, ','))::integer) OR BC.BoardNo IN (SELECT unnest(string_to_array(_BoardList, ','))::integer)) AND BC.Enabled = TRUE AND BC.RegDate>=board_getlistboardcontenttoexcel._fromdate AND BC.RegDate<=board_getlistboardcontenttoexcel._todate
 	AND B.ViewMode>=2
 	AND (_FilterType=100 OR (_FilterType=1 AND BV.ContentNo IS NULL))
-	AND (_TitleEffect=1 OR (_TitleEffect=0 AND BC.TitleEffect=0))
+	AND (_TitleEffect = TRUE OR (_TitleEffect = FALSE AND BC.TitleEffect=0))
 	AND (COALESCE(_MgDepartment,'')='' OR _MgDepartment=BC.PersonType)
 	AND (COALESCE(_SearchValue,'')=''
 			OR(_SearchType=0 AND BC.Title ILIKE '%' || _SearchValue || '%')

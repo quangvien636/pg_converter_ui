@@ -231,12 +231,7 @@ Temporary objects below existed only inside the smoke transaction and were remov
 | `board_getfolderbyuserno` | `42P01` | relation "folder" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getfolders` | `42883` | operator does not exist: ~ boolean | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
 | `board_getiosdeviceofusersbydepartment` | `42883` | function fn_getchilddepartnobydepartno(character varying, character varying) does not exist | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontent` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontent_bk` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontent_search` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontentbyfolder` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontentsearch` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
-| `board_getlistboardcontenttoexcel` | `42883` | operator does not exist: boolean = integer | Unresolved | Verify the expected helper/signature and create or convert it only if it exists in the source system. |
+| `board_getlistboardcontentbyfolder` | `42703` | column "text" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getlistuserpermission` | `42P01` | relation "rootdeparts" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getlistuserpermissiontoexcel` | `42P01` | relation "rootdeparts" does not exist | Unresolved | Create the source-owned schema dependency, or document it as external with evidence. |
 | `board_getopenfolder` | `0A000` | set-valued function called in context that cannot accept a set | Metadata unavailable | Obtain reviewed result columns from SQL Server metadata, then invoke with AS result(column type, ...). |

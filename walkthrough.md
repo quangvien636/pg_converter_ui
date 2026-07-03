@@ -1,5 +1,36 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Boolean-parameter 0/1 literal comparisons (net-neutral, kept for correctness)
+
+- Runtime before: 250 PASS / 82 FAIL / 22 BLOCKED (354 discovered).
+- Runtime after: **250 PASS / 82 FAIL / 22 BLOCKED** (354 discovered) —
+  aggregate unchanged, but see below.
+- Zero regressions: every previously-PASS and previously-BLOCKED routine
+  kept its exact status.
+- Root cause: SQL Server bit parameters are routinely compared against
+  the integer literals 0/1 (`@Flag = 1`). Once converted to a PostgreSQL
+  boolean parameter, that comparison has no operator (`boolean =
+  integer`) — the largest single operator-mismatch pattern (6 routines,
+  the entire `board_getlistboardcontent` family).
+- General fix: `NormalizeBooleanParameterComparisons` rewrites `name = 1`
+  / `name = 0` to `TRUE`/`FALSE`, but only for parameters *we ourselves*
+  declared boolean — read directly from the already-computed parameter
+  list, never guessed from naming or context. A same-named but unrelated
+  bare table column is left untouched.
+- Result: the `boolean = integer` error is eliminated project-wide (6 →
+  0). However, all 6 affected routines share a separate, already-known
+  bug (`structure of query does not match function result type` — the
+  `text`/`character varying` mismatch from the `ParseJson` → `->>`
+  conversion, documented in the entry below) that was simply hidden
+  behind this one, so the aggregate PASS/FAIL/BLOCKED counts did not
+  move. Kept anyway: it is a verified, zero-regression correctness fix,
+  and this phase's explicit priority is correctness over PASS count —
+  reverting a correct fix because a *different*, already-tracked bug is
+  still blocking the same routines would be exactly the kind of PASS-count
+  gaming this phase forbids.
+- Validation: build PASS with 0 warnings/errors; NUnit 103/103; Board QA
+  24/24; full rollback-only runtime smoke 250/82/22.
+
 ## 2026-07-03 - Cast COUNT(...) to integer
 
 - Runtime before: 242 PASS / 90 FAIL / 22 BLOCKED (354 discovered).
