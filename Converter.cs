@@ -600,6 +600,7 @@ public static class Converter
         foreach (var name in booleanParams)
         {
             var reference = $@"(?:{Regex.Escape(fnName)}\.)?{Regex.Escape(name)}\b";
+            body = Regex.Replace(body, $@"~\s*({reference})", "(NOT $1)", RegexOptions.IgnoreCase);
             body = Regex.Replace(body, $@"({reference})\s*=\s*1\b", "$1 = TRUE", RegexOptions.IgnoreCase);
             body = Regex.Replace(body, $@"({reference})\s*=\s*0\b", "$1 = FALSE", RegexOptions.IgnoreCase);
             body = Regex.Replace(body, $@"\b1\s*=\s*({reference})", "TRUE = $1", RegexOptions.IgnoreCase);

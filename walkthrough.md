@@ -1,5 +1,19 @@
 # Converter Runtime Improvement Walkthrough
 
+## 2026-07-03 - Boolean BIT unary NOT
+
+- Runtime before: **266 PASS / 66 FAIL / 22 BLOCKED**.
+- Runtime after: **269 PASS / 63 FAIL / 22 BLOCKED**.
+- Recovered: `board_getboardbyuserno`, `board_getfolderbyuserno`,
+  `board_getfolders`.
+- Zero regressions: all 266 previously passing routines remained PASS.
+- SQL Server permits unary `~` on `BIT`; PostgreSQL booleans require logical
+  `NOT`. The converter now emits `(NOT parameter)` only for parameters it has
+  already declared boolean. Integral bitwise-NOT expressions remain unchanged.
+- Validation: Release build PASS with 0 warnings/errors; NUnit 116/116; Board
+  QA 24/24; runtime 269/63/22.
+- Detailed evidence: `reports/runtime_fix_report_20260703_boolean_unary_not.md`.
+
 ## 2026-07-03 - Integral columns compared with string parameters
 
 - Runtime before: **263 PASS / 69 FAIL / 22 BLOCKED**.

@@ -1264,6 +1264,28 @@ namespace RegressionTests
         // ─── ParseJson per-language fallback COALESCE resolves to text ───────────
 
         [Test]
+        public void TestBooleanParameterBitwiseNotBecomesLogicalNot()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestBoolNot\r\n    @IsDisabled BIT\r\nAS\r\nBEGIN\r\n    SELECT Title FROM Board_Contents WHERE Enabled = ~@IsDisabled\r\nEND";
+            var obj = new DbObject("testboolnot", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("Enabled = (NOT _IsDisabled)"));
+            Assert.That(pg, Does.Not.Contain("~_IsDisabled"));
+        }
+
+        [Test]
+        public void TestIntegerParameterBitwiseNotStaysBitwise()
+        {
+            string mssql = "CREATE PROCEDURE dbo.TestIntNot\r\n    @Mask INT\r\nAS\r\nBEGIN\r\n    SELECT Value FROM Flags WHERE Value = ~@Mask\r\nEND";
+            var obj = new DbObject("testintnot", ObjectType.Procedure, mssql, false, "OK");
+            string pg = Converter.Convert(obj, "postgres");
+
+            Assert.That(pg, Does.Contain("Value = ~_Mask"));
+            Assert.That(pg, Does.Not.Contain("(NOT _Mask)"));
+        }
+
+        [Test]
         public void TestParseJsonLanguageFallbackCoalesceCastToText()
         {
             string mssql = "CREATE PROCEDURE dbo.TestJsonFallback\r\nAS\r\nBEGIN\r\n    SELECT COALESCE(CASE WHEN STRPOS(B.Name, '{')>0 THEN COALESCE((SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'EN'), (SELECT StringValue FROM ParseJson(B.Name) WHERE NAME = 'KO')) ELSE B.Name END, '') AS Name FROM Board_Boards B\r\nEND";
